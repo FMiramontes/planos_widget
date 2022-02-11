@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="./css/menu.css" />
+        <link rel="stylesheet" href="./css/alerts.css" />
+        <link rel="stylesheet" href="./css/mapas.css" />
+        <link rel="stylesheet" href="./css/modal.css" />
+        <script
+            src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"
+            defer
+        ></script>
+        <script src="./js/main.js" type="module" defer></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="menu">
+                <div class="logo">
+                    <img
+                        loading="lazy"
+                        class="logo"
+                        src="https://grupoconcordia.com/paginawebimg/logo-concordia.png"
+                    />
+                </div>
+                <div id="user" class="user">
+                    <div class="img_user"></div>
+                    <div class="name_user"></div>
+                </div>
+                <div id="contact" class="contact"></div>
+                <div class="search">
+                    <input
+                        type="text"
+                        id="search-value"
+                        placeholder="Name ..."
+                    />
+                    <input type="button" id="search-contact" value="search" />
+                    <div id="search-result"></div>
+                </div>
+            </div>
+            <div data-menu="menu" id="menu-lateral" class="menu-lateral"></div>
+            <div class="container-map">
+                <div id="map" class="map">
+                    <svg
+                        data-desarrollo=""
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 1890 1417"
+                    >
+                        <defs>
+                            <filter id="filter" filterUnits="userSpaceOnUse">
+                                <feComposite
+                                    result="composite"
+                                    operator="in"
+                                    in2="SourceGraphic"
+                                />
+                                <feBlend result="blend" in2="SourceGraphic" />
+                            </filter>
+                        </defs>
+                        <g class="cls-0" id="maps" pointer-events="all"></g>
+                        <g class="cls-0" id="details"></g>
+                    </svg>
+                </div>
+            </div>
+            <div id="container-modal" class="container-modal">
+                <div class="menu-form">
+                    <div class="btn-menu-modal-active"></div>
+                    <div class="btn-menu-modal">
+                        <a href="#titular-1">Titular 1</a>
+                    </div>
+                    <div class="btn-menu-modal">
+                        <a href="#titular-2">Titular 2</a>
+                    </div>
+                    <div class="btn-menu-modal">
+                        <a href="#referencias">Referencias</a>
+                    </div>
+                    <div class="btn-menu-modal">
+                        <a href="#presupuesto">Presupuesto</a>
+                    </div>
+                    <div class="btn-menu-modal">
+                        <a href="#apartado">Apartado</a>
+                    </div>
+                </div>
+                <div id="modal" class="modal">
+                    <div class="container-blocks">
+                        <div class="container-block" id="titular-1">
+                            <div class="title-block">
+                                <span class="centrado">
+                                    Datos Personales Titular I
+                                </span>
+                            </div>
+                            <div class="block">
+                                <span>
+                                    Lugar de Nacimiento:
+                                    <input
+                                        type="text"
+                                        name="Lugar_Nacimiento_T1"
+                                    />
+                                </span>
+                                <span>
+                                    Fecha de Nacimiento:
+                                    <input
+                                        type="text"
+                                        name="Fecha_Nacimiento_T1"
+                                    />
+                                </span>
+                                <span>
+                                    Estado Civil:
+                                    <input type="text" name="Estado_Civil_T1" />
+                                </span>
+                                <span>
+                                    Calle y No.
+                                    <input type="text" name="Calle_No_T1" />
+                                </span>
+                                <span>
+                                    Empresa Donde Trabaja:
+                                    <input type="text" name="Empresa_T1" />
+                                </span>
+                                <span>
+                                    Ingreso Mensual:
+                                    <input
+                                        type="number"
+                                        name="Ingreso_Mensual_T1"
+                                    />
+                                </span>
+                                <span>
+                                    Ingreso Mensual:
+                                    <input
+                                        type="number"
+                                        name="Ingreso_Mensual_T1"
+                                    />
+                                </span>
+                                <span>
+                                    Fracc. o Colonia:
+                                    <input
+                                        type="text"
+                                        name="Fracc_Colonia_T1"
+                                    />
+                                </span>
+                                <span>
+                                    Ciudad:
+                                    <input type="text" name="Ciudad_T1" />
+                                </span>
+                                <span>
+                                    CP:
+                                    <input
+                                        type="text"
+                                        name="Codigo_Postal_T1"
+                                    />
+                                </span>
+                                <span>
+                                    Tel. Casa:
+                                    <input type="number" name="Telefono_T1" />
+                                </span>
+                                <span>
+                                    Puesto:
+                                    <input type="text" name="Puesto_T1" />
+                                </span>
+                                <span>
+                                    Tiempo:
+                                    <input type="text" name="Tiempo_T1" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="container-block" id="titular-2">
+                            <div class="title-block">
+                                <span class="centrado">
+                                    Datos Personales Titular II
+                                </span>
+                            </div>
+                            <div class="block">
+                                <span>
+                                    Lugar de Nacimiento:
+                                    <input
+                                        type="text"
+                                        name="Lugar_Nacimiento_T2"
+                                    />
+                                </span>
+                                <span>
+                                    Fecha de Nacimiento:
+                                    <input
+                                        type="text"
+                                        name="Fecha_Nacimiento_T2"
+                                    />
+                                </span>
+                                <span>
+                                    Estado Civil:
+                                    <input type="text" name="Estado_Civil_T2" />
+                                </span>
+                                <span>
+                                    Calle y No.
+                                    <input type="text" name="Calle_No_T2" />
+                                </span>
+                                <span>
+                                    Empresa Donde Trabaja:
+                                    <input type="text" name="Empresa_T2" />
+                                </span>
+                                <span>
+                                    Ingreso Mensual:
+                                    <input
+                                        type="number"
+                                        name="Ingreso_Mensual_T2"
+                                    />
+                                </span>
+                                <span>
+                                    Ingreso Mensual:
+                                    <input
+                                        type="number"
+                                        name="Ingreso_Mensual_T2"
+                                    />
+                                </span>
+                                <span>
+                                    Fracc. o Colonia:
+                                    <input
+                                        type="text"
+                                        name="Fracc_Colonia_T2"
+                                    />
+                                </span>
+                                <span>
+                                    Ciudad:
+                                    <input type="text" name="Ciudad_T2" />
+                                </span>
+                                <span>
+                                    CP:
+                                    <input
+                                        type="text"
+                                        name="Codigo_Postal_T2"
+                                    />
+                                </span>
+                                <span>
+                                    Tel. Casa:
+                                    <input type="number" name="Telefono_T2" />
+                                </span>
+                                <span>
+                                    Puesto:
+                                    <input type="text" name="Puesto_T2" />
+                                </span>
+                                <span>
+                                    Tiempo:
+                                    <input type="text" name="Tiempo_T2" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="container-block" id="referencias">
+                            <div class="title-block">
+                                <span class="centrado">
+                                    Referencias Personales
+                                </span>
+                            </div>
+                            <div class="block">
+                                <span>
+                                    Nombre:
+                                    <input type="text" name="Nombre_R1" />
+                                </span>
+                                <span>
+                                    Parentesco:
+                                    <input type="text" name="Parentesco_R1" />
+                                </span>
+                                <span>
+                                    Telefono:
+                                    <input type="text" name="Telefono_R1" />
+                                </span>
+                                <span>
+                                    Nombre:
+                                    <input type="text" name="Nombre_R2" />
+                                </span>
+                                <span>
+                                    Parentesco:
+                                    <input type="text" name="Parentesco_R2" />
+                                </span>
+                                <span>
+                                    Telefono:
+                                    <input type="text" name="Telefono_R2" />
+                                </span>
+                                <span>
+                                    Nombre(s):
+                                    <input type="text" name="Nombres_AR" />
+                                </span>
+                                <span>
+                                    Empresa Donde Trabaja:
+                                    <input type="text" name="Empresa_AR" />
+                                </span>
+                                <span>
+                                    Ingreso Mensual:
+                                    <input
+                                        type="text"
+                                        name="Ingreso_Mensual_AR"
+                                    />
+                                </span>
+                                <span>
+                                    Dueño Controlador:
+                                    <input
+                                        type="text"
+                                        name="Dueno_Controlador_AR"
+                                    />
+                                </span>
+                                <span>
+                                    Puesto:
+                                    <input type="text" name="Puesto_AR" />
+                                </span>
+                                <span>
+                                    Tiempo:
+                                    <input type="text" name="Tiempo_AR" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="container-block" id="presupuesto">
+                            <div class="title-block">
+                                <span class="centrado"> Presupuesto </span>
+                            </div>
+                            <div class="block">
+                                <span>
+                                    Campaña:
+                                    <input type="text" name="Campanya" />
+                                </span>
+                                <span>
+                                    Coordinador:
+                                    <input type="text" name="Campanya" />
+                                </span>
+                                <span>
+                                    Fraccionamiento:
+                                    <input
+                                        type="text"
+                                        name="Fraccionamiento_P"
+                                    />
+                                </span>
+                                <span>
+                                    Manzana:
+                                    <input type="text" name="Manzana_P" />
+                                </span>
+                                <span>
+                                    Superficie:
+                                    <input type="text" name="Superficie_P" />
+                                </span>
+                                <span>
+                                    Costo Total:
+                                    <input type="text" name="Costo_Total_P" />
+                                </span>
+                                <span>
+                                    Enganche:
+                                    <input type="text" name="Enganche_P" />
+                                </span>
+                                <span>
+                                    Pagos Mensuales:
+                                    <input type="text" name="Pago_Mensual_P" />
+                                </span>
+                                <span>
+                                    Fecha Primer Mensualidad:
+                                    <input
+                                        type="text"
+                                        name="Primer_Mensualidad_P"
+                                    />
+                                </span>
+                                <span>
+                                    Localizacion:
+                                    <input type="text" name="Localizacion_P" />
+                                </span>
+                                <span>
+                                    Lote:
+                                    <input type="text" name="Lote_P" />
+                                </span>
+                                <span>
+                                    Costo por M2:
+                                    <input type="text" name="Costo_M2_P" />
+                                </span>
+                                <span>
+                                    Pago Inicial:
+                                    <input type="text" name="Pago_Inicial_P" />
+                                </span>
+                                <span>
+                                    Saldo a Pagar:
+                                    <input type="text" name="Saldo_Pagar_P" />
+                                </span>
+                                <span>
+                                    Plazo:
+                                    <input type="text" name="Plazo_P" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="container-block" id="apartado">
+                            <div class="tlte-block">
+                                <p>RECIBO DE APARTADO</p>
+                            </div>
+                            <div class="block">
+                                <span>
+                                    Por La Cantidad De:
+                                    <input type="text" name="Cantidad_RA" />
+                                </span>
+                                <span>
+                                    Observaciones:
+                                    <input
+                                        type="text"
+                                        name="Observaciones_RA"
+                                    />
+                                </span>
+                                <span>
+                                    Cantidad Con Letra:
+                                    <input
+                                        type="text"
+                                        name="Cantidad_Letra_RA"
+                                    />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- </form> -->
+                </div>
+            </div>
+        </div>
+        <!-- <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js" defer></script> -->
+    </body>
+</html>

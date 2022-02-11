@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,400&display=swap');
+
+* {
+    font-size: 14px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 15% 20% 20% 20% 20% 5%;
+    grid-template-rows: 6% 94%;
+    grid-template-areas:
+        'menu menu menu menu menu menu'
+        'menu-lateral container-map container-map container-map container-map container-map ';
+}
+
+.menu {
+    grid-area: menu;
+    border: 2px solid black;
+}
+.menu-lateral {
+    grid-area: menu-lateral;
+    border: 2px solid black;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.container-map {
+    grid-area: container-map;
+    border-color: black;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+/* Search container */
+.search {
+    position: relative;
+    margin: 4rem;
+}
+
+#search-result {
+    max-height: 450px;
+    overflow: hidden;
+    overflow-y: scroll;
+    background-color: white;
+    position: absolute;
+    margin-block: 2rem;
+    top: 0;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.record {
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+.record > p {
+    margin-block: 5px;
+    padding: 0;
+    color: #8a8a8a;
+    font-size: 0.9rem;
+}
+
+.record:nth-child(even) {
+    background-color: #fffef5;
+}
+
+.record:hover {
+    background-color: #e3e3e3;
+    cursor: pointer;
+}
+
+/* MOVIL */
+@media (max-width: 480px) {
+}
+
+/* MOVIL */
+@media (max-width: 768px) {
+}

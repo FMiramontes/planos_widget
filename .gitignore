@@ -1,0 +1,11 @@
+/dist/
+/node_modules/
+/server/
+
+.prettierrc
+
+cert.pem
+key.pem
+package-lock.json
+package.json
+plugin-manifest.json

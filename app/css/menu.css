@@ -1,0 +1,88 @@
+.menu {
+    display: flex;
+    /* justify-content: space-evenly; */
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+
+    background-color: rgba(0, 0, 0, 0.733);
+}
+
+.logo {
+    width: 40%;
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.img_user img {
+    width: 30px;
+    border-radius: 50%;
+}
+
+.name_user {
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    color: blanchedalmond;
+}
+
+.contact {
+    /* background-color: rgb(4, 0, 255); */
+}
+
+.search {
+    margin-left: auto;
+    padding: 0 1rem;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* **************************************** */
+
+/* .menu{
+    display: grid;
+    grid-template-columns: 15% 20% 20% 20% 20% 5%;
+    grid-template-rows: 6% 94%;
+    grid-template-areas:
+        'menu menu menu menu menu menu'
+} */
+
+/* **************************************** */
+
+.fracionamiento {
+    border: 2px solid black;
+    height: 10vh;
+    width: 90%;
+    border-radius: 1vh;
+    margin-bottom: 1vh;
+
+    z-index: 1;
+    background-color: transparent;
+}
+
+.nombre-desarrollo {
+    height: 10%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container-img {
+    height: 90%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container-img img {
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
