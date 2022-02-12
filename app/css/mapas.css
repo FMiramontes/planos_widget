@@ -50,3 +50,9 @@ tspan {
     border-radius: 1vh;
     /* overflow: hidden; */
 }
+
+svg {
+    height: auto;
+    overflow-y: auto;
+    padding: 0px;
+}

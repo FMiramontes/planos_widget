@@ -16,18 +16,18 @@ const maps = {
 
             // let num = numManzana
 
-            console.log('num: ', num)
+            // console.log('num: ', num)
 
             let beforePosition = this.position(num)
 
-            console.log('beforePosition: ', beforePosition)
+            // console.log('beforePosition: ', beforePosition)
 
             let block = desarrollo.blocks[beforePosition]
-            console.log('manzana: ', manzana)
-            console.log('beforeManzana: ', beforeManzana)
+            // console.log('manzana: ', manzana)
+            // console.log('beforeManzana: ', beforeManzana)
 
             let beforeManzanaJson = block.find((m) => m.Numero == beforeManzana)
-            console.log('beforeManzanaJson: ', beforeManzanaJson)
+            // console.log('beforeManzanaJson: ', beforeManzanaJson)
 
             if (beforeManzanaJson !== undefined) {
                 let ContainerBeforeManzana = document.getElementById(
@@ -50,7 +50,7 @@ const maps = {
         let manzanaJson = block.find((m) => m.Numero == manzana)
 
         manzanaJson?.Lotes.forEach((l) => {
-            console.log('Lotes: ', l)
+            // console.log('Lotes: ', l)
             ContainerManzana.insertAdjacentHTML(
                 'beforeend',
                 UI.parseOuterHTML(l)
@@ -61,7 +61,7 @@ const maps = {
     async loadManzana(nameSvg, manzana, id, desarrollo, beforeManzana) {
         // const svg = await desarrollo.json()
 
-        console.log('desarrollo: ', desarrollo)
+        // console.log('desarrollo: ', desarrollo)
 
         let num = manzana.replace(/\D+/g, '')
 
@@ -110,13 +110,13 @@ const maps = {
         try {
             //   const request = await fetch(`/server/ecommerce/crm/getDisponibilidad/${fraccionamiento}/${manzana}`)
             const data = await crm.fetchDisponibilidad(fraccionamiento, manzana)
-            console.log('peticion disponibilidad', data)
+            // console.log('peticion disponibilidad', data)
 
             if (data.type == 'warning' || data.type == 'success')
                 this.pintarDisponibles()
 
             if (data.ok) {
-                console.log('Disponibilidad:', data.data)
+                // console.log('Disponibilidad:', data.data)
 
                 if (data.data.length > 0)
                     this.poblarLotificacion(await data.data)

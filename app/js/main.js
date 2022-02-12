@@ -21,13 +21,53 @@ searchBtn.addEventListener('click', () => {
     UI.searchContact()
 })
 
+// Close search result
 document.addEventListener('click', (e) => {
-    if (e.target.matches('[data-record]')) {
-        UI.selectContact(e.target.dataset)
+    if (
+        !e.target.matches('#search-result') &&
+        document.querySelector('#search-result').innerHTML !== ''
+    ) {
+        // console.log('hide results', true)
+        UI.hideResults()
     }
 })
 
-// UI.viewModal(true, '0')
+// # Assign contact to #contact element
+document.addEventListener('click', (e) => {
+    if (e.target.matches('[data-record]')) {
+        UI.selectContact(e.target)
+        UI.cleanForm()
+    }
+})
+
+// Remove selected contact from #contact element
+document.addEventListener('click', (e) => {
+    if (e.target.matches('[data-close]')) {
+        UI.removeContact()
+    }
+})
+
+document.getElementById('btn-submit').addEventListener('click', (e) => {
+    UI.getDataForm()
+})
+
+document.addEventListener('dblclick', (e) => {
+    if (e.target.matches('[data-lote]')) {
+        if (e.target.dataset.disponible == 'true') {
+            // console.log('disponible', e)
+            UI.paintDataInForm()
+            UI.viewModal(true, e.target.id)
+            /*validarSesion()
+            if (sessionStorage.getItem("sesion"))
+                Login.mostrarInfoLote(loteSeleccionado)*/
+        } else {
+            // console.log('no disponible', e)
+            // MostrarAlerta()
+        }
+    }
+})
+
+UI.viewModal(true, '0')
 
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {

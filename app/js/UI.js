@@ -8,6 +8,8 @@ import maps from './mapas.js'
 let desarrollo = new Array()
 
 let beforeManzana = ''
+const contactContainer = document.querySelector('#contact')
+const resultContainer = document.querySelector('#search-result')
 
 const UI = {
     async loadMenuLateral() {
@@ -41,6 +43,8 @@ const UI = {
 
                     desarrollo = await tempDesartollo.json()
 
+                    beforeManzana = ''
+
                     this.loadPlano(nameSvg, name, e.target.dataset.id)
                 }
             })
@@ -61,7 +65,7 @@ const UI = {
 
         mapa.addEventListener('click', async (e) => {
             if (e.target.matches('[data-manzana]')) {
-                console.log(e.target.tagName)
+                // console.log(e.target.tagName)
                 let auxManzana = e.target.id.split('-')
                 const manzana = auxManzana[0]
                 const svgNombre = e.target.closest('svg').dataset.desarrollo
@@ -78,20 +82,7 @@ const UI = {
             }
         })
 
-        mapa.addEventListener('click', (e) => {
-            if (e.target.matches('[data-lote]')) {
-                if (e.target.dataset.disponible == 'true') {
-                    console.log('disponible', e)
-                    this.viewModal(true, e.target.id)
-                    /*validarSesion()
-                    if (sessionStorage.getItem("sesion"))
-                        Login.mostrarInfoLote(loteSeleccionado)*/
-                } else {
-                    console.log('no disponible', e)
-                    // MostrarAlerta()
-                }
-            }
-        })
+        //
     },
     parseOuterHTML(text) {
         let tempText1 = text.normalize()
@@ -103,6 +94,8 @@ const UI = {
         // console.log(desarrollo)
 
         const containerManzanas = document.getElementById('maps')
+
+        containerManzanas.innerHTML = ''
 
         desarrollo.blocks.forEach((block) => {
             block.forEach((manzana) => {
@@ -119,6 +112,56 @@ const UI = {
             })
         })
     },
+    async paintDataInForm() {
+        const contactDiv = document.getElementById('contact')
+        let contactData = new Array()
+        let accountData = new Array()
+
+        const contact_id = contactDiv.dataset?.contactid
+            ? contactDiv.dataset?.contactid
+            : false
+        if (contact_id !== false) {
+            contactData = await crm.getContact(contact_id)
+
+            if (contactData.ok === true) {
+                console.log('Contact: ', contactData)
+            }
+        }
+
+        const accout_id = contactDiv.dataset?.accountid
+            ? contactDiv.dataset?.accountid
+            : false
+        if (accout_id !== false) {
+            accountData = await crm.getAccount(accout_id)
+
+            if (accountData.ok === true) {
+                console.log('Account: ', accountData)
+            }
+        }
+    },
+    cleanForm() {
+        const Blocks = Array.from(document.querySelectorAll('.block'))
+        Blocks.forEach((block) => {
+            // console.log('block', block)
+            const spans = Array.from(block.children)
+            spans.forEach((span) => {
+                span.children[0].value = ''
+            })
+        })
+    },
+    getDataForm() {
+        let inputs = {}
+        const Blocks = Array.from(document.querySelectorAll('.block'))
+        Blocks.forEach((block) => {
+            // console.log('block', block)
+            const spans = Array.from(block.children)
+            spans.forEach((span) => {
+                inputs[span.children[0].name] = span.children[0].value
+            })
+        })
+
+        console.log('inputs: ', inputs)
+    },
     viewModal(view, id) {
         let container_modal = document.getElementById('container-modal')
         let modal = document.getElementById('modal')
@@ -131,10 +174,10 @@ const UI = {
             modal.dataset.item = ''
         }
     },
+
     async searchContact() {
         const searchValue = document.querySelector('#search-value').value
-        console.log('searchValue', searchValue)
-        const resultContainer = document.querySelector('#search-result')
+        // console.log('searchValue', searchValue)
         resultContainer.innerHTML = ''
 
         if (searchValue !== '' || searchValue !== undefined) {
@@ -144,14 +187,15 @@ const UI = {
             if (searchRequest.ok === true) {
                 // Found records
                 const records = searchRequest.data
-                console.log('records: ', records)
+                // console.log('records: ', records)
                 let df = new DocumentFragment()
                 records.forEach((record) => {
                     var temp = document.createElement('template')
                     temp.innerHTML = `<div 
-                    data-contact-id="${record.id}" 
-                    data-record class="record">${record.Full_Name} 
-                    <p data-record-email>${record.Email}</p>
+                    data-contactid="${record.id}" 
+                    data-accountid="${record.Account_Name?.id}"
+                    data-record="" class="record"><span data-contact-name>${record.Full_Name}</span>
+                    <p data-record-email="" >${record.Email}</p>
                     </div>`
 
                     var frag = temp.content
@@ -162,8 +206,39 @@ const UI = {
             }
         }
     },
+    hideResults() {
+        resultContainer.innerHTML = ''
+    },
     selectContact(selectedOption) {
-        console.log(selectedOption)
+        contactContainer.innerHTML = ''
+
+        contactContainer.dataset.contactid = selectedOption.dataset.contactid
+        contactContainer.dataset.accountid =
+            selectedOption.dataset.accountid === undefined
+                ? null
+                : selectedOption.dataset.accountid
+
+        // Display contact
+        contactContainer.textContent = selectedOption.children[0].textContent
+
+        // Add remove user button
+        contactContainer.insertAdjacentHTML(
+            'beforeend',
+            `
+        <button id="deleteContact" class="close-button" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+        </button>`
+        )
+
+        const deleteContact = document.getElementById('deleteContact')
+        deleteContact.addEventListener('click', (e) => {
+            this.cleanForm()
+        })
+    },
+    removeContact() {
+        contactContainer.innerHTML = ''
+        delete contactContainer.dataset.contactid
+        delete contactContainer.dataset.accountid
     },
 }
 
