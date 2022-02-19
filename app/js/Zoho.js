@@ -144,6 +144,80 @@ const crm = {
             }
         }
     },
+    async searchCampaigns(searchValue) {
+        try {
+            const criteria = 'starts_with'
+            const api_name = 'Campaign_Name'
+
+            const request = await ZOHO.CRM.API.searchRecord({
+                Entity: 'Campaigns',
+                Type: 'criteria',
+                Query: `(${api_name}:${criteria}:${searchValue})`,
+            })
+
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data,
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async searchCoordinador() {
+        try {
+            const criteria = 'starts_with'
+            const api_name = 'Campaign_Name'
+
+            const request = await ZOHO.CRM.API.searchRecord({
+                Entity: 'Campaigns',
+                Type: 'criteria',
+                Query: `((${api_name}:${criteria}:${searchValue}) && (api:))`,
+            })
+
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data,
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async getContact(id) {
         try {
             const request = await ZOHO.CRM.API.getRecord({
@@ -209,6 +283,80 @@ const crm = {
                 message: error.message,
             }
         }
+    },
+    async getCampaign(id) {
+        try {
+            const request = await ZOHO.CRM.API.getRecord({
+                Entity: 'Campaigns',
+                RecordID: id,
+            })
+
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async UpdateContact(data) {
+        console.log('Updating contact...')
+        console.log(data)
+    },
+    async CreateContact(data) {
+        console.log('Creating contact...')
+        console.log(data)
+
+        // try {
+        //     const request = await ZOHO.CRM.API.insertRecord({
+        //         Entity: 'Contacts',
+        //         APIData: data,
+        //         Trigger: ['workflow'],
+        //     })
+
+        //     if (request.status !== 200) {
+        //         return {
+        //             code: request.status,
+        //             ok: false,
+        //             data: null,
+        //             type: 'warning',
+        //             message: request.statusText,
+        //         }
+        //     }
+
+        //     // Record found
+        //     return {
+        //         code: 200,
+        //         ok: true,
+        //         data: request.data[0],
+        //         type: 'success',
+        //     }
+        // } catch (error) {
+        //     return {
+        //         code: 500,
+        //         ok: false,
+        //         type: 'danger',
+        //         message: error.message,
+        //     }
+        // }
     },
 }
 

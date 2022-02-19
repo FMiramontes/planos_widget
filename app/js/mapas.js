@@ -58,7 +58,7 @@ const maps = {
         })
     },
 
-    async loadManzana(nameSvg, manzana, id, desarrollo, beforeManzana) {
+    async loadManzana(manzana, id, desarrollo, beforeManzana) {
         // const svg = await desarrollo.json()
 
         // console.log('desarrollo: ', desarrollo)

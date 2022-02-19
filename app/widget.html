@@ -2,12 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-
+        <!-- import CSS -->
         <link rel="stylesheet" href="./css/style.css" />
         <link rel="stylesheet" href="./css/menu.css" />
         <link rel="stylesheet" href="./css/alerts.css" />
         <link rel="stylesheet" href="./css/mapas.css" />
         <link rel="stylesheet" href="./css/modal.css" />
+        <!-- import JS -->
         <script
             src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"
             defer
@@ -17,7 +18,9 @@
 
     <body>
         <div class="container">
+            <!-- Menu -->
             <div class="menu">
+                <!-- Logo -->
                 <div class="logo">
                     <img
                         loading="lazy"
@@ -25,11 +28,14 @@
                         src="https://grupoconcordia.com/paginawebimg/logo-concordia.png"
                     />
                 </div>
+                <!-- User -->
                 <div id="user" class="user">
                     <div class="img_user"></div>
                     <div class="name_user"></div>
                 </div>
+                <!-- constact -->
                 <div id="contact" class="contact"></div>
+                <!-- search  -->
                 <div class="search">
                     <input
                         type="text"
@@ -37,17 +43,19 @@
                         placeholder="Name ..."
                     />
                     <input type="button" id="search-contact" value="search" />
-                    <div id="search-result"></div>
+                    <div id="contact-results" class="search-result"></div>
                 </div>
             </div>
+            <!-- Menu Lateral -->
             <div data-menu="menu" id="menu-lateral" class="menu-lateral"></div>
+            <!-- Container map -->
             <div class="container-map">
                 <div id="map" class="map">
                     <svg
                         data-desarrollo=""
                         width="100%"
                         height="100%"
-                        viewBox="1000 0 4000 4000"
+                        viewBox="0 0 4000 3527"
                     >
                         <defs>
                             <filter id="filter" filterUnits="userSpaceOnUse">
@@ -64,7 +72,9 @@
                     </svg>
                 </div>
             </div>
+            <!-- Modal -->
             <div id="container-modal" class="container-modal">
+                <!-- Menu Modal -->
                 <div class="menu-form">
                     <div class="btn-menu-modal-active"></div>
                     <div class="btn-menu-modal">
@@ -79,340 +89,507 @@
                     <div class="btn-menu-modal">
                         <a href="#presupuesto">Presupuesto</a>
                     </div>
-                    <div class="btn-menu-modal">
-                        <a href="#apartado">Apartado</a>
-                    </div>
                 </div>
+                <!-- Form -->
                 <div id="modal" class="modal">
                     <div class="container-blocks">
+                        <!-- titular-1 -->
                         <div class="container-block" id="titular-1">
-                            <div class="title-block">
-                                <span class="centrado">
-                                    Datos Personales Titular I
-                                </span>
+                            <!-- sub block Datos Personales Titular I -->
+                            <div class="container-sub-block sub-block-medium">
+                                <div class="title-block">
+                                    <span class="centrado">
+                                        Datos Personales Titular I
+                                    </span>
+                                </div>
+                                <div class="block" data-contacto="true">
+                                    <span>
+                                        <label>Nombres:</label>
+                                        <input type="text" name="First_Name" />
+                                    </span>
+                                    <span>
+                                        <label>Apellido Paterno:</label>
+                                        <input
+                                            type="text"
+                                            name="Apellido_Paterno"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Apellido Materno:</label>
+                                        <input
+                                            type="text"
+                                            name="Apellido_Materno"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Fecha de Nacimiento:</label>
+                                        <input
+                                            type="text"
+                                            name="Date_of_Birth"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Lugar de Nacimiento:</label>
+                                        <input
+                                            type="text"
+                                            name="Lugar_de_nacimiento"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Estado Civil:</label>
+                                        <input
+                                            type="text"
+                                            name="Estado_Civil"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Tel. Casa:</label>
+                                        <input type="number" name="Phone" />
+                                    </span>
+                                    <span>
+                                        <label>Cel:</label>
+                                        <input type="number" name="Mobile" />
+                                    </span>
+                                    <span>
+                                        <label>Correo Electronico:</label>
+                                        <input type="email" name="Email" />
+                                    </span>
+                                </div>
                             </div>
-                            <div class="block">
-                                <span>
-                                    <label>Nombres:</label>
-                                    <input type="text" name="name" />
-                                </span>
-                                <span>
-                                    <label>Apellido Paterno:</label>
-                                    <input type="text" name="last_name1" />
-                                </span>
-                                <span>
-                                    <label>Apellido Materno:</label>
-                                    <input type="text" name="last_name2" />
-                                </span>
-                                <span>
-                                    <label>Fecha de Nacimiento:</label>
-                                    <input type="text" name="Date_of_Birth" />
-                                </span>
-                                <span>
-                                    <label>Lugar de Nacimiento:</label>
-                                    <input
-                                        type="text"
-                                        name="Lugar_de_nacimiento"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Estado Civil:</label>
-                                    <input type="text" name="Estado_Civil_T1" />
-                                </span>
+                            <!-- sub block direccion -->
+                            <div class="container-sub-block">
+                                <div class="title-block">
+                                    <span class="centrado"> Direcion </span>
+                                </div>
+                                <div class="block" data-contacto="true">
+                                    <span>
+                                        <label>Calle y No.</label>
+                                        <input type="text" name="calle" />
+                                    </span>
+                                    <span>
+                                        <label>Fracc. o Colonia:</label>
+                                        <input type="text" name="Colonia" />
+                                    </span>
+                                    <span>
+                                        <label>Ciudad:</label>
+                                        <input
+                                            type="text"
+                                            name="Mailing_City"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>CP:</label>
+                                        <input type="text" name="Mailing_Zip" />
+                                    </span>
+                                </div>
+                            </div>
 
-                                <span>
-                                    <label>Calle y No.</label>
-                                    <input type="text" name="calle" />
-                                </span>
-                                <span>
-                                    <label>Fracc. o Colonia:</label>
-                                    <input type="text" name="Colonia" />
-                                </span>
-                                <span>
-                                    <label>Ciudad:</label>
-                                    <input type="text" name="Mailing_City" />
-                                </span>
-                                <span>
-                                    <label>CP:</label>
-                                    <input type="text" name="Mailing_Zip" />
-                                </span>
-                                <span>
-                                    <label>Empresa Donde Trabaja:</label>
-                                    <input
-                                        type="text"
-                                        name="Empresa_en_labora"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Tel. Casa:</label>
-                                    <input type="number" name="Tel_fono_1" />
-                                </span>
-                                <span>
-                                    <label>Cel:</label>
-                                    <input type="number" name="cell" />
-                                </span>
-                                <span>
-                                    <label>Correo Electronico:</label>
-                                    <input type="number" name="cell" />
-                                </span>
-                                <span>
-                                    <label>Puesto:</label>
-                                    <input type="text" name="Ocupacion" />
-                                </span>
-                                <span>
-                                    <label>Ingreso Mensual:</label>
-                                    <input
-                                        type="number"
-                                        name="INGRESO_MENSUAL"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Tiempo:</label>
-                                    <input type="text" name="Tiempo_T1" />
-                                </span>
+                            <!-- sub block datos empleo -->
+                            <div class="container-sub-block">
+                                <div class="title-block">
+                                    <span class="centrado">
+                                        Datos de la empresa
+                                    </span>
+                                </div>
+                                <div class="block" data-contacto="true">
+                                    <span>
+                                        <label>Empresa Donde Trabaja:</label>
+                                        <input
+                                            type="text"
+                                            name="Empresa_en_labora"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Puesto:</label>
+                                        <input type="text" name="Ocupacion" />
+                                    </span>
+                                    <span>
+                                        <label>Ingreso Mensual:</label>
+                                        <input
+                                            type="number"
+                                            name="INGRESO_MENSUAL"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Tiempo:</label>
+                                        <input
+                                            type="text"
+                                            name="A_os_Laborados"
+                                        />
+                                    </span>
+                                </div>
                             </div>
                         </div>
-
+                        <!-- titular-2 -->
                         <div class="container-block" id="titular-2">
-                            <div class="title-block">
-                                <span class="centrado">
-                                    Datos Personales Titular II
-                                </span>
+                            <!-- sub block Datos Personales Titular II -->
+                            <div class="container-sub-block sub-block-medium">
+                                <div class="title-block">
+                                    <span class="centrado">
+                                        Datos Personales Titular II
+                                    </span>
+                                </div>
+                                <div class="block" data-contacto="true">
+                                    <span>
+                                        <label>Nombres:</label>
+                                        <input type="text" name="Nombre2" />
+                                    </span>
+                                    <span>
+                                        <label>Apellido Paterno:</label>
+                                        <input type="text" name="ApellidoP2" />
+                                    </span>
+                                    <span>
+                                        <label>Apellido Materno:</label>
+                                        <input
+                                            type="text"
+                                            name="Apellido_Materno_2"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Fecha de Nacimiento:</label>
+                                        <input
+                                            type="text"
+                                            name="Fecha_Nacimiento2"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Lugar de Nacimiento:</label>
+                                        <input
+                                            type="text"
+                                            name="LUGAR_DE_NACIMIENTO_2"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Estado Civil:</label>
+                                        <input
+                                            type="text"
+                                            name="Estado_Civil_2"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Tel. Casa:</label>
+                                        <input type="number" name="Phone_2" />
+                                    </span>
+                                    <span>
+                                        <label>Cel:</label>
+                                        <input type="number" name="Movil2" />
+                                    </span>
+                                    <span>
+                                        <label>Correo Electronico:</label>
+                                        <input type="email" name="Correo2" />
+                                    </span>
+                                </div>
                             </div>
-                            <div class="block">
-                                <span>
-                                    <label>Lugar de Nacimiento:</label>
-                                    <input
-                                        type="text"
-                                        name="LUGAR_DE_NACIMIENTO_2	"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Fecha de Nacimiento:</label>
-                                    <input
-                                        type="text"
-                                        name="Fecha_Nacimiento2"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Estado Civil:</label>
-                                    <input type="text" name="Estado_Civil_T2" />
-                                </span>
-                                <span>
-                                    <label>Calle y No.</label>
-                                    <input type="text" name="Calle2" />
-                                </span>
-                                <span>
-                                    <label>Empresa Donde Trabaja:</label>
-                                    <input type="text" name="Empresa2" />
-                                </span>
-                                <span>
-                                    <label>Ingreso Mensual:</label>
-                                    <input
-                                        type="number"
-                                        name="Ingreso_Mensual_Segundo_Cliente"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Fracc. o Colonia:</label>
-                                    <input type="text" name="Colonia2" />
-                                </span>
-                                <span>
-                                    <label>Ciudad:</label>
-                                    <input
-                                        type="text"
-                                        name="Ciudad_para_correspondencia2"
-                                    />
-                                </span>
-                                <span>
-                                    <label>CP:</label>
-                                    <input type="text" name="CP2" />
-                                </span>
-                                <span>
-                                    <label>Tel. Casa:</label>
-                                    <input type="number" name="Tel_fono_2" />
-                                </span>
-                                <span>
-                                    <label>Puesto:</label>
-                                    <input type="text" name="Ocupacion2" />
-                                </span>
-                                <span>
-                                    <label>Tiempo:</label>
-                                    <input type="text" name="Tiempo_T2" />
-                                </span>
+                            <!-- sub block direccion -->
+                            <div class="container-sub-block">
+                                <div class="title-block">
+                                    <span class="centrado"> Direcion </span>
+                                </div>
+                                <div class="block" data-contacto="true">
+                                    <span>
+                                        <label>Calle y No.</label>
+                                        <input type="text" name="Calle2" />
+                                    </span>
+                                    <span>
+                                        <label>Fracc. o Colonia:</label>
+                                        <input type="text" name="Colonia2" />
+                                    </span>
+                                    <span>
+                                        <label>Ciudad:</label>
+                                        <input type="text" name="Ciudad2" />
+                                    </span>
+                                    <span>
+                                        <label>CP:</label>
+                                        <input
+                                            type="text"
+                                            name="Zip_SegundoCliente"
+                                        />
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- sub block datos empleo -->
+                            <div class="container-sub-block">
+                                <div class="title-block">
+                                    <span class="centrado">
+                                        Datos de la empresa
+                                    </span>
+                                </div>
+                                <div class="block" data-contacto="true">
+                                    <span>
+                                        <label>Empresa Donde Trabaja:</label>
+                                        <input type="text" name="Empresa2" />
+                                    </span>
+                                    <span>
+                                        <label>Puesto:</label>
+                                        <input type="text" name="Ocupacion2" />
+                                    </span>
+                                    <span>
+                                        <label>Ingreso Mensual:</label>
+                                        <input
+                                            type="number"
+                                            name="Ingreso_Mensual_Segundo_Cliente"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Tiempo:</label>
+                                        <input
+                                            type="text"
+                                            name="A_os_Laborados_2"
+                                        />
+                                    </span>
+                                </div>
                             </div>
                         </div>
-
+                        <!-- referencias -->
                         <div class="container-block" id="referencias">
-                            <div class="title-block">
-                                <span class="centrado">
-                                    Referencias Personales
-                                </span>
+                            <!-- sub block Referencias Personales -->
+                            <div class="container-sub-block">
+                                <div class="title-block">
+                                    <span class="centrado">
+                                        Referencias Personales
+                                    </span>
+                                </div>
+                                <div class="block" data-contacto="true">
+                                    <span>
+                                        <label>Nombre:</label>
+                                        <input
+                                            type="text"
+                                            name="Referencia_1"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Parentesco:</label>
+                                        <input
+                                            type="text"
+                                            name="Parentesco_1"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Telefono:</label>
+                                        <input type="text" name="Tel_fono_1" />
+                                    </span>
+                                    <span>
+                                        <label>Nombre:</label>
+                                        <input
+                                            type="text"
+                                            name="Referencia_2"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Parentesco:</label>
+                                        <input
+                                            type="text"
+                                            name="Parentesco_2"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Telefono:</label>
+                                        <input type="text" name="Tel_fono_2" />
+                                    </span>
+                                </div>
                             </div>
-                            <div class="block">
-                                <span>
-                                    <label>Nombre:</label>
-                                    <input type="text" name="Nombre_R1" />
-                                </span>
-                                <span>
-                                    <label>Parentesco:</label>
-                                    <input type="text" name="Parentesco_R1" />
-                                </span>
-                                <span>
-                                    <label>Telefono:</label>
-                                    <input type="text" name="Telefono_R1" />
-                                </span>
-                                <span>
-                                    <label>Nombre:</label>
-                                    <input type="text" name="Nombre_R2" />
-                                </span>
-                                <span>
-                                    <label>Parentesco:</label>
-                                    <input type="text" name="Parentesco_R2" />
-                                </span>
-                                <span>
-                                    <label>Telefono:</label>
-                                    <input type="text" name="Telefono_R2" />
-                                </span>
-                                <span>
-                                    <label>Nombre(s):</label>
-                                    <input type="text" name="Nombres_AR" />
-                                </span>
-                                <span>
-                                    <label>Empresa Donde Trabaja:</label>
-                                    <input type="text" name="Empresa_AR" />
-                                </span>
-                                <span>
-                                    <label>Ingreso Mensual:</label>
-                                    <input
-                                        type="text"
-                                        name="Ingreso_Mensual_AR"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Dueño Controlador:</label>
-                                    <input
-                                        type="text"
-                                        name="Dueno_Controlador_AR"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Puesto:</label>
-                                    <input type="text" name="Puesto_AR" />
-                                </span>
-                                <span>
-                                    <label>Tiempo:</label>
-                                    <input type="text" name="Tiempo_AR" />
-                                </span>
+                            <!-- sub block Quien aporta los recursos ? -->
+                            <div class="container-sub-block">
+                                <div class="title-block">
+                                    <span class="centrado">
+                                        Quien aporta los recursos ?
+                                    </span>
+                                </div>
+                                <div class="block">
+                                    <span>
+                                        <label>Nombre(s):</label>
+                                        <input type="text" name="Full_Name" />
+                                    </span>
+                                    <span>
+                                        <label>Empresa Donde Trabaja:</label>
+                                        <input
+                                            type="text"
+                                            name="Empresa_en_labora"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Ingreso Mensual:</label>
+                                        <input
+                                            type="text"
+                                            name="INGRESO_MENSUAL"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Dueño Controlador:</label>
+                                        <input type="text" name="Full_Name" />
+                                    </span>
+                                    <span>
+                                        <label>Puesto:</label>
+                                        <input type="text" name="Puesto" />
+                                    </span>
+                                    <span>
+                                        <label>Tiempo:</label>
+                                        <input
+                                            type="text"
+                                            name="A_os_Laborados"
+                                        />
+                                    </span>
+                                </div>
                             </div>
                         </div>
-
+                        <!-- presupuesto -->
                         <div class="container-block" id="presupuesto">
-                            <div class="title-block">
-                                <span class="centrado"> Presupuesto </span>
+                            <!-- sub block Presupuesto -->
+                            <div class="container-sub-block sub-block-big">
+                                <div class="title-block">
+                                    <span class="centrado"> Presupuesto </span>
+                                </div>
+                                <div class="block" data-presupuesto="true">
+                                    <span>
+                                        <label>Campaña:</label>
+                                        <input
+                                            type="text"
+                                            name="Campanya"
+                                            id="campaignValue"
+                                        />
+                                        <div class="container-serch">
+                                            <input
+                                                type="button"
+                                                class="btn-serch"
+                                                value="serch"
+                                                id="search-campaign"
+                                            />
+                                            <div
+                                                id="campaign-results"
+                                                class="search-result serch-medium"
+                                            ></div>
+                                        </div>
+                                    </span>
+                                    <span>
+                                        <label>Coordinador:</label>
+                                        <input
+                                            type="text"
+                                            name="coordinador"
+                                            id="coordinadorValue"
+                                        />
+                                        <div class="container-serch">
+                                            <input
+                                                type="button"
+                                                class="btn-serch"
+                                                value="serch"
+                                                id="search-cordinador"
+                                            />
+                                            <div
+                                                id="cordinador-results"
+                                                class="search-result serch-medium"
+                                            ></div>
+                                        </div>
+                                    </span>
+                                    <span>
+                                        <label>Fraccionamiento:</label>
+                                        <input
+                                            type="text"
+                                            name="Fraccionamiento_P"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Manzana:</label>
+                                        <input type="text" name="Manzana" />
+                                    </span>
+                                    <span>
+                                        <label>Dimensiones:</label>
+                                        <input type="text" name="dimension" />
+                                    </span>
+                                    <span>
+                                        <label>Costo Total:</label>
+                                        <input
+                                            type="text"
+                                            name="Costo_Total_P"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Enganche:</label>
+                                        <input type="text" name="Enganche_P" />
+                                    </span>
+                                    <span>
+                                        <label>Pagos Mensuales:</label>
+                                        <input
+                                            type="text"
+                                            name="Pago_Mensual_P"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Fecha Primer Mensualidad:</label>
+                                        <input
+                                            type="text"
+                                            name="Primer_Mensualidad_P"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Localizacion:</label>
+                                        <input
+                                            type="text"
+                                            name="Localizacion_P"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Lote:</label>
+                                        <input type="text" name="Lote" />
+                                    </span>
+                                    <span>
+                                        <label>Costo por M2:</label>
+                                        <input type="text" name="Costo_M2" />
+                                    </span>
+                                    <span>
+                                        <label>Pago Inicial:</label>
+                                        <input
+                                            type="text"
+                                            name="Pago_Inicial_P"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Saldo a Pagar:</label>
+                                        <input
+                                            type="text"
+                                            name="Saldo_Pagar_P"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Plazo:</label>
+                                        <input type="text" name="Plazo_P" />
+                                    </span>
+                                </div>
                             </div>
-                            <div class="block">
-                                <span>
-                                    <label>Campaña:</label>
-                                    <input type="text" name="Campanya" />
-                                </span>
-                                <span>
-                                    <label>Coordinador:</label>
-                                    <input type="text" name="Campanya" />
-                                </span>
-                                <span>
-                                    <label>Fraccionamiento:</label>
-                                    <input
-                                        type="text"
-                                        name="Fraccionamiento_P"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Manzana:</label>
-                                    <input type="text" name="Manzana_P" />
-                                </span>
-                                <span>
-                                    <label>Superficie:</label>
-                                    <input type="text" name="Superficie_P" />
-                                </span>
-                                <span>
-                                    <label>Costo Total:</label>
-                                    <input type="text" name="Costo_Total_P" />
-                                </span>
-                                <span>
-                                    <label>Enganche:</label>
-                                    <input type="text" name="Enganche_P" />
-                                </span>
-                                <span>
-                                    <label>Pagos Mensuales:</label>
-                                    <input type="text" name="Pago_Mensual_P" />
-                                </span>
-                                <span>
-                                    <label>Fecha Primer Mensualidad:</label>
-                                    <input
-                                        type="text"
-                                        name="Primer_Mensualidad_P"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Localizacion:</label>
-                                    <input type="text" name="Localizacion_P" />
-                                </span>
-                                <span>
-                                    <label>Lote:</label>
-                                    <input type="text" name="Lote_P" />
-                                </span>
-                                <span>
-                                    <label>Costo por M2:</label>
-                                    <input type="text" name="Costo_M2_P" />
-                                </span>
-                                <span>
-                                    <label>Pago Inicial:</label>
-                                    <input type="text" name="Pago_Inicial_P" />
-                                </span>
-                                <span>
-                                    <label>Saldo a Pagar:</label>
-                                    <input type="text" name="Saldo_Pagar_P" />
-                                </span>
-                                <span>
-                                    <label>Plazo:</label>
-                                    <input type="text" name="Plazo_P" />
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="container-block" id="apartado">
-                            <div class="tlte-block">
-                                <p>RECIBO DE APARTADO</p>
-                            </div>
-                            <div class="block">
-                                <span>
-                                    <label>Por La Cantidad De:</label>
-                                    <input type="text" name="Cantidad_RA" />
-                                </span>
-                                <span>
-                                    <label>Observaciones:</label>
-                                    <input
-                                        type="text"
-                                        name="Observaciones_RA"
-                                    />
-                                </span>
-                                <span>
-                                    <label>Cantidad Con Letra:</label>
-                                    <input
-                                        type="text"
-                                        name="Cantidad_Letra_RA"
-                                    />
-                                </span>
-                            </div>
-                            <div class="title-block">
-                                <span>
-                                    <input
-                                        id="btn-submit"
-                                        type="submit"
-                                        value="enviar"
-                                    />
-                                </span>
+                            <!-- sub block RECIBO DE APARTADO -->
+                            <div class="container-sub-block">
+                                <div class="tlte-block">
+                                    <p>RECIBO DE APARTADO</p>
+                                </div>
+                                <div class="block" data-presupuesto="true">
+                                    <span>
+                                        <label>Por La Cantidad De:</label>
+                                        <input type="text" name="Cantidad_RA" />
+                                    </span>
+                                    <span>
+                                        <label>Observaciones:</label>
+                                        <input
+                                            type="text"
+                                            name="Observaciones_RA"
+                                        />
+                                    </span>
+                                    <span>
+                                        <label>Cantidad Con Letra:</label>
+                                        <input
+                                            type="text"
+                                            name="Cantidad_Letra_RA"
+                                        />
+                                    </span>
+                                </div>
+                                <div class="title-block">
+                                    <span>
+                                        <input
+                                            id="btn-submit"
+                                            type="submit"
+                                            value="enviar"
+                                        />
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -421,6 +598,5 @@
                 </div>
             </div>
         </div>
-        <!-- <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js" defer></script> -->
     </body>
 </html>
