@@ -32,7 +32,7 @@ const UI = {
             menu.addEventListener('click', async (e) => {
                 if (e.target.matches('[data-index]')) {
                     let name = e.target.dataset.name.toLowerCase()
-
+                    console.log('Desarrollo', name)
                     const nameSvg = name.replaceAll(' ', '-')
 
                     let tempDesartollo = await fetch(
@@ -101,6 +101,19 @@ const UI = {
                             manzana.Numero
                         }" >${this.parseOuterHTML(manzana?.path)}</g>`
                     )
+            })
+        })
+
+        let mapsDetails = document.getElementById('details')
+
+        mapsDetails.innerHTML = ''
+
+        desarrollo.details.forEach((detail) => {
+            detail.forEach((d) => {
+                mapsDetails.insertAdjacentHTML(
+                    'beforeend',
+                    this.parseOuterHTML(d)
+                )
             })
         })
     },

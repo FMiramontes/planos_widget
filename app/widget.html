@@ -14,19 +14,15 @@
             defer
         ></script>
         <script src="./js/main.js" type="module" defer></script>
+        <script src="./js/zoom.js" type="module" defer></script>
     </head>
 
     <body>
         <div class="container">
             <!-- Menu -->
             <div class="menu">
-                <!-- Logo -->
-                <div class="logo">
-                    <img
-                        loading="lazy"
-                        class="logo"
-                        src="https://grupoconcordia.com/paginawebimg/logo-concordia.png"
-                    />
+                <div class="btn-menu">
+                    <span></span>
                 </div>
                 <!-- User -->
                 <div id="user" class="user">
@@ -56,6 +52,7 @@
                         width="100%"
                         height="100%"
                         viewBox="0 0 4000 3527"
+                        id="svg-map"
                     >
                         <defs>
                             <filter id="filter" filterUnits="userSpaceOnUse">
@@ -70,6 +67,11 @@
                         <g class="cls-0" id="maps" pointer-events="all"></g>
                         <g class="cls-0" id="details"></g>
                     </svg>
+                    <div id="zoom-panel">
+                        <button type="button" id="zoom-in">zoom(+)</button>
+                        <button type="button" id="zoom-out">zoom(+)</button>
+                        <button type="button" id="zoom-reset">zoom(+)</button>
+                    </div>
                 </div>
             </div>
             <!-- Modal -->
@@ -77,16 +79,25 @@
                 <!-- Menu Modal -->
                 <div class="menu-form">
                     <div class="btn-menu-modal-active"></div>
-                    <div class="btn-menu-modal">
+                    <div
+                        class="btn-menu-modal tab active"
+                        data-tab-target="#titular1"
+                    >
                         <a href="#titular-1">Titular 1</a>
                     </div>
-                    <div class="btn-menu-modal">
+                    <div class="btn-menu-modal tab" data-tab-target="#titular2">
                         <a href="#titular-2">Titular 2</a>
                     </div>
-                    <div class="btn-menu-modal">
+                    <div
+                        class="btn-menu-modal tab"
+                        data-tab-target="#referencias"
+                    >
                         <a href="#referencias">Referencias</a>
                     </div>
-                    <div class="btn-menu-modal">
+                    <div
+                        class="btn-menu-modal tab"
+                        data-tab-target="#prespuesto"
+                    >
                         <a href="#presupuesto">Presupuesto</a>
                     </div>
                 </div>
@@ -102,6 +113,7 @@
                                         Datos Personales Titular I
                                     </span>
                                 </div>
+                                <span class="Linea-Division"></span>
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Nombres:</label>
@@ -159,7 +171,7 @@
                             <!-- sub block direccion -->
                             <div class="container-sub-block">
                                 <div class="title-block">
-                                    <span class="centrado"> Direcion </span>
+                                    <span class="centrado"> Direccion </span>
                                 </div>
                                 <div class="block" data-contacto="true">
                                     <span>
@@ -229,6 +241,7 @@
                                         Datos Personales Titular II
                                     </span>
                                 </div>
+                                <span class="Linea-Division"></span>
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Nombres:</label>
@@ -283,7 +296,7 @@
                             <!-- sub block direccion -->
                             <div class="container-sub-block">
                                 <div class="title-block">
-                                    <span class="centrado"> Direcion </span>
+                                    <span class="centrado"> Direccion </span>
                                 </div>
                                 <div class="block" data-contacto="true">
                                     <span>
@@ -350,6 +363,7 @@
                                         Referencias Personales
                                     </span>
                                 </div>
+                                <span class="Linea-Division"></span>
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Nombre:</label>
@@ -440,6 +454,7 @@
                                 <div class="title-block">
                                     <span class="centrado"> Presupuesto </span>
                                 </div>
+                                <span class="Linea-Division"></span>
                                 <div class="block" data-presupuesto="true">
                                     <span>
                                         <label>Campaña:</label>

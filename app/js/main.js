@@ -124,3 +124,28 @@ containerModal.addEventListener('click', (e) => {
         UI.viewModal(false, '', '', '', '')
     }
 })
+
+let Iconmenu = document.querySelector('.btn-menu')
+let menu = document.querySelector('#menu-lateral')
+let btnMenuSpan = document.querySelector('.btn-menu span')
+// let close = document.getElementById('close')
+
+Iconmenu.addEventListener('click', () => {
+    /*Abrir menu*/
+    menu.classList.toggle('open')
+    btnMenuSpan.classList.toggle('active')
+})
+
+// tabs Modal
+const tabs = document.querySelectorAll('[data-tab-target]')
+console.log('tabs: ', tabs)
+
+tabs.forEach((tab) => {
+    console.log('tab:', tab)
+    tab.addEventListener('click', () => {
+        tabs.forEach((tab) => {
+            tab.classList.remove('active')
+        })
+        tab.classList.add('active')
+    })
+})
