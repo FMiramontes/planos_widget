@@ -156,3 +156,12 @@ tabs.forEach((tab) => {
         tab.classList.add('active')
     })
 })
+
+//ZOOM
+let elem = document.getElementById("Manzana");
+
+const panzoom = Panzoom(elem)
+
+let zoomInButton = document.getElementById("zoom-in").addEventListener('click', panzoom.zoomIn);
+let zoomOutButton = document.getElementById("zoom-out").addEventListener('click', panzoom.zoomOut);
+let resetButton = document.getElementById("zoom-reset").addEventListener('click', panzoom.reset);
