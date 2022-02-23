@@ -1,13 +1,63 @@
-'use strict'
-
 import crm from './Zoho.js'
 import alerts from './alertas.js'
 import Mapas from './mapas.js'
-import maps from './mapas.js'
 
 let desarrollo = new Array()
 
 let beforeManzana = ''
+
+const coordinadores = [
+    {
+        id: '2234337000031348022',
+        name: 'Adolfo Martinez',
+        email: 'amartinez@grupoconcordia.com',
+    },
+    {
+        id: '2234337000053173001',
+        name: 'Veronica Gonzalez',
+        email: 'vgonzalez@grupoconcordia.com',
+    },
+    {
+        id: '2234337000029920001',
+        name: 'Nayeli Juarez',
+        email: 'njuarez@grupoconcordia.com',
+    },
+    {
+        id: '2234337000009539023',
+        name: 'Alejandra Garcia',
+        email: 'agarcia@grupoconcordia.com',
+    },
+    {
+        id: '2234337000024388015',
+        name: 'Mariana Fragoso',
+        email: 'mfragoso@grupoconcordia.com',
+    },
+    {
+        id: '2234337000003889001',
+        name: 'Lizeth Lopez',
+        email: 'alopez@grupoconcordia.com',
+    },
+    {
+        id: '2234337000098706001',
+        name: 'Fernanda Peralta',
+        email: 'fperalta@grupoconcordia.com',
+    },
+    {
+        id: '2234337000154895001',
+        name: 'Alejandro Cazorla',
+        email: 'alcazorla@grupoconcordia.com',
+    },
+    {
+        id: '2234337000049017150',
+        name: 'Ashram Mendez',
+        email: 'asmendez@grupoconcordia.com',
+    },
+    {
+        id: '2234337000074180001',
+        name: 'Sabrina Martinez',
+        email: 'smartinez@grupoconcordia.com',
+    },
+]
 
 const UI = {
     async loadMenuLateral() {
@@ -211,7 +261,7 @@ const UI = {
 
         return form
     },
-    validate(CRMData, newData) {
+    async validate(CRMData, newData) {
         const contactDiv = document.getElementById('contact')
         const contact_id = contactDiv.dataset?.contactid
             ? contactDiv.dataset?.contactid
@@ -221,7 +271,31 @@ const UI = {
             let update = this.checkUpdate(CRMData, newData)
             if (update) crm.UpdateContact(newData)
         } else {
-            crm.CreateContact(newData)
+            // Create account
+            const name =
+                newData.contacto.First_Name +
+                ' ' +
+                newData.contacto.Apellido_Paterno +
+                ' ' +
+                newData.contacto.Apellido_Materno
+
+            // // data for accounts
+            const accountData = {
+                Account_Name: name.toUpperCase(),
+                Owner: {
+                    id: document.querySelector('[data-crmuserid]').dataset
+                        .crmid,
+                },
+            }
+            const createAccountRequest = await crm.createAccount(accountData)
+            console.log('UI: createAccount', createAccountRequest)
+            const accountId = createAccountRequest.data.details.id
+            // Create Contact
+            const createContactRequest = await crm.CreateContact(
+                newData,
+                accountId
+            )
+            console.log('UI: createContact', createContactRequest)
         }
 
         // crm.CrateDeal(contact_id, PoductID, Presupuesto)
@@ -306,7 +380,9 @@ const UI = {
         const contactContainer = document.querySelector('#contact')
         contactContainer.innerHTML = ''
 
-        contactContainer.classList.add('active')
+        const contactContainerResults =
+            document.querySelector('#contact-results')
+        contactContainerResults.classList.add('active')
 
         contactContainer.dataset.contactid = selectedOption.dataset.contactid
         contactContainer.dataset.accountid =
@@ -380,47 +456,15 @@ const UI = {
         campaignInput.value = selectedOption.children[0].textContent
         campaignInput.dataset.campaignid = selectedOption.dataset.campaignid
     },
-    async searchCoordinador() {
-        const searchValue = document.querySelector('#coordinadorValue').value
-        // console.log('searchValue', searchValue)
-        const CoordinadorResultContainer = document.querySelector(
-            '#coordinador-results'
-        )
+    coordinador() {
+        const selectCoordinador = document.getElementById('coordinadorValue')
 
-        CoordinadorResultContainer.classList.add('active')
-
-        CoordinadorResultContainer.innerHTML = ''
-
-        if (searchValue !== '' || searchValue !== undefined) {
-            const searchRequest = await crm.searchCoordinador(searchValue)
-
-            // Check request status
-            if (searchRequest.ok === true) {
-                // Found records
-                const records = searchRequest.data
-                // console.log('records: ', records)
-                let df = new DocumentFragment()
-                records.forEach((record) => {
-                    var temp = document.createElement('template')
-                    temp.innerHTML = `
-                    <div data-coordinador_id="${record.id}" data-module="coordinador" class="record">
-                        <span>${record.Campaign_Name}</span>
-                    </div>`
-
-                    var frag = temp.content
-                    df.appendChild(frag)
-                })
-
-                CoordinadorResultContainer.append(df)
-            }
-        }
-    },
-    selectCoordinador(selectedOption) {
-        console.log('selecting campaign...')
-        const campaignInput = document.querySelector('#campaignValue')
-        campaignInput.value = ''
-        campaignInput.value = selectedOption.children[0].textContent
-        campaignInput.dataset.campaignid = selectedOption.dataset.campaignid
+        coordinadores.forEach((coo) => {
+            let option = document.createElement('option')
+            option.value = coo.id
+            option.textContent = coo.name
+            selectCoordinador.appendChild(option)
+        })
     },
     async fillCampaignDetails() {
         const campaignInput = document.querySelector('#campaignValue')

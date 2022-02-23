@@ -181,16 +181,17 @@ const crm = {
             }
         }
     },
-    async searchCoordinador() {
+    async searchCoordinador(page) {
         try {
-            const criteria = 'starts_with'
-            const api_name = 'Campaign_Name'
-
-            const request = await ZOHO.CRM.API.searchRecord({
-                Entity: 'Campaigns',
-                Type: 'criteria',
-                Query: `((${api_name}:${criteria}:${searchValue}) && (api:))`,
+            console.log('page: ', page)
+            const request = await ZOHO.CRM.API.getAllUsers({
+                Type: 'ActiveUsers',
+                sort_order: 'asc',
+                per_page: 200,
+                page: page,
             })
+
+            console.log('request: ', request)
 
             if (request.status === 204) {
                 return {
@@ -206,7 +207,7 @@ const crm = {
             return {
                 code: 200,
                 ok: true,
-                data: request.data,
+                data: request,
                 type: 'success',
             }
         } catch (error) {
@@ -321,42 +322,121 @@ const crm = {
         console.log('Updating contact...')
         console.log(data)
     },
-    async CreateContact(data) {
+    async CreateContact(data, accountId) {
         console.log('Creating contact...')
-        console.log(data)
+        const contacto = data.contacto.slice()
+        contacto.Last_Name =
+            contacto.Apellido_Paterno + contacto.Apellido_Materno
+        contacto.Account_Name = { id: accountId }
+        // Marcar checkbox Segundo_Cliente si los campos tienen valor
+        if (contacto?.Nombre2 !== '' && contacto?.ApellidoP2 !== '') {
+            contacto.Segundo_Cliente = true
+        }
 
-        // try {
-        //     const request = await ZOHO.CRM.API.insertRecord({
-        //         Entity: 'Contacts',
-        //         APIData: data,
-        //         Trigger: ['workflow'],
-        //     })
+        try {
+            const request = await ZOHO.CRM.API.insertRecord({
+                Entity: 'Contacts',
+                APIData: contacto,
+                Trigger: [],
+            })
+            console.log('create contact: ', request)
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
 
-        //     if (request.status !== 200) {
-        //         return {
-        //             code: request.status,
-        //             ok: false,
-        //             data: null,
-        //             type: 'warning',
-        //             message: request.statusText,
-        //         }
-        //     }
+            // Record found
+            return {
+                code: 201,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async updateContact(data) {
+        console.log('Updating contact...')
+        const { contacto } = data
 
-        //     // Record found
-        //     return {
-        //         code: 200,
-        //         ok: true,
-        //         data: request.data[0],
-        //         type: 'success',
-        //     }
-        // } catch (error) {
-        //     return {
-        //         code: 500,
-        //         ok: false,
-        //         type: 'danger',
-        //         message: error.message,
-        //     }
-        // }
+        try {
+            const request = await ZOHO.CRM.API.updateRecord({
+                Entity: 'Contacts',
+                APIData: contacto,
+                Trigger: [],
+            })
+
+            if (request.status !== 200) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async createAccount(data) {
+        console.log('Creating account...')
+        try {
+            const request = await ZOHO.CRM.API.insertRecord({
+                Entity: 'Accounts',
+                APIData: data,
+                Trigger: [],
+            })
+            console.log('create account: ', request)
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
+
+            // Record created
+            return {
+                code: 201,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
     },
 }
 

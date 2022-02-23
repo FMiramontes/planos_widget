@@ -2,6 +2,7 @@ import UI from './UI.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
+const searchCoordinadorBtn = document.querySelector('#search-coordinador')
 
 let CRMData = {},
     qselector
@@ -11,6 +12,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         const user = document.getElementById('user')
 
         const img_user = document.createElement('img')
+        user.dataset.crmuserid = data.users[0].id
         img_user.setAttribute('src', data.users[0].image_link)
         user.lastElementChild.innerText = data.users[0].full_name
         user.firstElementChild.appendChild(img_user)
@@ -19,6 +21,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
 
 ZOHO.embeddedApp.init().then(function () {
     UI.loadMenuLateral()
+    UI.coordinador()
 })
 
 searchContactBtn.addEventListener('click', () => {
@@ -28,6 +31,10 @@ searchContactBtn.addEventListener('click', () => {
 searchCampaigntBtn.addEventListener('click', () => {
     UI.searchCampaign()
 })
+
+// searchCoordinadorBtn.addEventListener('click', () => {
+//     UI.searchCoordinador()
+// })
 
 // Close search result
 // let qselector = ''
@@ -116,7 +123,7 @@ document.addEventListener('dblclick', (e) => {
     }
 })
 
-// UI.viewModal(true, '0')
+// UI.viewModal(true, '0',)
 
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {
