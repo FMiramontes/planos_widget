@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="./css/alerts.css" />
         <link rel="stylesheet" href="./css/mapas.css" />
         <link rel="stylesheet" href="./css/modal.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <!-- import JS -->
         <script
             src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"
@@ -67,11 +68,11 @@
                         <g class="cls-0" id="maps" pointer-events="all"></g>
                         <g class="cls-0" id="details"></g>
                     </svg>
-                    <div id="zoom-panel">
-                        <button type="button" id="zoom-in">zoom(+)</button>
-                        <button type="button" id="zoom-out">zoom(+)</button>
-                        <button type="button" id="zoom-reset">zoom(+)</button>
-                    </div>
+                </div>
+                <div class="zoom-panel">
+                    <div class="zoom" id="zoom-in"><i class="fa-solid fa-plus"></i></div>
+                    <div class="zoom" id="zoom-out"><i class="fa-solid fa-minus"></i></div>
+                    <div class="zoom" id="zoom-reset"><i class="fa-solid fa-arrows-rotate"></i></div>
                 </div>
             </div>
             <!-- Modal -->
@@ -603,5 +604,6 @@
                 </div>
             </div>
         </div>
+        <script src="https://unpkg.com/@panzoom/panzoom@4.4.4/dist/panzoom.min.js"></script>
     </body>
 </html>

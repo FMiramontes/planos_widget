@@ -49,6 +49,38 @@ body {
     justify-content: space-evenly;
     flex-direction: column;
 }
+/* Botones Zoom */
+.zoom-panel{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    bottom:50px;
+    right: 50px;
+    gap: 1rem;
+}
+.zoom{
+    background-color: #de9f27;
+    border-radius: 30%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #000;
+    color:#fff;
+}
+
+.zoom:hover{
+    background-color: #1a1a1a;
+    cursor: pointer;
+}
+
+.zoom i{
+    font-size: large;
+    color: #fff;
+}
 
 /* Search container */
 .search {
@@ -103,12 +135,19 @@ body {
 /* Contact container */
 .contact {
     color: white;
+    border-left: 3px solid #de9f27;
+    padding-left: 8px;
 }
 
 .close-button {
-    background: none;
-    border: none;
-    color: red;
+    color: #fff;
+    border: 2px solid #de9f27;
+    border-radius: 50%;
+    color: #de9f27;
+    font-weight: bold;
+    padding-top: 2px;
+    margin:5px;
+    cursor: pointer;
 }
 
 .close-button span {
@@ -116,38 +155,20 @@ body {
     font-size: 18px;
 }
 
-.close-button {
-    cursor: pointer;
-}
-
 /* Movil Menu Lateral */
 
 @media (min-width: 958px) {
-    .cd {
-        width: 200px;
-    }
     .container {
         grid-template-areas:
             'menu menu menu menu menu menu'
             'container-map container-map container-map container-map container-map container-map ';
     }
     .menu-lateral {
-        grid-area: menu-lateral;
         width: 20%;
-        background-color: #2f2f2f;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        transform: translate(-300px, 0);
-        transition: transform 0.3s ease;
     }
 }
 
 @media (min-width: 504px) {
-    .cd {
-        width: 200px;
-    }
     .container {
         grid-template-areas:
             'menu menu menu menu menu menu'
@@ -159,14 +180,11 @@ body {
         height: 91%;
         top: 8.9%;
         transform: translate(-500px, 0);
-        transition: transform 0.3s ease;
     }
 }
 
 @media (max-device-width: 480px) {
-    .cd {
-        width: 200px;
-    }
+
     .container {
         grid-template-areas:
             'menu menu menu menu menu menu'
@@ -178,4 +196,7 @@ body {
         height: 100%;
         top: 8.9%;
     }
+    .zoom-panel{
+        display: none;
+        }
 }
