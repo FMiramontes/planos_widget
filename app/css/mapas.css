@@ -52,6 +52,6 @@ tspan {
     border-radius: 1vh;
     overflow-x: auto;
     overflow-y: auto;
-
+    cursor: move;
     /* overflow: hidden; */
 }
