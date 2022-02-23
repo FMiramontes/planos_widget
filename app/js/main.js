@@ -104,14 +104,7 @@ document.addEventListener('dblclick', (e) => {
                 CRMData = UI.getDataForm()
             }
 
-            UI.viewModal(
-                true,
-                e.target?.id,
-                e.target.dataset?.crm_id,
-                e.target.dataset?.costototal,
-                e.target.dataset?.costom2,
-                e.target.dataset?.dimension
-            )
+            UI.viewModal(true, e.target?.id, e.target.dataset)
 
             /*validarSesion()
             if (sessionStorage.getItem("sesion"))

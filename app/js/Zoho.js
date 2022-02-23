@@ -181,44 +181,6 @@ const crm = {
             }
         }
     },
-    async searchCoordinador(page) {
-        try {
-            console.log('page: ', page)
-            const request = await ZOHO.CRM.API.getAllUsers({
-                Type: 'ActiveUsers',
-                sort_order: 'asc',
-                per_page: 200,
-                page: page,
-            })
-
-            console.log('request: ', request)
-
-            if (request.status === 204) {
-                return {
-                    code: request.status,
-                    ok: false,
-                    data: null,
-                    type: 'warning',
-                    message: request.statusText,
-                }
-            }
-
-            // Record found
-            return {
-                code: 200,
-                ok: true,
-                data: request,
-                type: 'success',
-            }
-        } catch (error) {
-            return {
-                code: 500,
-                ok: false,
-                type: 'danger',
-                message: error.message,
-            }
-        }
-    },
     async getContact(id) {
         try {
             const request = await ZOHO.CRM.API.getRecord({
@@ -423,6 +385,41 @@ const crm = {
             }
 
             // Record created
+            return {
+                code: 201,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async createDeal(data) {
+        try {
+            let request = await ZOHO.CRM.API.insertRecord({
+                Entity: 'Deals',
+                APIData: data,
+                Trigger: [],
+            })
+
+            console.log('create contact: ', request)
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
+
+            // Record found
             return {
                 code: 201,
                 ok: true,

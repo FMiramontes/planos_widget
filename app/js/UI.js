@@ -262,14 +262,32 @@ const UI = {
         return form
     },
     async validate(CRMData, newData) {
+        const user = document.getElementById('user')
+        console.log('UI: user: ', user.dataset)
+        const modal = document.getElementById('modal')
+        const coo_id = document.getElementById('coordinadorValue').value
+        const Campaign_id =
+            document.getElementById('campaignValue').dataset.campaignid
         const contactDiv = document.getElementById('contact')
-        const contact_id = contactDiv.dataset?.contactid
+        const temp_contact_id = contactDiv.dataset?.contactid
             ? contactDiv.dataset?.contactid
             : false
+        const temp_accout_id = contactDiv.dataset?.accountid
+            ? contactDiv.dataset?.accountid
+            : false
+        let accountId = ''
+        let contact_id = ''
 
-        if (contact_id !== false) {
+        if (temp_contact_id !== false) {
+            contact_id = temp_contact_id
             let update = this.checkUpdate(CRMData, newData)
-            if (update) crm.UpdateContact(newData)
+            if (update) {
+                const update = await crm.UpdateContact(newData)
+                console.log('UI: update ', update.data)
+            }
+
+            contact_id = temp_contact_id
+            if (temp_accout_id !== false) accountId = temp_accout_id
         } else {
             // Create account
             const name =
@@ -283,8 +301,7 @@ const UI = {
             const accountData = {
                 Account_Name: name.toUpperCase(),
                 Owner: {
-                    id: document.querySelector('[data-crmuserid]').dataset
-                        .crmid,
+                    id: user.dataset.crmuserid,
                 },
             }
             const createAccountRequest = await crm.createAccount(accountData)
@@ -295,15 +312,32 @@ const UI = {
                 newData,
                 accountId
             )
+
+            contact_id = createContactRequest.data.details.id
             console.log('UI: createContact', createContactRequest)
         }
 
-        // crm.CrateDeal(contact_id, PoductID, Presupuesto)
+        const DealData = {
+            Owner: { id: user.dataset.crmuserid },
+            Deal_Name: modal.dataset.trato,
+            Nombre_de_Producto: modal.dataset.trato,
+            Account_Name: { id: accountId },
+            Amount: newData.presupuesto.Saldo_Pagar_P,
+            Stage: 'Presentación del Producto',
+            Campaign_Source: { id: Campaign_id },
+            Contact_Name: { id: contact_id },
+            Created_By: { id: coo_id },
+        }
+        console.log('UI: DealData', DealData)
+
+        const DealRequest = await crm.createDeal(DealData)
+        console.log('UI: DealRequest', DealRequest)
     },
     checkUpdate(a, b) {
         return JSON.stringify(a) === JSON.stringify(b)
     },
-    viewModal(view, id, crm_id, costoTotal, m2, dimension) {
+    viewModal(view, id, dataset) {
+        const { crm_id, trato } = dataset
         let container_modal = document.getElementById('container-modal')
         let modal = document.getElementById('modal')
 
@@ -311,14 +345,16 @@ const UI = {
             container_modal.style.display = 'flex'
             modal.dataset.item = id
             modal.dataset.crm_id = crm_id
-            this.paintDataPresupuesto(id, costoTotal, m2, dimension)
+            modal.dataset.trato = trato
+            this.paintDataPresupuesto(id, dataset)
         } else {
             container_modal.style.display = 'none'
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
         }
     },
-    paintDataPresupuesto(id, costoTotal, costoM2, dimension) {
+    paintDataPresupuesto(id, dataset) {
+        const { costototal, costom2, dimension } = dataset
         // const Total = document.querySelector('input[name="Costo_Total_P"]')
         let Total = document.querySelector('input[name="Costo_Total_P"]')
         let M2 = document.querySelector('input[name="Costo_M2"]')
@@ -333,8 +369,8 @@ const UI = {
 
         lote.value = sku[1].replace(/\D+/, '')
 
-        Total.value = costoTotal
-        M2.value = costoM2
+        Total.value = costototal
+        M2.value = costom2
         Dimension.value = dimension
     },
     async searchContact() {
