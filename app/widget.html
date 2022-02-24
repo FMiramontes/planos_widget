@@ -15,7 +15,6 @@
             defer
         ></script>
         <script src="./js/main.js" type="module" defer></script>
-        <!-- <script src="./js/zoom.js" type="module" defer></script> -->
     </head>
 
     <body>
@@ -67,8 +66,10 @@
                         </defs>
                         <g class="cls-0" id="maps" pointer-events="all"></g>
                         <g class="cls-0" id="details"></g>
+
                     </svg>
                 </div>
+                <div id="info-lote"> </div>
                 <div class="zoom-panel">
                     <div class="zoom" id="zoom-in"><i class="fa-solid fa-plus"></i></div>
                     <div class="zoom" id="zoom-out"><i class="fa-solid fa-minus"></i></div>
@@ -604,6 +605,5 @@
                 </div>
             </div>
         </div>
-        <script src="https://unpkg.com/@panzoom/panzoom@4.4.4/dist/panzoom.min.js"></script>
     </body>
 </html>

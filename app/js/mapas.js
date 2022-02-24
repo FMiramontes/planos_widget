@@ -187,6 +187,16 @@ const maps = {
             }
         })
     },
+    showPopup(e, x, y) {
+        e.style.left = x + 'px'
+        e.style.top = y + 'px'
+        e.style.display = 'block'
+      },
+      hidePopup(e) {
+        e.style.display = 'none'
+      },
+
+
 }
 
 export default maps
