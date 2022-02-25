@@ -39,6 +39,7 @@ body {
     flex-direction: column;
     transform: translate(-300px, 0);
     transition: transform 0.3s ease;
+    z-index: 2;
 }
 .container-map {
     grid-area: container-map;
@@ -49,6 +50,19 @@ body {
     justify-content: space-evenly;
     flex-direction: column;
 }
+/* Tooltip Lote */
+#info-lote {
+    width: 200px;
+    line-height: 1px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 5pt;
+    background-color:rgb(88, 80, 80);
+    color:#fff;
+    border-radius: 8px;
+    position: absolute;
+    display: none;
+  }
 /* Botones Zoom */
 .zoom-panel{
     display: flex;
@@ -57,7 +71,7 @@ body {
     align-items: center;
     position: absolute;
     bottom:50px;
-    right: 50px;
+    right: 65px;
     gap: 1rem;
 }
 .zoom{

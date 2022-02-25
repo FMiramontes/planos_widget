@@ -32,6 +32,10 @@
     fill: #de9f27;
     cursor: pointer;
 }
+[data-lote]:hover {
+    fill: #de9f27;
+    cursor: pointer;
+}
 tspan {
     font-weight: 700;
     font-size: 25px;
