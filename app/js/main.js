@@ -106,7 +106,7 @@ document.addEventListener('dblclick', (e) => {
                 CRMData = UI.getDataForm()
             }
 
-            UI.viewModal(true, e.target?.id, e.target.dataset)
+            UI.viewModal(true, e.target?.id, e.target.dataset, true)
 
             /*validarSesion()
             if (sessionStorage.getItem("sesion"))
@@ -118,7 +118,7 @@ document.addEventListener('dblclick', (e) => {
     }
 })
 
-// UI.viewModal(true, '0',)
+UI.viewModal(true, '0', '0', false)
 
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {
