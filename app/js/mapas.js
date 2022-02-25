@@ -1,6 +1,6 @@
 'use strict'
 
-import crm from './Zoho.js'
+import { crm, creator, books } from './Zoho.js'
 import UI from './UI.js'
 
 const maps = {
@@ -75,7 +75,7 @@ const maps = {
 
         // const Lotes = await this.loadLotes(manzana, desarrollo, position)
         // console.log('Lotes: ', Lotes)
-        // const frac = await crm.detailsFraccionamiento(id)
+        // const frac = await crm.onamiento(id)
 
         // const fracc = frac.data
 
@@ -165,6 +165,7 @@ const maps = {
 
                 if (lote !== null) {
                     lote.dataset.crm_id = product.id
+                    lote.dataset.sku = product.Manzana_y_Lote
                     lote.dataset.trato = product.Product_Name
                     lote.dataset.crm = true
                     lote.dataset.costototal = product.Unit_Price
