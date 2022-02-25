@@ -1,4 +1,6 @@
-import crm from './Zoho.js'
+import { crm, creator, books } from './Zoho.js'
+// import creator from './Zoho.js'
+// import boocks from './Zoho.js'
 import alerts from './alertas.js'
 import Mapas from './mapas.js'
 
@@ -110,6 +112,8 @@ const UI = {
         this.getSVG(nameSvg)
 
         const mapa = document.getElementById('map')
+
+        mapa.dataset.commerceId = id
 
         mapa.addEventListener('click', async (e) => {
             if (e.target.matches('[data-manzana]')) {
@@ -277,6 +281,7 @@ const UI = {
             : false
         let accountId = ''
         let contact_id = ''
+        let accountName = ''
 
         if (temp_contact_id !== false) {
             contact_id = temp_contact_id
@@ -288,9 +293,12 @@ const UI = {
 
             contact_id = temp_contact_id
             if (temp_accout_id !== false) accountId = temp_accout_id
+            // crear const email =
+            const conatctRequest = books.getContactByEmail(email)
+            if (!conatctRequest.ok) books.syncContact(contact_id)
         } else {
             // Create account
-            const name =
+            accountName =
                 newData.contacto.First_Name +
                 ' ' +
                 newData.contacto.Apellido_Paterno +
@@ -299,45 +307,106 @@ const UI = {
 
             // // data for accounts
             const accountData = {
-                Account_Name: name.toUpperCase(),
+                Account_Name: accountName.toUpperCase(),
                 Owner: {
                     id: user.dataset.crmuserid,
                 },
             }
             const createAccountRequest = await crm.createAccount(accountData)
             console.log('UI: createAccount', createAccountRequest)
-            const accountId = createAccountRequest.data.details.id
+            accountId = createAccountRequest.data.details.id
             // Create Contact
             const createContactRequest = await crm.CreateContact(
                 newData,
                 accountId
             )
-
-            contact_id = createContactRequest.data.details.id
             console.log('UI: createContact', createContactRequest)
+
+            contact_id = createContactRequest?.data.details.id
+
+            // validar si existe contacto en books
+            let contactBooksId = ''
+            if (!createContactRequest.ok) {
+                const syncContactRequest = await books.syncContact(contact_id)
+                contactBooksId = syncContactRequest.data.id
+            }
+        }
+
+        // Product
+        const product_id = modal.dataset.crm_id
+        const item = modal.dataset.item
+
+        let sku = modal.dataset?.item
+
+        let productBooksId = ''
+
+        if (!modal.dataset.existecrm) {
+            let map = document.getElementById('map')
+            const data = crm.detailsFraccionamiento(map.dataset.id)
+
+            let seccion = util.getSeccion(item, data)
+
+            sku = seccion.sku
+        }
+
+        const productBooksRequest = await books.getProductBySku(sku)
+
+        productBooksId = productBooksRequest.data.id
+
+        if (!productBooksRequest.ok) {
+            const productData = {}
+            const createProductRequest = await books.createProduct(productData)
+            productBooksId = createProductRequest.data.id
         }
 
         const DealData = {
             Owner: { id: user.dataset.crmuserid },
             Deal_Name: modal.dataset.trato,
-            Nombre_de_Producto: modal.dataset.trato,
+            Nombre_de_Producto: { id: product_id },
             Account_Name: { id: accountId },
             Amount: newData.presupuesto.Saldo_Pagar_P,
             Stage: 'Presentación del Producto',
             Campaign_Source: { id: Campaign_id },
             Contact_Name: { id: contact_id },
-            Created_By: { id: coo_id },
         }
         console.log('UI: DealData', DealData)
 
         const DealRequest = await crm.createDeal(DealData)
         console.log('UI: DealRequest', DealRequest)
+
+        const productRequest = await crm.associateProduct(
+            modal.dataset.crm_id,
+            DealRequest.data.details.id
+        )
+        console.log('UI: productRequest', productRequest)
+
+        // if (email !== '') {
+        //     books.getContactByEmail(email)
+        // } else {
+        //     books.syncContact(contact_id)
+        // }
+
+        // Cotizacion
+        const recordData = {
+            IDOportunidad: DealRequest.data.details.id,
+            IDContactoCRM: contact_id,
+            NombreContacto:
+                document.querySelector('#contact').firstChild.textContent,
+            Cuenta: accountName.toUpperCase(),
+            MododePago: 'EFECTIVO',
+            Propietario: document.querySelector('.name_user').textContent,
+            EmailContacto: newData.contacto.Email,
+            Contacto: document.querySelector('#contact').firstChild.textContent,
+            ReportarApartado: document.querySelector('#hasApartado').checked,
+        }
+        const createCotizacion = await creator.createRecord(recordData)
+        console.log(createCotizacion)
     },
     checkUpdate(a, b) {
         return JSON.stringify(a) === JSON.stringify(b)
     },
-    viewModal(view, id, dataset) {
-        const { crm_id, trato } = dataset
+    viewModal(view, id, dataset, paint) {
+        const { crm_id, trato, crm: existeCRM, sku } = dataset
         let container_modal = document.getElementById('container-modal')
         let modal = document.getElementById('modal')
 
@@ -346,7 +415,10 @@ const UI = {
             modal.dataset.item = id
             modal.dataset.crm_id = crm_id
             modal.dataset.trato = trato
-            this.paintDataPresupuesto(id, dataset)
+            modal.dataset.existecrm = existeCRM
+            modal.dataset.sku = sku
+            console.log('paint', paint)
+            if (paint) this.paintDataPresupuesto(id, dataset)
         } else {
             container_modal.style.display = 'none'
             modal.dataset.item = ''
@@ -574,6 +646,47 @@ const UI = {
                     document.querySelector(`input[name="Plazo_P"]`).value
                 ).toFixed(2) || ''
         }
+    },
+}
+
+const util = {
+    getSeccion(item, data) {
+        let item_name, sku, seccion_id, nombre_fracionamiento
+        let item_array = item.split('-')
+        let numManzana = item_array[0].replace('M', '')
+        let numLote = item_array[1].replace('L', '')
+        let seccion_id = ''
+
+        let manzana = parseInt(numManzana)
+        let secciones_array = data.secciones
+        secciones_array.forEach((e) => {
+            if (manzana >= e.init && manzana <= e.end) {
+                if (e.Lotes != null && manzana == e.end) {
+                    if (numLote >= e.Lotes.init && numLote <= e.Lotes.end) {
+                        item_name = data.code + ' ' + e.name + ' ' + item
+                        sku = item_array[0] + '' + e.symbol + '' + item_array[1]
+                        seccion_id = e.id.toString()
+                        if (e.name) {
+                            nombre_fracionamiento =
+                                data.Fraccionamiento + ' ' + e.name
+                        } else {
+                            nombre_fracionamiento = data.Fraccionamiento
+                        }
+                    }
+                } else {
+                    item_name = data.code + ' ' + e.name + ' ' + item
+                    sku = item_array[0] + '' + e.symbol + '' + item_array[1]
+                    seccion_id = e.id.toString()
+                    if (e.name) {
+                        nombre_fracionamiento =
+                            data.Fraccionamiento + ' ' + e.name
+                    } else {
+                        nombre_fracionamiento = data.Fraccionamiento
+                    }
+                }
+            }
+        })
+        return { item_name, sku, seccion_id, nombre_fracionamiento }
     },
 }
 

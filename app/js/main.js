@@ -104,7 +104,7 @@ document.addEventListener('dblclick', (e) => {
                 CRMData = UI.getDataForm()
             }
 
-            UI.viewModal(true, e.target?.id, e.target.dataset)
+            UI.viewModal(true, e.target?.id, e.target.dataset, true)
 
             /*validarSesion()
             if (sessionStorage.getItem("sesion"))
@@ -116,7 +116,7 @@ document.addEventListener('dblclick', (e) => {
     }
 })
 
-// UI.viewModal(true, '0',)
+UI.viewModal(true, '0', '0', false)
 
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {
@@ -151,10 +151,16 @@ tabs.forEach((tab) => {
 })
 
 //ZOOM
-let elem = document.getElementById("Manzana");
+let elem = document.getElementById('Manzana')
 
 const panzoom = Panzoom(elem)
 
-let zoomInButton = document.getElementById("zoom-in").addEventListener('click', panzoom.zoomIn);
-let zoomOutButton = document.getElementById("zoom-out").addEventListener('click', panzoom.zoomOut);
-let resetButton = document.getElementById("zoom-reset").addEventListener('click', panzoom.reset);
+let zoomInButton = document
+    .getElementById('zoom-in')
+    .addEventListener('click', panzoom.zoomIn)
+let zoomOutButton = document
+    .getElementById('zoom-out')
+    .addEventListener('click', panzoom.zoomOut)
+let resetButton = document
+    .getElementById('zoom-reset')
+    .addEventListener('click', panzoom.reset)
