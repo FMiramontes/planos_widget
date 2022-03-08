@@ -1,10 +1,12 @@
 import UI from './UI.js'
 import maps from './mapas.js'
+import valid from './validate.js'
 import './zoom.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
 const searchCoordinadorBtn = document.querySelector('#search-coordinador')
+const modal = document.getElementById('modal')
 
 let CRMData = {},
     qselector
@@ -90,18 +92,27 @@ document.addEventListener('dblclick', (e) => {
         if (e.target.dataset.disponible == 'true') {
             // console.log('disponible', e)
             const contactDiv = document.getElementById('contact')
-            const contact_id = contactDiv.dataset?.contactid
-                ? contactDiv.dataset?.contactid
-                : false
+            const contact_id =
+                contactDiv.dataset?.contactid === undefined
+                    ? false
+                    : contactDiv.dataset?.contactid
 
             CRMData = {}
 
-            if (contact_id !== false) {
-                const accout_id = contactDiv.dataset?.accountid
-                    ? contactDiv.dataset?.accountid
-                    : false
+            if (contact_id === false || contact_id === undefined) {
+                valid.validContact(false)
+            } else {
+                const accout_id =
+                    contactDiv.dataset?.accountid === undefined
+                        ? false
+                        : contactDiv.dataset?.accountid
 
+                console.log('main contact_id: ', contact_id)
+
+                console.log('main accout_id: ', accout_id)
                 UI.paintDataInForm(contact_id, accout_id)
+
+                valid.validContact(true)
 
                 CRMData = UI.getDataForm()
             }
@@ -117,6 +128,18 @@ document.addEventListener('dblclick', (e) => {
         }
     }
 })
+
+modal.addEventListener('change', (e) => {
+    if (e.target.matches('[data-email]')) {
+        valid.validateEmail(e.target.value, e.target.dataset.email)
+    }
+})
+
+// modal.addEventListener('onchange', (e) => {
+//     if (e.target.matches('[data-email]')) {
+//         valid.validateEmail(e.target.value, e.target.dataset.email)
+//     }
+// })
 
 UI.viewModal(true, '0', '0', false)
 
@@ -153,13 +176,19 @@ tabs.forEach((tab) => {
 })
 
 //ZOOM
-let elem = document.getElementById("svg-map");
+let elem = document.getElementById('svg-map')
 
 const panzoom = Panzoom(elem)
 
-let zoomInButton = document.getElementById("zoom-in").addEventListener('click', panzoom.zoomIn);
-let zoomOutButton = document.getElementById("zoom-out").addEventListener('click', panzoom.zoomOut);
-let resetButton = document.getElementById("zoom-reset").addEventListener('click', panzoom.reset);
+let zoomInButton = document
+    .getElementById('zoom-in')
+    .addEventListener('click', panzoom.zoomIn)
+let zoomOutButton = document
+    .getElementById('zoom-out')
+    .addEventListener('click', panzoom.zoomOut)
+let resetButton = document
+    .getElementById('zoom-reset')
+    .addEventListener('click', panzoom.reset)
 
 // Tooltip
 const tooltip = document.getElementById('info-lote')
@@ -168,50 +197,48 @@ let posicionY = 0
 let posicionX = 0
 
 mapa.addEventListener('mouseover', (e) => {
-    if (e.target.matches('[data-lote]')){
-      if(e.target.dataset.disponible == 'true') {
-        tooltip.innerHTML = ''
-        let lote = document.createElement('p')
-        lote.textContent = e.target.id
-        tooltip.appendChild(lote)
-        let dimension = document.createElement('p')
-        dimension.textContent =
-        'Dimension: ' + e.target.dataset.dimension + ' m2'
-        tooltip.appendChild(dimension)
-        let costoMetro = document.createElement('p')
-        costoMetro.textContent = 'Costo M2: $ ' + e.target.dataset.costom2
-        tooltip.appendChild(costoMetro)
-        let total = document.createElement('p')
-        total.textContent = 'Costo total: $ ' + e.target.dataset.costototal
-        tooltip.appendChild(total)
-        posicionX = e.pageX
-        posicionY = e.pageY
-        e.target.style.fill = '#e5b252'
-        e.target.style.cursor = 'pointer'
-      }
-      else{
-        tooltip.innerHTML = ''
-        let lote = document.createElement('p')
-        lote.textContent = e.target.id
-        tooltip.appendChild(lote)
-        let estado = document.createElement('p')
-        estado.textContent = 'No disponible'
-        tooltip.appendChild(estado)
-        posicionX = e.pageX
-        posicionY = e.pageY
-        e.target.style.fill = '#000'
-      }
-      maps.showPopup(tooltip, posicionX, posicionY)
+    if (e.target.matches('[data-lote]')) {
+        if (e.target.dataset.disponible == 'true') {
+            tooltip.innerHTML = ''
+            let lote = document.createElement('p')
+            lote.textContent = e.target.id
+            tooltip.appendChild(lote)
+            let dimension = document.createElement('p')
+            dimension.textContent =
+                'Dimension: ' + e.target.dataset.dimension + ' m2'
+            tooltip.appendChild(dimension)
+            let costoMetro = document.createElement('p')
+            costoMetro.textContent = 'Costo M2: $ ' + e.target.dataset.costom2
+            tooltip.appendChild(costoMetro)
+            let total = document.createElement('p')
+            total.textContent = 'Costo total: $ ' + e.target.dataset.costototal
+            tooltip.appendChild(total)
+            posicionX = e.pageX
+            posicionY = e.pageY
+            e.target.style.fill = '#e5b252'
+            e.target.style.cursor = 'pointer'
+        } else {
+            tooltip.innerHTML = ''
+            let lote = document.createElement('p')
+            lote.textContent = e.target.id
+            tooltip.appendChild(lote)
+            let estado = document.createElement('p')
+            estado.textContent = 'No disponible'
+            tooltip.appendChild(estado)
+            posicionX = e.pageX
+            posicionY = e.pageY
+            e.target.style.fill = '#000'
+        }
+        maps.showPopup(tooltip, posicionX, posicionY)
     }
 })
 mapa.addEventListener('mouseout', (e) => {
-    if (e.target.matches('[data-lote]')){
-      if(e.target.dataset.disponible == 'true') {
-        e.target.style.fill = '#de9f27'              
-      }
-      else{
-        e.target.style.fill = '#1a1a1a'
-      }
-      maps.hidePopup(tooltip)
+    if (e.target.matches('[data-lote]')) {
+        if (e.target.dataset.disponible == 'true') {
+            e.target.style.fill = '#de9f27'
+        } else {
+            e.target.style.fill = '#1a1a1a'
+        }
+        maps.hidePopup(tooltip)
     }
-  })
+})

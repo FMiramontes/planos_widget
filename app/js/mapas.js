@@ -49,6 +49,8 @@ const maps = {
 
         let manzanaJson = block.find((m) => m.Numero == manzana)
 
+        console.log('Maps manzanaJson: ', manzanaJson)
+
         manzanaJson?.Lotes.forEach((l) => {
             // console.log('Lotes: ', l)
             ContainerManzana.insertAdjacentHTML(
@@ -68,6 +70,8 @@ const maps = {
         // let num = numManzana.split('')
 
         let position = this.position(num)
+
+        console.log('Maps position: ', position)
 
         this.loadBlocks(desarrollo, manzana, position, beforeManzana)
 
@@ -192,12 +196,10 @@ const maps = {
         e.style.left = x + 'px'
         e.style.top = y + 'px'
         e.style.display = 'block'
-      },
-      hidePopup(e) {
+    },
+    hidePopup(e) {
         e.style.display = 'none'
-      },
-
-
+    },
 }
 
 export default maps

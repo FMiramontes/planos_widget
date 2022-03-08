@@ -304,7 +304,7 @@ const crm = {
                 APIData: contacto,
                 Trigger: [],
             })
-            console.log('create contact: ', request)
+            console.log('Zoho create contact: ', request)
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -439,6 +439,41 @@ const crm = {
             }
         }
     },
+    async updateDeal(data) {
+        try {
+            let request = await ZOHO.CRM.API.updateRecord({
+                Entity: 'Deals',
+                APIData: data,
+                Trigger: [],
+            })
+
+            console.log('Zoho updateDeal: ', request)
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
+
+            // Record found
+            return {
+                code: 201,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async associateProduct(product_id, deal_id) {
         try {
             const APIData = {
@@ -496,11 +531,65 @@ const creator = {
                 connectionName,
                 req_data
             )
+            console.log('Zoho - associateProduct: ', request)
+            if (
+                request.code !== 'SUCCESS' ||
+                request.details.statusMessage?.data?.ID === undefined
+            ) {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.details.statusMessage.message,
+                }
+            }
             //
             return {
                 code: 201,
                 ok: true,
-                data: request.data,
+                data: request.details.statusMessage?.data,
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async getRecord(id) {
+        console.log('Creator getRecordById', id)
+        const connectionName = 'creator'
+        const req_data = {
+            method: 'GET',
+            url: `https://creator.zoho.com/api/v2/sistemas134/cotizador1/report/Presupuesto_Report/${id}`,
+        }
+        try {
+            const request = await ZOHO.CRM.CONNECTION.invoke(
+                connectionName,
+                req_data
+            )
+            console.log('Creator get record request: ', request)
+            if (
+                request.code !== 'SUCCESS' ||
+                request.details.statusMessage?.data?.ID === undefined
+            ) {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.details.statusMessage.message,
+                }
+            }
+            //
+            return {
+                code: 200,
+                ok: true,
+                data: request.details.statusMessage?.data,
                 type: 'success',
             }
         } catch (error) {
@@ -514,7 +603,7 @@ const creator = {
     },
 }
 
-const organization_id = ''
+const organization_id = 651425182
 
 const books = {
     async getContactByEmail(email) {
@@ -524,19 +613,18 @@ const books = {
                 method: 'GET',
                 url: `https://books.zoho.com/api/v3/contacts?email=${email}&organization_id=${organization_id}`,
                 headers: {
-                    Authorization: `Zoho-oauthtoken ${accessToken}`,
+                    'Content-Type': 'application/json',
                 },
             }
-            const request = ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
             console.log('Zoho - sendInvoice: ', request)
-            if (request.data[0].code !== 'SUCCESS') {
+            if (!request?.details?.statusMessage?.contacts[0]?.contact_id) {
                 return {
-                    code: request.data[0].status,
+                    code: '404',
                     ok: false,
-                    data: null,
                     type: 'warning',
-                    message: request.data[0],
+                    message: 'Contacto no encontrado en books',
                 }
             }
 
@@ -544,7 +632,7 @@ const books = {
             return {
                 code: 201,
                 ok: true,
-                data: request.data[0],
+                data: request?.details?.statusMessage?.contacts[0],
                 type: 'success',
             }
         } catch (error) {
@@ -557,25 +645,24 @@ const books = {
         }
     },
     async syncContact(id) {
+        console.log('Zoho syncContact id: ', id)
         try {
-            const conn_name = 'invoicebooks'
+            const conn_name = 'syncbooks'
             const config = {
-                method: 'post',
+                method: 'POST',
                 url: `https://books.zoho.com/api/v3/crm/contact/${id}/import?organization_id=${organization_id}`,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                // url: `https://books.zoho.com/api/v3/crm/contact/${id}/import?organization_id=651425182`,
             }
-            const request = ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+            console.log('Zoho syncContact config: ', config)
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - sendInvoice: ', request)
-            if (request.data[0].code !== 'SUCCESS') {
+            console.log('Zoho - syncContact: ', request)
+            if (!request?.details?.statusMessage?.data?.customer_id) {
                 return {
-                    code: request.data[0].status,
+                    code: '404',
                     ok: false,
-                    data: null,
                     type: 'warning',
-                    message: request.data[0],
+                    message: 'Contacto no sincronizado',
                 }
             }
 
@@ -583,7 +670,7 @@ const books = {
             return {
                 code: 201,
                 ok: true,
-                data: request.data[0],
+                data: request?.details?.statusMessage?.data,
                 type: 'success',
             }
         } catch (error) {
@@ -595,20 +682,22 @@ const books = {
             }
         }
     },
-    async getProductBySku(sku) {
+    async getProductByName(name, sku) {
         try {
-            const conn_name = 'invoicebooks'
+            const conn_name = 'productobooks'
             const config = {
                 method: 'GET',
-                url: `https://books.zoho.com/api/v3/items?sku=${sku}&organization_id=${organization_id}`,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                url: `https://books.zoho.com/api/v3/items?name=${encodeURI(
+                    name
+                )}&organization_id=651425182`,
             }
-            const request = ZOHO.CRM.CONNECTION.invoke(conn_name, config)
-
-            console.log('Zoho - sendInvoice: ', request)
-            if (request.data[0].code !== 'SUCCESS') {
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+            const items = request.details.statusMessage.items
+            const item = items.find((item) => {
+                if (item.sku === sku) return item
+            })
+            console.log('Zoho - getProductBySku: ', request)
+            if (request.code !== 'SUCCESS' || item === undefined) {
                 return {
                     code: request.data[0].status,
                     ok: false,
@@ -622,7 +711,7 @@ const books = {
             return {
                 code: 201,
                 ok: true,
-                data: request.data[0],
+                data: item,
                 type: 'success',
             }
         } catch (error) {
@@ -636,7 +725,7 @@ const books = {
     },
     async createProduct(data) {
         try {
-            const conn_name = 'invoicebooks'
+            const conn_name = 'productobooks'
             const config = {
                 parameters: data,
                 method: 'post',
@@ -645,9 +734,9 @@ const books = {
                     'Content-Type': 'application/json',
                 },
             }
-            const request = ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - associateProduct: ', request)
+            console.log('Zoho - createProduct: ', request)
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -675,39 +764,19 @@ const books = {
         }
     },
     async createInvoice(data) {
-        // data = {
-        //     customer_id: idContactoBooks,
-        //     reference_number: 'Pago Prueba Widget',
-        //     date: today,
-        //     due_date: fecha_vencimiento,
-        //     custom_fields: [
-        //         {
-        //             label: 'Commerce',
-        //             value: idContactoBooks,
-        //         },
-        //     ],
-        //     line_items: [
-        //         {
-        //             item_id: '888587000012337389',
-        //             description: 'Pago por Concepto de Apartado',
-        //             quantity: 1,
-        //             rate: 150,
-        //         },
-        //     ],
-        // }
         try {
             const conn_name = 'invoicebooks'
             const config = {
                 parameters: data,
-                method: 'post',
-                url: `https://books.zoho.com/api/v3/invoices?organization_id=${organization_id}`,
+                method: 'POST',
+                url: `https://books.zoho.com/api/v3/invoices?organization_id=651425182`,
                 headers: {
                     'Content-Type': 'application/json',
                 },
             }
-            const request = ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - associateProduct: ', request)
+            console.log('Zoho - createInvoice: ', request)
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -744,7 +813,7 @@ const books = {
                     'Content-Type': 'application/json',
                 },
             }
-            const request = ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
             console.log('Zoho - sendInvoice: ', request)
             if (request.data[0].code !== 'SUCCESS') {

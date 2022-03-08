@@ -69,10 +69,9 @@
                         </defs>
                         <g class="cls-0" id="maps" pointer-events="all"></g>
                         <g class="cls-0" id="details"></g>
-
                     </svg>
                 </div>
-                <div id="info-lote"> </div>
+                <div id="info-lote"></div>
                 <div class="zoom-panel">
                     <div class="zoom" id="zoom-in">
                         <i class="fa-solid fa-plus"></i>
@@ -128,13 +127,18 @@
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Nombres:</label>
-                                        <input type="text" name="First_Name" />
+                                        <input
+                                            type="text"
+                                            name="First_Name"
+                                            data-existe-en-crm="true"
+                                        />
                                     </span>
                                     <span>
                                         <label>Apellido Paterno:</label>
                                         <input
                                             type="text"
                                             name="Apellido_Paterno"
+                                            data-existe-en-crm="true"
                                         />
                                     </span>
                                     <span>
@@ -142,6 +146,7 @@
                                         <input
                                             type="text"
                                             name="Apellido_Materno"
+                                            data-existe-en-crm="true"
                                         />
                                     </span>
                                     <span>
@@ -167,15 +172,29 @@
                                     </span>
                                     <span>
                                         <label>Tel. Casa:</label>
-                                        <input type="number" name="Phone" />
+                                        <input
+                                            type="number"
+                                            name="Phone"
+                                            size="10"
+                                        />
                                     </span>
                                     <span>
                                         <label>Cel:</label>
-                                        <input type="number" name="Mobile" />
+                                        <input
+                                            type="number"
+                                            name="Mobile"
+                                            size="10"
+                                        />
                                     </span>
                                     <span>
                                         <label>Correo Electronico:</label>
-                                        <input type="email" name="Email" />
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            name="Email"
+                                            data-email="required"
+                                            data-existe-en-crm="true"
+                                        />
                                     </span>
                                 </div>
                             </div>
@@ -206,7 +225,6 @@
                                     </span>
                                 </div>
                             </div>
-
                             <!-- sub block datos empleo -->
                             <div class="container-sub-block">
                                 <div class="title-block">
@@ -256,17 +274,26 @@
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Nombres:</label>
-                                        <input type="text" name="Nombre2" />
+                                        <input
+                                            type="text"
+                                            name="Nombre2"
+                                            data-existe-en-crm="true"
+                                        />
                                     </span>
                                     <span>
                                         <label>Apellido Paterno:</label>
-                                        <input type="text" name="ApellidoP2" />
+                                        <input
+                                            type="text"
+                                            name="ApellidoP2"
+                                            data-existe-en-crm="true"
+                                        />
                                     </span>
                                     <span>
                                         <label>Apellido Materno:</label>
                                         <input
                                             type="text"
                                             name="Apellido_Materno_2"
+                                            data-existe-en-crm="true"
                                         />
                                     </span>
                                     <span>
@@ -292,15 +319,28 @@
                                     </span>
                                     <span>
                                         <label>Tel. Casa:</label>
-                                        <input type="number" name="Phone_2" />
+                                        <input
+                                            type="number"
+                                            name="Phone_2"
+                                            size="10"
+                                        />
                                     </span>
                                     <span>
                                         <label>Cel:</label>
-                                        <input type="number" name="Movil2" />
+                                        <input
+                                            type="number"
+                                            name="Movil2"
+                                            size="10"
+                                        />
                                     </span>
                                     <span>
                                         <label>Correo Electronico:</label>
-                                        <input type="email" name="Correo2" />
+                                        <input
+                                            id="email2"
+                                            type="email"
+                                            name="Correo2"
+                                            data-existe-en-crm="true"
+                                        />
                                     </span>
                                 </div>
                             </div>
@@ -392,7 +432,11 @@
                                     </span>
                                     <span>
                                         <label>Telefono:</label>
-                                        <input type="text" name="Tel_fono_1" />
+                                        <input
+                                            type="number"
+                                            name="Tel_fono_1"
+                                            size="10"
+                                        />
                                     </span>
                                     <span>
                                         <label>Nombre:</label>
@@ -410,7 +454,11 @@
                                     </span>
                                     <span>
                                         <label>Telefono:</label>
-                                        <input type="text" name="Tel_fono_2" />
+                                        <input
+                                            type="number"
+                                            name="Tel_fono_2"
+                                            size="10"
+                                        />
                                     </span>
                                 </div>
                             </div>
@@ -424,11 +472,16 @@
                                 <div class="block">
                                     <span>
                                         <label>Nombre(s):</label>
-                                        <input type="text" name="Full_Name" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="Full_Name"
+                                        />
                                     </span>
                                     <span>
                                         <label>Empresa Donde Trabaja:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Empresa_en_labora"
                                         />
@@ -436,21 +489,31 @@
                                     <span>
                                         <label>Ingreso Mensual:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="INGRESO_MENSUAL"
                                         />
                                     </span>
                                     <span>
                                         <label>Dueño Controlador:</label>
-                                        <input type="text" name="Full_Name" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="Full_Name"
+                                        />
                                     </span>
                                     <span>
                                         <label>Puesto:</label>
-                                        <input type="text" name="Puesto" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="Puesto"
+                                        />
                                     </span>
                                     <span>
                                         <label>Tiempo:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="A_os_Laborados"
                                         />
@@ -500,32 +563,47 @@
                                     <span>
                                         <label>Fraccionamiento:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Fraccionamiento_P"
                                         />
                                     </span>
                                     <span>
                                         <label>Manzana:</label>
-                                        <input type="text" name="Manzana" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="Manzana"
+                                        />
                                     </span>
                                     <span>
                                         <label>Dimensiones:</label>
-                                        <input type="text" name="dimension" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="dimension"
+                                        />
                                     </span>
                                     <span>
                                         <label>Costo Total:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Costo_Total_P"
                                         />
                                     </span>
                                     <span>
                                         <label>Enganche:</label>
-                                        <input type="text" name="Enganche_P" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="Enganche_P"
+                                        />
                                     </span>
                                     <span>
                                         <label>Pagos Mensuales:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Pago_Mensual_P"
                                         />
@@ -533,6 +611,7 @@
                                     <span>
                                         <label>Fecha Primer Mensualidad:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Primer_Mensualidad_P"
                                         />
@@ -540,21 +619,31 @@
                                     <span>
                                         <label>Localizacion:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Localizacion_P"
                                         />
                                     </span>
                                     <span>
                                         <label>Lote:</label>
-                                        <input type="text" name="Lote" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="Lote"
+                                        />
                                     </span>
                                     <span>
                                         <label>Costo por M2:</label>
-                                        <input type="text" name="Costo_M2" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="Costo_M2"
+                                        />
                                     </span>
                                     <span>
                                         <label>Pago Inicial:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Pago_Inicial_P"
                                         />
@@ -562,13 +651,18 @@
                                     <span>
                                         <label>Saldo a Pagar:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Saldo_Pagar_P"
                                         />
                                     </span>
                                     <span>
                                         <label>Plazo:</label>
-                                        <input type="text" name="Plazo_P" />
+                                        <input
+                                            disabled
+                                            type="text"
+                                            name="Plazo_P"
+                                        />
                                     </span>
                                 </div>
                             </div>
@@ -602,6 +696,7 @@
                                     <span>
                                         <label>Cantidad Con Letra:</label>
                                         <input
+                                            disabled
                                             type="text"
                                             name="Cantidad_Letra_RA"
                                         />
@@ -610,6 +705,7 @@
                                 <div class="title-block">
                                     <span>
                                         <input
+                                            disabled
                                             id="btn-submit"
                                             type="submit"
                                             value="enviar"
