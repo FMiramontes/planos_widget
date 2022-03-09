@@ -90,6 +90,8 @@ const UI = {
                     let tempDesartollo = await fetch(
                         `./desarrollos-js/${nameSvg}/${nameSvg}.json`
                     )
+                    const style = document.getElementById('style')
+                    style.innerHTML = `@import url(./css/desarrollos/${nameSvg}.css);`
 
                     desarrollo = await tempDesartollo.json()
                     console.log('--------------------------------')
