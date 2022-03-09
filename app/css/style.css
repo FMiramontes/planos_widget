@@ -37,7 +37,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    transform: translate(-300px, 0);
+    transform: translate(-100vw, 0);
     transition: transform 0.3s ease;
     z-index: 2;
 }
@@ -82,8 +82,8 @@ body {
     justify-content: center;
     align-items: center;
     padding: 15px;
-    border: 2px solid #000;
-    color: #fff;
+    color:#fff;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 .zoom:hover {
@@ -155,6 +155,7 @@ body {
 }
 
 .close-button {
+    background: transparent;
     color: #fff;
     border: 2px solid #de9f27;
     border-radius: 50%;
@@ -194,7 +195,7 @@ body {
         width: 25%;
         height: 91%;
         top: 8.9%;
-        transform: translate(-500px, 0);
+        /* transform: translate(-500px, 0); */
     }
 }
 
@@ -210,7 +211,8 @@ body {
         height: 100%;
         top: 8.9%;
     }
-    .zoom-panel {
+    
+    #zoom-in, #zoom-out{
         display: none;
     }
 }
