@@ -29,9 +29,9 @@
     color: blanchedalmond;
 }
 
-.contact {
-    /* background-color: rgb(4, 0, 255); */
-}
+/* .contact {
+    background-color: rgb(4, 0, 255);
+} */
 
 .search {
     margin-left: auto;
@@ -107,7 +107,7 @@
     pointer-events: none;
 }
 .map {
-    background-color: #043125;
+    background-color: #d3cfcf;
 }
 
 .menu-lateral.open {

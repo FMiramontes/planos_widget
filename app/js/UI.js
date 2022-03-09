@@ -655,7 +655,7 @@ const util = {
         let item_array = item.split('-')
         let numManzana = item_array[0].replace('M', '')
         let numLote = item_array[1].replace('L', '')
-        let seccion_id = ''
+        // let seccion_id = ''
 
         let manzana = parseInt(numManzana)
         let secciones_array = data.secciones
