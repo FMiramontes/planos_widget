@@ -195,7 +195,7 @@ body {
         width: 25%;
         height: 91%;
         top: 8.9%;
-        transform: translate(-500px, 0);
+        /* transform: translate(-500px, 0); */
     }
 }
 

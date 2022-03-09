@@ -163,7 +163,7 @@
     handleStartEvent: function (t) {
       t.preventDefault(), t.stopPropagation();
     },
-    maxScale: 4,
+    maxScale: 20,
     minScale: 0.125,
     overflow: "hidden",
     panOnlyWhenZoomed: !1,
