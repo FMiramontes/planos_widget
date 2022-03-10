@@ -9,7 +9,7 @@
     stroke-width: 2px;
 }
 .cls-2 {
-    fill: none;
+    fill: #254d65;
 }
 .cls-3 {
     fill: #81b2c1;
@@ -36,4 +36,9 @@
 }
 .cls-9 {
     fill-rule: evenodd;
+}
+
+
+[data-manzana]:hover{
+    fill: #226188;
 }

@@ -1,0 +1,37 @@
+.cls-1 {
+  fill: #e8e2de;
+}
+.cls-1,
+.cls-2,
+.cls-3,
+.cls-4,
+.cls-1 {
+  stroke: #bbada7;
+  stroke-width: 2px;
+}
+.cls-2 {
+  fill: #f4f0ed;
+}
+.cls-3 {
+  fill: #e7e2de;
+}
+.cls-4,
+.cls-6 {
+  fill: #d3efbd;
+}
+.cls-1 {
+  fill: #e7e2de;
+}
+.cls-7 {
+  isolation: isolate;
+}
+.cls-8 {
+  fill: #6b845e;
+}
+.cls-9 {
+  fill: #f9f0ed;
+  fill-rule: evenodd;
+}
+[data-manzana]:hover{
+    fill: #81a76d;
+}
