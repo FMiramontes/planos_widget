@@ -51,7 +51,6 @@ body {
 image{
     pointer-events: none;
 }
-
 .menu {
     grid-area: menu;
     border: 2px solid black;
@@ -127,8 +126,8 @@ image{
     justify-content: center;
     align-items: center;
     padding: 15px;
-    color:#fff;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border: 2px solid #000;
+    color: #fff;
 }
 
 .zoom:hover {
@@ -200,7 +199,6 @@ image{
 }
 
 .close-button {
-    background: transparent;
     color: #fff;
     border: 2px solid #de9f27;
     border-radius: 50%;
@@ -266,8 +264,6 @@ image{
   }
 
 
-/* Movil Menu Lateral */
-
 @media (max-device-width: 480px) {
     .container {
         grid-template-areas:
@@ -280,8 +276,7 @@ image{
         height: 100%;
         top: 8.9%;
     }
-    
-    #zoom-in, #zoom-out{
+    .zoom-panel {
         display: none;
     }
 }

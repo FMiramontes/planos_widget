@@ -1,731 +1,551 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <!-- import CSS -->
-        <link rel="stylesheet" href="./css/style.css" />
-        <link rel="stylesheet" href="./css/menu.css" />
-        <!-- <link rel="stylesheet" href="./css/mapas.css" /> -->
-        <link rel="stylesheet" href="./css/alerts.css" />
-        <link rel="stylesheet" href="./css/modal.css" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        />
-        <!-- import JS -->
-        <script
-            src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"
-            defer
-        ></script>
-        <script src="./js/main.js" type="module" defer></script>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- import CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/menu.css" />
+    <link rel="stylesheet" href="./css/alerts.css" />
+    <link rel="stylesheet" href="./css/mapas.css" />
+    <link rel="stylesheet" href="./css/modal.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- import JS -->
+    <script
+      src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"
+      defer
+    ></script>
+    <script src="./js/main.js" type="module" defer></script>
+  </head>
 
-    <body>
-        <div class="container">
-            <!-- Menu -->
-            <div class="menu">
-                <div class="btn-menu">
-                    <span></span>
-                </div>
-                <!-- User -->
-                <div id="user" class="user">
-                    <div class="img_user"></div>
-                    <div class="name_user"></div>
-                </div>
-                <!-- constact -->
-                <div id="contact" class="contact"></div>
-                <!-- search  -->
-                <div class="search">
-                    <input
-                        type="text"
-                        id="search-value"
-                        placeholder="Name ..."
-                    />
-                    <input type="button" id="search-contact" value="search" />
-                    <div id="contact-results" class="search-result"></div>
-                </div>
-            </div>
-            <!-- Menu Lateral -->
-            <div data-menu="menu" id="menu-lateral" class="menu-lateral"></div>
-            <!-- Container map -->
-            <div class="container-map">
-                <div id="map" class="map">
-                    <div class="loader" id="loader-mapa">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                    <svg
-                        data-desarrollo=""
-                        width="100%"
-                        height="100%"
-                        viewBox="0 0 4000 3527"
-                        id="svg-map"
-                    >
-                        <defs>
-                            <style id="style"></style>
-                            <filter id="filter" filterUnits="userSpaceOnUse">
-                                <feComposite
-                                    result="composite"
-                                    operator="in"
-                                    in2="SourceGraphic"
-                                />
-                                <feBlend result="blend" in2="SourceGraphic" />
-                            </filter>
-                        </defs>
-                        <g class="cls-0" id="maps" pointer-events="all"></g>
-                        <g class="cls-0" id="details"></g>
-                    </svg>
-                </div>
-                <div id="info-lote"></div>
-                <div class="zoom-panel">
-                    <div class="zoom" id="zoom-in">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <div class="zoom" id="zoom-out">
-                        <i class="fa-solid fa-minus"></i>
-                    </div>
-                    <div class="zoom" id="zoom-reset">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div id="container-modal" class="container-modal">
-                <!-- Menu Modal -->
-                <div class="menu-form">
-                    <div class="btn-menu-modal-active"></div>
-                    <div
-                        class="btn-menu-modal tab active"
-                        data-tab-target="#titular1"
-                    >
-                        <a href="#titular-1">Titular 1</a>
-                    </div>
-                    <div class="btn-menu-modal tab" data-tab-target="#titular2">
-                        <a href="#titular-2">Titular 2</a>
-                    </div>
-                    <div
-                        class="btn-menu-modal tab"
-                        data-tab-target="#referencias"
-                    >
-                        <a href="#referencias">Referencias</a>
-                    </div>
-                    <div
-                        class="btn-menu-modal tab"
-                        data-tab-target="#prespuesto"
-                    >
-                        <a href="#presupuesto">Presupuesto</a>
-                    </div>
-                </div>
-                <!-- Form -->
-                <div id="modal" class="modal">
-                    <div class="container-blocks">
-                        <!-- titular-1 -->
-                        <div class="container-block" id="titular-1">
-                            <!-- sub block Datos Personales Titular I -->
-                            <div class="container-sub-block sub-block-medium">
-                                <div class="title-block">
-                                    <span class="centrado">
-                                        Datos Personales Titular I
-                                    </span>
-                                </div>
-                                <span class="Linea-Division"></span>
-                                <div class="block" data-contacto="true">
-                                    <span>
-                                        <label>Nombres:</label>
-                                        <input
-                                            type="text"
-                                            name="First_Name"
-                                            data-existe-en-crm="true"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Apellido Paterno:</label>
-                                        <input
-                                            type="text"
-                                            name="Apellido_Paterno"
-                                            data-existe-en-crm="true"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Apellido Materno:</label>
-                                        <input
-                                            type="text"
-                                            name="Apellido_Materno"
-                                            data-existe-en-crm="true"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Fecha de Nacimiento:</label>
-                                        <input
-                                            type="date"
-                                            name="Date_of_Birth"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Lugar de Nacimiento:</label>
-                                        <input
-                                            type="text"
-                                            name="Lugar_de_nacimiento"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Estado Civil:</label>
-                                        <input
-                                            type="text"
-                                            name="Estado_Civil"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Tel. Casa:</label>
-                                        <input
-                                            type="number"
-                                            name="Phone"
-                                            size="10"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Cel:</label>
-                                        <input
-                                            type="number"
-                                            name="Mobile"
-                                            size="10"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Correo Electronico:</label>
-                                        <input
-                                            id="email"
-                                            type="email"
-                                            name="Email"
-                                            data-email="required"
-                                            data-existe-en-crm="true"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- sub block direccion -->
-                            <div class="container-sub-block">
-                                <div class="title-block">
-                                    <span class="centrado"> Direccion </span>
-                                </div>
-                                <div class="block" data-contacto="true">
-                                    <span>
-                                        <label>Calle y No.</label>
-                                        <input type="text" name="calle" />
-                                    </span>
-                                    <span>
-                                        <label>Fracc. o Colonia:</label>
-                                        <input type="text" name="Colonia" />
-                                    </span>
-                                    <span>
-                                        <label>Ciudad:</label>
-                                        <input
-                                            type="text"
-                                            name="Mailing_City"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>CP:</label>
-                                        <input type="text" name="Mailing_Zip" />
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- sub block datos empleo -->
-                            <div class="container-sub-block">
-                                <div class="title-block">
-                                    <span class="centrado">
-                                        Datos de la empresa
-                                    </span>
-                                </div>
-                                <div class="block" data-contacto="true">
-                                    <span>
-                                        <label>Empresa Donde Trabaja:</label>
-                                        <input
-                                            type="text"
-                                            name="Empresa_en_labora"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Puesto:</label>
-                                        <input type="text" name="Ocupacion" />
-                                    </span>
-                                    <span>
-                                        <label>Ingreso Mensual:</label>
-                                        <input
-                                            type="number"
-                                            name="INGRESO_MENSUAL"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Tiempo:</label>
-                                        <input
-                                            type="text"
-                                            name="A_os_Laborados"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- titular-2 -->
-                        <div class="container-block" id="titular-2">
-                            <!-- sub block Datos Personales Titular II -->
-                            <div class="container-sub-block sub-block-medium">
-                                <div class="title-block">
-                                    <span class="centrado">
-                                        Datos Personales Titular II
-                                    </span>
-                                </div>
-                                <span class="Linea-Division"></span>
-                                <div class="block" data-contacto="true">
-                                    <span>
-                                        <label>Nombres:</label>
-                                        <input
-                                            type="text"
-                                            name="Nombre2"
-                                            data-existe-en-crm="true"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Apellido Paterno:</label>
-                                        <input
-                                            type="text"
-                                            name="ApellidoP2"
-                                            data-existe-en-crm="true"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Apellido Materno:</label>
-                                        <input
-                                            type="text"
-                                            name="Apellido_Materno_2"
-                                            data-existe-en-crm="true"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Fecha de Nacimiento:</label>
-                                        <input
-                                            type="date"
-                                            name="Fecha_Nacimiento2"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Lugar de Nacimiento:</label>
-                                        <input
-                                            type="text"
-                                            name="LUGAR_DE_NACIMIENTO_2"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Estado Civil:</label>
-                                        <input
-                                            type="text"
-                                            name="Estado_Civil_2"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Tel. Casa:</label>
-                                        <input
-                                            type="number"
-                                            name="Phone_2"
-                                            size="10"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Cel:</label>
-                                        <input
-                                            type="number"
-                                            name="Movil2"
-                                            size="10"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Correo Electronico:</label>
-                                        <input
-                                            id="email2"
-                                            type="email"
-                                            name="Correo2"
-                                            data-existe-en-crm="true"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- sub block direccion -->
-                            <div class="container-sub-block">
-                                <div class="title-block">
-                                    <span class="centrado"> Direccion </span>
-                                </div>
-                                <div class="block" data-contacto="true">
-                                    <span>
-                                        <label>Calle y No.</label>
-                                        <input type="text" name="Calle2" />
-                                    </span>
-                                    <span>
-                                        <label>Fracc. o Colonia:</label>
-                                        <input type="text" name="Colonia2" />
-                                    </span>
-                                    <span>
-                                        <label>Ciudad:</label>
-                                        <input type="text" name="Ciudad2" />
-                                    </span>
-                                    <span>
-                                        <label>CP:</label>
-                                        <input
-                                            type="text"
-                                            name="Zip_SegundoCliente"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- sub block datos empleo -->
-                            <div class="container-sub-block">
-                                <div class="title-block">
-                                    <span class="centrado">
-                                        Datos de la empresa
-                                    </span>
-                                </div>
-                                <div class="block" data-contacto="true">
-                                    <span>
-                                        <label>Empresa Donde Trabaja:</label>
-                                        <input type="text" name="Empresa2" />
-                                    </span>
-                                    <span>
-                                        <label>Puesto:</label>
-                                        <input type="text" name="Ocupacion2" />
-                                    </span>
-                                    <span>
-                                        <label>Ingreso Mensual:</label>
-                                        <input
-                                            type="number"
-                                            name="Ingreso_Mensual_Segundo_Cliente"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Tiempo:</label>
-                                        <input
-                                            type="text"
-                                            name="A_os_Laborados_2"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- referencias -->
-                        <div class="container-block" id="referencias">
-                            <!-- sub block Referencias Personales -->
-                            <div class="container-sub-block">
-                                <div class="title-block">
-                                    <span class="centrado">
-                                        Referencias Personales
-                                    </span>
-                                </div>
-                                <span class="Linea-Division"></span>
-                                <div class="block" data-contacto="true">
-                                    <span>
-                                        <label>Nombre:</label>
-                                        <input
-                                            type="text"
-                                            name="Referencia_1"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Parentesco:</label>
-                                        <input
-                                            type="text"
-                                            name="Parentesco_1"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Telefono:</label>
-                                        <input
-                                            type="number"
-                                            name="Tel_fono_1"
-                                            size="10"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Nombre:</label>
-                                        <input
-                                            type="text"
-                                            name="Referencia_2"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Parentesco:</label>
-                                        <input
-                                            type="text"
-                                            name="Parentesco_2"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Telefono:</label>
-                                        <input
-                                            type="number"
-                                            name="Tel_fono_2"
-                                            size="10"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- sub block Quien aporta los recursos ? -->
-                            <div class="container-sub-block">
-                                <div class="title-block">
-                                    <span class="centrado">
-                                        Quien aporta los recursos ?
-                                    </span>
-                                </div>
-                                <div class="block">
-                                    <span>
-                                        <label>Nombre(s):</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Full_Name"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Empresa Donde Trabaja:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Empresa_en_labora"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Ingreso Mensual:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="INGRESO_MENSUAL"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Dueño Controlador:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Full_Name"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Puesto:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Puesto"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Tiempo:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="A_os_Laborados"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- presupuesto -->
-                        <div class="container-block" id="presupuesto">
-                            <!-- sub block Presupuesto -->
-                            <div class="container-sub-block sub-block-big">
-                                <div class="title-block">
-                                    <span class="centrado"> Presupuesto </span>
-                                </div>
-                                <span class="Linea-Division"></span>
-                                <div class="block" data-presupuesto="true">
-                                    <span>
-                                        <label>Campaña:</label>
-                                        <input
-                                            type="text"
-                                            name="Campanya"
-                                            id="campaignValue"
-                                        />
-                                        <div class="container-serch">
-                                            <input
-                                                type="button"
-                                                class="btn-serch"
-                                                value="serch"
-                                                id="search-campaign"
-                                            />
-                                            <div
-                                                id="campaign-results"
-                                                class="search-result serch-medium"
-                                            ></div>
-                                        </div>
-                                    </span>
-                                    <span>
-                                        <label>Coordinador:</label>
-
-                                        <select
-                                            name="coordinador"
-                                            id="coordinadorValue"
-                                        >
-                                            <option value=""></option>
-                                        </select>
-                                    </span>
-                                    <span>
-                                        <label>Fraccionamiento:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Fraccionamiento_P"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Manzana:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Manzana"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Dimensiones:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="dimension"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Costo Total:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Costo_Total_P"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Enganche:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Enganche_P"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Pagos Mensuales:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Pago_Mensual_P"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Fecha Primer Mensualidad:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Primer_Mensualidad_P"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Localizacion:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Localizacion_P"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Lote:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Lote"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Costo por M2:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Costo_M2"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Pago Inicial:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Pago_Inicial_P"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Saldo a Pagar:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Saldo_Pagar_P"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Plazo:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Plazo_P"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- sub block RECIBO DE APARTADO -->
-                            <div class="check">
-                                <label for="hasApartado"
-                                    >Crear factura de apartado</label
-                                ><br />
-                                <input
-                                    type="checkbox"
-                                    id="hasApartado"
-                                    name="hasApartado"
-                                />
-                            </div>
-                            <div class="container-sub-block">
-                                <div class="tlte-block">
-                                    <p>RECIBO DE APARTADO</p>
-                                </div>
-                                <div class="block" data-presupuesto="true">
-                                    <span>
-                                        <label>Por La Cantidad De:</label>
-                                        <input type="text" name="Cantidad_RA" />
-                                    </span>
-                                    <span>
-                                        <label>Observaciones:</label>
-                                        <input
-                                            type="text"
-                                            name="Observaciones_RA"
-                                        />
-                                    </span>
-                                    <span>
-                                        <label>Cantidad Con Letra:</label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            name="Cantidad_Letra_RA"
-                                        />
-                                    </span>
-                                </div>
-                                <div class="title-block">
-                                    <span>
-                                        <input
-                                            disabled
-                                            id="btn-submit"
-                                            type="submit"
-                                            value="enviar"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- </form> -->
-                </div>
-            </div>
+  <body>
+    <div class="container">
+      <!-- Menu -->
+      <div class="menu">
+        <div class="btn-menu">
+          <span></span>
         </div>
-    </body>
+        <!-- User -->
+        <div id="user" class="user">
+          <div class="img_user"></div>
+          <div class="name_user"></div>
+        </div>
+        <!-- constact -->
+        <div id="contact" class="contact"></div>
+        <!-- search  -->
+        <div class="search">
+          <input type="text" id="search-value" placeholder="Name ..." />
+          <input type="button" id="search-contact" value="search" />
+          <div id="contact-results" class="search-result"></div>
+        </div>
+      </div>
+      <!-- Menu Lateral -->
+      <div data-menu="menu" id="menu-lateral" class="menu-lateral"></div>
+      <!-- Container map -->
+      <div class="container-map">
+        <div id="map" class="map">
+            <div class="loader" id="loader-mapa">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+          <svg
+            data-desarrollo=""
+            width="100%"
+            height="100%"
+            viewBox="0 0 4000 3527"
+            id="svg-map"
+          >
+            <defs>
+              <filter id="filter" filterUnits="userSpaceOnUse">
+                <feComposite
+                  result="composite"
+                  operator="in"
+                  in2="SourceGraphic"
+                />
+                <feBlend result="blend" in2="SourceGraphic" />
+              </filter>
+            </defs>
+            <g class="cls-0" id="maps" pointer-events="all"></g>
+            <g class="cls-0" id="details"></g>
+          </svg>
+        </div>
+        <div id="info-lote"></div>
+        <div class="zoom-panel">
+          <div class="zoom" id="zoom-in">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <div class="zoom" id="zoom-out">
+            <i class="fa-solid fa-minus"></i>
+          </div>
+          <div class="zoom" id="zoom-reset">
+            <i class="fa-solid fa-arrows-rotate"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div id="container-modal" class="container-modal">
+        <!-- Menu Modal -->
+        <div class="menu-form">
+          <div class="btn-menu-modal-active"></div>
+          <div class="btn-menu-modal tab active" data-tab-target="#titular1">
+            <a href="#titular-1">Titular 1</a>
+          </div>
+          <div class="btn-menu-modal tab" data-tab-target="#titular2">
+            <a href="#titular-2">Titular 2</a>
+          </div>
+          <div class="btn-menu-modal tab" data-tab-target="#referencias">
+            <a href="#referencias">Referencias</a>
+          </div>
+          <div class="btn-menu-modal tab" data-tab-target="#prespuesto">
+            <a href="#presupuesto">Presupuesto</a>
+          </div>
+        </div>
+        <!-- Form -->
+        <div id="modal" class="modal">
+          <div class="container-blocks">
+            <!-- titular-1 -->
+            <div class="container-block" id="titular-1">
+              <!-- sub block Datos Personales Titular I -->
+              <div class="container-sub-block sub-block-medium">
+                <div class="title-block">
+                  <span class="centrado"> Datos Personales Titular I </span>
+                </div>
+                <span class="Linea-Division"></span>
+                <div class="block" data-contacto="true">
+                  <span>
+                    <label>Nombres:</label>
+                    <input
+                      type="text"
+                      name="First_Name"
+                      data-existe-en-crm="true"
+                    />
+                  </span>
+                  <span>
+                    <label>Apellido Paterno:</label>
+                    <input
+                      type="text"
+                      name="Apellido_Paterno"
+                      data-existe-en-crm="true"
+                    />
+                  </span>
+                  <span>
+                    <label>Apellido Materno:</label>
+                    <input
+                      type="text"
+                      name="Apellido_Materno"
+                      data-existe-en-crm="true"
+                    />
+                  </span>
+                  <span>
+                    <label>Fecha de Nacimiento:</label>
+                    <input type="date" name="Date_of_Birth" />
+                  </span>
+                  <span>
+                    <label>Lugar de Nacimiento:</label>
+                    <input type="text" name="Lugar_de_nacimiento" />
+                  </span>
+                  <span>
+                    <label>Estado Civil:</label>
+                    <select name="Estado_Civil">
+                      <option value="Casado(a)">Casado(a)</option>
+                      <option value="Conviviente">Conviviente</option>
+                      <option value="Anulado(a)">Anulado(a)</option>
+                      <option value="Separado(a)">Separado(a)</option>
+                      <option value="Viudo(a)">Viudo(a)</option>
+                      <option value="Soltero(a)">Soltero(a)</option>
+                    </select>
+                  </span>
+                  <span>
+                    <label>Tel. Casa:</label>
+                    <input type="number" name="Phone" size="10" />
+                  </span>
+                  <span>
+                    <label>Cel:</label>
+                    <input type="number" name="Mobile" size="10" />
+                  </span>
+                  <span>
+                    <label>Correo Electronico:</label>
+                    <input
+                      id="email"
+                      type="email"
+                      name="Email"
+                      data-email="required"
+                      data-existe-en-crm="true"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- sub block direccion -->
+              <div class="container-sub-block">
+                <div class="title-block">
+                  <span class="centrado"> Direccion </span>
+                </div>
+                <div class="block" data-contacto="true">
+                  <span>
+                    <label>Calle y No.</label>
+                    <input type="text" name="calle" />
+                  </span>
+                  <span>
+                    <label>Fracc. o Colonia:</label>
+                    <input type="text" name="Colonia" />
+                  </span>
+                  <span>
+                    <label>Ciudad:</label>
+                    <input type="text" name="Mailing_City" />
+                  </span>
+                  <span>
+                    <label>CP:</label>
+                    <input type="text" name="Mailing_Zip" />
+                  </span>
+                </div>
+              </div>
+              <!-- sub block datos empleo -->
+              <div class="container-sub-block">
+                <div class="title-block">
+                  <span class="centrado"> Datos de la empresa </span>
+                </div>
+                <div class="block" data-contacto="true">
+                  <span>
+                    <label>Empresa Donde Trabaja:</label>
+                    <input type="text" name="Empresa_en_labora" />
+                  </span>
+                  <span>
+                    <label>Puesto:</label>
+                    <input type="text" name="Ocupacion" />
+                  </span>
+                  <span>
+                    <label>Ingreso Mensual:</label>
+                    <input type="number" name="INGRESO_MENSUAL" />
+                  </span>
+                  <span>
+                    <label>Tiempo:</label>
+                    <input type="text" name="A_os_Laborados" />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- titular-2 -->
+            <div class="container-block" id="titular-2">
+              <!-- sub block Datos Personales Titular II -->
+              <div class="container-sub-block sub-block-medium">
+                <div class="title-block">
+                  <span class="centrado"> Datos Personales Titular II </span>
+                </div>
+                <span class="Linea-Division"></span>
+                <div class="block" data-contacto="true">
+                  <span>
+                    <label>Nombres:</label>
+                    <input
+                      type="text"
+                      name="Nombre2"
+                      data-existe-en-crm="true"
+                    />
+                  </span>
+                  <span>
+                    <label>Apellido Paterno:</label>
+                    <input
+                      type="text"
+                      name="ApellidoP2"
+                      data-existe-en-crm="true"
+                    />
+                  </span>
+                  <span>
+                    <label>Apellido Materno:</label>
+                    <input
+                      type="text"
+                      name="Apellido_Materno_2"
+                      data-existe-en-crm="true"
+                    />
+                  </span>
+                  <span>
+                    <label>Fecha de Nacimiento:</label>
+                    <input type="date" name="Fecha_Nacimiento2" />
+                  </span>
+                  <span>
+                    <label>Lugar de Nacimiento:</label>
+                    <input type="text" name="LUGAR_DE_NACIMIENTO_2" />
+                  </span>
+                  <span>
+                    <label>Estado Civil:</label>
+                    <select name="Estado_Civil_2">
+                      <option value="Casado(a)">Casado(a)</option>
+                      <option value="Conviviente">Conviviente</option>
+                      <option value="Anilado(a)">Anilado(a)</option>
+                      <option value="Separado(a)">Separado(a)</option>
+                      <option value="Viudo(a)">Viudo(a)</option>
+                      <option value="Soltero(a)">Soltero(a)</option>
+                    </select>
+                  </span>
+                  <span>
+                    <label>Tel. Casa:</label>
+                    <input type="number" name="Phone_2" size="10" />
+                  </span>
+                  <span>
+                    <label>Cel:</label>
+                    <input type="number" name="Movil2" size="10" />
+                  </span>
+                  <span>
+                    <label>Correo Electronico:</label>
+                    <input
+                      id="email2"
+                      type="email"
+                      name="Correo2"
+                      data-existe-en-crm="true"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- sub block direccion -->
+              <div class="container-sub-block">
+                <div class="title-block">
+                  <span class="centrado"> Direccion </span>
+                </div>
+                <div class="block" data-contacto="true">
+                  <span>
+                    <label>Calle y No.</label>
+                    <input type="text" name="Calle2" />
+                  </span>
+                  <span>
+                    <label>Fracc. o Colonia:</label>
+                    <input type="text" name="Colonia2" />
+                  </span>
+                  <span>
+                    <label>Ciudad:</label>
+                    <input type="text" name="Ciudad2" />
+                  </span>
+                  <span>
+                    <label>CP:</label>
+                    <input type="text" name="Zip_SegundoCliente" />
+                  </span>
+                </div>
+              </div>
+
+              <!-- sub block datos empleo -->
+              <div class="container-sub-block">
+                <div class="title-block">
+                  <span class="centrado"> Datos de la empresa </span>
+                </div>
+                <div class="block" data-contacto="true">
+                  <span>
+                    <label>Empresa Donde Trabaja:</label>
+                    <input type="text" name="Empresa2" />
+                  </span>
+                  <span>
+                    <label>Puesto:</label>
+                    <input type="text" name="Ocupacion2" />
+                  </span>
+                  <span>
+                    <label>Ingreso Mensual:</label>
+                    <input
+                      type="number"
+                      name="Ingreso_Mensual_Segundo_Cliente"
+                    />
+                  </span>
+                  <span>
+                    <label>Tiempo:</label>
+                    <input type="text" name="A_os_Laborados_2" />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- referencias -->
+            <div class="container-block" id="referencias">
+              <!-- sub block Referencias Personales -->
+              <div class="container-sub-block">
+                <div class="title-block">
+                  <span class="centrado"> Referencias Personales </span>
+                </div>
+                <span class="Linea-Division"></span>
+                <div class="block" data-contacto="true">
+                  <span>
+                    <label>Nombre:</label>
+                    <input type="text" name="Referencia_1" />
+                  </span>
+                  <span>
+                    <label>Parentesco:</label>
+                    <input type="text" name="Parentesco_1" />
+                  </span>
+                  <span>
+                    <label>Telefono:</label>
+                    <input type="number" name="Tel_fono_1" size="10" />
+                  </span>
+                  <span>
+                    <label>Nombre:</label>
+                    <input type="text" name="Referencia_2" />
+                  </span>
+                  <span>
+                    <label>Parentesco:</label>
+                    <input type="text" name="Parentesco_2" />
+                  </span>
+                  <span>
+                    <label>Telefono:</label>
+                    <input type="number" name="Tel_fono_2" size="10" />
+                  </span>
+                </div>
+              </div>
+              <!-- sub block Quien aporta los recursos ? -->
+              <div class="container-sub-block">
+                <div class="title-block">
+                  <span class="centrado"> Quien aporta los recursos ? </span>
+                </div>
+                <div class="block" data-recursos>
+                  <span>
+                    <label>Nombre(s):</label>
+                    <input disabled type="text" name="Full_Name" />
+                  </span>
+                  <span>
+                    <label>Empresa Donde Trabaja:</label>
+                    <input disabled type="text" name="Empresa_en_labora" />
+                  </span>
+                  <span>
+                    <label>Ingreso Mensual:</label>
+                    <input disabled type="text" name="INGRESO_MENSUAL" />
+                  </span>
+                  <span>
+                    <label>Dueño Controlador:</label>
+                    <input disabled type="text" name="Full_Name" />
+                  </span>
+                  <span>
+                    <label>Puesto:</label>
+                    <input disabled type="text" name="Puesto" />
+                  </span>
+                  <span>
+                    <label>Tiempo:</label>
+                    <input disabled type="text" name="A_os_Laborados" />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- presupuesto -->
+            <div class="container-block" id="presupuesto">
+              <!-- sub block Presupuesto -->
+              <div class="container-sub-block sub-block-big">
+                <div class="title-block">
+                  <span class="centrado"> Presupuesto </span>
+                </div>
+                <span class="Linea-Division"></span>
+                <div class="block" data-presupuesto="true">
+                  <span>
+                    <label>Campaña:</label>
+                    <input type="text" name="Campanya" id="campaignValue" />
+                    <div class="container-serch">
+                      <input
+                        type="button"
+                        class="btn-serch"
+                        value="serch"
+                        id="search-campaign"
+                      />
+                      <div
+                        id="campaign-results"
+                        class="search-result serch-medium"
+                      ></div>
+                    </div>
+                  </span>
+                  <span>
+                    <label>Coordinador:</label>
+
+                    <select name="coordinador" id="coordinadorValue">
+                      <option value=""></option>
+                    </select>
+                  </span>
+                  <span>
+                    <label>Fraccionamiento:</label>
+                    <input disabled type="text" name="Fraccionamiento_P" />
+                  </span>
+                  <span>
+                    <label>Manzana:</label>
+                    <input disabled type="text" name="Manzana" />
+                  </span>
+                  <span>
+                    <label>Dimensiones:</label>
+                    <input disabled type="text" name="dimension" />
+                  </span>
+                  <span>
+                    <label>Costo Total:</label>
+                    <input disabled type="text" name="Costo_Total_P" />
+                  </span>
+                  <span>
+                    <label>Enganche:</label>
+                    <input disabled type="text" name="Enganche_P" />
+                  </span>
+                  <span>
+                    <label>Pagos Mensuales:</label>
+                    <input disabled type="text" name="Pago_Mensual_P" />
+                  </span>
+                  <span>
+                    <label>Fecha Primer Mensualidad:</label>
+                    <input disabled type="text" name="Primer_Mensualidad_P" />
+                  </span>
+                  <span>
+                    <label>Localizacion:</label>
+                    <input disabled type="text" name="Localizacion_P" />
+                  </span>
+                  <span>
+                    <label>Lote:</label>
+                    <input disabled type="text" name="Lote" />
+                  </span>
+                  <span>
+                    <label>Costo por M2:</label>
+                    <input disabled type="text" name="Costo_M2" />
+                  </span>
+                  <span>
+                    <label>Pago Inicial:</label>
+                    <input disabled type="text" name="Pago_Inicial_P" />
+                  </span>
+                  <span>
+                    <label>Saldo a Pagar:</label>
+                    <input disabled type="text" name="Saldo_Pagar_P" />
+                  </span>
+                  <span>
+                    <label>Plazo:</label>
+                    <input disabled type="text" name="Plazo_P" />
+                  </span>
+                </div>
+              </div>
+              <!-- sub block RECIBO DE APARTADO -->
+              <div class="check">
+                <label for="hasApartado">Crear factura de apartado</label><br />
+                <input type="checkbox" id="hasApartado" name="hasApartado" />
+              </div>
+              <div class="container-sub-block">
+                <div class="tlte-block">
+                  <p>RECIBO DE APARTADO</p>
+                </div>
+                <div class="block" data-presupuesto="true">
+                  <span>
+                    <label>Por La Cantidad De:</label>
+                    <input type="text" name="Cantidad_RA" />
+                  </span>
+                  <span>
+                    <label>Observaciones:</label>
+                    <input type="text" name="Observaciones_RA" />
+                  </span>
+                  <span>
+                    <label>Cantidad Con Letra:</label>
+                    <input disabled type="text" name="Cantidad_Letra_RA" />
+                  </span>
+                </div>
+                <div class="title-block">
+                  <span>
+                    <input
+                      disabled
+                      id="btn-submit"
+                      type="submit"
+                      value="enviar"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
