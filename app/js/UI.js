@@ -76,7 +76,7 @@ const UI = {
                 frac.classList = 'fracionamiento'
                 frac.innerHTML = `
                                 <div class="nombre-desarrollo">${i.Name}</div>
-                                <div class="container-img"><img src="${i.logo}" alt=""></div>
+                                <div class="container-img"><img src="${i.logo}" alt="" loading="lazy"></div>
                         `
                 menu.appendChild(frac)
             })
@@ -101,6 +101,7 @@ const UI = {
                     beforeManzana = ''
 
                     this.loadPlano(name, e.target.dataset.id)
+                
                 }
             })
         } else {
