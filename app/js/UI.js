@@ -83,6 +83,8 @@ const UI = {
 
             menu.addEventListener('click', async (e) => {
                 if (e.target.matches('[data-index]')) {
+                    let loader = document.getElementById('loader-mapa')
+                    loader.style.display = 'flex'
                     let name = e.target.dataset.name.toLowerCase()
                     console.log('Desarrollo', name)
                     const nameSvg = name.replaceAll(' ', '-')
@@ -101,7 +103,7 @@ const UI = {
                     beforeManzana = ''
 
                     this.loadPlano(name, e.target.dataset.id)
-                
+                    loader.style.display = 'none'
                 }
             })
         } else {
