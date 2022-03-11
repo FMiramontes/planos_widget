@@ -165,13 +165,21 @@ containerModal.addEventListener('click', (e) => {
 let Iconmenu = document.querySelector('.btn-menu')
 let menu = document.querySelector('#menu-lateral')
 let btnMenuSpan = document.querySelector('.btn-menu span')
+let menuFraccionamiento = document.querySelectorAll('.fracionamiento')
+
+
 // let close = document.getElementById('close')
 
 Iconmenu.addEventListener('click', () => {
-  /*Abrir menu*/
-  menu.classList.toggle('open')
-  btnMenuSpan.classList.toggle('active')
+    /*Abrir menu*/
+    cerrarMenu()
 })
+
+function cerrarMenu(){
+    menu.classList.toggle('open')
+    btnMenuSpan.classList.toggle('active')
+}
+menuFraccionamiento.forEach(div => div.addEventListener('click',cerrarMenu))
 
 // tabs Modal
 const tabs = document.querySelectorAll('[data-tab-target]')

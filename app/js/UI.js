@@ -77,16 +77,19 @@ const UI = {
         frac.classList = 'fracionamiento'
         frac.innerHTML = `
                                 <div class="nombre-desarrollo">${i.Name}</div>
-                                <div class="container-img"><img src="${i.logo}" alt=""></div>
+                                <div class="container-img"><img src="${i.logo}" alt="" loading="lazy"></div>
                         `
         menu.appendChild(frac)
       })
 
-      menu.addEventListener('click', async (e) => {
-        if (e.target.matches('[data-index]')) {
-          let name = e.target.dataset.name.toLowerCase()
-          console.log('Desarrollo', name)
-          const nameSvg = name.replaceAll(' ', '-')
+
+            menu.addEventListener('click', async (e) => {
+                if (e.target.matches('[data-index]')) {
+                    let loader = document.getElementById('loader-mapa')
+                    loader.style.display = 'flex'
+                    let name = e.target.dataset.name.toLowerCase()
+                    console.log('Desarrollo', name)
+                    const nameSvg = name.replaceAll(' ', '-')
 
           let tempDesartollo = await fetch(
             `./desarrollos-js/${nameSvg}/${nameSvg}.json`
@@ -99,17 +102,18 @@ const UI = {
 
           beforeManzana = ''
 
-          this.loadPlano(name, e.target.dataset.id)
-        }
-      })
-    } else {
-      if (data.type == 'warning')
-        alerts.showAlert('warning', 'No hay fraccionamientos Activos.')
-      if (data.type == 'danger')
-        alerts.showAlert(
-          'danger',
-          'Error al cargar fraccionamientos, contactar con sistemas o recargar la página .'
-        )
+                    this.loadPlano(name, e.target.dataset.id)
+                    loader.style.display = 'none'
+                }
+            })
+        } else {
+            if (data.type == 'warning')
+                alerts.showAlert('warning', 'No hay fraccionamientos Activos.')
+            if (data.type == 'danger')
+                alerts.showAlert(
+                    'danger',
+                    'Error al cargar fraccionamientos, contactar con sistemas o recargar la página .'
+                )
     }
   },
   async loadPlano(name, id) {
