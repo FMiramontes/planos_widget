@@ -86,10 +86,13 @@ document.getElementById('btn-submit').addEventListener('click', (e) => {
 
   const user = document.getElementById('contact')
 
-  //usuario existente
+  //Comprobar datos de formulario
   if (user.textContent != '') {
     UI.validate(CRMData, newData)
   } else {
+    //Comprobar datos de formulario y campanya seleccionada
+
+    console.log(valid.validateForm())
     if (valid.validateForm()) {
       UI.validate(CRMData, newData)
     } else {
@@ -144,6 +147,8 @@ document.addEventListener('dblclick', (e) => {
 modal.addEventListener('change', (e) => {
   if (e.target.matches('[data-email]')) {
     valid.validateEmail(e.target.value, e.target.dataset.email)
+  }else if(e.target.matches('[data-aporta-recursos]')){
+    valid.validateRecursos()
   }
 })
 
