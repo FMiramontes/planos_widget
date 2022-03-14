@@ -70,16 +70,19 @@
 /* **************************************** */
 
 .fracionamiento {
-    border: 2px solid black;
-    height: 15vh;
-    width: 90%;
+    
+    height: 130px;
+    width: 230px;
     border-radius: 1vh;
+    
     margin-bottom: 6vh;
     z-index: 1;
-    background-color: transparent;
+    background-color: white;
     cursor: pointer;
-    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
-        0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 5px 0 rgba(163, 163, 163, 0.18),
+        0 1px 10px 0 rgba(163, 163, 163, 0.18), 0 3px 5px -1px rgba(163, 163, 163, 0.18);
+    
+    
 }
 .nombre-desarrollo {
     /* height: 10%; */
@@ -92,19 +95,26 @@
 }
 .container-img {
     height: 100%;
+    width: 100%;
+    
     z-index: 0;
     background-color: #fff;
-    border-radius: 0 0 1vh 1vh;
-    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
-        0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    border-radius: 1vh;
+    box-shadow: 0 0.5px 1px 0 rgba(251, 251, 251, 0.904),
+        0 0.5px 1px 0 rgba(251, 251, 251, 0.904), 0 0.5px 1px -1px rgba(251, 251, 251, 904);
 
     pointer-events: none;
+   
+    display: flex;
+    justify-content: center;
 }
 .container-img img {
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+    width: auto;
+    height: auto;
+    padding: 15px;
     pointer-events: none;
+    object-fit: contain;
+    image-rendering: pixelated;
 }
 .map {
     background-color: #d3cfcf;
@@ -113,6 +123,7 @@
 .menu-lateral.open {
     transform: translate(0, 0);
 }
+
 #close {
     display: none;
 }

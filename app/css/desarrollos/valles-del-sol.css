@@ -1,0 +1,44 @@
+.cls-1 {
+    fill: #254d65;
+}
+.cls-1,
+.cls-2,
+.cls-3 {
+    stroke: #306382;
+    stroke-miterlimit: 10;
+    stroke-width: 2px;
+}
+.cls-2 {
+    fill: #254d65;
+}
+.cls-3 {
+    fill: #81b2c1;
+}
+.cls-4 {
+    fill: #c9d190;
+}
+.cls-5 {
+    fill: #b3b55d;
+}
+.cls-6 {
+    fill: #cec5bc;
+    opacity: 0.67;
+}
+.cls-7 {
+    isolation: isolate;
+}
+.cls-8 {
+    fill: #f0903f;
+}
+.cls-10,
+.cls-9 {
+    fill: #f9f0ed;
+}
+.cls-9 {
+    fill-rule: evenodd;
+}
+
+
+[data-manzana]:hover{
+    fill: #226188;
+}
