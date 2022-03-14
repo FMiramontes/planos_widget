@@ -1,0 +1,30 @@
+.cls-1 {
+    fill: #dcbd72;
+  }
+  .cls-1,
+  .cls-2,
+  .cls-3 {
+    stroke: #cc9f34;
+    stroke-miterlimit: 10;
+  }
+  .cls-2 {
+    fill: #c7a350; 
+  }
+  .cls-3 {
+    fill: #efd59a;
+  }
+  .cls-4 {
+    isolation: isolate;
+  }
+  .cls-5 {
+    fill: #c9d190;
+  }
+  .cls-6 {
+    fill: #4c4c4c;
+  }
+  .cls-7 {
+    fill: #fff;
+  }
+  [data-manzana]:hover{
+    fill: #e5b052
+}
