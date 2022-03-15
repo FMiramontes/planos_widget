@@ -122,6 +122,7 @@
                       type="text"
                       name="First_Name"
                       data-existe-en-crm="true"
+                      data-aporta-recursos
                     />
                   </span>
                   <span>
@@ -130,6 +131,7 @@
                       type="text"
                       name="Apellido_Paterno"
                       data-existe-en-crm="true"
+                      data-aporta-recursos
                     />
                   </span>
                   <span>
@@ -138,6 +140,7 @@
                       type="text"
                       name="Apellido_Materno"
                       data-existe-en-crm="true"
+                      data-aporta-recursos
                     />
                   </span>
                   <span>
@@ -211,19 +214,19 @@
                 <div class="block" data-contacto="true">
                   <span>
                     <label>Empresa Donde Trabaja:</label>
-                    <input type="text" name="Empresa_en_labora" />
+                    <input type="text" name="Empresa_en_labora" data-aporta-recursos />
                   </span>
                   <span>
                     <label>Puesto:</label>
-                    <input type="text" name="Ocupacion" />
+                    <input type="text" name="Ocupacion" data-aporta-recursos />
                   </span>
                   <span>
                     <label>Ingreso Mensual:</label>
-                    <input type="number" name="INGRESO_MENSUAL" />
+                    <input type="number" name="INGRESO_MENSUAL" data-aporta-recursos />
                   </span>
                   <span>
                     <label>Tiempo:</label>
-                    <input type="text" name="A_os_Laborados" />
+                    <input type="text" name="A_os_Laborados" data-aporta-recursos />
                   </span>
                 </div>
               </div>
@@ -395,27 +398,27 @@
                 <div class="block" data-recursos>
                   <span>
                     <label>Nombre(s):</label>
-                    <input disabled type="text" name="Full_Name" />
+                    <input disabled type="text" id="nombre_completo" name="Full_Name" data-copy="name" />
                   </span>
                   <span>
                     <label>Empresa Donde Trabaja:</label>
-                    <input disabled type="text" name="Empresa_en_labora" />
+                    <input disabled type="text" name="Empresa_en_labora" data-copy="Empresa_en_labora" />
                   </span>
                   <span>
                     <label>Ingreso Mensual:</label>
-                    <input disabled type="text" name="INGRESO_MENSUAL" />
+                    <input disabled type="text" name="INGRESO_MENSUAL" data-copy="INGRESO_MENSUAL"/>
                   </span>
                   <span>
                     <label>Dueño Controlador:</label>
-                    <input disabled type="text" name="Full_Name" />
+                    <input disabled type="text" id="dueno_controlador" name="Full_Name" data-copy="name"/>
                   </span>
                   <span>
                     <label>Puesto:</label>
-                    <input disabled type="text" name="Puesto" />
+                    <input disabled type="text" name="Puesto" data-copy="Ocupacion"/>
                   </span>
                   <span>
                     <label>Tiempo:</label>
-                    <input disabled type="text" name="A_os_Laborados" />
+                    <input disabled type="text" name="A_os_Laborados" data-copy="A_os_Laborados"/>
                   </span>
                 </div>
               </div>
