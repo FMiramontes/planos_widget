@@ -6,6 +6,8 @@ import './zoom.js'
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
 const searchCoordinadorBtn = document.querySelector('#search-coordinador')
+const switchSearch = document.querySelector('#switch-search')
+const searchLabel = document.querySelector('.module-switch label')
 const modal = document.getElementById('modal')
 
 let CRMData = {},
@@ -29,7 +31,17 @@ ZOHO.embeddedApp.init().then(function () {
 })
 
 searchContactBtn.addEventListener('click', () => {
-  UI.searchContact()
+  UI.searchCustomer()
+})
+
+switchSearch.addEventListener('change', () => {
+  if (switchSearch.checked) {
+    searchLabel.dataset.modulesearch = 'Leads'
+    searchLabel.textContent = 'Leads'
+  } else {
+    searchLabel.dataset.modulesearch = 'Contacts'
+    searchLabel.textContent = 'Contacts'
+  }
 })
 
 searchCampaigntBtn.addEventListener('click', () => {
@@ -63,8 +75,16 @@ document.addEventListener('click', (e) => {
 // # Assign contact to #contact element
 document.addEventListener('click', (e) => {
   if (e.target.matches('[data-record]')) {
-    UI.selectContact(e.target)
-    UI.cleanForm()
+    const modulo = searchLabel.dataset.modulesearch
+    if (modulo !== undefined) {
+      if (modulo === 'Contacts') {
+        UI.selectContact(e.target)
+        UI.cleanForm()
+      } else {
+        UI.selectLead(e.target)
+        UI.cleanForm()
+      }
+    }
   }
 
   if (e.target.dataset.module == 'campaign') {
@@ -84,20 +104,10 @@ document.addEventListener('click', (e) => {
 document.getElementById('btn-submit').addEventListener('click', (e) => {
   const newData = UI.getDataForm()
 
-  const user = document.getElementById('contact')
-
-  //Comprobar datos de formulario
-  if (user.textContent != '') {
+  if (valid.validateForm()) {
     UI.validate(CRMData, newData)
   } else {
-    //Comprobar datos de formulario y campanya seleccionada
-
-    console.log(valid.validateForm())
-    if (valid.validateForm()) {
-      UI.validate(CRMData, newData)
-    } else {
-      alert('Informacion Incompleta')
-    }
+    alert('Informacion Incompleta')
   }
 })
 
@@ -147,7 +157,7 @@ document.addEventListener('dblclick', (e) => {
 modal.addEventListener('change', (e) => {
   if (e.target.matches('[data-email]')) {
     valid.validateEmail(e.target.value, e.target.dataset.email)
-  }else if(e.target.matches('[data-aporta-recursos]')){
+  } else if (e.target.matches('[data-aporta-recursos]')) {
     valid.validateRecursos()
   }
 })
@@ -172,19 +182,18 @@ let menu = document.querySelector('#menu-lateral')
 let btnMenuSpan = document.querySelector('.btn-menu span')
 let menuFraccionamiento = document.querySelectorAll('.fracionamiento')
 
-
 // let close = document.getElementById('close')
 
 Iconmenu.addEventListener('click', () => {
-    /*Abrir menu*/
-    cerrarMenu()
+  /*Abrir menu*/
+  cerrarMenu()
 })
 
-function cerrarMenu(){
-    menu.classList.toggle('open')
-    btnMenuSpan.classList.toggle('active')
+function cerrarMenu() {
+  menu.classList.toggle('open')
+  btnMenuSpan.classList.toggle('active')
 }
-menuFraccionamiento.forEach(div => div.addEventListener('click',cerrarMenu))
+menuFraccionamiento.forEach((div) => div.addEventListener('click', cerrarMenu))
 
 // tabs Modal
 const tabs = document.querySelectorAll('[data-tab-target]')

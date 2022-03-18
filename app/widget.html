@@ -36,6 +36,12 @@
         <div id="contact" class="contact"></div>
         <!-- search  -->
         <div class="search">
+          <div class="module-switch">
+            <label for="switch-search" data-modulesearch="Contacts"
+              >Contacts</label
+            >
+            <input type="checkbox" name="switch-search" id="switch-search" />
+          </div>
           <input type="text" id="search-value" placeholder="Name ..." />
           <input type="button" id="search-contact" value="search" />
           <div id="contact-results" class="search-result"></div>
@@ -46,12 +52,12 @@
       <!-- Container map -->
       <div class="container-map">
         <div id="map" class="map">
-            <div class="loader" id="loader-mapa">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
+          <div class="loader" id="loader-mapa">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
           <svg
             data-desarrollo=""
             width="100%"
@@ -214,7 +220,11 @@
                 <div class="block" data-contacto="true">
                   <span>
                     <label>Empresa Donde Trabaja:</label>
-                    <input type="text" name="Empresa_en_labora" data-aporta-recursos />
+                    <input
+                      type="text"
+                      name="Empresa_en_labora"
+                      data-aporta-recursos
+                    />
                   </span>
                   <span>
                     <label>Puesto:</label>
@@ -222,11 +232,19 @@
                   </span>
                   <span>
                     <label>Ingreso Mensual:</label>
-                    <input type="number" name="INGRESO_MENSUAL" data-aporta-recursos />
+                    <input
+                      type="number"
+                      name="INGRESO_MENSUAL"
+                      data-aporta-recursos
+                    />
                   </span>
                   <span>
                     <label>Tiempo:</label>
-                    <input type="text" name="A_os_Laborados" data-aporta-recursos />
+                    <input
+                      type="text"
+                      name="A_os_Laborados"
+                      data-aporta-recursos
+                    />
                   </span>
                 </div>
               </div>
@@ -398,27 +416,59 @@
                 <div class="block" data-recursos>
                   <span>
                     <label>Nombre(s):</label>
-                    <input disabled type="text" id="nombre_completo" name="Full_Name" data-copy="name" />
+                    <input
+                      disabled
+                      type="text"
+                      id="nombre_completo"
+                      name="Full_Name"
+                      data-copy="name"
+                    />
                   </span>
                   <span>
                     <label>Empresa Donde Trabaja:</label>
-                    <input disabled type="text" name="Empresa_en_labora" data-copy="Empresa_en_labora" />
+                    <input
+                      disabled
+                      type="text"
+                      name="Empresa_en_labora"
+                      data-copy="Empresa_en_labora"
+                    />
                   </span>
                   <span>
                     <label>Ingreso Mensual:</label>
-                    <input disabled type="text" name="INGRESO_MENSUAL" data-copy="INGRESO_MENSUAL"/>
+                    <input
+                      disabled
+                      type="text"
+                      name="INGRESO_MENSUAL"
+                      data-copy="INGRESO_MENSUAL"
+                    />
                   </span>
                   <span>
                     <label>Dueño Controlador:</label>
-                    <input disabled type="text" id="dueno_controlador" name="Full_Name" data-copy="name"/>
+                    <input
+                      disabled
+                      type="text"
+                      id="dueno_controlador"
+                      name="Full_Name"
+                      data-copy="name"
+                    />
                   </span>
                   <span>
                     <label>Puesto:</label>
-                    <input disabled type="text" name="Puesto" data-copy="Ocupacion"/>
+                    <input
+                      disabled
+                      type="text"
+                      name="Puesto"
+                      data-copy="Ocupacion"
+                    />
                   </span>
                   <span>
                     <label>Tiempo:</label>
-                    <input disabled type="text" name="A_os_Laborados" data-copy="A_os_Laborados"/>
+                    <input
+                      disabled
+                      type="text"
+                      name="A_os_Laborados"
+                      data-copy="A_os_Laborados"
+                    />
                   </span>
                 </div>
               </div>
@@ -534,12 +584,7 @@
                 </div>
                 <div class="title-block">
                   <span>
-                    <input
-                      disabled
-                      id="btn-submit"
-                      type="submit"
-                      value="enviar"
-                    />
+                    <input id="btn-submit" type="submit" value="enviar" />
                   </span>
                 </div>
               </div>

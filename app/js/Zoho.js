@@ -105,13 +105,13 @@ const crm = {
       }
     }
   },
-  async searchContact(searchValue) {
+  async searchContact(searchValue, modulo) {
     try {
       const criteria = searchValue.includes('@') ? 'equals' : 'starts_with'
       const api_name = searchValue.includes('@') ? 'Email' : 'Full_Name'
 
       const request = await ZOHO.CRM.API.searchRecord({
-        Entity: 'Contacts',
+        Entity: modulo,
         Type: 'criteria',
         Query: `(${api_name}:${criteria}:${searchValue})`,
       })
@@ -278,9 +278,48 @@ const crm = {
       }
     }
   },
-  async UpdateContact(data) {
+  async UpdateContact(data, contactId) {
     console.log('Updating contact...')
     console.log(data)
+    let dataContacto = data.contacto
+
+    var updateCRM = {
+      Entity: 'Contacts',
+      APIData: {
+        id: contactId,
+        ...dataContacto,
+      },
+      Trigger: [],
+    }
+
+    try {
+      const updateRequest = await ZOHO.CRM.API.updateRecord(updateCRM)
+
+      const request = updateRequest[0]
+      if (request.code !== 'SUCCESS') {
+        return {
+          code: 400,
+          ok: false,
+          data: null,
+          type: 'warning',
+          message: request.status,
+        }
+      }
+
+      return {
+        code: 200,
+        ok: true,
+        data: request.details,
+        type: 'success',
+      }
+    } catch (error) {
+      return {
+        code: 500,
+        ok: false,
+        type: 'danger',
+        message: error.message,
+      }
+    }
   },
   async CreateContact(data, accountId) {
     console.log('Creating contact...')
@@ -411,7 +450,7 @@ const crm = {
         Trigger: [],
       })
 
-      console.log('create contact: ', request)
+      console.log('Create Deal: ', request)
       if (request.data[0].code !== 'SUCCESS') {
         return {
           code: request.data[0].status,
@@ -503,6 +542,43 @@ const crm = {
         code: 201,
         ok: true,
         data: request.data[0],
+        type: 'success',
+      }
+    } catch (error) {
+      return {
+        code: 500,
+        ok: false,
+        type: 'danger',
+        message: error.message,
+      }
+    }
+  },
+  async convertToContact(leadId, userId) {
+    // CRM function
+    // const connectionName = 'moduloscrm'
+    const functionName = 'convertLead'
+    try {
+      const request = await ZOHO.CRM.FUNCTIONS.execute(functionName, {
+        arguments: JSON.stringify({
+          leadId,
+          userId,
+        }),
+      })
+      console.log('zoho: convert lead', request)
+      if (request.code !== 'success') {
+        return {
+          code: '400',
+          ok: false,
+          data: null,
+          type: 'warning',
+          message: request.details.output,
+        }
+      }
+      //
+      return {
+        code: 200,
+        ok: true,
+        data: JSON.parse(request.details.output),
         type: 'success',
       }
     } catch (error) {

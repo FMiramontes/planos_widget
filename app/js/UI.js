@@ -82,14 +82,13 @@ const UI = {
         menu.appendChild(frac)
       })
 
-
-            menu.addEventListener('click', async (e) => {
-                if (e.target.matches('[data-index]')) {
-                    let loader = document.getElementById('loader-mapa')
-                    loader.style.display = 'flex'
-                    let name = e.target.dataset.name.toLowerCase()
-                    console.log('Desarrollo', name)
-                    const nameSvg = name.replaceAll(' ', '-')
+      menu.addEventListener('click', async (e) => {
+        if (e.target.matches('[data-index]')) {
+          let loader = document.getElementById('loader-mapa')
+          loader.style.display = 'flex'
+          let name = e.target.dataset.name.toLowerCase()
+          console.log('Desarrollo', name)
+          const nameSvg = name.replaceAll(' ', '-')
 
           let tempDesartollo = await fetch(
             `./desarrollos-js/${nameSvg}/${nameSvg}.json`
@@ -102,18 +101,18 @@ const UI = {
 
           beforeManzana = ''
 
-                    this.loadPlano(name, e.target.dataset.id)
-                    loader.style.display = 'none'
-                }
-            })
-        } else {
-            if (data.type == 'warning')
-                alerts.showAlert('warning', 'No hay fraccionamientos Activos.')
-            if (data.type == 'danger')
-                alerts.showAlert(
-                    'danger',
-                    'Error al cargar fraccionamientos, contactar con sistemas o recargar la página .'
-                )
+          this.loadPlano(name, e.target.dataset.id)
+          loader.style.display = 'none'
+        }
+      })
+    } else {
+      if (data.type == 'warning')
+        alerts.showAlert('warning', 'No hay fraccionamientos Activos.')
+      if (data.type == 'danger')
+        alerts.showAlert(
+          'danger',
+          'Error al cargar fraccionamientos, contactar con sistemas o recargar la página .'
+        )
     }
   },
   async loadPlano(name, id) {
@@ -306,6 +305,8 @@ const UI = {
       temp_accout_id,
       contactName
 
+    console.log('contactid: ', contactDiv?.dataset?.contactid)
+
     if (
       contactDiv.dataset?.contactid !== '' &&
       contactDiv.dataset?.contactid !== undefined &&
@@ -399,10 +400,10 @@ const UI = {
       console.log('else UI temp_contact_id: ', temp_contact_id)
       contact_id = temp_contact_id
       let update = this.checkUpdate(CRMData, newData)
-      if (update) {
-        const update = await crm.UpdateContact(newData)
-
-        console.log('UI update: ', update)
+      console.log('UI update: ', update)
+      if (!update) {
+        const updateRequest = await crm.UpdateContact(newData, contact_id)
+        console.log('UI UpdateContact: ', updateRequest)
       }
       console.log('UI temp_accout_id: ', temp_accout_id)
       if (temp_accout_id == false) {
@@ -682,6 +683,8 @@ const UI = {
   },
   fechaDePago(date) {},
   checkUpdate(a, b) {
+    console.log('a: ', a)
+    console.log('b: ', b)
     return JSON.stringify(a) === JSON.stringify(b)
   },
   viewModal(view, id, dataset, paint) {
@@ -758,6 +761,53 @@ const UI = {
       }
     }
   },
+  async searchCustomer() {
+    const searchValue = document.querySelector('#search-value').value
+    const resultContainer = document.querySelector('#contact-results')
+    const searchLabel = document.querySelector('.module-switch label')
+
+    const searchModule = searchLabel.dataset.modulesearch
+    // console.log('searchValue', searchValue)
+    resultContainer.innerHTML = ''
+
+    if (searchValue !== '' || searchValue !== undefined) {
+      const searchRequest = await crm.searchContact(searchValue, searchModule)
+
+      // Check request status
+      if (searchRequest.ok === true) {
+        // Found records
+        const records = searchRequest.data
+        // console.log('records: ', records)
+        let df = new DocumentFragment()
+        records.forEach((record) => {
+          var temp = document.createElement('template')
+
+          if (searchModule === 'Contacts') {
+            temp.innerHTML = `<div 
+            data-module="contact"
+            data-contactid="${record.id}" 
+            data-accountid="${record.Account_Name?.id}"
+            data-accountname="${record.Account_Name?.name}"
+            data-record="" class="record"><span data-contact-name>${record.Full_Name}</span>
+            <p data-record-email="" >${record.Email}</p>
+            </div>`
+          } else {
+            temp.innerHTML = `<div 
+            data-module="leads"
+            data-leadid="${record.id}" 
+            data-record="" class="record"><span data-lead-name>${record.Full_Name}</span>
+            <p data-record-email="" >${record.Email}</p>
+            </div>`
+          }
+
+          var frag = temp.content
+          df.appendChild(frag)
+        })
+
+        resultContainer.append(df)
+      }
+    }
+  },
   hideResults() {
     const containers = document.querySelectorAll('.search-result')
     containers.forEach((c) => {
@@ -797,6 +847,51 @@ const UI = {
     deleteContact.addEventListener('click', (e) => {
       this.cleanForm()
     })
+  },
+  async selectLead(selectedOption) {
+    const convert = confirm('Desea convertir al Posible cliente a Contacto')
+    console.log(selectedOption)
+    const userID = document.getElementById('user').dataset.crmuserid
+    if (convert) {
+      // Logica para convertir lead
+      const leadId = selectedOption.dataset.leadid
+      if (leadId !== undefined) {
+        const convertLead = await crm.convertToContact(leadId, userID)
+        console.log(convertLead)
+        if (convertLead.ok) {
+          const data = convertLead.data
+          const contactContainer = document.querySelector('#contact')
+          contactContainer.innerHTML = ''
+
+          const contactContainerResults =
+            document.querySelector('#contact-results')
+          contactContainerResults.classList.add('active')
+
+          contactContainer.dataset.contactid = data.Contacts
+          contactContainer.dataset.accountid = data.Accounts
+          contactContainer.dataset.accountname =
+            selectedOption.firstElementChild.innerText
+
+          // Display contact
+          contactContainer.textContent =
+            selectedOption.firstElementChild.innerText
+
+          // Add remove user button
+          contactContainer.insertAdjacentHTML(
+            'beforeend',
+            `
+        <button id="deleteContact" class="close-button" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+        </button>`
+          )
+
+          const deleteContact = document.getElementById('deleteContact')
+          deleteContact.addEventListener('click', (e) => {
+            this.cleanForm()
+          })
+        }
+      }
+    }
   },
   removeContact() {
     const contactContainer = document.querySelector('#contact')
@@ -915,7 +1010,8 @@ const UI = {
           } else if (campaignData.Tipo_de_Apartado === 'Porcentaje') {
             // Calcular apartado
             const porcentaje = campaignData.Porcentaje_de_Apartado / 100
-            fieldApartado.value = COSTO_PRODUCTO * porcentaje
+            const apartadoValue = COSTO_PRODUCTO * porcentaje
+            fieldApartado.value = apartadoValue.toFixed(2)
           }
         }
 
@@ -940,8 +1036,8 @@ const UI = {
           if (politicaCampana == 'Primer Mensualidad') {
             // Assign values
             fieldCosto.value = precioFinalProducto.toFixed(2)
-            fieldMensualidades.value =
-              precioFinalProducto / campaignData.Mensualidades
+            const mensualidad = precioFinalProducto / campaignData.Mensualidades
+            fieldMensualidades.value = mensualidad.toFixed(2)
             fieldPlazo.value = campaignData.Mensualidades
           } else if (politicaCampana == 'Enganche') {
             const tipoEnganche = campaignData.Tipo_de_Enganche
@@ -956,16 +1052,17 @@ const UI = {
             // Assign values
             const saldoPagar = precioFinalProducto - enganche
 
-            fieldCosto.value = COSTO_PRODUCTO
-            fieldEnganche.value = enganche
-            fieldSaldo.value = saldoPagar
-            fieldMensualidades.value = saldoPagar / campaignData.Mensualidades
+            fieldCosto.value = COSTO_PRODUCTO.toFixed(2)
+            fieldEnganche.value = enganche.toFixed(2)
+            fieldSaldo.value = saldoPagar.toFixed(2)
+            const mensualidad = saldoPagar / campaignData.Mensualidades
+            fieldMensualidades.value = mensualidad.toFixed(2)
             fieldPlazo.value = campaignData.Mensualidades
           }
         } else {
           // Contado
           // Assign values
-          fieldCosto.value = precioFinalProducto
+          fieldCosto.value = precioFinalProducto.toFixed(2)
         }
         console.log({ enganche })
         console.log({ precioFinalProducto })
