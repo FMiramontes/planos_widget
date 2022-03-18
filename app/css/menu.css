@@ -116,9 +116,6 @@
     object-fit: contain;
     image-rendering: pixelated;
 }
-.map {
-    background-color: #d3cfcf;
-}
 
 .menu-lateral.open {
     transform: translate(0, 0);

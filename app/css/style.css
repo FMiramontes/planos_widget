@@ -35,6 +35,7 @@ body {
 .map {
     height: 95%;
     width: 95%;
+    background-color: #d3cfcf;
     /* border: 2px solid black; */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
         rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
@@ -127,7 +128,7 @@ image {
     justify-content: center;
     align-items: center;
     padding: 15px;
-    border: 2px solid #000;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     color: #fff;
 }
 
@@ -148,13 +149,15 @@ image {
 }
 
 .search-result {
+    width: 63%;
     max-height: 450px;
     overflow: hidden;
     overflow-y: scroll;
     background-color: white;
     position: absolute;
     margin-block: 2rem;
-    top: 0;
+    top: 4px;
+    left: 80px;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -201,6 +204,7 @@ image {
 
 .close-button {
     color: #fff;
+    background-color: transparent;
     border: 2px solid #de9f27;
     border-radius: 50%;
     color: #de9f27;
@@ -214,6 +218,64 @@ image {
     pointer-events: none;
     font-size: 18px;
 }
+/* Check */
+.module-switch{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title-type{
+    color: #fff;
+    width: 55px;
+}
+.toggle {
+	display: flex;
+    margin: 10px;
+	width: 45px;
+	height: 25px;
+	cursor: pointer;
+	position: relative;
+}
+
+.toggle input[type="checkbox"] {
+	display: none;
+}
+
+.toggle input[type="checkbox"]:checked+.toggle-slide {
+	background-color: #44cc66;
+}
+
+.toggle .toggle-slide {
+	background-color: rgb(211, 211, 211);
+	position: absolute;
+	border-radius: 100px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.toggle .toggler {
+	position: absolute;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.toggle.on input[type="checkbox"]:checked+.toggle-slide .toggler {
+	left: calc(100% - 19px - 3px);
+}
+
+.toggle.on .toggler {
+	width: calc(25px - 6px);
+	height: calc(25px - 6px);
+	border-radius: 50%;
+	left: 3px;
+	top: 3px;
+	background-color: #fff;
+}
+
 /* Loader */
 #loader-mapa {
     display: none;
