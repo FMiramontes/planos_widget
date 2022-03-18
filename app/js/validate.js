@@ -62,10 +62,10 @@ const validate = {
         }
       }
     })
-    if(campana.dataset.campaignid != undefined){
+    if (campana.dataset.campaignid != undefined) {
       cont += 1
     }
-
+    console.log('validateform count', cont)
     if (cont == 4) {
       return true
     } else {
@@ -75,52 +75,51 @@ const validate = {
     //console.log('validate form.....')
   },
 
-  validateRecursos(){
+  validateRecursos() {
     let inputsRecursos = Array.from(
       document.querySelectorAll('[data-aporta-recursos]')
     )
     //console.log(inputsRecursos)
     let nombre_completo = document.getElementById('nombre_completo')
     let dueno_controlador = document.getElementById('dueno_controlador')
-    
-    inputsRecursos.forEach((e) =>{
-      e.addEventListener('change', e=>{
 
-          //console.log(e.target)
-          let temp = document.querySelector(`[data-copy=${e.target.name}]`)
+    inputsRecursos.forEach((e) => {
+      e.addEventListener('change', (e) => {
+        //console.log(e.target)
+        let temp = document.querySelector(`[data-copy=${e.target.name}]`)
 
-          if(e.target.name == 'First_Name' || e.target.name == 'Apellido_Paterno' || e.target.name == 'Apellido_Materno' ){
-            
-            let nn
+        if (
+          e.target.name == 'First_Name' ||
+          e.target.name == 'Apellido_Paterno' ||
+          e.target.name == 'Apellido_Materno'
+        ) {
+          let nn
 
-            if(inputsRecursos[1].value == '' && inputsRecursos[2].value == ''){
-              nn = inputsRecursos[0].value
-            }
-            else if(inputsRecursos[2].value == ''){
-              nn = inputsRecursos[0].value + " " + inputsRecursos[1].value
-            }
-            else if(inputsRecursos[1].value == ''){
-              nn = inputsRecursos[0].value + " " + inputsRecursos[2].value
-            }
-            else{
-              nn = inputsRecursos[0].value + " " + inputsRecursos[1].value + " " + inputsRecursos[2].value
-            }
-            
-            nombre_completo.value = nn
-            dueno_controlador.value = nn
-            //console.log('nombre: ',nn)
-          }else{
-            temp.value = e.target.value
+          if (inputsRecursos[1].value == '' && inputsRecursos[2].value == '') {
+            nn = inputsRecursos[0].value
+          } else if (inputsRecursos[2].value == '') {
+            nn = inputsRecursos[0].value + ' ' + inputsRecursos[1].value
+          } else if (inputsRecursos[1].value == '') {
+            nn = inputsRecursos[0].value + ' ' + inputsRecursos[2].value
+          } else {
+            nn =
+              inputsRecursos[0].value +
+              ' ' +
+              inputsRecursos[1].value +
+              ' ' +
+              inputsRecursos[2].value
           }
-          //console.log('temp: ',temp)
-          //console.log('e: ', e.target.value)
 
-
+          nombre_completo.value = nn
+          dueno_controlador.value = nn
+          //console.log('nombre: ',nn)
+        } else {
+          temp.value = e.target.value
+        }
+        //console.log('temp: ',temp)
+        //console.log('e: ', e.target.value)
       })
     })
-
-
-
 
     console.log('validateRecursos ......')
   },
