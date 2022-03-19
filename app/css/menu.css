@@ -57,6 +57,63 @@
     margin-left: 1.5rem;
     justify-content: center;
 }
+/* Check */
+.module-switch{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title-type{
+    color: #fff;
+    width: 55px;
+}
+.toggle {
+	display: flex;
+    margin: 10px;
+	width: 45px;
+	height: 25px;
+	cursor: pointer;
+	position: relative;
+}
+
+.toggle input[type="checkbox"] {
+	display: none;
+}
+
+.toggle input[type="checkbox"]:checked+.toggle-slide {
+	background-color: #44cc66;
+}
+
+.toggle .toggle-slide {
+	background-color: rgb(211, 211, 211);
+	position: absolute;
+	border-radius: 100px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.toggle .toggler {
+	position: absolute;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.toggle.on input[type="checkbox"]:checked+.toggle-slide .toggler {
+	left: calc(100% - 19px - 3px);
+}
+
+.toggle.on .toggler {
+	width: calc(25px - 6px);
+	height: calc(25px - 6px);
+	border-radius: 50%;
+	left: 3px;
+	top: 3px;
+	background-color: #fff;
+}
 /* **************************************** */
 
 /* .menu{
@@ -115,9 +172,6 @@
     pointer-events: none;
     object-fit: contain;
     image-rendering: pixelated;
-}
-.map {
-    background-color: #d3cfcf;
 }
 
 .menu-lateral.open {
