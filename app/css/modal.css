@@ -26,7 +26,7 @@
     /* padding: 10px; */
     background: #fff;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
-    border-radius: 0 0 15px 15px;
+    border-radius: 10px 10px 10px 10px;
     scroll-behavior: smooth;
 }
 
@@ -45,16 +45,18 @@
 
 .menu-form {
     z-index: 2;
-    height: 6%;
+    height: fit-content;
     width: 50%;
     position: absolute;
     top: 5%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: row;
     scroll-behavior: smooth;
     background-color: #373535;
+    border-radius: 10px 10px 0 0;
+    
 }
 
 .btn-menu-modal {
@@ -106,7 +108,7 @@
 /* Tab */
 .tab {
     cursor: pointer;
-    padding: 10px;
+    padding: 13px;
 }
 
 .tab.active {
@@ -143,18 +145,47 @@ a {
     align-items: flex-start;
     flex-direction: column;
 }
-
+select{
+    width: 80%;
+}
 .container-serch {
     position: relative;
 }
 
 .btn-serch {
     position: absolute;
-
-    top: -22px;
-    left: 160px;
+    top: -24px;
+    left: 123px;
+    border: 1px solid #1a1919;
+    background: #1a1919;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 4px 5px;
 }
+.check{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#btn-submit {
+    padding: 0.5em 2em;
+    border: 2px solid;
+    border-color: #1a1919;
+    transition: all 1s ease;
+    background: #1a1919;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  #btn-submit:hover {
+    background: #de9f27;
+    border-color: #de9f27;
 
+    /* color: #1a1919; */
+  }
+  
 @media (max-device-width: 1300px) {
     .block {
         display: grid;

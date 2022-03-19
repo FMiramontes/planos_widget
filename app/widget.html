@@ -111,27 +111,26 @@
                 <!-- Menu Modal -->
                 <div class="menu-form">
                     <div class="btn-menu-modal-active"></div>
-                    <div
-                        class="btn-menu-modal tab active"
-                        data-tab-target="#titular1"
-                    >
-                        <a href="#titular-1">Titular 1</a>
-                    </div>
-                    <div class="btn-menu-modal tab" data-tab-target="#titular2">
-                        <a href="#titular-2">Titular 2</a>
-                    </div>
-                    <div
-                        class="btn-menu-modal tab"
-                        data-tab-target="#referencias"
-                    >
-                        <a href="#referencias">Referencias</a>
-                    </div>
-                    <div
-                        class="btn-menu-modal tab"
-                        data-tab-target="#prespuesto"
-                    >
-                        <a href="#presupuesto">Presupuesto</a>
-                    </div>
+                    <a href="#titular-1">
+                        <div class="btn-menu-modal tab active" data-tab-target="#titular1">
+                            Titular 1
+                        </div>
+                    </a>
+                    <a href="#titular-2">
+                        <div class="btn-menu-modal tab" data-tab-target="#titular2">
+                            Titular 2
+                        </div>
+                    </a>
+                    <a href="#referencias">
+                        <div class="btn-menu-modal tab" data-tab-target="#referencias">
+                            Referencias
+                        </div>
+                    </a>
+                    <a href="#presupuesto">
+                        <div class="btn-menu-modal tab" data-tab-target="#prespuesto">
+                            Presupuesto
+                        </div>
+                    </a>
                 </div>
                 <!-- Form -->
                 <div id="modal" class="modal">
@@ -613,7 +612,7 @@
                                             <input
                                                 type="button"
                                                 class="btn-serch"
-                                                value="serch"
+                                                value="search"
                                                 id="search-campaign"
                                             />
                                             <div
@@ -753,11 +752,16 @@
                                 <label for="hasApartado"
                                     >Crear factura de apartado</label
                                 ><br />
-                                <input
+                                <label class="toggle on">
+                                    <input
                                     type="checkbox"
                                     id="hasApartado"
                                     name="hasApartado"
-                                />
+                                    />
+                                    <div class="toggle-slide">
+                                      <div class="toggler"></div>
+                                    </div>
+                                </label>
                             </div>
                             <div class="container-sub-block">
                                 <div class="tlte-block">
@@ -789,7 +793,7 @@
                                         <input
                                             id="btn-submit"
                                             type="submit"
-                                            value="enviar"
+                                            value="Enviar"
                                         />
                                     </span>
                                 </div>
