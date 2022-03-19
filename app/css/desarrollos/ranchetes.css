@@ -1,0 +1,48 @@
+
+  .cls-1 {
+    fill: #999f41;
+  }
+  .cls-1,
+  .cls-2 {
+    stroke: #686f37;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+    stroke-width: 0.5px;
+  }
+  .cls-2 {
+    fill: #bdc54e;;
+  }
+  .cls-13 {
+    fill: #6e5425;
+  }
+  .cls-14,
+  .cls-6 {
+    fill: #fff;
+  }
+  .cls-5 {
+    fill: #bab88c;
+  }
+  .cls-6 {
+    opacity: 0.13;
+  }
+  .cls-7 {
+    fill: #b5b47c;
+  }
+  .cls-8 {
+    fill: #7d9d20;
+  }
+  .cls-9 {
+    fill: #94bc1d;
+  }
+  .cls-10 {
+    fill: #b6d755;
+  }
+  .cls-11 {
+    fill: #99b2b5;
+  }
+  .cls-12 {
+    fill: #aaa;
+  }
+  [data-manzana]:hover{
+    fill: #cee065;
+  }

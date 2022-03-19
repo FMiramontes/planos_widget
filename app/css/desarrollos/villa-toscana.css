@@ -1,29 +1,238 @@
-.cls-1{
+ .cls-1,
+.cls-6,
+.cls-7,
+.cls-8 {
+  isolation: isolate;
+}
+.cls-2,
+.cls-6,
+.cls-9 {
   fill: #dcbd72;
 }
-.cls-3 {
-    fill: #dbbe79;
-  }
-.cls-1,
 .cls-2,
-.cls-3 {
+.cls-3,
+.cls-4,
+.cls-5,
+.cls-6,
+.cls-8 {
   stroke: #cc9f34;
   stroke-miterlimit: 10;
 }
-.cls-2,
-.cls-5 {
+.cls-3,
+.cls-7 {
   fill: #efd18f;
 }
-.cls-10,
-.cls-5 {
-  isolation: isolate;
-}
+.cls-4,
+.cls-5,
+.cls-54,
 .cls-8 {
+  fill: #ebbe57;
+}
+.cls-5 {
+  stroke-width: 1.5px;
+}
+.cls-10 {
   fill: #4c4c4c;
 }
-.cls-9 {
+.cls-11 {
   fill: #fff;
 }
-[data-manzana]:hover{
-    fill: #c9aa62;
+.cls-12 {
+  fill: #5e4335;
+}
+.cls-13,
+.cls-14,
+.cls-15 {
+  fill: #aeb5b5;
+}
+.cls-14,
+.cls-15,
+.cls-29 {
+  opacity: 0.33;
+}
+.cls-14,
+.cls-20,
+.cls-21,
+.cls-28,
+.cls-35,
+.cls-37,
+.cls-41,
+.cls-42 {
+  mix-blend-mode: screen;
+}
+.cls-15,
+.cls-29,
+.cls-30,
+.cls-31,
+.cls-34,
+.cls-36,
+.cls-39,
+.cls-40,
+.cls-44,
+.cls-47,
+.cls-48,
+.cls-50,
+.cls-51,
+.cls-52,
+.cls-58 {
+  mix-blend-mode: multiply;
+}
+.cls-16 {
+  fill: #7d9d20;
+}
+.cls-17,
+.cls-20,
+.cls-21 {
+  fill: #b6d755;
+}
+.cls-18 {
+  fill: #7ea119;
+}
+.cls-19 {
+  fill: #94bc1d;
+}
+.cls-20,
+.cls-30 {
+  opacity: 0.45;
+}
+.cls-21 {
+  opacity: 0.48;
+}
+.cls-22 {
+  fill: #689133;
+}
+.cls-23 {
+  fill: #7a7a79;
+}
+.cls-24 {
+  fill: #c9d190;
+  stroke: #a6aa6d;
+  stroke-linejoin: round;
+}
+.cls-25,
+.cls-27,
+.cls-31,
+.cls-32,
+.cls-33,
+.cls-36,
+.cls-39 {
+  fill: #7d7d7d;
+}
+.cls-26 {
+  fill: #876855;
+}
+.cls-27 {
+  opacity: 0.25;
+}
+.cls-27,
+.cls-32,
+.cls-33,
+.cls-49 {
+  mix-blend-mode: color-dodge;
+}
+.cls-28,
+.cls-35 {
+  fill: #7a5f4c;
+}
+.cls-28 {
+  opacity: 0.39;
+}
+.cls-30,
+.cls-34,
+.cls-40 {
+  fill: #6e6364;
+}
+.cls-31,
+.cls-32 {
+  opacity: 0.17;
+}
+.cls-33 {
+  opacity: 0.1;
+}
+.cls-34 {
+  opacity: 0.49;
+}
+.cls-35 {
+  opacity: 0.82;
+}
+.cls-36 {
+  opacity: 0.26;
+}
+.cls-37,
+.cls-42,
+.cls-43,
+.cls-47,
+.cls-48,
+.cls-49,
+.cls-50,
+.cls-51,
+.cls-52 {
+  fill: #ababab;
+}
+.cls-37,
+.cls-39 {
+  opacity: 0.2;
+}
+.cls-38 {
+  fill: #b59686;
+}
+.cls-40 {
+  opacity: 0.66;
+}
+.cls-41,
+.cls-42 {
+  opacity: 0.18;
+}
+.cls-44 {
+  fill: #759151;
+  opacity: 0.22;
+}
+.cls-45 {
+  fill: #a1bc50;
+}
+.cls-46 {
+  fill: #9dc06a;
+}
+.cls-47 {
+  opacity: 0.29;
+}
+.cls-48 {
+  opacity: 0.81;
+}
+.cls-49 {
+  opacity: 0.23;
+}
+.cls-50 {
+  opacity: 0.65;
+}
+.cls-51 {
+  opacity: 0.28;
+}
+.cls-52 {
+  opacity: 0.41;
+}
+.cls-53 {
+  fill: #707070;
+}
+.cls-54 {
+  stroke: #9e9e9e;
+  stroke-miterlimit: 3;
+  stroke-width: 0.75px;
+  stroke-dasharray: 2;
+}
+.cls-55 {
+  fill: #b06359;
+}
+.cls-56 {
+  fill: #9f5951;
+}
+.cls-57 {
+  fill: #914f4f;
+}
+.cls-58 {
+  fill: #703030;
+  opacity: 0.4;
+}
+[data-manzana]:hover {
+  fill: #c9aa62;
 }

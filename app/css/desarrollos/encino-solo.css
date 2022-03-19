@@ -1,37 +1,174 @@
 .cls-1 {
-  fill: #e8e2de;
-}
-.cls-1,
-.cls-2,
-.cls-3,
-.cls-4,
-.cls-1 {
-  stroke: #bbada7;
-  stroke-width: 2px;
+  isolation: isolate;
 }
 .cls-2 {
+  fill: #e8e2de;
+}
+.cls-2,
+.cls-29,
+.cls-3,
+.cls-4,
+.cls-6 {
+  stroke: #c6b3ab;
+  stroke-miterlimit: 10;
+}
+.cls-3,
+.cls-38 {
   fill: #f4f0ed;
 }
-.cls-3 {
-  fill: #e7e2de;
+.cls-4 {
+  fill: #e6e1de;
 }
-.cls-4,
+.cls-39,
+.cls-5 {
+  fill: #b0783f;
+}
+.cls-16,
+.cls-5 {
+  opacity: 0.12;
+}
+.cls-31,
 .cls-6 {
   fill: #d3efbd;
 }
-.cls-1 {
-  fill: #e7e2de;
-}
 .cls-7 {
-  isolation: isolate;
+  fill: #5e4735;
 }
 .cls-8 {
-  fill: #6b845e;
+  fill: #94bc1d;
 }
 .cls-9 {
+  fill: #7d9d20;
+}
+.cls-10 {
+  fill: #7aa639;
+}
+.cls-11 {
+  fill: #876855;
+}
+.cls-12,
+.cls-13 {
+  fill: #7a5f4c;
+}
+.cls-12 {
+  opacity: 0.82;
+}
+.cls-12,
+.cls-13,
+.cls-16,
+.cls-34,
+.cls-35 {
+  mix-blend-mode: screen;
+}
+.cls-13 {
+  opacity: 0.39;
+}
+.cls-14,
+.cls-19,
+.cls-32 {
+  fill: #7d7d7d;
+}
+.cls-14 {
+  opacity: 0.17;
+}
+.cls-14,
+.cls-25 {
+  mix-blend-mode: color-dodge;
+}
+.cls-15,
+.cls-16,
+.cls-18,
+.cls-23,
+.cls-24,
+.cls-25,
+.cls-26,
+.cls-27,
+.cls-28,
+.cls-35,
+.cls-36 {
+  fill: #ababab;
+}
+.cls-15 {
+  opacity: 0.68;
+}
+.cls-15,
+.cls-18,
+.cls-19,
+.cls-22,
+.cls-23,
+.cls-24,
+.cls-26,
+.cls-27,
+.cls-28,
+.cls-32,
+.cls-33 {
+  mix-blend-mode: multiply;
+}
+.cls-17 {
+  fill: #737373;
+}
+.cls-18 {
+  opacity: 0.84;
+}
+.cls-19 {
+  opacity: 0.26;
+}
+.cls-20 {
+  fill: #b6d755;
+}
+.cls-21 {
+  fill: #a1bc50;
+}
+.cls-22 {
+  fill: #759151;
+  opacity: 0.22;
+}
+.cls-23 {
+  opacity: 0.29;
+}
+.cls-24 {
+  opacity: 0.81;
+}
+.cls-25 {
+  opacity: 0.23;
+}
+.cls-26 {
+  opacity: 0.65;
+}
+.cls-27 {
+  opacity: 0.28;
+}
+.cls-28 {
+  opacity: 0.41;
+}
+.cls-29,
+.cls-30 {
+  fill: #e7e2de;
+}
+.cls-32 {
+  opacity: 0.2;
+}
+.cls-33 {
+  fill: #6e6364;
+  opacity: 0.66;
+}
+.cls-34,
+.cls-35 {
+  opacity: 0.18;
+}
+.cls-37 {
+  fill: #9dc06a;
+}
+.cls-39 {
+  opacity: 0.09;
+}
+.cls-40 {
+  fill: #6b845e;
+}
+.cls-41 {
   fill: #f9f0ed;
   fill-rule: evenodd;
 }
 [data-manzana]:hover{
-    fill: #81a76d;
+  fill: #81a76d;
 }
