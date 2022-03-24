@@ -87,7 +87,10 @@ document.addEventListener('click', (e) => {
         }
     }
 
-    if (e.target.dataset.module == 'campaign') {
+    if (
+        e.target.dataset.module == 'campaign' &&
+        e.target.dataset.result == 'found'
+    ) {
         console.log(e.target.dataset.module)
         UI.selectCampaign(e.target)
         UI.fillCampaignDetails(e.target)
