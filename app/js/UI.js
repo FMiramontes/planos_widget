@@ -858,6 +858,15 @@ const UI = {
                 })
 
                 resultContainer.append(df)
+            } else {
+                var temp = document.createElement('template')
+
+                temp.innerHTML = `
+                <div class="record">
+                    <span data-contact-name>Sin resultados</span>
+                </div>`
+                var frag = temp.content
+                resultContainer.append(frag)
             }
         }
     },
@@ -978,17 +987,26 @@ const UI = {
                 records.forEach((record) => {
                     var temp = document.createElement('template')
                     temp.innerHTML = `
-                    <div data-campaignid="${record.id}" data-module="campaign" class="record">
+                    <div data-campaignid="${record.id}" data-module="campaign" data-result="found" class="record">
                         <span data-politica=${record.Tipo_de_Politica} data-formadepago=${record.Tipo_de_Promocion} data-diferido=${record.Diferido} data-plazosdiferido=${record.Plazos_Diferido}>${record.Campaign_Name}</span>
                         <p data-politica="" >${record.Tipo_de_Politica}</p>
                         <p data-formadepago="" >${record.Tipo_de_Promocion}</p>
                     </div>`
 
-                    var frag = temp.content
+                    let frag = temp.content
                     df.appendChild(frag)
                 })
 
                 campaignResultContainer.append(df)
+            } else {
+                let temp = document.createElement('template')
+
+                temp.innerHTML = `
+                <div data-module="campaign" data-result="not-found" class="record">
+                    <span data-contact-name>Sin resultados</span>
+                </div>`
+                let frag = temp.content
+                campaignResultContainer.append(frag)
             }
         }
     },
