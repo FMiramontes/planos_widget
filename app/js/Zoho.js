@@ -892,13 +892,13 @@ const books = {
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
             console.log('Zoho - createInvoice: ', request)
-            if (request.data[0].code !== 'SUCCESS') {
+            if (request.code !== 'SUCCESS') {
                 return {
-                    code: request.data[0].status,
+                    code: 400,
                     ok: false,
                     data: null,
                     type: 'warning',
-                    message: request.data[0],
+                    message: 'Factura no creada',
                 }
             }
 
@@ -906,7 +906,7 @@ const books = {
             return {
                 code: 201,
                 ok: true,
-                data: request.data[0],
+                data: request.details.statusMessage.message,
                 type: 'success',
             }
         } catch (error) {
