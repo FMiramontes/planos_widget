@@ -278,6 +278,7 @@ const UI = {
     },
     async validate(CRMData, newData) {
         console.time()
+        try {
         const user = document.getElementById('user')
         const modal = document.getElementById('modal')
         const coo_id = document.getElementById('coordinadorValue').value
@@ -413,8 +414,11 @@ const UI = {
                     const syncContact = await books.syncContact(contact_id)
                     if (syncContact.ok) {
                         // contacto sincronizado en books
+                        alerts.showAlert('success', 'Contacto creado y sincronizado con Zoho Books')
                         id_contactBooks = syncContact?.data?.customer_id
                     }
+                }else{
+                  throw new Error('Contacto no se pudo crear en CRM')
                 }
             }
         } else {
@@ -509,12 +513,15 @@ const UI = {
         const DealRequest = await crm.createDeal(DealData)
         console.log('DealRequest: ', DealRequest)
         if (DealRequest.ok) {
+            alerts.showAlert('success', 'Trato creado en CRM')
             Deal_id = DealRequest.data.details.id
             // validar modal.dataset.crm_id
             const productRequest = await crm.associateProduct(
                 modal.dataset.crm_id,
                 DealRequest.data.details.id
             )
+        }else{
+          throw new Error('No se pudo crear el trato')
         }
 
         console.log('accountId: ', accountId)
@@ -549,6 +556,7 @@ const UI = {
             const createCotizacion = await creator.createRecord(recordData)
             console.log('createCotizacion: ', createCotizacion)
             if (createCotizacion.ok) {
+                alerts.showAlert('success', 'Cotizacion creada')
                 creator_id = createCotizacion.data?.ID
                 const CotizacionRequest = await creator.getRecord(creator_id)
 
@@ -695,6 +703,10 @@ const UI = {
                         const invoiceRequest = await books.createInvoice(
                             arrInvoices[i]
                         )
+                        console.log('INVOICE REQUEST', invoiceRequest)
+                        if(invoiceRequest.ok){
+                          alerts.showAlert('success', 'Factura creada en Books')
+                        }
                         console.log(
                             `UI createInvoice: index ${i}', ${invoiceRequest}`
                         )
@@ -710,7 +722,12 @@ const UI = {
                     //     )
                     // })
                 }
+            }else{
+              throw new Error('No se pudo crear cotizacion')
             }
+        }
+        } catch (error) {
+            alerts.showAlert('danger', error.message)
         }
         console.timeEnd()
     },
@@ -896,6 +913,7 @@ const UI = {
                 const convertLead = await crm.convertToContact(leadId, userID)
                 console.log(convertLead)
                 if (convertLead.ok) {
+                    alerts.showAlert('success', 'Lead convertido a Contacto')
                     const data = convertLead.data
                     const contactContainer = document.querySelector('#contact')
                     contactContainer.innerHTML = ''

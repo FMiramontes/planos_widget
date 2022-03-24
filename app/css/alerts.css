@@ -12,7 +12,7 @@
     border-left: 12px solid #505050;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: right 0.5s ease;
-    z-index: 1;
+    z-index: 500;
 }
 
 .alert .message {

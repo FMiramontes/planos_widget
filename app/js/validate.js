@@ -1,6 +1,6 @@
 // email validate
 
-//import alerts from "./alertas"
+import alerts from './alertas.js'
 
 const btn_submit = document.getElementById('btn-submit')
 
@@ -9,14 +9,20 @@ const validate = {
     let expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
     if (reqired == 'required') {
       if (!expr.test(email)) {
-        alert('Error: La dirección de correo ' + email + ' es incorrecta.')
+        alerts.showAlert(
+          'warning',
+          'La dirección de correo ' + email + ' es incorrecta.'
+        )
         btn_submit.disabled = true
       } else {
         btn_submit.disabled = false
       }
     } else {
       if (!expr.test(email) && email != '') {
-        alert('Error: La dirección de correo ' + email + ' es incorrecta.')
+        alerts.showAlert(
+          'warning',
+          'La dirección de correo ' + email + ' es incorrecta.'
+        )
         btn_submit.disabled = true
       } else {
         btn_submit.disabled = false
@@ -121,7 +127,7 @@ const validate = {
       })
     })
 
-    console.log('validateRecursos ......')
+    //console.log('validateRecursos ......')
   },
 }
 
