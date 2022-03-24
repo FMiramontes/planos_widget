@@ -1,48 +1,83 @@
+.cls-1 {
+  fill: #999f41;
+}
+.cls-1,
+.cls-14,
+.cls-2,
+.cls-3 {
+  stroke: #686f37;
+  stroke-miterlimit: 10;
+}
+.cls-1,
+.cls-2 {
+  stroke-width: 0.65px;
+}
+.cls-2{
+  fill: #999f41;
+}
+.cls-3,
+.cls-6 {
+  fill: none;
+}
+.cls-14,
+.cls-3 {
+  stroke-width: 0.75px;
+}
+.cls-4 {
+  fill: #6e5425;
+}
+.cls-5,
+.cls-8 {
+  fill: #fff;
+}
+.cls-7 {
+  fill: #bab88c;
+}
+.cls-8 {
+  opacity: 0.13;
+}
+.cls-9 {
+  fill: #b5b47c;
+}
+.cls-10 {
+  fill: #7d9d20;
+}
+.cls-11 {
+  fill: #94bc1d;
+}
+.cls-12 {
+  fill: #b6d755;
+}
+.cls-13 {
+  fill: #99b2b5;
+}
+.cls-14 {
+  fill: #aaa;
+}
 
-  .cls-1 {
-    fill: #999f41;
-  }
-  .cls-1,
-  .cls-2 {
-    stroke: #686f37;
-    stroke-linecap: round;
-    stroke-miterlimit: 10;
-    stroke-width: 0.5px;
-  }
-  .cls-2 {
-    fill: #bdc54e;;
-  }
-  .cls-13 {
-    fill: #6e5425;
-  }
-  .cls-14,
-  .cls-6 {
-    fill: #fff;
-  }
-  .cls-5 {
-    fill: #bab88c;
-  }
-  .cls-6 {
-    opacity: 0.13;
-  }
-  .cls-7 {
-    fill: #b5b47c;
-  }
-  .cls-8 {
-    fill: #7d9d20;
-  }
-  .cls-9 {
-    fill: #94bc1d;
-  }
-  .cls-10 {
-    fill: #b6d755;
-  }
-  .cls-11 {
-    fill: #99b2b5;
-  }
-  .cls-12 {
-    fill: #aaa;
-  }
-  [data-manzana]:hover{
+/* [data-manzana]:hover{
     fill: #cee065;
+  } */
+/* Animacion hover desarrollos */
+[data-manzana]:hover {
+  stroke: #cee065;
+  animation: popup 0.75s ease alternate infinite;
+}
+
+@keyframes popup {
+  0% {
+    stroke-width: 3px;
   }
+  25% {
+    stroke-width: 5px;
+  }
+  50% {
+    stroke-width: 8px;
+  }
+  75% {
+    stroke-width: 10px;
+  }
+  100% {
+    stroke-width: 12px;
+  }
+}

@@ -1,6 +1,8 @@
+
 .cls-1 {
   isolation: isolate;
 }
+
 .cls-2 {
   fill: #e8e2de;
 }
@@ -169,6 +171,28 @@
   fill: #f9f0ed;
   fill-rule: evenodd;
 }
+
+/* Animacion hover desarrollos */
 [data-manzana]:hover{
-  fill: #81a76d;
+  stroke: #7aa639;
+  animation: popup .75s ease alternate infinite;       
+}
+
+@keyframes popup {
+  0% {
+    stroke-width: 3px;
+  }
+  25% {
+      stroke-width: 5px;
+    }
+  50% {
+      stroke-width: 8px;
+  }
+  75% {
+      stroke-width: 10px;
+  }
+  100% {
+      stroke-width: 12px;
+  }
+  
 }

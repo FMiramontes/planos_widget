@@ -1,7 +1,8 @@
 .cls-1 {
   isolation: isolate;
 }
-.cls-2 {
+.cls-2,
+.cls-4 {
   fill: #dcbd72;
 }
 .cls-2,
@@ -13,13 +14,11 @@
 .cls-3 {
   fill: #efd18f;
 }
-.cls-4 {
-  fill: #bd943b;
-}
-.cls-21 {
+
+.cls-5 {
   fill: #4c4c4c;
 }
-.cls-22 {
+.cls-6 {
   fill: #fff;
 }
 .cls-7 {
@@ -83,6 +82,31 @@
 .cls-21 {
   fill: #b6d755;
 }
+
+/* [data-manzana]:hover {
+  fill: #dfb34e;
+} */
+
 [data-manzana]:hover{
-    fill: #dfb34e;
+  stroke: #dfb34e;
+  animation: popup .75s ease alternate infinite;       
+}
+
+@keyframes popup {
+  0% {
+    stroke-width: 3px;
+  }
+  25% {
+      stroke-width: 5px;
+    }
+  50% {
+      stroke-width: 8px;
+  }
+  75% {
+      stroke-width: 10px;
+  }
+  100% {
+      stroke-width: 12px;
+  }
+  
 }
