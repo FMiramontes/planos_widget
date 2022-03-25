@@ -169,16 +169,18 @@ select{
     align-items: center;
 }
 #btn-submit {
-    padding: 0.5em 2em;
+    width: 50px;
+    height: 22px;
     border: 2px solid;
     border-color: #1a1919;
-    transition: all 1s ease;
     background: #1a1919;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 15px;
   }
+.tlte-block{
+    height: 20px;
+}
   #btn-submit:hover {
     background: #de9f27;
     border-color: #de9f27;
