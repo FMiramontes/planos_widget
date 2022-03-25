@@ -1,29 +1,263 @@
-.cls-1{
+.cls-1,
+.cls-6,
+.cls-7 {
+  isolation: isolate;
+}
+.cls-2,
+.cls-6,
+.cls-8 {
   fill: #dcbd72;
 }
-.cls-3 {
-    fill: #dbbe79;
-  }
-.cls-1,
 .cls-2,
-.cls-3 {
+.cls-3,
+.cls-4,
+.cls-5,
+.cls-6,
+.cls-7 {
   stroke: #cc9f34;
   stroke-miterlimit: 10;
 }
-.cls-2,
-.cls-5 {
+.cls-3 {
   fill: #efd18f;
 }
-.cls-10,
-.cls-5 {
-  isolation: isolate;
+.cls-4{
+  fill: #dcbd72;
 }
-.cls-8 {
-  fill: #4c4c4c;
+.cls-5,
+.cls-53,
+.cls-7 {
+  fill: #dcbd72;
+}
+.cls-5 {
+  stroke-width: 1.5px;
 }
 .cls-9 {
+  fill: #4c4c4c;
+}
+.cls-10 {
   fill: #fff;
 }
+.cls-11 {
+  fill: #5e4335;
+}
+.cls-12,
+.cls-13,
+.cls-14 {
+  fill: #aeb5b5;
+}
+.cls-13,
+.cls-14,
+.cls-28 {
+  opacity: 0.33;
+}
+.cls-13,
+.cls-19,
+.cls-20,
+.cls-27,
+.cls-34,
+.cls-36,
+.cls-40,
+.cls-41 {
+  mix-blend-mode: screen;
+}
+.cls-14,
+.cls-28,
+.cls-29,
+.cls-30,
+.cls-33,
+.cls-35,
+.cls-38,
+.cls-39,
+.cls-43,
+.cls-46,
+.cls-47,
+.cls-49,
+.cls-50,
+.cls-51,
+.cls-57 {
+  mix-blend-mode: multiply;
+}
+.cls-15 {
+  fill: #7d9d20;
+}
+.cls-16,
+.cls-19,
+.cls-20 {
+  fill: #b6d755;
+}
+.cls-17 {
+  fill: #7ea119;
+}
+.cls-18 {
+  fill: #94bc1d;
+}
+.cls-19,
+.cls-29 {
+  opacity: 0.45;
+}
+.cls-20 {
+  opacity: 0.48;
+}
+.cls-21 {
+  fill: #689133;
+}
+.cls-22 {
+  fill: #7a7a79;
+}
+.cls-23 {
+  fill: #c9d190;
+  stroke: #a6aa6d;
+  stroke-linejoin: round;
+}
+.cls-24,
+.cls-26,
+.cls-30,
+.cls-31,
+.cls-32,
+.cls-35,
+.cls-38 {
+  fill: #7d7d7d;
+}
+.cls-25 {
+  fill: #876855;
+}
+.cls-26 {
+  opacity: 0.25;
+}
+.cls-26,
+.cls-31,
+.cls-32,
+.cls-48 {
+  mix-blend-mode: color-dodge;
+}
+.cls-27,
+.cls-34 {
+  fill: #7a5f4c;
+}
+.cls-27 {
+  opacity: 0.39;
+}
+.cls-29,
+.cls-33,
+.cls-39 {
+  fill: #6e6364;
+}
+.cls-30,
+.cls-31 {
+  opacity: 0.17;
+}
+.cls-32 {
+  opacity: 0.1;
+}
+.cls-33 {
+  opacity: 0.49;
+}
+.cls-34 {
+  opacity: 0.82;
+}
+.cls-35 {
+  opacity: 0.26;
+}
+.cls-36,
+.cls-41,
+.cls-42,
+.cls-46,
+.cls-47,
+.cls-48,
+.cls-49,
+.cls-50,
+.cls-51 {
+  fill: #ababab;
+}
+.cls-36,
+.cls-38 {
+  opacity: 0.2;
+}
+.cls-37 {
+  fill: #b59686;
+}
+.cls-39 {
+  opacity: 0.66;
+}
+.cls-40,
+.cls-41 {
+  opacity: 0.18;
+}
+.cls-43 {
+  fill: #759151;
+  opacity: 0.22;
+}
+.cls-44 {
+  fill: #a1bc50;
+}
+.cls-45 {
+  fill: #9dc06a;
+}
+.cls-46 {
+  opacity: 0.29;
+}
+.cls-47 {
+  opacity: 0.81;
+}
+.cls-48 {
+  opacity: 0.23;
+}
+.cls-49 {
+  opacity: 0.65;
+}
+.cls-50 {
+  opacity: 0.28;
+}
+.cls-51 {
+  opacity: 0.41;
+}
+.cls-52 {
+  fill: #707070;
+}
+.cls-53 {
+  stroke: #9e9e9e;
+  stroke-miterlimit: 3;
+  stroke-width: 0.75px;
+  stroke-dasharray: 2;
+}
+.cls-54 {
+  fill: #b06359;
+}
+.cls-55 {
+  fill: #9f5951;
+}
+.cls-56 {
+  fill: #914f4f;
+}
+.cls-57 {
+  fill: #703030;
+  opacity: 0.4;
+}
+
+/* [data-manzana]:hover {
+  fill: #c9aa62;
+} */
+
 [data-manzana]:hover{
-    fill: #c9aa62;
+  stroke: #c9aa62;
+  animation: popup .75s ease alternate infinite;       
+}
+
+@keyframes popup {
+  0% {
+    stroke-width: 3px;
+  }
+  25% {
+      stroke-width: 5px;
+    }
+  50% {
+      stroke-width: 8px;
+  }
+  75% {
+      stroke-width: 10px;
+  }
+  100% {
+      stroke-width: 12px;
+  }
+  
 }

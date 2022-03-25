@@ -1,38 +1,197 @@
 .cls-1 {
-    filter: url(#filter);
+  isolation: isolate;
 }
-
-.cls-2 {
-    fill: #1a1a1a;
-    stroke: #de9f27;
-    stroke-width: 1px;
-}
-
 .cls-2,
 .cls-3,
-.cls-4,
-.cls-5 {
-    fill-rule: evenodd;
+.cls-22 {
+  fill: #eaaa5e;
+}
+.cls-2,
+.cls-22,
+.cls-3,
+.cls-4 {
+  stroke: #c88a35;
+  stroke-miterlimit: 10;
+  stroke-width: 0.5px;
+}
+.cls-4 {
+  fill: #e2bd98;
 }
 .cls-5 {
-    fill: #000;
+  fill: #c9d190;
 }
-.cls-3 {
-    fill: #010101;
-}
-
-.cls-4,
 .cls-6 {
-    fill: #e8bc68;
-    stroke: #e8bc68;
-    stroke-width: 6px;
+  fill: #7d9d20;
+}
+.cls-7 {
+  fill: #94bc1d;
+}
+.cls-8 {
+  fill: #b6d755;
+}
+.cls-11,
+.cls-15,
+.cls-16,
+.cls-17,
+.cls-20,
+.cls-9 {
+  fill: #7d7d7d;
+}
+.cls-10 {
+  fill: #876855;
+}
+.cls-11 {
+  opacity: 0.25;
+}
+.cls-11,
+.cls-16,
+.cls-17,
+.cls-34 {
+  mix-blend-mode: color-dodge;
+}
+.cls-12,
+.cls-19 {
+  fill: #7a5f4c;
+}
+.cls-12 {
+  opacity: 0.39;
+}
+.cls-12,
+.cls-19,
+.cls-21 {
+  mix-blend-mode: screen;
+}
+.cls-13 {
+  opacity: 0.33;
+}
+.cls-13,
+.cls-14,
+.cls-15,
+.cls-18,
+.cls-20,
+.cls-31,
+.cls-32,
+.cls-33,
+.cls-35,
+.cls-36,
+.cls-37 {
+  mix-blend-mode: multiply;
+}
+.cls-14,
+.cls-18 {
+  fill: #6e6364;
+}
+.cls-14 {
+  opacity: 0.45;
+}
+.cls-15,
+.cls-16 {
+  opacity: 0.17;
+}
+.cls-17,
+.cls-31 {
+  opacity: 0.1;
+}
+.cls-18 {
+  opacity: 0.49;
+}
+.cls-19 {
+  opacity: 0.82;
+}
+.cls-20 {
+  opacity: 0.26;
+}
+.cls-21,
+.cls-32,
+.cls-33,
+.cls-34,
+.cls-35,
+.cls-36,
+.cls-37 {
+  fill: #ababab;
+}
+.cls-21 {
+  opacity: 0.2;
+}
+.cls-22,
+.cls-32 {
+  opacity: 0.29;
+}
+.cls-23 {
+  fill: #0d2e27;
+}
+.cls-24,
+.cls-25,
+.cls-26,
+.cls-38 {
+  fill: #fff;
+}
+.cls-25 {
+  font-size: 7.99px;
+}
+.cls-25,
+.cls-26,
+.cls-38 {
+  font-family: Arial-BoldMT, Arial;
+  font-weight: 700;
+}
+.cls-26 {
+  font-size: 6.67px;
+}
+.cls-27 {
+  fill: #b06359;
+}
+.cls-28 {
+  fill: #914f4f;
+}
+.cls-29 {
+  fill: #a35c53;
+}
+.cls-30 {
+  fill: #9f564c;
+}
+.cls-31 {
+  fill: #363636;
+}
+.cls-33 {
+  opacity: 0.81;
+}
+.cls-34 {
+  opacity: 0.23;
+}
+.cls-35 {
+  opacity: 0.65;
+}
+.cls-36 {
+  opacity: 0.28;
+}
+.cls-37 {
+  opacity: 0.41;
+}
+.cls-38 {
+  font-size: 5.21px;
 }
 
+/* Animacion hover desarrollos */
 [data-manzana]:hover {
-    fill: #de9f27;
-    cursor: pointer;
+  stroke: #de9f27;
+  animation: popup 0.75s ease alternate infinite;
 }
-[data-lote]:hover {
-    fill: #de9f27;
-    cursor: pointer;
+
+@keyframes popup {
+  0% {
+    stroke-width: 3px;
+  }
+  25% {
+    stroke-width: 5px;
+  }
+  50% {
+    stroke-width: 8px;
+  }
+  75% {
+    stroke-width: 10px;
+  }
+  100% {
+    stroke-width: 12px;
+  }
 }

@@ -1,0 +1,44 @@
+.cls-1 {
+  fill: #aeb569;
+}
+.cls-1,
+.cls-2,
+.cls-5 {
+  stroke: #98a257;
+  stroke-miterlimit: 10;
+  stroke-width: 0.5px;
+}
+.cls-2 {
+  fill: none;
+}
+.cls-3 {
+  fill: #57364e;
+}
+.cls-4 {
+  fill: #fff;
+}
+.cls-5 {
+  fill: #b7b795;
+}
+.cls-6 {
+  fill: #757c2d;
+  opacity: 0.12;
+}
+
+[data-manzana]:hover{
+    stroke: #57364e;
+    animation: popup .75s ease alternate infinite;       
+  }
+  
+  @keyframes popup {
+    0% {
+      stroke-width: 3px;
+    }
+    50% {
+        stroke-width: 5px;
+      }
+    100% {
+        stroke-width: 8px;
+    }
+    
+  }
