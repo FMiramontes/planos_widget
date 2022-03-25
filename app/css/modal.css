@@ -56,7 +56,6 @@
     scroll-behavior: smooth;
     background-color: #373535;
     border-radius: 10px 10px 0 0;
-    
 }
 
 .btn-menu-modal {
@@ -134,9 +133,7 @@ a {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     height: 90%;
-    width: 100%;
-    overflow: hidden;
-    overflow-y: auto;
+    width: 45vw;
 }
 
 .block > span {
@@ -145,7 +142,7 @@ a {
     align-items: flex-start;
     flex-direction: column;
 }
-select{
+select {
     width: 80%;
 }
 .container-serch {
@@ -163,7 +160,7 @@ select{
     cursor: pointer;
     padding: 4px 5px;
 }
-.check{
+.check {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -177,17 +174,17 @@ select{
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
-  }
-.tlte-block{
+}
+.tlte-block {
     height: 20px;
 }
-  #btn-submit:hover {
+#btn-submit:hover {
     background: #de9f27;
     border-color: #de9f27;
 
     /* color: #1a1919; */
-  }
-  
+}
+
 @media (max-device-width: 1300px) {
     .block {
         display: grid;

@@ -34,7 +34,7 @@ body {
 
 .map {
     height: 95%;
-    
+
     /* border: 2px solid black; */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
         rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
@@ -46,10 +46,9 @@ body {
     background-color: #d3cfcf;
     display: grid;
     place-content: center;
-
 }
 
-.wrap-loader{
+.wrap-loader {
     height: 95%;
     width: 95%;
 }
@@ -179,7 +178,6 @@ image {
     margin-block: 0px;
     left: 50%;
     z-index: 4;
-    
 }
 
 .record {

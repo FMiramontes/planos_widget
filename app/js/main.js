@@ -44,33 +44,21 @@ switchSearch.addEventListener('change', () => {
         searchLabel.textContent = 'Contacts'
     }
 })
-
 searchCampaigntBtn.addEventListener('click', () => {
     UI.searchCampaign()
 })
 
-// searchCoordinadorBtn.addEventListener('click', () => {
-//     UI.searchCoordinador()
-// })
-
-// Close search result
-// let qselector = ''
 document.addEventListener('click', (e) => {
     qselector = document.querySelector(
         `[data-module="${e.target.dataset.module}"]`
     )
-    // console.log(qselector)
-    // if(qselector !== null){
+
     if (
         (!e.target.matches('.search-result') && qselector?.innerHTML !== '') ||
         e.target.matches('[data-module]')
     ) {
-        // console.log('hide results', true)
         UI.hideResults()
     }
-    // }else{
-    //     UI.hideResults()
-    // }
 })
 
 // # Assign contact to #contact element
@@ -118,7 +106,6 @@ document.getElementById('btn-submit').addEventListener('click', (e) => {
 document.addEventListener('dblclick', (e) => {
     if (e.target.matches('[data-lote]')) {
         if (e.target.dataset.disponible == 'true') {
-            // console.log('disponible', e)
             const contactDiv = document.getElementById('contact')
             const contact_id =
                 contactDiv.dataset?.contactid === undefined
@@ -142,15 +129,10 @@ document.addEventListener('dblclick', (e) => {
                     valid.validContact(true)
                 )
 
-                //console.log('validating contact...')
                 CRMData = UI.getDataForm()
             }
 
             UI.viewModal(true, e.target?.id, e.target.dataset, true)
-
-            /*validarSesion()
-            if (sessionStorage.getItem("sesion"))
-                Login.mostrarInfoLote(loteSeleccionado)*/
         } else {
             // console.log('no disponible', e)
             // MostrarAlerta()
@@ -166,12 +148,6 @@ modal.addEventListener('change', (e) => {
     }
 })
 
-// modal.addEventListener('onchange', (e) => {
-//     if (e.target.matches('[data-email]')) {
-//         valid.validateEmail(e.target.value, e.target.dataset.email)
-//     }
-// })
-
 // UI.viewModal(true, '0', '0', false)
 
 const containerModal = document.getElementById('container-modal')
@@ -185,8 +161,6 @@ let Iconmenu = document.querySelector('.btn-menu')
 let menu = document.querySelector('#menu-lateral')
 let btnMenuSpan = document.querySelector('.btn-menu span')
 let menuFraccionamiento = document.querySelectorAll('.fracionamiento')
-
-// let close = document.getElementById('close')
 
 Iconmenu.addEventListener('click', () => {
     /*Abrir menu*/
