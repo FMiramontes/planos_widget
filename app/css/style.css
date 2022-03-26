@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,400&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap');
 * {
     font-size: 14px;
     box-sizing: border-box;
@@ -13,7 +12,7 @@
 body {
     margin: 0px;
     padding: 0px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Raleway', sans-serif;
     overflow-x: hidden;
 }
 
@@ -33,7 +32,7 @@ body {
 }
 
 .map {
-    height: 95%;
+    height: 100%;
 
     /* border: 2px solid black; */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
@@ -56,6 +55,24 @@ body {
 [data-manzana]:hover {
     cursor: pointer;
 }
+[data-lote]:hover{
+    animation: alternateColor .75s ease alternate infinite;       
+  }
+  
+  @keyframes alternateColor {
+    0% {
+      fill: rgb(189, 126, 8); 
+    }
+    20% {
+      fill: rgb(211, 138, 2); 
+      }
+    65% {
+      fill: rgb(218, 147, 16); 
+    }
+    100% {
+      fill: rgb(218, 149, 22); 
+    }
+  }
 
 image {
     pointer-events: none;

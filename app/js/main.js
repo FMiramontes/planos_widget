@@ -38,10 +38,10 @@ searchContactBtn.addEventListener('click', () => {
 switchSearch.addEventListener('change', () => {
     if (switchSearch.checked) {
         searchLabel.dataset.modulesearch = 'Leads'
-        searchLabel.textContent = 'Leads'
+        searchLabel.textContent = 'LEADS'
     } else {
         searchLabel.dataset.modulesearch = 'Contacts'
-        searchLabel.textContent = 'Contacts'
+        searchLabel.textContent = 'CONTACTS'
     }
 })
 searchCampaigntBtn.addEventListener('click', () => {
@@ -148,7 +148,7 @@ modal.addEventListener('change', (e) => {
     }
 })
 
-// UI.viewModal(true, '0', '0', false)
+ //UI.viewModal(true, '0', '0', false)
 
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {
@@ -227,8 +227,8 @@ mapa.addEventListener('mouseover', (e) => {
             tooltip.appendChild(total)
             posicionX = e.pageX
             posicionY = e.pageY
-            e.target.style.fill = '#e5b252'
-            e.target.style.cursor = 'pointer'
+            // e.target.style.fill = '#e5b252'
+            // e.target.style.cursor = 'pointer'
         } else {
             tooltip.innerHTML = ''
             let lote = document.createElement('p')
@@ -239,18 +239,18 @@ mapa.addEventListener('mouseover', (e) => {
             tooltip.appendChild(estado)
             posicionX = e.pageX
             posicionY = e.pageY
-            e.target.style.fill = '#000'
+            // e.target.style.fill = '#000'
         }
         maps.showPopup(tooltip, posicionX, posicionY)
     }
 })
 mapa.addEventListener('mouseout', (e) => {
     if (e.target.matches('[data-lote]')) {
-        if (e.target.dataset.disponible == 'true') {
-            e.target.style.fill = '#de9f27'
-        } else {
-            e.target.style.fill = '#1a1a1a'
-        }
+        // if (e.target.dataset.disponible == 'true') {
+        //     e.target.style.fill = '#de9f27'
+        // } else {
+        //     e.target.style.fill = '#1a1a1a'
+        // }
         maps.hidePopup(tooltip)
     }
 })

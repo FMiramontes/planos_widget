@@ -174,7 +174,7 @@
 
 /* Animacion hover desarrollos */
 [data-manzana]:hover {
-  stroke: #de9f27;
+  stroke: #0d2e27;
   animation: popup 0.75s ease alternate infinite;
 }
 

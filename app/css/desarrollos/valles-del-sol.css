@@ -222,7 +222,7 @@
 } */
 /* Animacion hover desarrollos */
 [data-manzana]:hover {
-  stroke: #226188;
+  stroke: #f0903f;
   animation: popup 0.75s ease alternate infinite;
 }
 
