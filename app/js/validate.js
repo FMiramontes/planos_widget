@@ -52,8 +52,13 @@ const validate = {
     const inputsCheckForm = Array.from(
       document.querySelectorAll('[data-existe-en-crm]')
     )
+    let contPass = 5
+
+    const loggedUser = document.querySelector('#user')
 
     let campana = document.getElementById('campaignValue')
+
+    let vendedor = document.querySelector('#vendorsValue')
 
     let cont = 0
     inputsCheckForm.forEach((e) => {
@@ -68,11 +73,21 @@ const validate = {
         }
       }
     })
+
     if (campana.dataset.campaignid != undefined) {
       cont += 1
     }
-    console.log('validateform count', cont)
-    if (cont == 4) {
+
+    if (vendedor.value !== '') {
+      cont += 1
+    }
+
+    if (loggedUser.dataset.profile === 'Vendedor') {
+      contPass = 4
+    }
+
+    //console.log('validateform count', cont)
+    if (cont == contPass) {
       return true
     } else {
       return false
