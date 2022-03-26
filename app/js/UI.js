@@ -85,7 +85,12 @@ const UI = {
             menu.addEventListener('click', async (e) => {
                 if (e.target.matches('[data-index]')) {
                     let loader = document.getElementById('loader-mapa')
+                    let contenedorMapa = document.getElementById('map')
                     loader.style.display = 'flex'
+                    contenedorMapa.style.display = 'none'
+                    let elem = document.getElementById('svg-map')
+                    const panzoom = Panzoom(elem)
+                    panzoom.reset
                     let name = e.target.dataset.name.toLowerCase()
                     console.log('Desarrollo', name)
                     const nameSvg = name.replaceAll(' ', '-')
@@ -106,6 +111,7 @@ const UI = {
 
                     this.loadPlano(name, e.target.dataset.id)
                     loader.style.display = 'none'
+                    contenedorMapa.style.display = 'flex'
                 }
             })
         } else {
@@ -743,7 +749,8 @@ const UI = {
         let modal = document.getElementById('modal')
 
         if (view) {
-            container_modal.style.display = 'flex'
+            container_modal.classList.add('animate-show')
+
             modal.dataset.item = id
             modal.dataset.crm_id = crm_id
             modal.dataset.trato = trato
@@ -752,7 +759,8 @@ const UI = {
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
         } else {
-            container_modal.style.display = 'none'
+            container_modal.classList.remove('animate-show')
+            
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
         }

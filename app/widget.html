@@ -41,7 +41,7 @@
                             class="title-type"
                             for="switch-search"
                             data-modulesearch="Contacts"
-                            >Contacts</label
+                            >CONTACTS</label
                         >
                         <label class="toggle on">
                             <input
@@ -178,6 +178,7 @@
                                             name="First_Name"
                                             data-existe-en-crm="true"
                                             data-aporta-recursos
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -187,6 +188,7 @@
                                             name="Apellido_Paterno"
                                             data-existe-en-crm="true"
                                             data-aporta-recursos
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -196,6 +198,7 @@
                                             name="Apellido_Materno"
                                             data-existe-en-crm="true"
                                             data-aporta-recursos
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -203,6 +206,7 @@
                                         <input
                                             type="date"
                                             name="Date_of_Birth"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -210,11 +214,12 @@
                                         <input
                                             type="text"
                                             name="Lugar_de_nacimiento"
+                                            required
                                         />
                                     </span>
                                     <span>
                                         <label>Estado Civil:</label>
-                                        <select name="Estado_Civil">
+                                        <select name="Estado_Civil" required>
                                             <option value="Casado(a)">
                                                 Casado(a)
                                             </option>
@@ -241,6 +246,7 @@
                                             type="number"
                                             name="Phone"
                                             size="10"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -249,6 +255,7 @@
                                             type="number"
                                             name="Mobile"
                                             size="10"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -259,6 +266,7 @@
                                             name="Email"
                                             data-email="required"
                                             data-existe-en-crm="true"
+                                            required
                                         />
                                     </span>
                                 </div>
@@ -271,22 +279,23 @@
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Calle y No.</label>
-                                        <input type="text" name="calle" />
+                                        <input type="text" name="calle" required/>
                                     </span>
                                     <span>
                                         <label>Fracc. o Colonia:</label>
-                                        <input type="text" name="Colonia" />
+                                        <input type="text" name="Colonia" required/>
                                     </span>
                                     <span>
                                         <label>Ciudad:</label>
                                         <input
                                             type="text"
                                             name="Mailing_City"
+                                            required
                                         />
                                     </span>
                                     <span>
                                         <label>CP:</label>
-                                        <input type="text" name="Mailing_Zip" />
+                                        <input type="text" name="Mailing_Zip" required/>
                                     </span>
                                 </div>
                             </div>
@@ -304,6 +313,7 @@
                                             type="text"
                                             name="Empresa_en_labora"
                                             data-aporta-recursos
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -312,6 +322,7 @@
                                             type="text"
                                             name="Ocupacion"
                                             data-aporta-recursos
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -320,6 +331,7 @@
                                             type="number"
                                             name="INGRESO_MENSUAL"
                                             data-aporta-recursos
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -328,6 +340,7 @@
                                             type="text"
                                             name="A_os_Laborados"
                                             data-aporta-recursos
+                                            required
                                         />
                                     </span>
                                 </div>
@@ -350,6 +363,7 @@
                                             type="text"
                                             name="Nombre2"
                                             data-existe-en-crm="true"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -358,6 +372,7 @@
                                             type="text"
                                             name="ApellidoP2"
                                             data-existe-en-crm="true"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -366,6 +381,7 @@
                                             type="text"
                                             name="Apellido_Materno_2"
                                             data-existe-en-crm="true"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -373,6 +389,7 @@
                                         <input
                                             type="date"
                                             name="Fecha_Nacimiento2"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -380,11 +397,12 @@
                                         <input
                                             type="text"
                                             name="LUGAR_DE_NACIMIENTO_2"
+                                            required
                                         />
                                     </span>
                                     <span>
                                         <label>Estado Civil:</label>
-                                        <select name="Estado_Civil_2">
+                                        <select name="Estado_Civil_2" required>
                                             <option value="Casado(a)">
                                                 Casado(a)
                                             </option>
@@ -411,6 +429,7 @@
                                             type="number"
                                             name="Phone_2"
                                             size="10"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -419,6 +438,7 @@
                                             type="number"
                                             name="Movil2"
                                             size="10"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -428,6 +448,7 @@
                                             type="email"
                                             name="Correo2"
                                             data-existe-en-crm="true"
+                                            required
                                         />
                                     </span>
                                 </div>
@@ -440,21 +461,22 @@
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Calle y No.</label>
-                                        <input type="text" name="Calle2" />
+                                        <input type="text" name="Calle2" required/>
                                     </span>
                                     <span>
                                         <label>Fracc. o Colonia:</label>
-                                        <input type="text" name="Colonia2" />
+                                        <input type="text" name="Colonia2" required/>
                                     </span>
                                     <span>
                                         <label>Ciudad:</label>
-                                        <input type="text" name="Ciudad2" />
+                                        <input type="text" name="Ciudad2" required/>
                                     </span>
                                     <span>
                                         <label>CP:</label>
                                         <input
                                             type="text"
                                             name="Zip_SegundoCliente"
+                                            required
                                         />
                                     </span>
                                 </div>
@@ -470,17 +492,18 @@
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Empresa Donde Trabaja:</label>
-                                        <input type="text" name="Empresa2" />
+                                        <input type="text" name="Empresa2" required/>
                                     </span>
                                     <span>
                                         <label>Puesto:</label>
-                                        <input type="text" name="Ocupacion2" />
+                                        <input type="text" name="Ocupacion2" required/>
                                     </span>
                                     <span>
                                         <label>Ingreso Mensual:</label>
                                         <input
                                             type="number"
                                             name="Ingreso_Mensual_Segundo_Cliente"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -488,6 +511,7 @@
                                         <input
                                             type="text"
                                             name="A_os_Laborados_2"
+                                            required
                                         />
                                     </span>
                                 </div>
@@ -509,6 +533,7 @@
                                         <input
                                             type="text"
                                             name="Referencia_1"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -516,6 +541,7 @@
                                         <input
                                             type="text"
                                             name="Parentesco_1"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -524,6 +550,7 @@
                                             type="number"
                                             name="Tel_fono_1"
                                             size="10"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -531,6 +558,7 @@
                                         <input
                                             type="text"
                                             name="Referencia_2"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -538,6 +566,7 @@
                                         <input
                                             type="text"
                                             name="Parentesco_2"
+                                            required
                                         />
                                     </span>
                                     <span>
@@ -546,6 +575,7 @@
                                             type="number"
                                             name="Tel_fono_2"
                                             size="10"
+                                            required
                                         />
                                     </span>
                                 </div>
@@ -632,6 +662,7 @@
                                             type="text"
                                             name="Campanya"
                                             id="campaignValue"
+                                            required
                                         />
                                         <div class="container-serch">
                                             <input
@@ -652,6 +683,7 @@
                                         <select
                                             name="vendors"
                                             id="vendorsValue"
+                                            required
                                         >
                                             <option value=""></option>
                                         </select>
@@ -662,6 +694,7 @@
                                         <select
                                             name="coordinador"
                                             id="coordinadorValue"
+                                            required
                                         >
                                             <option value=""></option>
                                         </select>
@@ -795,13 +828,14 @@
                                 <div class="block" data-presupuesto="true">
                                     <span>
                                         <label>Por La Cantidad De:</label>
-                                        <input type="text" name="Cantidad_RA" />
+                                        <input type="text" name="Cantidad_RA" required/>
                                     </span>
                                     <span>
                                         <label>Observaciones:</label>
                                         <input
                                             type="text"
                                             name="Observaciones_RA"
+                                            required
                                         />
                                     </span>
                                     <span>

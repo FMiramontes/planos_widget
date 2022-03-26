@@ -24,7 +24,6 @@
 
 .name_user {
     margin-left: 5px;
-    font-weight: bold;
     font-size: 16px;
     color: #fff;
 }
@@ -58,11 +57,12 @@
     justify-content: center;
     cursor: pointer;
     font-family: Raleway;
+    transition: all 1s;
 }
 
   #search-contact:hover{
     background-color: #de9f27;
-    border: #de9f27;
+    border-color: #de9f27;
 }
 /* Check */
 .module-switch{

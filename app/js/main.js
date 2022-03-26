@@ -148,7 +148,7 @@ modal.addEventListener('change', (e) => {
     }
 })
 
- //UI.viewModal(true, '0', '0', false)
+//UI.viewModal(true, '0', '0', false)
 
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {

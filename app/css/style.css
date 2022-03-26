@@ -54,23 +54,23 @@ body {
 
 [data-manzana]:hover {
     cursor: pointer;
+
 }
-[data-lote]:hover{
+[data-dispobile*="true"]:hover{
     animation: alternateColor .75s ease alternate infinite;       
   }
   
   @keyframes alternateColor {
     0% {
-      fill: rgb(189, 126, 8); 
+      fill: #f3cf5b; 
     }
-    20% {
-      fill: rgb(211, 138, 2); 
-      }
-    65% {
-      fill: rgb(218, 147, 16); 
+    
+    25% {
+      fill: #f0be1c; 
     }
+   
     100% {
-      fill: rgb(218, 149, 22); 
+      fill: #d1a102; 
     }
   }
 
@@ -161,6 +161,7 @@ image {
 .zoom:hover {
     background-color: #1a1a1a;
     cursor: pointer;
+    transition: all 1s;
 }
 
 .zoom i {
