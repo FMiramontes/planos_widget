@@ -10,16 +10,23 @@ const searchCoordinadorBtn = document.querySelector('#search-coordinador')
 const switchSearch = document.querySelector('#switch-search')
 const searchLabel = document.querySelector('.module-switch label')
 const modal = document.getElementById('modal')
+const vendedoresInput = document.querySelector('#vendorsValue')
 
 let CRMData = {},
     qselector
 
 ZOHO.embeddedApp.on('PageLoad', async function (data) {
     ZOHO.CRM.CONFIG.getCurrentUser().then(function (data) {
+        console.log('Current user', data)
         const user = document.getElementById('user')
         UI.userVendors(data.users[0])
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
+        user.dataset.profile = data.users[0].profile.name
+        if (data.users[0].profile.name === 'Vendedor') {
+            console.log('es Vendedor')
+            document.querySelector('#vendorsValue').value = data.users[0].id
+        }
         img_user.setAttribute('src', data.users[0].image_link)
         user.lastElementChild.innerText = data.users[0].full_name
         user.firstElementChild.appendChild(img_user)
@@ -38,10 +45,10 @@ searchContactBtn.addEventListener('click', () => {
 switchSearch.addEventListener('change', () => {
     if (switchSearch.checked) {
         searchLabel.dataset.modulesearch = 'Leads'
-        searchLabel.textContent = 'LEADS'
+        searchLabel.textContent = 'Leads'
     } else {
         searchLabel.dataset.modulesearch = 'Contacts'
-        searchLabel.textContent = 'CONTACTS'
+        searchLabel.textContent = 'Contacts'
     }
 })
 searchCampaigntBtn.addEventListener('click', () => {
@@ -102,9 +109,15 @@ document.getElementById('btn-submit').addEventListener('click', (e) => {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
 })
+const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
+const input_location = document.querySelector('input[name="Localizacion_P"]')
+const map = document.getElementById('map')
 
 document.addEventListener('dblclick', (e) => {
     if (e.target.matches('[data-lote]')) {
+        input_frac.value = map.dataset.name
+        input_location.value = map.dataset.localidad
+
         if (e.target.dataset.disponible == 'true') {
             const contactDiv = document.getElementById('contact')
             const contact_id =
@@ -147,6 +160,15 @@ modal.addEventListener('change', (e) => {
         valid.validateRecursos()
     }
 })
+
+// ---------------------------------------------
+/*
+const btnTest = document.getElementById('btn-test')
+btnTest.addEventListener('click', (e) => {
+    UI.viewModal(true, '0', '0', false)
+})
+*/
+// ---------------------------------------------
 
 //UI.viewModal(true, '0', '0', false)
 
@@ -227,8 +249,8 @@ mapa.addEventListener('mouseover', (e) => {
             tooltip.appendChild(total)
             posicionX = e.pageX
             posicionY = e.pageY
-            // e.target.style.fill = '#e5b252'
-            // e.target.style.cursor = 'pointer'
+            e.target.style.fill = '#e5b252'
+            e.target.style.cursor = 'pointer'
         } else {
             tooltip.innerHTML = ''
             let lote = document.createElement('p')
@@ -239,18 +261,31 @@ mapa.addEventListener('mouseover', (e) => {
             tooltip.appendChild(estado)
             posicionX = e.pageX
             posicionY = e.pageY
-            // e.target.style.fill = '#000'
+            e.target.style.fill = '#000'
         }
         maps.showPopup(tooltip, posicionX, posicionY)
     }
 })
 mapa.addEventListener('mouseout', (e) => {
     if (e.target.matches('[data-lote]')) {
-        // if (e.target.dataset.disponible == 'true') {
-        //     e.target.style.fill = '#de9f27'
-        // } else {
-        //     e.target.style.fill = '#1a1a1a'
-        // }
+        if (e.target.dataset.disponible == 'true') {
+            e.target.style.fill = '#de9f27'
+        } else {
+            e.target.style.fill = 'rgb(46, 46, 46)'
+        }
         maps.hidePopup(tooltip)
+    }
+})
+
+vendedoresInput.addEventListener('change', (event) => {
+    // Remove any dataset if exists
+    if ('vendedorid' in vendedoresInput.dataset) {
+        delete vendedoresInput.dataset.vendedorid
+    }
+
+    const options = [...document.querySelectorAll('[data-idvendedor]')]
+    const idValue = options.find((input) => input.value == event.target.value)
+    if (idValue) {
+        vendedoresInput.dataset.vendedorid = idValue.dataset.idvendedor
     }
 })
