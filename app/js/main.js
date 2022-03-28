@@ -109,9 +109,15 @@ document.getElementById('btn-submit').addEventListener('click', (e) => {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
 })
+const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
+const input_location = document.querySelector('input[name="Localizacion_P"]')
+const map = document.getElementById('map')
 
 document.addEventListener('dblclick', (e) => {
     if (e.target.matches('[data-lote]')) {
+        input_frac.value = map.dataset.name
+        input_location.value = map.dataset.localidad
+
         if (e.target.dataset.disponible == 'true') {
             const contactDiv = document.getElementById('contact')
             const contact_id =
@@ -154,6 +160,15 @@ modal.addEventListener('change', (e) => {
         valid.validateRecursos()
     }
 })
+
+// ---------------------------------------------
+/*
+const btnTest = document.getElementById('btn-test')
+btnTest.addEventListener('click', (e) => {
+    UI.viewModal(true, '0', '0', false)
+})
+*/
+// ---------------------------------------------
 
 //UI.viewModal(true, '0', '0', false)
 
@@ -256,7 +271,7 @@ mapa.addEventListener('mouseout', (e) => {
         if (e.target.dataset.disponible == 'true') {
             e.target.style.fill = '#de9f27'
         } else {
-            e.target.style.fill = '#1a1a1a'
+            e.target.style.fill = 'rgb(46, 46, 46)'
         }
         maps.hidePopup(tooltip)
     }

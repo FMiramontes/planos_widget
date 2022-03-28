@@ -109,9 +109,11 @@ const UI = {
             data.data.forEach((i, index) => {
                 // console.log(i.fraccionamientos.logo)
                 let frac = document.createElement('div')
+                frac.dataset.localidad = i.Localidad
                 frac.dataset.index = index
                 frac.dataset.name = i.Name
                 frac.dataset.id = i.id
+
                 frac.classList = 'fracionamiento'
                 frac.innerHTML = `
                                 <div class="nombre-desarrollo">${i.Name}</div>
@@ -142,7 +144,7 @@ const UI = {
 
                     beforeManzana = ''
 
-                    this.loadPlano(name, e.target.dataset.id)
+                    this.loadPlano(e)
                     loader.style.display = 'none'
                 }
             })
@@ -156,12 +158,18 @@ const UI = {
                 )
         }
     },
-    async loadPlano(name, id) {
+    async loadPlano(e) {
         this.getSVG()
 
         const mapa = document.getElementById('map')
 
+        const id = e.target.dataset.id
+        const name = e.target.dataset.name
+        const localidad = e.target.dataset.localidad
+
+        mapa.dataset.name = name
         mapa.dataset.commerceId = id
+        mapa.dataset.localidad = localidad
 
         mapa.addEventListener('click', async (e) => {
             if (e.target.matches('[data-manzana]')) {
@@ -808,7 +816,7 @@ const UI = {
         let modal = document.getElementById('modal')
 
         if (view) {
-            container_modal.style.display = 'flex'
+            container_modal.classList.add('animate-show')
             modal.dataset.item = id
             modal.dataset.crm_id = crm_id
             modal.dataset.trato = trato
@@ -817,7 +825,7 @@ const UI = {
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
         } else {
-            container_modal.style.display = 'none'
+            container_modal.classList.remove('animate-show')
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
         }

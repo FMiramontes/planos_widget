@@ -15,7 +15,7 @@
     justify-content: center;
     align-items: center;
     z-index: 4;
-    transition: 0.8s ease;
+    transition: all 0.8s ease;
 }
 .modal {
     position: absolute;
@@ -32,42 +32,40 @@
 }
 
 /* modal animation for show */
-  
-  .animate-show {
+
+.animate-show {
     animation: show 0.8s;
     display: flex;
     animation-fill-mode: forwards;
-  }
-  
-  @keyframes show {
+}
+
+@keyframes show {
     0% {
-      opacity: 0
+        opacity: 0;
     }
     100% {
-      opacity: 1
+        opacity: 1;
     }
-  }
+}
 
 /* modal animation for hide */
 
-  .animate-out {
-    /* animation: out 0.8s;
-    animation-fill-mode: forwards; */
+.animate-out {
     animation-name: out;
     animation-duration: 0.8s;
     animation-delay: 1s;
     animation-timing-function: ease;
     animation-fill-mode: forwards;
-  }
-  
-  @keyframes out {
+}
+
+@keyframes out {
     0% {
-      opacity: 1
+        opacity: 1;
     }
     100% {
-      opacity: 0
+        opacity: 0;
     }
-  }
+}
 
 .formulario {
     column-count: 2;
@@ -225,12 +223,12 @@ select {
 }
 
 input.invalid {
-    border-color:  rgb(184, 55, 55);
+    border-color: rgb(184, 55, 55);
     animation: shake 300ms;
-  }
+}
 
-  @keyframes shake {
-    25%{ 
+@keyframes shake {
+    25% {
         transform: translateX(4px);
     }
     50% {
@@ -238,8 +236,8 @@ input.invalid {
     }
     75% {
         transform: translateX(4px);
-    } 
- }
+    }
+}
 
 @media (max-device-width: 1300px) {
     .block {
