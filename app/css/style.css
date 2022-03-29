@@ -56,7 +56,7 @@ body {
     cursor: pointer;
 
 }
-[data-dispobile*="true"]:hover{
+[data-disponible="true"]:hover{
     animation: alternateColor .75s ease alternate infinite;       
   }
   
@@ -71,6 +71,23 @@ body {
    
     100% {
       fill: #d1a102; 
+    }
+  }
+
+  [data-disponible="false"]:hover{
+    animation: colorHover .75s ease alternate infinite;       
+  }
+  @keyframes colorHover {
+    0% {
+        fill: #5D686F; 
+    }
+    
+    50% {
+        fill: #47494E; 
+    }
+   
+    100% {
+      fill: #5C5C5C; 
     }
   }
 
