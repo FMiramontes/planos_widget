@@ -10,6 +10,7 @@ const searchCoordinadorBtn = document.querySelector('#search-coordinador')
 const switchSearch = document.querySelector('#switch-search')
 const searchLabel = document.querySelector('.module-switch label')
 const modal = document.getElementById('modal')
+const menuForm = document.querySelector('.menu-form');
 const vendedoresInput = document.querySelector('#vendorsValue')
 
 let CRMData = {},
@@ -175,9 +176,20 @@ btnTest.addEventListener('click', (e) => {
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {
     if (e.target.id == 'container-modal') {
+        
+        modal.classList.remove('animate-show')
+        menuForm.classList.remove('animate-show')
+        containerModal.classList.remove('intentoShow')
+        // modal.classList.toggle('animate-out')
+        // menuForm.classList.toggle('animate-out')
+        // containerModal.classList.toggle('intentoOut')
+
         UI.viewModal(false, '', '', '', '')
+        containerModal.classList.add('intentoOut')
+        
     }
 })
+
 
 let Iconmenu = document.querySelector('.btn-menu')
 let menu = document.querySelector('#menu-lateral')

@@ -814,9 +814,18 @@ const UI = {
         const { crm_id, trato, crm: existeCRM, sku } = dataset
         let container_modal = document.getElementById('container-modal')
         let modal = document.getElementById('modal')
+        let menuForm = document.querySelector('.menu-form');
 
         if (view) {
-            container_modal.classList.add('animate-show')
+            modal.classList.remove('animate-out')
+            menuForm.classList.remove('animate-out')
+            container_modal.classList.remove('intentoOut')
+            modal.classList.add('animate-show')
+            menuForm.classList.add('animate-show')
+            container_modal.classList.add('intentoShow')
+            
+
+
             modal.dataset.item = id
             modal.dataset.crm_id = crm_id
             modal.dataset.trato = trato
@@ -825,12 +834,16 @@ const UI = {
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
         } else {
-            container_modal.classList.remove('animate-show')
+            modal.classList.add('animate-out')
+            menuForm.classList.add('animate-out')
+            
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
         }
     },
-    paintDataPresupuesto(id, dataset) {
+
+
+ paintDataPresupuesto(id, dataset) {
         const { costototal, costom2, dimension } = dataset
         // const Total = document.querySelector('input[name="Costo_Total_P"]')
         let Total = document.querySelector('input[name="Costo_Total_P"]')
