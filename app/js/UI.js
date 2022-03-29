@@ -558,12 +558,16 @@ const UI = {
             const coordinadorArray = []
             coordinadorArray.push(coo_id)
 
+            let today = new Date()
+            let date = util.addDate(today, 'D', 7)
+
             const DealData = {
                 Deal_Name: modal.dataset.trato,
                 Nombre_de_Producto: { id: product_id },
                 Account_Name: { id: accountId },
                 Amount: newData.presupuesto.Saldo_Pagar_P,
                 Stage: 'Presentación del Producto',
+                Closing_Date: date,
                 Campaign_Source: { id: Campaign_id },
                 Contact_Name: { id: contact_id },
                 Coordinador: coordinadorArray,
@@ -646,8 +650,8 @@ const UI = {
                         })
                         plazosdiferido = Number(campa_a.dataset.plazosdiferido)
 
-                        let today = new Date()
-                        let date = util.addDate(today, 'D', 7)
+                        // let today = new Date()
+                        // let date = util.addDate(today, 'D', 7)
                         let des = ''
 
                         if (formadepago == 'Contado') {
@@ -778,9 +782,26 @@ const UI = {
                             )
                             console.log('INVOICE REQUEST', invoiceRequest)
                             if (invoiceRequest.ok) {
+                                //Send Invoice
+                                const sendInvoiceRequest =
+                                    await books.sendInvoice(
+                                        invoiceRequest.data.invoice.invoice_id
+                                    )
+                                if (sendInvoiceRequest.ok) {
+                                    alerts.showAlert(
+                                        'success',
+                                        'Factura creada y enviada en Books'
+                                    )
+                                } else {
+                                    alerts.showAlert(
+                                        'success',
+                                        'Factura creada en estado borrador Books'
+                                    )
+                                }
+                            } else {
                                 alerts.showAlert(
-                                    'success',
-                                    'Factura creada en Books'
+                                    'warning',
+                                    'Hubo un problema al intentar crear factura'
                                 )
                             }
                             console.log(
@@ -790,7 +811,8 @@ const UI = {
 
                         // End of process
                         campa_a.value = ''
-                        coo_id.value = ''
+                        // coo_id.value = ''
+                        document.querySelector('#coordinadorValue').value = ''
                         vend.value = ''
                         this.removeDatasets('#campaignValue')
                         // this.removeDatasets('#vendorsValue')
@@ -800,6 +822,7 @@ const UI = {
                 }
             }
         } catch (error) {
+            console.log(error)
             alerts.showAlert('danger', error.message)
         }
         console.timeEnd()
