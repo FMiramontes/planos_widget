@@ -567,7 +567,7 @@ const UI = {
                 Account_Name: { id: accountId },
                 Amount: newData.presupuesto.Saldo_Pagar_P,
                 Stage: 'Presentación del Producto',
-                Closing_Date: date,
+                Closing_Date: date.toISOString().split('T')[0],
                 Campaign_Source: { id: Campaign_id },
                 Contact_Name: { id: contact_id },
                 Coordinador: coordinadorArray,
