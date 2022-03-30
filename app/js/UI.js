@@ -47,57 +47,38 @@ const coords = [
     'Coord. Fernanda Peralta',
 ]
 
-const coordinadores = [
-    {
-        id: '2234337000031348022',
-        name: 'Adolfo Martinez',
-        email: 'amartinez@grupoconcordia.com',
-    },
-    {
-        id: '2234337000053173001',
-        name: 'Veronica Gonzalez',
-        email: 'vgonzalez@grupoconcordia.com',
-    },
-    {
-        id: '2234337000029920001',
-        name: 'Nayeli Juarez',
-        email: 'njuarez@grupoconcordia.com',
-    },
-    {
-        id: '2234337000009539023',
-        name: 'Alejandra Garcia',
-        email: 'agarcia@grupoconcordia.com',
-    },
-    {
-        id: '2234337000024388015',
-        name: 'Mariana Fragoso',
-        email: 'mfragoso@grupoconcordia.com',
-    },
-    {
-        id: '2234337000003889001',
-        name: 'Lizeth Lopez',
-        email: 'alopez@grupoconcordia.com',
-    },
-    {
-        id: '2234337000098706001',
-        name: 'Fernanda Peralta',
-        email: 'fperalta@grupoconcordia.com',
-    },
-    {
-        id: '2234337000154895001',
-        name: 'Alejandro Cazorla',
-        email: 'alcazorla@grupoconcordia.com',
-    },
-    {
-        id: '2234337000049017150',
-        name: 'Ashram Mendez',
-        email: 'asmendez@grupoconcordia.com',
-    },
-    {
-        id: '2234337000074180001',
-        name: 'Sabrina Martinez',
-        email: 'smartinez@grupoconcordia.com',
-    },
+const fuentesCliente = [
+    'Aviso',
+    'Llamada no solicitada',
+    'Recomendación de empleado',
+    'Recomendación externa',
+    'Tienda en línea',
+    'Socio',
+    'Facebook',
+    'Twitter',
+    'Relaciones públicas',
+    'Alias del correo electrónico de ventas',
+    'Google+',
+    'Socio de seminarios',
+    'Seminario interno',
+    'Exposición comercial',
+    'Descargar web',
+    'Investigación web',
+    'Correo web',
+    'Casos de la Web',
+    'Chat',
+    'Página Web',
+    'Infomercial',
+    'Carteleras',
+    'Radio',
+    'Periodico',
+    'Referido Inverplus',
+    'Volanteo',
+    'Flyers',
+    'Recomendados',
+    'Oficinas',
+    'Google AdWords',
+    'Camion',
 ]
 
 const UI = {
@@ -1124,7 +1105,7 @@ const UI = {
             selectedOption.children[0].dataset.plazosdiferido
     },
     coordinador() {
-        const selectCoordinador = document.getElementById('coordinadorValue')
+        const selectCoordinador = document.getElementById('list-coo')
 
         coords.forEach((coo) => {
             let option = document.createElement('option')
@@ -1323,6 +1304,16 @@ const UI = {
         })
 
         console.log(`Reset of datasets for ${selector}`, elem.dataset)
+    },
+    addfuentes() {
+        console.log('Prueba')
+        const selectFuentes = document.getElementById('list-fuente')
+        console.log('selectFuentes: ', selectFuentes)
+        fuentesCliente.forEach((f) => {
+            let option = document.createElement('option')
+            option.innerText = f
+            selectFuentes.appendChild(option)
+        })
     },
 }
 

@@ -271,6 +271,18 @@
                                             required
                                         />
                                     </span>
+                                    <span>
+                                        <label>Fuente de posible cliente:</label>
+                                        <input
+                                            name="Lead_Source"
+                                            id="fuente-posible-cliente"
+                                            list="list-fuente"
+                                        >
+                                            <datalist id="list-fuente">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </input>
+                                    </span>
                                 </div>
                             </div>
                             <!-- sub block direccion -->
@@ -694,14 +706,15 @@
                                     </span>
                                     <span>
                                         <label>Coordinador:</label>
-
-                                        <select
+                                        <input
                                             name="coordinador"
                                             id="coordinadorValue"
-                                            required
+                                            list="list-coo"
                                         >
-                                            <option value=""></option>
-                                        </select>
+                                            <datalist id="list-coo">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </input>
                                     </span>
                                     <span>
                                         <label>Fraccionamiento:</label>
