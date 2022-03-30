@@ -64,9 +64,22 @@
                     <input type="button" id="search-contact" value="search" />
                     <div id="contact-results" class="search-result"></div>
                 </div>
+                <div class="btn-menu2">
+                    <span></span>
+                </div>
             </div>
             <!-- Menu Lateral -->
             <div data-menu="menu" id="menu-lateral" class="menu-lateral"></div>
+            <div data-menu="menu" id="menu-lateral2" class="menu-lateral2">
+                
+                <section class="card-trato">
+                    <section class="titulo-trato">CD ORO M13-L2</section>
+                    <section class="trato-cont">
+                        <input type="button" class="btn-trato" value="Preliminar">
+                    </section>
+                </section>
+
+            </div>
             <!-- Container map -->
             <div class="container-map">
                 <div class="wrap-loader">
@@ -81,7 +94,7 @@
                             data-desarrollo=""
                             width="100%"
                             height="100%"
-                            viewBox="0 0 4000 3527"
+                            viewBox="0 -500 4000 3527"
                             id="svg-map"
                         >
                             <defs>
@@ -221,7 +234,7 @@
                                     </span>
                                     <span>
                                         <label>Estado Civil:</label>
-                                        <select name="Estado_Civil" required>
+                                        <select name="Estado_Civil">
                                             <option value="Casado(a)">
                                                 Casado(a)
                                             </option>
@@ -248,7 +261,6 @@
                                             type="number"
                                             name="Phone"
                                             size="10"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -257,7 +269,6 @@
                                             type="number"
                                             name="Mobile"
                                             size="10"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -281,23 +292,22 @@
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Calle y No.</label>
-                                        <input type="text" name="calle" required/>
+                                        <input type="text" name="calle"/>
                                     </span>
                                     <span>
                                         <label>Fracc. o Colonia:</label>
-                                        <input type="text" name="Colonia" required/>
+                                        <input type="text" name="Colonia"/>
                                     </span>
                                     <span>
                                         <label>Ciudad:</label>
                                         <input
                                             type="text"
                                             name="Mailing_City"
-                                            required
                                         />
                                     </span>
                                     <span>
                                         <label>CP:</label>
-                                        <input type="text" name="Mailing_Zip" required/>
+                                        <input type="text" name="Mailing_Zip"/>
                                     </span>
                                 </div>
                             </div>
@@ -315,7 +325,6 @@
                                             type="text"
                                             name="Empresa_en_labora"
                                             data-aporta-recursos
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -324,7 +333,6 @@
                                             type="text"
                                             name="Ocupacion"
                                             data-aporta-recursos
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -333,7 +341,6 @@
                                             type="number"
                                             name="INGRESO_MENSUAL"
                                             data-aporta-recursos
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -342,7 +349,6 @@
                                             type="text"
                                             name="A_os_Laborados"
                                             data-aporta-recursos
-                                            required
                                         />
                                     </span>
                                 </div>
@@ -365,7 +371,6 @@
                                             type="text"
                                             name="Nombre2"
                                             data-existe-en-crm="true"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -374,7 +379,6 @@
                                             type="text"
                                             name="ApellidoP2"
                                             data-existe-en-crm="true"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -383,7 +387,6 @@
                                             type="text"
                                             name="Apellido_Materno_2"
                                             data-existe-en-crm="true"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -391,7 +394,6 @@
                                         <input
                                             type="date"
                                             name="Fecha_Nacimiento2"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -399,12 +401,11 @@
                                         <input
                                             type="text"
                                             name="LUGAR_DE_NACIMIENTO_2"
-                                            required
                                         />
                                     </span>
                                     <span>
                                         <label>Estado Civil:</label>
-                                        <select name="Estado_Civil_2" required>
+                                        <select name="Estado_Civil_2">
                                             <option value="Casado(a)">
                                                 Casado(a)
                                             </option>
@@ -431,7 +432,6 @@
                                             type="number"
                                             name="Phone_2"
                                             size="10"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -440,7 +440,6 @@
                                             type="number"
                                             name="Movil2"
                                             size="10"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -450,7 +449,6 @@
                                             type="email"
                                             name="Correo2"
                                             data-existe-en-crm="true"
-                                            required
                                         />
                                     </span>
                                 </div>
@@ -463,22 +461,21 @@
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Calle y No.</label>
-                                        <input type="text" name="Calle2" required/>
+                                        <input type="text" name="Calle2"/>
                                     </span>
                                     <span>
                                         <label>Fracc. o Colonia:</label>
-                                        <input type="text" name="Colonia2" required/>
+                                        <input type="text" name="Colonia2"/>
                                     </span>
                                     <span>
                                         <label>Ciudad:</label>
-                                        <input type="text" name="Ciudad2" required/>
+                                        <input type="text" name="Ciudad2"/>
                                     </span>
                                     <span>
                                         <label>CP:</label>
                                         <input
                                             type="text"
                                             name="Zip_SegundoCliente"
-                                            required
                                         />
                                     </span>
                                 </div>
@@ -494,18 +491,17 @@
                                 <div class="block" data-contacto="true">
                                     <span>
                                         <label>Empresa Donde Trabaja:</label>
-                                        <input type="text" name="Empresa2" required/>
+                                        <input type="text" name="Empresa2"/>
                                     </span>
                                     <span>
                                         <label>Puesto:</label>
-                                        <input type="text" name="Ocupacion2" required/>
+                                        <input type="text" name="Ocupacion2"/>
                                     </span>
                                     <span>
                                         <label>Ingreso Mensual:</label>
                                         <input
                                             type="number"
                                             name="Ingreso_Mensual_Segundo_Cliente"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -513,7 +509,6 @@
                                         <input
                                             type="text"
                                             name="A_os_Laborados_2"
-                                            required
                                         />
                                     </span>
                                 </div>
@@ -535,7 +530,6 @@
                                         <input
                                             type="text"
                                             name="Referencia_1"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -543,7 +537,6 @@
                                         <input
                                             type="text"
                                             name="Parentesco_1"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -552,7 +545,6 @@
                                             type="number"
                                             name="Tel_fono_1"
                                             size="10"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -560,7 +552,6 @@
                                         <input
                                             type="text"
                                             name="Referencia_2"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -568,7 +559,6 @@
                                         <input
                                             type="text"
                                             name="Parentesco_2"
-                                            required
                                         />
                                     </span>
                                     <span>
@@ -577,7 +567,6 @@
                                             type="number"
                                             name="Tel_fono_2"
                                             size="10"
-                                            required
                                         />
                                     </span>
                                 </div>
@@ -840,14 +829,13 @@
                                 <div class="block" data-presupuesto="true">
                                     <span>
                                         <label>Por La Cantidad De:</label>
-                                        <input type="text" name="Cantidad_RA" required/>
+                                        <input type="text" name="Cantidad_RA"/>
                                     </span>
                                     <span>
                                         <label>Observaciones:</label>
                                         <input
                                             type="text"
                                             name="Observaciones_RA"
-                                            required
                                         />
                                     </span>
                                     <span>
