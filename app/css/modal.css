@@ -32,40 +32,79 @@
 }
 
 /* modal animation for show */
-
-.animate-show {
+  
+.animate-show { 
     animation: show 0.8s;
     display: flex;
     animation-fill-mode: forwards;
-}
-
-@keyframes show {
+  }
+  
+  @keyframes show {
     0% {
-        opacity: 0;
+      transform: translateX(100%);
     }
     100% {
-        opacity: 1;
+      transform: translateX(0%);
     }
-}
+  }
 
+  .animate-out { 
+    animation: out 0.8s;
+    display: none;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes out {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
 /* modal animation for hide */
 
-.animate-out {
-    animation-name: out;
-    animation-duration: 0.8s;
-    animation-delay: 1s;
-    animation-timing-function: ease;
-    animation-fill-mode: forwards;
-}
+ 
 
-@keyframes out {
+  /* animations for container_modal */
+ .intentoShow{
+    animation: int 0.8s;
+    display: flex;
+    animation-fill-mode: forwards;
+    
+  }
+  
+  @keyframes int {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
+
+  .intentoOut{
+    animation: intOut 0.8s;
+    display: flex;
+    animation-fill-mode: forwards;
+    
+  }
+  
+  @keyframes intOut {
     0% {
         opacity: 1;
+      
     }
     100% {
         opacity: 0;
     }
-}
+  }
+
+  .mmm{
+      display: none;
+  }
+
+
 
 .formulario {
     column-count: 2;

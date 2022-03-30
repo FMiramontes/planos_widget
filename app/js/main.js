@@ -10,6 +10,7 @@ const searchCoordinadorBtn = document.querySelector('#search-coordinador')
 const switchSearch = document.querySelector('#switch-search')
 const searchLabel = document.querySelector('.module-switch label')
 const modal = document.getElementById('modal')
+const menuForm = document.querySelector('.menu-form');
 const vendedoresInput = document.querySelector('#vendorsValue')
 
 let CRMData = {},
@@ -176,9 +177,13 @@ btnTest.addEventListener('click', (e) => {
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {
     if (e.target.id == 'container-modal') {
+        modal.classList.remove('animate-show')
+        menuForm.classList.remove('animate-show')
+        containerModal.classList.remove('intentoShow')
         UI.viewModal(false, '', '', '', '')
     }
 })
+
 
 let Iconmenu = document.querySelector('.btn-menu')
 let menu = document.querySelector('#menu-lateral')
@@ -189,12 +194,27 @@ Iconmenu.addEventListener('click', () => {
     /*Abrir menu*/
     cerrarMenu()
 })
-
+ 
 function cerrarMenu() {
     menu.classList.toggle('open')
     btnMenuSpan.classList.toggle('active')
 }
 menuFraccionamiento.forEach((div) => div.addEventListener('click', cerrarMenu))
+
+/*Abrir menu tratos*/
+let Iconmenu2 = document.querySelector('.btn-menu2')
+let menu2 = document.querySelector('#menu-lateral2')
+let btnMenuSpan2 = document.querySelector('.btn-menu2 span')
+
+Iconmenu2.addEventListener('click', () => {
+    /*Abrir menu*/
+    cerrarMenu2()
+})
+ 
+function cerrarMenu2() {
+    menu2.classList.toggle('open')
+    btnMenuSpan2.classList.toggle('active')
+}
 
 // tabs Modal
 const tabs = document.querySelectorAll('[data-tab-target]')
