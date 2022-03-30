@@ -223,19 +223,22 @@ select {
 }
 
 input.invalid {
-    border-color: rgb(184, 55, 55);
+    border-width: 3px;
+    /* background-color: rgb(253, 181, 181); */
+    border-color: rgb(254, 88, 88);
     animation: shake 300ms;
+    border-radius: 5px;
 }
 
 @keyframes shake {
     25% {
-        transform: translateX(4px);
+        transform: translateX(10px);
     }
     50% {
-        transform: translateX(-4px);
+        transform: translateX(-10px);
     }
     75% {
-        transform: translateX(4px);
+        transform: translateX(10px);
     }
 }
 

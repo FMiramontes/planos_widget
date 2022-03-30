@@ -52,6 +52,7 @@ const validate = {
     const inputsCheckForm = Array.from(
       document.querySelectorAll('[data-existe-en-crm]')
     )
+    const inputsInvalid = {}
     let contPass = 5
 
     const loggedUser = document.querySelector('#user')
@@ -62,38 +63,59 @@ const validate = {
 
     let cont = 0
     inputsCheckForm.forEach((e) => {
-      if (
-        e.name == 'First_Name' ||
-        e.name == 'Apellido_Paterno' ||
-        e.name == 'Email'
-      ) {
+      if (e.name == 'First_Name' || e.name == 'Apellido_Paterno' || e.name == 'Email') {
         if (e.value != '') {
-          //console.log(e.name + ' encontrado')
+          e.classList.remove('invalid')
           cont += 1
+        }else{
+          if(e.name == 'First_Name'){
+            inputsInvalid.fname = e.name
+          }else if(e.name == 'Apellido_Paterno'){
+            inputsInvalid.lname = e.name
+          }else if(e.name == 'Email'){
+            inputsInvalid.email = e.name
+          }
         }
       }
     })
 
     if (campana.dataset.campaignid != undefined) {
+      campana.classList.remove('invalid')
       cont += 1
+    }else{
+      inputsInvalid.campana= campana.name
     }
 
     if (vendedor.value !== '') {
+      vendedor.classList.remove('invalid')
       cont += 1
+    }else{
+      inputsInvalid.vendedor = vendedor.name
     }
 
     if (loggedUser.dataset.profile === 'Vendedor') {
       contPass = 4
     }
 
-    //console.log('validateform count', cont)
     if (cont == contPass) {
       return true
     } else {
+      //pintar alertas
+      this.inputsInvalid(inputsInvalid)
       return false
     }
 
-    //console.log('validate form.....')
+    
+  },
+
+  inputsInvalid(inputsInvalid){
+    let inputCheck = Object.values(inputsInvalid)
+    
+    inputCheck.forEach((input)=>{
+      //console.log(input)
+      let inp = document.querySelector(`[name=${input}]`)
+      inp.classList.add("invalid")
+    })
   },
 
   validateRecursos() {
@@ -109,11 +131,7 @@ const validate = {
         //console.log(e.target)
         let temp = document.querySelector(`[data-copy=${e.target.name}]`)
 
-        if (
-          e.target.name == 'First_Name' ||
-          e.target.name == 'Apellido_Paterno' ||
-          e.target.name == 'Apellido_Materno'
-        ) {
+        if (e.target.name == 'First_Name' || e.target.name == 'Apellido_Paterno' || e.target.name == 'Apellido_Materno') {
           let nn
 
           if (inputsRecursos[1].value == '' && inputsRecursos[2].value == '') {
