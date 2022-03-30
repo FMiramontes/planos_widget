@@ -21,6 +21,8 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         console.log('Current user', data)
         const user = document.getElementById('user')
         UI.userVendors(data.users[0])
+        UI.addfuentes()
+        UI.coordinador()
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
@@ -36,7 +38,6 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
 
 ZOHO.embeddedApp.init().then(function () {
     UI.loadMenuLateral()
-    UI.coordinador()
 })
 
 searchContactBtn.addEventListener('click', () => {
