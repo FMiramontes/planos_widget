@@ -133,6 +133,11 @@ const UI = {
                     this.loadPlano(e)
                     loader.style.display = 'none'
                     containerMap.style.display = 'flex'
+
+                    let resetButton = document.getElementById('zoom-reset')
+
+                    console.log('click reset...')
+                    resetButton.click()
                 }
             })
         } else {
@@ -171,7 +176,6 @@ const UI = {
                 beforeManzana = manzana
             }
         })
-
         //
     },
     parseOuterHTML(text) {
@@ -605,6 +609,7 @@ const UI = {
                         NombreContacto: contactName,
                         Cuenta: accountName.toUpperCase(),
                         MododePago: 'EFECTIVO',
+                        // Fecha: today.toISOString().split('T')[0],
                         Propietario:
                             document.querySelector('.name_user').textContent,
                         EmailContacto: newData.contacto.Email,
@@ -802,6 +807,7 @@ const UI = {
                         document.querySelector('#coordinadorValue').value = ''
                         vend.value = ''
                         this.removeDatasets('#campaignValue')
+                        this.paintDeals()
                         // this.removeDatasets('#vendorsValue')
                     }
                 } else {
@@ -837,10 +843,21 @@ const UI = {
             // container_modal.style.display = 'none'
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
+            console.log('close modal...')
+            this.removeInvalid()
         }
     },
+    removeInvalid() {
+        let invalidInputs = Array.from(
+            document.getElementsByClassName('invalid')
+        )
+        //console.log({invalidInputs})
+        invalidInputs.forEach((inp) => {
+            inp.classList.remove('invalid')
+        })
+    },
 
- paintDataPresupuesto(id, dataset) {
+    paintDataPresupuesto(id, dataset) {
         const { costototal, costom2, dimension } = dataset
         // const Total = document.querySelector('input[name="Costo_Total_P"]')
         let Total = document.querySelector('input[name="Costo_Total_P"]')
@@ -1320,6 +1337,70 @@ const UI = {
             option.innerText = f
             selectFuentes.appendChild(option)
         })
+    },
+    async paintDeals() {
+        const containerDeals = document.getElementById('container-deals')
+        containerDeals.innerHTML = ''
+        const user = document.getElementById('user')
+        console.log('user: ', user.dataset)
+        let date = new Date()
+        let previusDate = util.addDate(date, 'D', -1)
+        console.log('previusDate: ', previusDate)
+        const dataDeals1 = await creator.getDeals(previusDate)
+        console.log('dataDeals1: ', dataDeals1)
+
+        if (dataDeals1.ok) {
+            dataDeals1.data.forEach((deal) => {
+                console.log(
+                    'Owner: ',
+                    deal.Propietario,
+                    'user: ',
+                    user.children[1].textContent
+                )
+                if (
+                    deal.Propietario == user.children[1].textContent ||
+                    user.children[1].textContent == 'Sistemas Concordia'
+                ) {
+                    let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.IDOportunidad}`
+                    let card = `
+                    <section class="card-trato">
+                        <section class="titulo-trato">${deal.ZCRMIDTerreno1}</section>
+                        <section class="trato-cont">
+                            <a href=${url} target="_blank" class="btn-trato">Preliminar</a>
+                        </section>
+                    </section>`
+                    containerDeals.insertAdjacentHTML('beforeend', card)
+                }
+            })
+        }
+
+        const dataDeals2 = await creator.getDeals(date)
+        console.log('dataDeals2: ', dataDeals2)
+
+        if (dataDeals2.ok) {
+            dataDeals2.data.forEach((deal) => {
+                console.log(
+                    'Owner: ',
+                    deal.Propietario,
+                    'user: ',
+                    user.children[1].textContent
+                )
+                if (
+                    deal.Propietario == user.children[1].textContent ||
+                    user.children[1].textContent == 'Sistemas Concordia'
+                ) {
+                    let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.IDOportunidad}`
+                    let card = `
+                        <section class="card-trato">
+                            <section class="titulo-trato">${deal.ZCRMIDTerreno1}</section>
+                            <section class="trato-cont">
+                                <a href=${url} target="_blank" class="btn-trato">Preliminar</a>
+                            </section>
+                        </section>`
+                    containerDeals.insertAdjacentHTML('beforeend', card)
+                }
+            })
+        }
     },
 }
 
