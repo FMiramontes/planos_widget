@@ -132,6 +132,7 @@ const UI = {
 
                     this.loadPlano(e)
                     loader.style.display = 'none'
+                    containerMap.style.display = 'flex'
 
                     let resetButton = document.getElementById('zoom-reset')
 
