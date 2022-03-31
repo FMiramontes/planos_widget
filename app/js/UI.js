@@ -843,8 +843,19 @@ const UI = {
 
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
+            console.log('close modal...')
+            this.removeInvalid()
+
         }
     },
+    removeInvalid(){
+        let invalidInputs = Array.from(document.getElementsByClassName('invalid'))
+        //console.log({invalidInputs})
+        invalidInputs.forEach((inp)=>{
+            inp.classList.remove('invalid')
+        })
+    },
+
     paintDataPresupuesto(id, dataset) {
         const { costototal, costom2, dimension } = dataset
         // const Total = document.querySelector('input[name="Costo_Total_P"]')
