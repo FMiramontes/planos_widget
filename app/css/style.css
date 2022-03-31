@@ -224,7 +224,7 @@ image {
 .zoom {
     background-color: #de9f27;
     border-radius: 30%;
-    z-index: 2;
+    /* z-index: 2; */
     display: flex;
     justify-content: center;
     align-items: center;

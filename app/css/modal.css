@@ -4,13 +4,28 @@
     background-color: #de9f27;
     margin: 0 auto;
 }
+.container-wrap{
+    position: fixed; 
+    left: 0;
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    top: -100%;
+    opacity: 0;
+    transition: top 0.4s, opacity 0.4s;
+}
+.container-wrap.show {
+    top: 0;
+    opacity: 1;
+}
 .container-modal {
-    position: fixed;
+    position: relative;
     top: 0vh;
     width: 100vw;
     height: 100vh;
+    /* pointer-events: none; */
     background: rgba(0, 0, 0, 0.5);
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -30,86 +45,6 @@
     border-radius: 10px 10px 10px 10px;
     scroll-behavior: smooth;
 }
-
-/* modal animation for show */
-  
-.animate-show { 
-    animation: show 0.8s;
-    display: flex;
-    animation-fill-mode: forwards;
-  }
-  
-  @keyframes show {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(0%);
-    }
-  }
-
-  .animate-out { 
-    animation: out 0.8s;
-    display: none;
-    animation-fill-mode: forwards;
-  }
-  
-  @keyframes out {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-/* modal animation for hide */
-
- 
-
-  /* animations for container_modal */
-
-  .intentoOut{
-    animation: intOut 2.8s;
-    display: flex; 
-    animation-fill-mode: forwards;
-    
-  }
-  
-    @keyframes intOut
-    {
-    0% {
-        display: flex; 
-        opacity: 1;
-        }
-    100% 
-        {
-        display: none; 
-        opacity: 0;
-        }
-    }
- 
-
-  .intentoShow{
-    animation: int 0.8s;
-    display: flex;
-    animation-fill-mode: forwards;
-    
-  }
-  
-  @keyframes int {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-  }
-
-  .mmm{
-      display: none;
-  }
-
-
 
 .formulario {
     column-count: 2;
@@ -233,7 +168,7 @@ select {
 .btn-serch {
     position: absolute;
     top: -24px;
-    left: 123px;
+    left: 126px;
     border: 1px solid #1a1919;
     background: #1a1919;
     color: #fff;
