@@ -127,6 +127,11 @@ const UI = {
 
                     this.loadPlano(e)
                     loader.style.display = 'none'
+
+                    let resetButton = document.getElementById('zoom-reset')
+
+                    console.log('click reset...')
+                    resetButton.click()
                 }
             })
         } else {
@@ -165,7 +170,6 @@ const UI = {
                 beforeManzana = manzana
             }
         })
-
         //
     },
     parseOuterHTML(text) {
