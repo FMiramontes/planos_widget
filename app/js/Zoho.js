@@ -595,6 +595,45 @@ const crm = {
             }
         }
     },
+    async aplicarDescuentoProducto(campanaID, productoID) {
+        // CRM function
+        // for testing... change second argument to a different name
+        // console.log('Actual product ID', productId)
+        // let productoID = '2234337000023667433'
+        const functionName = 'aplicardescuentoproducto'
+        try {
+            const request = await ZOHO.CRM.FUNCTIONS.execute(functionName, {
+                arguments: JSON.stringify({
+                    campanaID,
+                    productoID,
+                }),
+            })
+            console.log('zoho function: aplicar descuento', request)
+            if (request.code !== 'success') {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.details.output,
+                }
+            }
+            //
+            return {
+                code: 200,
+                ok: true,
+                data: JSON.parse(request.details.output),
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async getUsers(page, per_page) {
         try {
             const request = await ZOHO.CRM.API.getAllUsers({
