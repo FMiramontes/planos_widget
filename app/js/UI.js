@@ -349,6 +349,9 @@ const UI = {
             const Enganche = document.querySelector(
                 'input[name="Enganche_P"]'
             ).value
+            const inputDescuento = document.querySelector(
+                'input[name="Costo_Descuento_P"]'
+            ).value
 
             const product_id = modal.dataset.crm_id
             const email = newData?.contacto?.Email
@@ -565,9 +568,10 @@ const UI = {
                 Deal_Name: modal.dataset.trato,
                 Nombre_de_Producto: { id: product_id },
                 Account_Name: { id: accountId },
-                Amount: newData.presupuesto.Saldo_Pagar_P,
+                // Amount: newData.presupuesto.Saldo_Pagar_P,
+                Amount: inputDescuento !== '' ? parseFloat(inputDescuento) : MontoTotal,
                 Stage: 'Presentación del Producto',
-                Closing_Date: date,
+                Closing_Date: date.toISOString().split('T')[0],
                 Campaign_Source: { id: Campaign_id },
                 Contact_Name: { id: contact_id },
                 Coordinador: coordinadorArray,
@@ -596,6 +600,15 @@ const UI = {
             } else {
                 throw new Error('No se pudo crear el trato')
             }
+
+            // Aplicar descuento a Producto
+            const discountRequest = await crm.aplicarDescuentoProducto(Campaign_id, product_id)
+            if(discountRequest.ok){
+                alerts.showAlert('success', 'Descuento aplicado a Producto')
+            }else{
+                alerts.showAlert('warning', 'No se aplico descuento a Producto. Favor de hacerlo manualmente')
+            }
+            
 
             console.log('accountId: ', accountId)
             console.log('contact_id: ', contact_id)
@@ -660,8 +673,10 @@ const UI = {
                             des = politica
                         }
 
+                        // Creacion de facturas
                         let arrInvoices = []
                         if (checkApartado) {
+                            // Tiene Apartado
                             arrInvoices.push(
                                 util.JSON_invoice(
                                     id_contactBooks,
@@ -711,13 +726,16 @@ const UI = {
                                     date = util.addDate(date, 'M', 1)
                                 }
                             } else {
+                                // Factura de Complemento
                                 let rate = 0
                                 if (des == 'Enganche') {
                                     rate = Enganche - apartado
                                 } else if (des == 'Primer Mensualidad') {
                                     rate = mensualidad - apartado
                                 } else if (des == 'Contado') {
-                                    rate = MontoTotal - apartado
+                                    const tempRate = inputDescuento !== '' ? parseFloat(inputDescuento) : MontoTotal
+                                    rate = tempRate   
+                                    // rate = MontoTotal - apartado
                                 }
 
                                 arrInvoices.push(
@@ -734,6 +752,7 @@ const UI = {
                                 )
                             }
                         } else {
+                            // Facturas de diferido
                             if (esDiferido === 'true') {
                                 let rate = Enganche / plazosdiferido
                                 for (let i = 1; i <= plazosdiferido; i++) {
@@ -752,13 +771,16 @@ const UI = {
                                     today = util.addDate(today, 'M', 1)
                                 }
                             } else {
+                                // Factura directa
                                 let rate = 0
                                 if (des == 'Enganche') {
                                     rate = Enganche
                                 } else if (des == 'Primer Mensualidad') {
                                     rate = mensualidad
                                 } else if (des == 'Contado') {
-                                    rate = MontoTotal
+                                    const tempRate = inputDescuento !== '' ? parseFloat(inputDescuento) : MontoTotal
+                                    rate = tempRate
+                                    // rate = MontoTotal
                                 }
                                 arrInvoices.push(
                                     util.JSON_invoice(
@@ -810,8 +832,11 @@ const UI = {
                         }
 
                         // End of process
+                        // Reset values
                         campa_a.value = ''
-                        // coo_id.value = ''
+                        document.querySelector(
+                            'input[name="Costo_Descuento_P"]'
+                        ).value = ''
                         document.querySelector('#coordinadorValue').value = ''
                         vend.value = ''
                         this.removeDatasets('#campaignValue')
@@ -1148,6 +1173,7 @@ const UI = {
         )
         const fieldSaldo = document.querySelector(`input[name="Saldo_Pagar_P"]`)
         const fieldPlazo = document.querySelector(`input[name="Plazo_P"]`)
+        const fieldConDescuento = document.querySelector(`input[name="Costo_Descuento_P"]`)
 
         // Clear values
         fieldMensualidades.value = ''
@@ -1155,6 +1181,7 @@ const UI = {
         fieldApartado.value = ''
         fieldSaldo.value = ''
         fieldPlazo.value = ''
+        fieldConDescuento.value = ''
 
         if (campaignId !== null) {
             const getCampaignRequest = await crm.getCampaign(campaignId)
@@ -1170,7 +1197,7 @@ const UI = {
                 ).value
                 const COSTO_PRODUCTO =
                     parseFloat(DIMENSIONES) * parseFloat(COSTO_M2)
-
+                
                 // Variables
                 let precioFinalProducto = 0
                 let enganche = 0
@@ -1207,6 +1234,8 @@ const UI = {
                         precioFinalProducto =
                             DIMENSIONES * COSTO_M2 - descuentoPorcentaje
                     }
+                    // Assign value to 'descuento' field when discount is applicable
+                    fieldConDescuento.value = precioFinalProducto.toFixed(2)
                 } else {
                     precioFinalProducto = COSTO_PRODUCTO
                 }
@@ -1234,7 +1263,6 @@ const UI = {
                         // Assign values
                         const saldoPagar = precioFinalProducto - enganche
 
-                        fieldCosto.value = COSTO_PRODUCTO.toFixed(2)
                         fieldEnganche.value = enganche.toFixed(2)
                         fieldSaldo.value = saldoPagar.toFixed(2)
                         const mensualidad =
@@ -1245,8 +1273,12 @@ const UI = {
                 } else {
                     // Contado
                     // Assign values
-                    fieldCosto.value = precioFinalProducto.toFixed(2)
+                    // fieldCosto.value = precioFinalProducto.toFixed(2)
                 }
+
+                // Assign Unit Price to field
+                fieldCosto.value = COSTO_PRODUCTO.toFixed(2)
+
                 console.log({ enganche })
                 console.log({ precioFinalProducto })
                 console.log({ COSTO_PRODUCTO })
