@@ -882,6 +882,7 @@ const UI = {
             modal.dataset.sku = sku
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
+            container_modal.style.display = 'flex'
         } else {
             container_modal.style.display = 'none'
             modal.dataset.item = ''
