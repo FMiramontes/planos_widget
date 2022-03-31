@@ -64,21 +64,16 @@
                     <input type="button" id="search-contact" value="search" />
                     <div id="contact-results" class="search-result"></div>
                 </div>
-                <div class="btn-menu2">
+                <!-- <div class="btn-menu2">
                     <span></span>
-                </div>
+                </div> -->
             </div>
-            <!-- Menu Lateral -->
+            <!-- Menu Lateral planos -->
             <div data-menu="menu" id="menu-lateral" class="menu-lateral"></div>
+            <!-- Menu Lateral tratos -->
             <div data-menu="menu" id="menu-lateral2" class="menu-lateral2">
-                
-                <section class="card-trato">
-                    <section class="titulo-trato">CD ORO M13-L2</section>
-                    <section class="trato-cont">
-                        <input type="button" class="btn-trato" value="Preliminar">
-                    </section>
-                </section>
-
+                <input id="btn-menu-deals" class="btn-menu-deals" type="button" value="<<">
+                <div id="container-deals" class="container-deals"></div>
             </div>
             <!-- Container map -->
             <div class="container-map">
@@ -289,8 +284,7 @@
                                             id="fuente-posible-cliente"
                                             list="list-fuente"
                                         >
-                                            <datalist id="list-fuente">
-                                                <option value=""></option>
+                                            <datalist id="list-fuente" data-datalist="true">
                                             </datalist>
                                         </input>
                                     </span>
@@ -688,8 +682,7 @@
                                             id="vendorsValue"
                                             list="list-vendedores"
                                         >
-                                            <datalist id="list-vendedores">
-                                                <option value=""></option>
+                                            <datalist id="list-vendedores" data-datalist="true">
                                             </datalist>
                                         </input>
                                     </span>
@@ -700,8 +693,7 @@
                                             id="coordinadorValue"
                                             list="list-coo"
                                         >
-                                            <datalist id="list-coo">
-                                                <option value=""></option>
+                                            <datalist id="list-coo" data-datalist="true">
                                             </datalist>
                                         </input>
                                     </span>
@@ -867,6 +859,12 @@
                                             type="submit"
                                             value="Enviar"
                                         />
+                                        <!-- test submit -->
+                                        <!-- <input
+                                            id="btn-submit-test"
+                                            type="submit"
+                                            value="Enviar"
+                                        /> -->
                                     </span>
                                 </div>
                             </div>

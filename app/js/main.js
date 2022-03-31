@@ -10,7 +10,7 @@ const searchCoordinadorBtn = document.querySelector('#search-coordinador')
 const switchSearch = document.querySelector('#switch-search')
 const searchLabel = document.querySelector('.module-switch label')
 const modal = document.getElementById('modal')
-const menuForm = document.querySelector('.menu-form');
+const menuForm = document.querySelector('.menu-form')
 const vendedoresInput = document.querySelector('#vendorsValue')
 
 let CRMData = {},
@@ -23,6 +23,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         UI.userVendors(data.users[0])
         UI.addfuentes()
         UI.coordinador()
+        UI.paintDeals()
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
@@ -105,7 +106,7 @@ document.addEventListener('click', (e) => {
 document.getElementById('btn-submit').addEventListener('click', (e) => {
     const newData = UI.getDataForm()
 
-    if (valid.validateForm()) {
+    if (valid.validateForm() && valid.validDataLists()) {
         UI.validate(CRMData, newData)
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
@@ -165,6 +166,14 @@ modal.addEventListener('change', (e) => {
 
 // ---------------------------------------------
 /*
+const btnTest = document.getElementById('btn-submit-test')
+btnTest.addEventListener('click', (e) => {
+    let valid = UI.validDataLists()
+    console.log('main valid: ', valid)
+})
+*/
+//----------------
+/*
 const btnTest = document.getElementById('btn-test')
 btnTest.addEventListener('click', (e) => {
     UI.viewModal(true, '0', '0', false)
@@ -184,7 +193,6 @@ containerModal.addEventListener('click', (e) => {
     }
 })
 
-
 let Iconmenu = document.querySelector('.btn-menu')
 let menu = document.querySelector('#menu-lateral')
 let btnMenuSpan = document.querySelector('.btn-menu span')
@@ -194,7 +202,7 @@ Iconmenu.addEventListener('click', () => {
     /*Abrir menu*/
     cerrarMenu()
 })
- 
+
 function cerrarMenu() {
     menu.classList.toggle('open')
     btnMenuSpan.classList.toggle('active')
@@ -202,18 +210,22 @@ function cerrarMenu() {
 menuFraccionamiento.forEach((div) => div.addEventListener('click', cerrarMenu))
 
 /*Abrir menu tratos*/
-let Iconmenu2 = document.querySelector('.btn-menu2')
+let Iconmenu2 = document.getElementById('btn-menu-deals')
 let menu2 = document.querySelector('#menu-lateral2')
-let btnMenuSpan2 = document.querySelector('.btn-menu2 span')
 
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     cerrarMenu2()
 })
- 
+
 function cerrarMenu2() {
     menu2.classList.toggle('open')
-    btnMenuSpan2.classList.toggle('active')
+    console.log(Iconmenu2)
+    if (Iconmenu2.value == '<<') {
+        console.log('value: ', Iconmenu2.value)
+        Iconmenu2.value = '>>'
+    }
+    if (Iconmenu2.value == '>>') Iconmenu2.value = '<<'
 }
 
 // tabs Modal

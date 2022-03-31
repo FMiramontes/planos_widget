@@ -60,68 +60,68 @@
     transition: all 1s;
 }
 
-  #search-contact:hover{
+#search-contact:hover {
     background-color: #de9f27;
     border-color: #de9f27;
 }
 /* Check */
-.module-switch{
+.module-switch {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.title-type{
+.title-type {
     color: #fff;
     width: 55px;
     margin-right: 20px;
     text-align: right;
 }
 .toggle {
-	display: flex;
+    display: flex;
     margin: 10px;
-	width: 45px;
-	height: 25px;
-	cursor: pointer;
-	position: relative;
+    width: 45px;
+    height: 25px;
+    cursor: pointer;
+    position: relative;
 }
 
-.toggle input[type="checkbox"] {
-	display: none;
+.toggle input[type='checkbox'] {
+    display: none;
 }
 
-.toggle input[type="checkbox"]:checked+.toggle-slide {
-	background-color: #44cc66;
+.toggle input[type='checkbox']:checked + .toggle-slide {
+    background-color: #44cc66;
 }
 
 .toggle .toggle-slide {
-	background-color: rgb(211, 211, 211);
-	position: absolute;
-	border-radius: 100px;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	-webkit-transition: all 300ms ease;
-	transition: all 300ms ease;
+    background-color: rgb(211, 211, 211);
+    position: absolute;
+    border-radius: 100px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
 }
 
 .toggle .toggler {
-	position: absolute;
-	-webkit-transition: all 300ms ease;
-	transition: all 300ms ease;
+    position: absolute;
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
 }
 
-.toggle.on input[type="checkbox"]:checked+.toggle-slide .toggler {
-	left: calc(100% - 19px - 3px);
+.toggle.on input[type='checkbox']:checked + .toggle-slide .toggler {
+    left: calc(100% - 19px - 3px);
 }
 
 .toggle.on .toggler {
-	width: calc(25px - 6px);
-	height: calc(25px - 6px);
-	border-radius: 50%;
-	left: 3px;
-	top: 3px;
-	background-color: #fff;
+    width: calc(25px - 6px);
+    height: calc(25px - 6px);
+    border-radius: 50%;
+    left: 3px;
+    top: 3px;
+    background-color: #fff;
 }
 /* **************************************** */
 
@@ -136,7 +136,6 @@
 /* **************************************** */
 
 .fracionamiento {
-    
     height: 130px;
     width: 230px;
     border-radius: 1vh;
@@ -144,11 +143,11 @@
     background-color: white;
     cursor: pointer;
     box-shadow: 0 4px 5px 0 rgba(163, 163, 163, 0.18),
-        0 1px 10px 0 rgba(163, 163, 163, 0.18), 0 3px 5px -1px rgba(163, 163, 163, 0.18);
+        0 1px 10px 0 rgba(163, 163, 163, 0.18),
+        0 3px 5px -1px rgba(163, 163, 163, 0.18);
     -moz-transition: all 0.3s;
     -webkit-transition: all 0.3s;
-    transition: all 0.3s;    
-
+    transition: all 0.3s;
 }
 .nombre-desarrollo {
     /* height: 10%; */
@@ -166,7 +165,8 @@
     background-color: #fff;
     border-radius: 1vh;
     box-shadow: 0 0.5px 1px 0 rgba(251, 251, 251, 0.904),
-        0 0.5px 1px 0 rgba(251, 251, 251, 0.904), 0 0.5px 1px -1px rgba(251, 251, 251, 904);
+        0 0.5px 1px 0 rgba(251, 251, 251, 0.904),
+        0 0.5px 1px -1px rgba(251, 251, 251, 904);
 
     pointer-events: none;
     display: flex;
@@ -180,13 +180,12 @@
     pointer-events: none;
     object-fit: contain;
     image-rendering: pixelated;
-
 }
 
-.fracionamiento:hover  {
+.fracionamiento:hover {
     -moz-transform: scale(1.07);
-	-webkit-transform: scale(1.07);
-	transform: scale(1.07);
+    -webkit-transform: scale(1.07);
+    transform: scale(1.07);
 }
 
 .menu-lateral.open,
@@ -198,7 +197,8 @@
     display: none;
 }
 
-.btn-menu, .btn-menu2{
+.btn-menu,
+.btn-menu2 {
     width: 25px;
     height: 20px;
     position: relative;
@@ -238,7 +238,7 @@
 }
 
 .btn-menu .active,
-.btn-menu2 .active  {
+.btn-menu2 .active {
     background: none;
 }
 
@@ -255,20 +255,23 @@
     margin-top: -1px;
 }
 
-.card-trato{
-    width: 250px;
-    height: 120px;
-    background-color: rgb(230, 227, 227);
-    border-radius: 15px;
+.card-trato {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    width: 150px;
+    height: 120px;
+    /* margin-top: 2vh; */
+    margin: 1vh auto;
+    background-color: rgb(230, 227, 227);
+    border-radius: 15px;
 }
 
-.titulo-trato{
+.titulo-trato {
     width: 100%;
-    height: 25%;
+    height: 60%;
     background-color: black;
     border-radius: 15px 15px 0 0;
     font-weight: bold;
@@ -279,7 +282,7 @@
     text-transform: uppercase;
 }
 
-.trato-cont{
+.trato-cont {
     height: 75%;
     width: 100%;
     display: flex;
@@ -289,7 +292,7 @@
     border-radius: 0 0 15px 15px;
 }
 
-.btn-trato{
+.btn-trato {
     padding: 8px 16px;
     border: none;
     background-color: rgb(22, 22, 22);
