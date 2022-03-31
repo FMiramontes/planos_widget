@@ -27,8 +27,8 @@ body {
         'container-map container-map container-map container-map container-map container-map ';
 }
 .map svg {
-    width: 125%;
-    height: 125%;
+    width: 60%;
+    height: 95%;
 }
 
 .map {

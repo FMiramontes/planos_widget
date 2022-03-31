@@ -105,8 +105,10 @@ const UI = {
 
             menu.addEventListener('click', async (e) => {
                 if (e.target.matches('[data-index]')) {
+                    let containerMap = document.getElementById('map')
                     let loader = document.getElementById('loader-mapa')
                     loader.style.display = 'flex'
+                    containerMap.style.display = 'none'
                     let name = e.target.dataset.name.toLowerCase()
                     console.log('Desarrollo', name)
                     const nameSvg = name.replaceAll(' ', '-')
@@ -117,6 +119,9 @@ const UI = {
 
                     desarrollo = await tempDesartollo.json()
                     console.log('--------------------------------')
+                    let svgDesarrollo = document.querySelector('svg')
+                    let viewBoxSvg = desarrollo.viewBoxSVG[0]
+                    svgDesarrollo.setAttribute('viewBox', viewBoxSvg)
 
                     const style = document.getElementById('style')
                     style.innerHTML = `@import url(./css/desarrollos/${nameSvg}.css);`
@@ -127,6 +132,7 @@ const UI = {
 
                     this.loadPlano(e)
                     loader.style.display = 'none'
+                    containerMap.style.display = 'flex'
                 }
             })
         } else {
@@ -821,15 +827,9 @@ const UI = {
         let menuForm = document.querySelector('.menu-form');
 
         if (view) {
-            modal.classList.remove('animate-out')
-            menuForm.classList.remove('animate-out')
-            container_modal.classList.remove('intentoOut')
             modal.classList.add('animate-show')
             menuForm.classList.add('animate-show')
             container_modal.classList.add('intentoShow')
-            
-
-
             modal.dataset.item = id
             modal.dataset.crm_id = crm_id
             modal.dataset.trato = trato
@@ -838,14 +838,11 @@ const UI = {
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
         } else {
-            modal.classList.add('animate-out')
-            menuForm.classList.add('animate-out')
-            
+            container_modal.style.display = 'none'
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
         }
     },
-
 
  paintDataPresupuesto(id, dataset) {
         const { costototal, costom2, dimension } = dataset
