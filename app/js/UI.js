@@ -822,14 +822,10 @@ const UI = {
     },
     viewModal(view, id, dataset, paint) {
         const { crm_id, trato, crm: existeCRM, sku } = dataset
-        let container_modal = document.getElementById('container-modal')
         let modal = document.getElementById('modal')
-        let menuForm = document.querySelector('.menu-form');
-
+        let containerWrap = document.querySelector('.container-wrap');
         if (view) {
-            modal.classList.add('animate-show')
-            menuForm.classList.add('animate-show')
-            container_modal.classList.add('intentoShow')
+            containerWrap.classList.add('show');
             modal.dataset.item = id
             modal.dataset.crm_id = crm_id
             modal.dataset.trato = trato
@@ -838,7 +834,7 @@ const UI = {
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
         } else {
-            container_modal.style.display = 'none'
+            // container_modal.style.display = 'none'
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
         }

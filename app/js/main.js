@@ -174,9 +174,12 @@ btnTest.addEventListener('click', (e) => {
 
 //UI.viewModal(true, '0', '0', false)
 
-const containerModal = document.getElementById('container-modal')
-containerModal.addEventListener('click', (e) => {
-    if (e.target.id == 'container-modal') {
+let containerWrap = document.querySelector('.container-wrap')
+let containerModal = document.querySelector('.container-modal')
+
+containerModal.addEventListener('click',(event)=>{
+    if (event.target == containerModal) {
+        containerWrap.classList.remove('show');
         UI.viewModal(false, '', '', '', '')
     }
 })
