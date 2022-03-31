@@ -186,9 +186,6 @@ btnTest.addEventListener('click', (e) => {
 const containerModal = document.getElementById('container-modal')
 containerModal.addEventListener('click', (e) => {
     if (e.target.id == 'container-modal') {
-        modal.classList.remove('animate-show')
-        menuForm.classList.remove('animate-show')
-        containerModal.classList.remove('intentoShow')
         UI.viewModal(false, '', '', '', '')
     }
 })
