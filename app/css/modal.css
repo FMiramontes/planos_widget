@@ -208,7 +208,9 @@ input.invalid {
     animation: shake 300ms;
     border-radius: 5px;
 }
-
+input[type=date]{
+    width: 77%;
+}
 @keyframes shake {
     25% {
         transform: translateX(10px);
@@ -240,7 +242,7 @@ input.invalid {
     }
     input {
         width: 90%;
-    }
+    }  
     .centrado {
         font-size: 25px;
     }

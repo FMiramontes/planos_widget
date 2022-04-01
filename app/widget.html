@@ -72,7 +72,11 @@
             <div data-menu="menu" id="menu-lateral" class="menu-lateral"></div>
             <!-- Menu Lateral tratos -->
             <div data-menu="menu" id="menu-lateral2" class="menu-lateral2">
-                <input id="btn-menu-deals" class="btn-menu-deals" type="button" value="<<">
+                <button id="refresh-btn" class="refresh-btn">
+                    <i class="fa-solid fa-arrows-rotate" style="color: white; height: 15px; width: 15px;"></i>
+                </button>
+                <!-- <input  type="button" value="<<"> -->
+                <button id="btn-menu-deals" class="btn-menu-deals"><i class="fa-solid fa-chevron-left" style="color: white;"></i></button>
                 <div id="container-deals" class="container-deals"></div>
             </div>
             <!-- Container map -->
@@ -230,26 +234,33 @@
                                         </span>
                                         <span>
                                             <label>Estado Civil:</label>
-                                            <select name="Estado_Civil">
-                                                <option value="Casado(a)">
-                                                    Casado(a)
-                                                </option>
-                                                <option value="Conviviente">
-                                                    Conviviente
-                                                </option>
-                                                <option value="Anulado(a)">
-                                                    Anulado(a)
-                                                </option>
-                                                <option value="Separado(a)">
-                                                    Separado(a)
-                                                </option>
-                                                <option value="Viudo(a)">
-                                                    Viudo(a)
-                                                </option>
-                                                <option value="Soltero(a)">
-                                                    Soltero(a)
-                                                </option>
-                                            </select>
+                                            <input
+                                                name="Estado_Civil"
+                                                id="estado-civil"
+                                                list="list-estado-civil"
+                                            >
+                                                <datalist id="list-estado-civil">
+                                                    <option value="Casado(a)">
+                                                        Casado(a)
+                                                    </option>
+                                                    <option value="Conviviente">
+                                                        Conviviente
+                                                    </option>
+                                                    <option value="Anulado(a)">
+                                                        Anulado(a)
+                                                    </option>
+                                                    <option value="Separado(a)">
+                                                        Separado(a)
+                                                    </option>
+                                                    <option value="Viudo(a)">
+                                                        Viudo(a)
+                                                    </option>
+                                                    <option value="Soltero(a)">
+                                                        Soltero(a)
+                                                    </option>
+                                                </datalist>
+                                            </input>
+                            
                                         </span>
                                         <span>
                                             <label>Tel. Casa:</label>
@@ -413,25 +424,31 @@
                                         </span>
                                         <span>
                                             <label>Estado Civil:</label>
-                                            <select name="Estado_Civil_2">
-                                                <option value="Casado(a)">
-                                                    Casado(a)
-                                                </option>
-                                                <option value="Conviviente">
-                                                    Conviviente
-                                                </option>
-                                                <option value="Anilado(a)">
-                                                    Anilado(a)
-                                                </option>
-                                                <option value="Separado(a)">
-                                                    Separado(a)
-                                                </option>
-                                                <option value="Viudo(a)">
-                                                    Viudo(a)
-                                                </option>
-                                                <option value="Soltero(a)">
-                                                    Soltero(a)
-                                                </option>
+                                            <input 
+                                                name="Estado_Civil_2"
+                                                id="estado-civil"
+                                                list="list-estado-civil"
+                                            >
+                                                <datalist id="list-estado-civil">
+                                                    <option value="Casado(a)">
+                                                        Casado(a)
+                                                    </option>
+                                                    <option value="Conviviente">
+                                                        Conviviente
+                                                    </option>
+                                                    <option value="Anilado(a)">
+                                                        Anilado(a)
+                                                    </option>
+                                                    <option value="Separado(a)">
+                                                        Separado(a)
+                                                    </option>
+                                                    <option value="Viudo(a)">
+                                                        Viudo(a)
+                                                    </option>
+                                                    <option value="Soltero(a)">
+                                                        Soltero(a)
+                                                    </option>
+                                                </datalist>
                                             </select>
                                         </span>
                                         <span>
@@ -812,6 +829,21 @@
                                                 type="text"
                                                 name="Plazo_P"
                                             />
+                                        </span>
+                                        <span>
+                                            <label>Modo de Pago:</label>
+                                            <input
+                                                name="Modo_de_pago"
+                                                id="modo-pago"
+                                                list="list-modo-pago"
+                                            >
+                                                <datalist id="list-modo-pago">
+                                                    <option value="Efectivo"></option>
+                                                    <option value="Cheque MX"></option>
+                                                    <option value="Cheque usa"></option>
+                                                    <option value="Transferencia"></option>
+                                                </datalist>
+                                            </input>
                                         </span>
                                     </div>
                                 </div>

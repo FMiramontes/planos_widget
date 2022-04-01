@@ -280,8 +280,8 @@ mapa.addEventListener('mouseover', (e) => {
             let total = document.createElement('p')
             total.textContent = 'Costo total: $ ' + e.target.dataset.costototal
             tooltip.appendChild(total)
-            posicionX = e.pageX
-            posicionY = e.pageY
+            posicionX = e.pageX +10; 
+            posicionY = e.pageY +13;
             e.target.style.fill = '#e5b252'
             e.target.style.cursor = 'pointer'
         } else {
@@ -292,8 +292,8 @@ mapa.addEventListener('mouseover', (e) => {
             let estado = document.createElement('p')
             estado.textContent = 'No disponible'
             tooltip.appendChild(estado)
-            posicionX = e.pageX
-            posicionY = e.pageY
+            posicionX = e.pageX +10;
+            posicionY = e.pageY +13;
             e.target.style.fill = '#000'
         }
         maps.showPopup(tooltip, posicionX, posicionY)
@@ -322,3 +322,10 @@ vendedoresInput.addEventListener('change', (event) => {
         vendedoresInput.dataset.vendedorid = idValue.dataset.idvendedor
     }
 })
+
+let btnRefresh = document.getElementById("refresh-btn")
+
+btnRefresh.addEventListener("click", () => {
+    UI.paintDeals()
+})
+
