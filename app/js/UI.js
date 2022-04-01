@@ -370,7 +370,7 @@ const UI = {
                 contactDiv.dataset?.contactid !== 'undefined'
             ) {
                 temp_contact_id = contactDiv.dataset?.contactid
-                contactName = contactDiv.textContent
+                contactName = contactDiv.children[0].textContent
             } else {
                 temp_contact_id = false
                 contactName =
@@ -623,22 +623,62 @@ const UI = {
                 Deal_id
             ) {
                 // Cotizacion
+                // const recordData = {
+                //     data: {
+                //         IDOportunidad: Deal_id,
+                //         IDContactoCRM: contact_id,
+                //         NombreContacto: contactName,
+                //         Cuenta: accountName.toUpperCase() || "",
+                //         MododePago: 'EFECTIVO',
+                //         Propietario: DealData.Owner,
+                //         EmailContacto: newData.contacto.Email,
+                //         Contacto: contactName,
+                //         IDProductoBooks: productBooksId,
+                //         Fraccionamiento: document.querySelector('input[name="Fraccionamiento_P"]') || ""
+                //     },
+                // }
+
+                // juntar informacion de registros creados para pasar a la function para crear cotizacion
+                const detailsJson = {
+                    IDOportunidad: Deal_id,
+                    IDContactoCRM: contact_id,
+                    NombreContacto: contactName,
+                    Cuenta: accountName.toUpperCase() || '',
+                    MododePago: 'EFECTIVO',
+                    Propietario:
+                        user.dataset.profile === 'Vendedor'
+                            ? document.querySelector('.name_user').textContent
+                            : vend.value,
+                    EmailContacto: newData.contacto.Email,
+                    Contacto: contactName,
+                    IDProductoBooks: productBooksId,
+                    Fraccionamiento:
+                        document.querySelector(
+                            'input[name="Fraccionamiento_P"]'
+                        ).value || '',
+                    ContactoZBooks: id_contactBooks,
+                    Dimemsiones:
+                        document.querySelector('input[name="dimension"]')
+                            .value || 0,
+                    Costo_M2:
+                        document.querySelector('input[name="Costo_M2"]')
+                            .value || 0,
+                    Fecha: util.formatDate(),
+                }
+                const jsonCotizacion = await util.createCotizacion(
+                    DealData,
+                    Campaign_id,
+                    detailsJson
+                )
+                console.log('json Cotizacion', jsonCotizacion)
+
                 const recordData = {
                     data: {
-                        IDOportunidad: Deal_id,
-                        IDContactoCRM: contact_id,
-                        NombreContacto: contactName,
-                        Cuenta: accountName.toUpperCase(),
-                        MododePago: 'EFECTIVO',
-                        // Fecha: today.toISOString().split('T')[0],
-                        Propietario:
-                            document.querySelector('.name_user').textContent,
-                        EmailContacto: newData.contacto.Email,
-                        Contacto: contactName,
-                        // ReportarApartado: checkApartado,
-                        IDProductoBooks: productBooksId,
+                        ...jsonCotizacion,
                     },
                 }
+                console.log('recordData', recordData)
+
                 const createCotizacion = await creator.createRecord(recordData)
                 console.log('createCotizacion: ', createCotizacion)
                 if (createCotizacion.ok) {
@@ -1035,7 +1075,10 @@ const UI = {
                 : selectedOption.dataset.accountname
 
         // Display contact
-        contactContainer.textContent = selectedOption.children[0].textContent
+        const spanName = document.createElement('span')
+        spanName.textContent = selectedOption.children[0].textContent
+        spanName.dataset.contactname = selectedOption.children[0].textContent
+        contactContainer.appendChild(spanName)
 
         // Add remove user button
         contactContainer.insertAdjacentHTML(
@@ -1549,6 +1592,234 @@ const util = {
         }
         console.log('Util addDate addMonth: ', addMonth)
         return addMonth
+    },
+    formatDate() {
+        const currentDate = new Date()
+
+        let monthNames = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec',
+        ]
+
+        let day = currentDate.getDate()
+
+        let monthIndex = currentDate.getMonth()
+        let monthName = monthNames[monthIndex]
+
+        let year = currentDate.getFullYear()
+
+        return `${day}-${monthName}-${year}`
+    },
+    async createCotizacion(deal, campaignId, recordData) {
+        const requestCampaign = await crm.getCampaign(campaignId)
+        const campaign = requestCampaign.data
+        console.log({ campaign })
+
+        const NOMBRE_PRODUCTO = deal.Deal_Name
+        const DIMENSIONES = parseFloat(recordData.Dimemsiones)
+        const COSTO_M2 = parseFloat(recordData.Costo_M2)
+        const COSTO_PRODUCTO = parseFloat(DIMENSIONES) * parseFloat(COSTO_M2)
+        //return obj
+        const reportObj = {}
+
+        // Variables para calculos
+        const formaDePago = campaign.Tipo_de_Promocion
+        const politicaCampana = campaign.Tipo_de_Politica
+        const tipoDeDescuento = campaign.Tipo_de_Descuento
+
+        // Calcular Precio Total del Nuevo Producto y Mensualiad, y restar Descuento
+        let montoDeDescuento = 0
+        let porcentajeDescuento = 0
+        let descuentoPorcentaje = 0
+        let costo_temp = 0
+        let precioTotalDelTerreno = 0
+        let mensualidad = 0
+        let montoDeEnganche = 0
+        let descuentoEnganche = 0
+        let porcentajeEnganche = 0
+        let porcentajeDeEnganche = 0
+        let precio_total = 0
+        let porc_Enganche = 0
+        let montoDescuento = 0
+        let descuento_temp = 0
+        let saldoDelTerreno = 0
+        let AuxEnganche = 0
+        let Concepto = ''
+        let field_Tipodepolitica
+
+        if (formaDePago != 'Contado') {
+            if (politicaCampana == 'Primer Mensualidad') {
+                field_Tipodepolitica = 'Primer Mensualidad'
+                if (tipoDeDescuento != null || tipoDeDescuento != '') {
+                    if (tipoDeDescuento == 'Monto') {
+                        let montoDeDescuento = campaign.Monto_Descuento
+                        reportObj.montoDescuento = campaign.Monto_Descuento
+                        costo_temp = COSTO_M2 - campaign.Monto_Descuento
+                        precioTotalDelTerreno = costo_temp * DIMENSIONES
+                        mensualidad = (
+                            precioTotalDelTerreno / campaign.Mensualidades
+                        ).toFixed(2)
+                    } else if (tipoDeDescuento == 'Porcentaje') {
+                        porcentajeDescuento =
+                            campaign.Porcentaje_Descuento / 100
+                        reportObj.porcentajeDescuento =
+                            campaign.Porcentaje_Descuento
+                        descuentoPorcentaje =
+                            DIMENSIONES * COSTO_M2 * porcentajeDescuento
+                        precioTotalDelTerreno =
+                            DIMENSIONES * COSTO_M2 - descuentoPorcentaje
+                        mensualidad = (
+                            precioTotalDelTerreno / campaign.Mensualidades
+                        ).toFixed(2)
+                    }
+                } else {
+                    precioTotalDelTerreno = DIMENSIONES * COSTO_M2
+                    mensualidad = (
+                        precioTotalDelTerreno / campaign.Mensualidades
+                    ).toFixed(2)
+                }
+            } else if (politicaCampana == 'Enganche') {
+                field_Tipodepolitica = 'Enganche'
+                const tipoDeEnganche = campaign.Tipo_de_Enganche
+                if (tipoDeEnganche == 'Monto') {
+                    montoDeEnganche = campaign.Monto_de_Enganche
+                    descuentoEnganche = montoDeEnganche
+                } else if (tipoDeEnganche == 'Porcentaje') {
+                    porcentajeEnganche = campaign.Porcentaje_de_Enganche / 100
+                    porcentajeDeEnganche =
+                        DIMENSIONES * COSTO_M2 * porcentajeEnganche
+                    descuentoEnganche = porcentajeDeEnganche
+                }
+                precio_total = DIMENSIONES * COSTO_M2
+                porc_Enganche = (descuentoEnganche / precio_total) * 100
+
+                // Calcular descuento en base al costo total del terreno
+                if (tipoDeDescuento == null) {
+                    precioTotalDelTerreno = DIMENSIONES * COSTO_M2
+                    console.log('1 : NO TIENE DESCUENTO')
+                    saldoDelTerreno = DIMENSIONES * COSTO_M2 - descuentoEnganche
+                    console.log(DIMENSIONES, COSTO_M2, descuentoEnganche)
+                } else {
+                    console.log('2 : TIENE DESCUENTO ')
+                    if (tipoDeDescuento == 'Monto') {
+                        montoDescuento = campaign.Monto_Descuento
+                        console.log('tiene descuento de monto', montoDescuento)
+                        reportObj.MontoDescuento = montoDescuento
+                        descuento_temp = COSTO_M2 - montoDescuento
+                        precioTotalDelTerreno = DIMENSIONES * descuento_temp
+                        saldoDelTerreno =
+                            precioTotalDelTerreno - descuentoEnganche
+                    } else if (tipoDeDescuento == 'Porcentaje') {
+                        porcentajeDescuento =
+                            campaign.Porcentaje_Descuento / 100
+                        console.log(
+                            'tiene descuento de porcentaje',
+                            porcentajeDescuento
+                        )
+                        reportObj.PorcentajeDescuento =
+                            campaign.Porcentaje_Descuento
+                        descuentoPorcentaje =
+                            DIMENSIONES * COSTO_M2 * porcentajeDescuento
+                        precioTotalDelTerreno =
+                            DIMENSIONES * COSTO_M2 - descuentoPorcentaje
+                        saldoDelTerreno =
+                            precioTotalDelTerreno - descuentoEnganche
+                    }
+                }
+                mensualidad = (
+                    saldoDelTerreno / campaign.Mensualidades
+                ).toFixed(2)
+            }
+            reportObj.Plazo = campaign.Mensualidades
+            reportObj.PlazoAcordado = campaign.Mensualidades
+        } else {
+            //Contado
+            field_Tipodepolitica = 'Contado'
+            if (tipoDeDescuento != null || tipoDeDescuento != '') {
+                if (tipoDeDescuento == 'Monto') {
+                    montoDeDescuento = campaign.Monto_Descuento
+                    reportObj.MontoDescuento = montoDeDescuento
+                    costo_temp = COSTO_M2 - montoDeDescuento
+                    precioTotalDelTerreno = costo_temp * DIMENSIONES
+                } else if (tipoDeDescuento == 'Porcentaje') {
+                    porcentajeDescuento = campaign.Porcentaje_Descuento / 100
+                    reportObj.PorcentajeDescuento =
+                        campaign.Porcentaje_Descuento
+                    descuentoPorcentaje =
+                        DIMENSIONES * COSTO_M2 * porcentajeDescuento
+                    precioTotalDelTerreno =
+                        DIMENSIONES * COSTO_M2 - descuentoPorcentaje
+                }
+            } else {
+                precioTotalDelTerreno = DIMENSIONES * COSTO_M2
+            }
+            mensualidad = 0
+        }
+        // Asignar valores a obj
+        reportObj.Promocion = campaign.Campaign_Name
+        reportObj.FormaPago = formaDePago
+        reportObj.TipodePolitica = field_Tipodepolitica
+        reportObj.TipodePoliticaCampa_a = field_Tipodepolitica
+        reportObj.Monto_de_Apartado = campaign.Monto_de_Apartado
+        reportObj.Terrenos = deal.Deal_Name
+        reportObj.PrecioTotalTerreno = precioTotalDelTerreno.toFixed(2)
+        reportObj.DimensionesTerreno = DIMENSIONES
+        reportObj.CostoM2Terreno = COSTO_M2
+        reportObj.Desarrollo = recordData.Fraccionamiento
+        reportObj.ZCRMIDTerreno = deal.Nombre_de_Producto.id
+        reportObj.ZCRMIDTerreno1 = deal.Deal_Name
+        reportObj.ContactoZBooks = recordData.ContactoZBooks || ''
+        reportObj.IDProductoBooks = recordData.IDProductoBooks || ''
+        // reportObj.MododePago = 'EFECTIVO'
+
+        if (formaDePago != 'Contado') {
+            if (politicaCampana == 'Enganche') {
+                reportObj.MontoEnganche = descuentoEnganche
+                reportObj.SaldoEnganche = precioTotalDelTerreno
+                reportObj.Mensualidad = mensualidad
+                reportObj.PorcentajeEnganche = porc_Enganche
+
+                if (campaign.Diferido == true) {
+                    reportObj.Plazos_Diferido = campaign.Plazos_Diferido
+                    reportObj.Diferido = true
+                    // 				NO SE LE RESTA EL APARTADO AL ENGANCHE CUANDO ES UN DIFERIDO
+                    AuxEnganche = descuentoEnganche / campaign.Plazos_Diferido
+                    Concepto = 'Enganche Diferido'
+                    const MapaFact = {
+                        IDProductoBooks: recordData.IDProductoBooks || '',
+                        ContactoZBooks: recordData.ContactoZBooks || '',
+                        IDOportunidad: recordData.IDOportunidad,
+                        Monto: AuxEnganche,
+                        Concepto: 'Enganche Diferido',
+                        MododePago: 'EFECTIVO',
+                        Consecutivo: reportObj.Consecutivo,
+                        Propietario: reportObj.Propietario,
+                    }
+                    reportObj.MapaDiferido = MapaFact
+                }
+            } else if (politicaCampana == 'Primer Mensualidad') {
+                reportObj.PrimerMensualidad = true
+                reportObj.Mensualidad = mensualidad
+                reportObj.saldoDelTerreno = precioTotalDelTerreno
+            }
+        } else {
+            reportObj.SaldoTerreno = 0
+        }
+
+        return {
+            ...reportObj,
+            ...recordData,
+        }
     },
 }
 

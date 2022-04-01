@@ -16,6 +16,11 @@ const vendedoresInput = document.querySelector('#vendorsValue')
 let CRMData = {},
     qselector
 
+console.log(
+    '%c PRUEBA: CREATE COTIZACION ',
+    'background: #168ba6; color: #fff; padding: 50px;'
+)
+
 ZOHO.embeddedApp.on('PageLoad', async function (data) {
     ZOHO.CRM.CONFIG.getCurrentUser().then(function (data) {
         console.log('Current user', data)
