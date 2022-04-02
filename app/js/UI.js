@@ -329,6 +329,14 @@ const UI = {
             const politica = campa_a.dataset?.politica
 
             const contactDiv = document.getElementById('contact')
+            let tipoDeCompra = ''
+            if (contactDiv?.dataset?.lead == 'true') {
+                tipoDeCompra = 'Cliente nuevo'
+            } else {
+                tipoDeCompra = 'Recompra'
+            }
+
+            if (contactDiv.children.length == 0) tipoDeCompra = 'Cliente nuevo'
             // Datos Formulario
             const checkApartado = document.querySelector('#hasApartado').checked
             const MontoTotal = document.querySelector(
@@ -560,6 +568,12 @@ const UI = {
                 Nombre_de_Producto: { id: product_id },
                 Account_Name: { id: accountId },
                 // Amount: newData.presupuesto.Saldo_Pagar_P,
+
+                Modo_de_pago: [newData.presupuesto.Modo_de_pago],
+                Lead_Source: newData.presupuesto.Lead_Source,
+                Type: tipoDeCompra,
+                Tipo_de_Compra1: campa_a.dataset?.formadepago,
+
                 Amount:
                     inputDescuento !== ''
                         ? parseFloat(inputDescuento)
@@ -893,6 +907,7 @@ const UI = {
                     throw new Error('No se pudo crear cotizacion')
                 }
             }
+            this.removeContact()
         } catch (error) {
             console.log(error)
             alerts.showAlert('danger', error.message)
@@ -908,9 +923,9 @@ const UI = {
     viewModal(view, id, dataset, paint) {
         const { crm_id, trato, crm: existeCRM, sku } = dataset
         let modal = document.getElementById('modal')
-        let containerWrap = document.querySelector('.container-wrap');
+        let containerWrap = document.querySelector('.container-wrap')
         if (view) {
-            containerWrap.classList.add('show');
+            containerWrap.classList.add('show')
             modal.dataset.item = id
             modal.dataset.crm_id = crm_id
             modal.dataset.trato = trato
@@ -1118,6 +1133,7 @@ const UI = {
                     contactContainer.dataset.accountid = data.Accounts
                     contactContainer.dataset.accountname =
                         selectedOption.firstElementChild.innerText
+                    contactContainer.dataset.lead = true
 
                     // Display contact
                     contactContainer.textContent =
@@ -1146,7 +1162,9 @@ const UI = {
         contactContainer.innerHTML = ''
         delete contactContainer.dataset.contactid
         delete contactContainer.dataset.accountid
-        delete contactContainer.dataset.Z
+        delete contactContainer.dataset.accountname
+        if (contactContainer?.dataset?.lead)
+            delete contactContainer?.dataset?.lead
     },
     async searchCampaign() {
         const searchValue = document.querySelector('#campaignValue').value
