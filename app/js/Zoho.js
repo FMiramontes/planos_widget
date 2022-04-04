@@ -323,7 +323,7 @@ const crm = {
             }
         }
     },
-    async CreateContact(data, accountId) {
+    async CreateContact(data, accountId, ownerId) {
         console.log('Creating contact...')
         const contacto = { ...data.contacto }
         contacto.Last_Name =
@@ -333,6 +333,7 @@ const crm = {
         contacto.Last_Name = contacto.Last_Name.toUpperCase()
         contacto.Apellido_Paterno = contacto.Apellido_Paterno.toUpperCase()
         contacto.Apellido_Materno = contacto.Apellido_Materno.toUpperCase()
+        contacto.Owner = { id: ownerId }
         // Marcar checkbox Segundo_Cliente si los campos tienen valor
         if (
             contacto?.Nombre2 !== undefined &&
