@@ -12,6 +12,7 @@ const searchLabel = document.querySelector('.module-switch label')
 const modal = document.getElementById('modal')
 const menuForm = document.querySelector('.menu-form')
 const vendedoresInput = document.querySelector('#vendorsValue')
+let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 
 let CRMData = {},
     qselector
@@ -69,6 +70,10 @@ document.addEventListener('click', (e) => {
     ) {
         UI.hideResults()
     }
+})
+
+inputApartado.addEventListener('change',(e)=>{
+    valid.validateApartado(e.target)
 })
 
 // # Assign contact to #contact element

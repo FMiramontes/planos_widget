@@ -195,6 +195,31 @@ const validate = {
         })
         return validArray
     },
+    validateApartado(inputApartado){
+        //conservar calor minimo de apartado
+        let minimoApartado = parseFloat(inputApartado.dataset.minvalue)
+        let mensualidad = document.querySelector('[name="Pago_Mensual_P"]')
+        let enganche = document.querySelector('[name="Enganche_P"]')
+        let politica = document.getElementById('campaignValue').dataset.politica
+
+        if(politica === 'Primer Mensualidad'){
+            if(parseFloat(inputApartado.value) > mensualidad.value){
+                alerts.showAlert('warning','El monto de apartado no puede ser mayor a la mensualidad.')
+                inputApartado.value = minimoApartado
+            }else if(parseFloat(inputApartado.value) < minimoApartado){
+                alerts.showAlert('warning','El monto de apartado no puede ser menor a la mensualidad minima requerida.')
+                inputApartado.value = minimoApartado
+            }
+        }else if(politica === 'Enganche'){
+            if(parseFloat(inputApartado.value) > enganche.value){
+                alerts.showAlert('warning','El monto de apartado no puede ser mayor al enganche.')
+                inputApartado.value = minimoApartado
+            }else if(parseFloat(inputApartado.value) < minimoApartado){
+                alerts.showAlert('warning','El monto de apartado no puede ser menor al enganche minimo requerido.')
+                inputApartado.value = minimoApartado
+            }
+        }
+       },
 }
 
 export default validate
