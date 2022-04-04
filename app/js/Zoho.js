@@ -152,7 +152,8 @@ const crm = {
             const request = await ZOHO.CRM.API.searchRecord({
                 Entity: 'Campaigns',
                 Type: 'criteria',
-                Query: `(${api_name}:${criteria}:${searchValue})`,
+                Query: `((${api_name}:${criteria}:${searchValue})and(Status:equals:Activo))`,
+                // Query: `(${api_name}:${criteria}:${searchValue})`,
             })
 
             if (request.status === 204) {
