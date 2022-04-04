@@ -1709,7 +1709,7 @@ const util = {
         reportObj.FormaPago = formaDePago
         reportObj.TipodePolitica = field_Tipodepolitica
         reportObj.TipodePoliticaCampa_a = field_Tipodepolitica
-        reportObj.Monto_de_Apartado = campaign.Monto_de_Apartado
+        reportObj.Monto_de_Apartado = campaign.Monto_de_Apartado.toFixed(2)
         reportObj.Terrenos = deal.Deal_Name
         reportObj.PrecioTotalTerreno = precioTotalDelTerreno.toFixed(2)
         reportObj.DimensionesTerreno = DIMENSIONES
@@ -1723,10 +1723,10 @@ const util = {
 
         if (formaDePago != 'Contado') {
             if (politicaCampana == 'Enganche') {
-                reportObj.MontoEnganche = descuentoEnganche
-                reportObj.SaldoEnganche = precioTotalDelTerreno
-                reportObj.Mensualidad = mensualidad
-                reportObj.PorcentajeEnganche = porc_Enganche
+                reportObj.MontoEnganche = descuentoEnganche.toFixed(2)
+                reportObj.SaldoEnganche = precioTotalDelTerreno.toFixed(2)
+                reportObj.Mensualidad = mensualidad.toFixed(2)
+                reportObj.PorcentajeEnganche = porc_Enganche.toFixed(2)
 
                 if (campaign.Diferido == true) {
                     reportObj.Plazos_Diferido = campaign.Plazos_Diferido
@@ -1748,8 +1748,8 @@ const util = {
                 }
             } else if (politicaCampana == 'Primer Mensualidad') {
                 reportObj.PrimerMensualidad = true
-                reportObj.Mensualidad = mensualidad
-                reportObj.saldoDelTerreno = precioTotalDelTerreno
+                reportObj.Mensualidad = mensualidad.toFixed(2)
+                reportObj.saldoDelTerreno = precioTotalDelTerreno.toFixed(2)
             }
         } else {
             reportObj.SaldoTerreno = 0
