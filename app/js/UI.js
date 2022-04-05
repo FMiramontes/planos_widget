@@ -405,7 +405,7 @@ const UI = {
 
             if (temp_contact_id == false) {
                 console.log('if UI temp_contact_id: ', temp_contact_id)
-                let conatctRequest = await crm.searchContact(email)
+                let conatctRequest = await crm.searchContact(email, 'Contacts')
 
                 console.log('UI conatctRequest: ', conatctRequest)
 
@@ -421,7 +421,10 @@ const UI = {
                 const accountData = {
                     Account_Name: accountName.toUpperCase(),
                     Owner: {
-                        id: user.dataset.crmuserid,
+                        id:
+                            user.dataset.profile === 'Vendedor'
+                                ? user.dataset.crmuserid
+                                : vend.dataset.vendedorid,
                     },
                 }
 
@@ -454,10 +457,15 @@ const UI = {
                     )
 
                     accountId = createAccountRequest?.data?.details?.id
+                    let ownerId =
+                        user.dataset.profile === 'Vendedor'
+                            ? user.dataset.crmuserid
+                            : vend.dataset.vendedorid
                     // Create Contact
                     const createContactRequest = await crm.CreateContact(
                         newData,
-                        accountId
+                        accountId,
+                        ownerId
                     )
 
                     contact_id = createContactRequest?.data.details.id
@@ -503,7 +511,10 @@ const UI = {
                     const accountData = {
                         Account_Name: accountName.toUpperCase(),
                         Owner: {
-                            id: user.dataset.crmuserid,
+                            id:
+                                user.dataset.profile === 'Vendedor'
+                                    ? user.dataset.crmuserid
+                                    : vend.dataset.vendedorid,
                         },
                     }
                     const createAccountRequest = await crm.createAccount(
