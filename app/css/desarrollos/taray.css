@@ -1,0 +1,67 @@
+
+            .cls-1 {
+                fill: #bc7b6c;
+            }
+            
+            .cls-1,
+            .cls-2,
+            .cls-9 {
+                stroke: #a5563f;
+                stroke-miterlimit: 10;
+                stroke-width: 0.5px;
+            }
+            
+            .cls-2 {
+                fill: #ac7666;
+            }
+            
+            .cls-3 {
+                fill: #211a36;
+            }
+            
+            .cls-4 {
+                fill: #fff;
+            }
+            
+            .cls-5 {
+                fill: #c9d190;
+            }
+            
+            .cls-6 {
+                fill: #7d9d20;
+            }
+            
+            .cls-7 {
+                fill: #94bc1d;
+            }
+            
+            .cls-8 {
+                fill: #b6d755;
+            }
+            
+            .cls-9 {
+                fill: #c68d83;
+            }
+            
+            [data-manzana]:hover {
+                stroke: #111111;
+                animation: popup 0.75s ease alternate infinite;
+              }
+              
+              @keyframes popup {
+                0% {
+                  stroke-width: 3px;
+                }
+                25% {
+                  stroke-width: 5px;
+                }
+                50% {
+                  stroke-width: 7px;
+                }
+                75% {
+                  stroke-width: 8px;
+                }
+                100% {
+                  stroke-width: 9px;
+                }
+              }
