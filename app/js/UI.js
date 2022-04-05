@@ -1804,7 +1804,7 @@ const util = {
             if (politicaCampana == 'Enganche') {
                 reportObj.MontoEnganche = descuentoEnganche.toFixed(2)
                 reportObj.SaldoEnganche = precioTotalDelTerreno.toFixed(2)
-                reportObj.Mensualidad = mensualidad.toFixed(2)
+                reportObj.Mensualidad = mensualidad
                 reportObj.PorcentajeEnganche = porc_Enganche.toFixed(2)
 
                 if (campaign.Diferido == true) {
@@ -1827,7 +1827,7 @@ const util = {
                 }
             } else if (politicaCampana == 'Primer Mensualidad') {
                 reportObj.PrimerMensualidad = true
-                reportObj.Mensualidad = mensualidad.toFixed(2)
+                reportObj.Mensualidad = mensualidad
                 reportObj.saldoDelTerreno = precioTotalDelTerreno.toFixed(2)
             }
         } else {
