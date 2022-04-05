@@ -570,7 +570,7 @@ const UI = {
                 // Amount: newData.presupuesto.Saldo_Pagar_P,
 
                 Modo_de_pago: [newData.presupuesto.Modo_de_pago],
-                Lead_Source: newData.presupuesto.Lead_Source,
+                Lead_Source: newData.contacto.Lead_Source,
                 Type: tipoDeCompra,
                 Tipo_de_Compra1: campa_a.dataset?.formadepago,
 
