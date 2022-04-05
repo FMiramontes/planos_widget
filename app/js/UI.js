@@ -1305,14 +1305,16 @@ const UI = {
                 if (campaignData.Tipo_de_Apartado != null) {
                     if (campaignData.Tipo_de_Apartado === 'Monto') {
                         fieldApartado.value = campaignData.Monto_de_Apartado
-                        fieldApartado.dataset.minvalue = campaignData.Monto_de_Apartado
+                        fieldApartado.dataset.minvalue =
+                            campaignData.Monto_de_Apartado
                     } else if (campaignData.Tipo_de_Apartado === 'Porcentaje') {
                         // Calcular apartado
                         const porcentaje =
                             campaignData.Porcentaje_de_Apartado / 100
                         const apartadoValue = COSTO_PRODUCTO * porcentaje
                         fieldApartado.value = apartadoValue.toFixed(2)
-                        fieldApartado.dataset.minvalue = apartadoValue.toFixed(2)
+                        fieldApartado.dataset.minvalue =
+                            apartadoValue.toFixed(2)
                     }
                 }
 
