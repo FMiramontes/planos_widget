@@ -144,16 +144,21 @@ const crm = {
             }
         }
     },
-    async searchCampaigns(searchValue) {
+    async searchCampaigns(searchValue, fraccionamientoId) {
         try {
             const criteria = 'starts_with'
             const api_name = 'Campaign_Name'
 
+            const qry =
+                fraccionamientoId !== undefined
+                    ? `((${api_name}:${criteria}:${searchValue})and(Status:equals:Activo)and(Fraccionamientos:equals:${fraccionamientoId}))`
+                    : `((${api_name}:${criteria}:${searchValue})and(Status:equals:Activo))`
+
             const request = await ZOHO.CRM.API.searchRecord({
                 Entity: 'Campaigns',
                 Type: 'criteria',
-                Query: `((${api_name}:${criteria}:${searchValue})and(Status:equals:Activo))`,
-                // Query: `(${api_name}:${criteria}:${searchValue})`,
+                // Query: `((${api_name}:${criteria}:${searchValue})and(Status:equals:Activo))`,
+                Query: qry,
             })
 
             if (request.status === 204) {
