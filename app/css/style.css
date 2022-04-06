@@ -404,9 +404,10 @@ image {
     }
     .menu-lateral {
         position: absolute;
-        width: 60%;
+        width: 30%;
         height: 100%;
         top: 8.9%;
+        overflow-x: hidden;
     }
     .zoom-panel {
         display: none;
