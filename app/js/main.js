@@ -125,47 +125,92 @@ document.getElementById('btn-submit').addEventListener('click', (e) => {
 const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
 const input_location = document.querySelector('input[name="Localizacion_P"]')
 const map = document.getElementById('map')
+let navegador = UI.navegador()
+console.log('navegador: ', navegador)
+if (
+    (navegador.browser === 'chrome' || navegador.browser === 'firefox') &&
+    navegador.device === 'Mobile'
+) {
+    document.addEventListener('click', (e) => {
+        if (e.target.matches('[data-lote]')) {
+            input_frac.value = map.dataset.name
+            input_location.value = map.dataset.localidad
 
-document.addEventListener('dblclick', (e) => {
-    if (e.target.matches('[data-lote]')) {
-        input_frac.value = map.dataset.name
-        input_location.value = map.dataset.localidad
-
-        if (e.target.dataset.disponible == 'true') {
-            const contactDiv = document.getElementById('contact')
-            const contact_id =
-                contactDiv.dataset?.contactid === undefined
-                    ? false
-                    : contactDiv.dataset?.contactid
-
-            CRMData = {}
-
-            if (contact_id === false || contact_id === undefined) {
-                valid.validContact(false)
-            } else {
-                const accout_id =
-                    contactDiv.dataset?.accountid === undefined
+            if (e.target.dataset.disponible == 'true') {
+                const contactDiv = document.getElementById('contact')
+                const contact_id =
+                    contactDiv.dataset?.contactid === undefined
                         ? false
-                        : contactDiv.dataset?.accountid
+                        : contactDiv.dataset?.contactid
 
-                console.log('main contact_id: ', contact_id)
+                CRMData = {}
 
-                console.log('main accout_id: ', accout_id)
-                UI.paintDataInForm(contact_id, accout_id).then(() =>
-                    valid.validContact(true)
-                )
+                if (contact_id === false || contact_id === undefined) {
+                    valid.validContact(false)
+                } else {
+                    const accout_id =
+                        contactDiv.dataset?.accountid === undefined
+                            ? false
+                            : contactDiv.dataset?.accountid
 
-                CRMData = UI.getDataForm()
+                    console.log('main contact_id: ', contact_id)
+
+                    console.log('main accout_id: ', accout_id)
+                    UI.paintDataInForm(contact_id, accout_id).then(() =>
+                        valid.validContact(true)
+                    )
+
+                    CRMData = UI.getDataForm()
+                }
+
+                UI.viewModal(true, e.target?.id, e.target.dataset, true)
+            } else {
+                // console.log('no disponible', e)
+                // MostrarAlerta()
             }
-
-            UI.viewModal(true, e.target?.id, e.target.dataset, true)
-        } else {
-            // console.log('no disponible', e)
-            // MostrarAlerta()
         }
-    }
-})
+    })
+} else {
+    document.addEventListener('dblclick', (e) => {
+        if (e.target.matches('[data-lote]')) {
+            input_frac.value = map.dataset.name
+            input_location.value = map.dataset.localidad
 
+            if (e.target.dataset.disponible == 'true') {
+                const contactDiv = document.getElementById('contact')
+                const contact_id =
+                    contactDiv.dataset?.contactid === undefined
+                        ? false
+                        : contactDiv.dataset?.contactid
+
+                CRMData = {}
+
+                if (contact_id === false || contact_id === undefined) {
+                    valid.validContact(false)
+                } else {
+                    const accout_id =
+                        contactDiv.dataset?.accountid === undefined
+                            ? false
+                            : contactDiv.dataset?.accountid
+
+                    console.log('main contact_id: ', contact_id)
+
+                    console.log('main accout_id: ', accout_id)
+                    UI.paintDataInForm(contact_id, accout_id).then(() =>
+                        valid.validContact(true)
+                    )
+
+                    CRMData = UI.getDataForm()
+                }
+
+                UI.viewModal(true, e.target?.id, e.target.dataset, true)
+            } else {
+                // console.log('no disponible', e)
+                // MostrarAlerta()
+            }
+        }
+    })
+}
 modal.addEventListener('change', (e) => {
     if (e.target.matches('[data-email]')) {
         valid.validateEmail(e.target.value, e.target.dataset.email)

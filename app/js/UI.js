@@ -1528,6 +1528,35 @@ const UI = {
             })
         }
     },
+    navegador() {
+        let details = navigator.userAgent
+        let regexp = /android|iphone|kindle|ipad/i
+        let isMobileDevice = regexp.test(details)
+        let objetReturn = {}
+
+        if (isMobileDevice) {
+            objetReturn.device = 'Mobile'
+        } else {
+            objetReturn.device = 'Web'
+        }
+        console.log('details: ', details)
+
+        let es_chrome = details.toLowerCase().indexOf('chrome') > -1
+        let es_firefox = details.toLowerCase().indexOf('firefox') > -1
+        let es_opera = details.toLowerCase().indexOf('opr') > -1
+
+        console.log('browser', es_chrome, es_firefox, es_opera)
+        if (es_chrome) {
+            objetReturn.browser = 'chrome'
+        }
+        if (es_firefox) {
+            objetReturn.browser = 'firefox'
+        }
+        if (es_opera) {
+            objetReturn.browser = 'opera'
+        }
+        return objetReturn
+    },
 }
 
 const util = {
