@@ -223,55 +223,142 @@ input[type=date]{
     }
 }
 
-@media (max-device-width: 1300px) {
+@media (min-device-width: 576px) and (max-device-width: 915px) and (orientation:landscape){
     .block {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        height: fit-content;
     }
-    .modal {
-        width: 70%;
-        height: 90%;
-        gap: 2rem;
-    }
-    .menu-form {
-        width: 70%;
-        top: 2%;
-    }
-    label {
-        font-size: 22px;
-    }
-    input {
-        width: 90%;
-    }  
-    .centrado {
-        font-size: 25px;
-    }
-}
-
-@media screen and (max-device-width: 480px) {
-    .block {
+    .container-block {
+        overflow-y: auto;
         display: grid;
         grid-template-columns: 100%;
-        gap: 1rem;
+        padding: 0%;
     }
-    input {
-        width: 90%;
-        height: 40px;
+    .container-blocks{
+      top:1%
+    } 
+    .title-block{
+        margin-top: 50px;
+    }
+    .Linea-Division {
+        margin-bottom: 20px;
     }
     .modal {
-        width: 96%;
-        height: 90%;
+        top:50px;
+        width: 50%;
+        height: 85%;
         gap: 2rem;
     }
     .menu-form {
-        width: 96%;
+        width:50%;
         top: 2%;
     }
     a {
         font-size: 20px;
     }
-    label,
+    label{
+        font-size: 16px;
+    }
     .centrado {
-        font-size: 35px;
+        font-size: 20px;
+    }
+    input {
+        width: 300px;
+        height: 30px;
+    }
+    input[type=date]{
+        width: 300px;
+    }
+    .btn-serch {
+       width:60px;
+       height: 30px;
+       top: -39px;
+       left: 240px;
+    }
+    .container-sub-block{
+        gap:1rem;
+        
+    }
+    .sub-block-big{
+        height: fit-content;
+    }
+    .container-modal{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (min-device-width:300px) and (max-device-width: 575px) {
+    .block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        height: fit-content;
+    }
+    .container-block {
+        overflow-y: auto;
+        display: grid;
+        grid-template-columns: 100%;
+        padding: 0%;
+    }
+    .container-blocks{
+      top:1%
+    } 
+    .title-block{
+        margin-top: 50px;
+    }
+    .Linea-Division {
+        margin-bottom: 20px;
+    }
+    .modal {
+        top:50px;
+        width: 41%;
+        height: 85%;
+        gap: 2rem;
+    }
+    .menu-form {
+        width:41%;
+        top: 2%;
+    }
+    a {
+        font-size: 20px;
+    }
+    label{
+        font-size: 16px;
+    }
+    .centrado {
+        font-size: 20px;
+    }
+    .container-modal{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    input {
+        width: 200px;
+        height: 30px;
+    }
+    input[type=date]{
+        width: 200px;
+    }
+    .btn-serch {
+       width:60px;
+       height: 30px;
+       top: -39px;
+       left: 136px;
+    }
+    .container-sub-block{
+        gap:1rem;
+        
+    }
+    .sub-block-big{
+        height: fit-content;
     }
 }
