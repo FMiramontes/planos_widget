@@ -2,7 +2,10 @@
     width: 40%;
     height: 4px;
     background-color: #de9f27;
-    margin: 0 auto;
+    margin-bottom:10px;
+}
+p{
+    margin: auto;
 }
 .container-wrap{
     position: fixed; 
@@ -34,7 +37,7 @@
 }
 .modal {
     position: absolute;
-    height: 90%;
+    height: 95%;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -64,7 +67,7 @@
     height: fit-content;
     width: 50%;
     position: absolute;
-    top: 5%;
+    top: 2%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -90,9 +93,9 @@
 
 .container-blocks {
     position: absolute;
-    top: 10%;
+    top: 8%;
     height: 85%;
-    width: 400%;
+    width: 415%;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -107,7 +110,7 @@
     align-items: center;
     flex-direction: column;
     height: 100%;
-    width: 100%;
+    width: 103.75%;
     overflow: hidden;
     padding-left: 1%;
 }
@@ -167,8 +170,8 @@ select {
 
 .btn-serch {
     position: absolute;
-    top: -24px;
-    left: 126px;
+    top: -41px;
+    left: 128px;
     border: 1px solid #1a1919;
     background: #1a1919;
     color: #fff;
@@ -182,6 +185,7 @@ select {
     align-items: center;
 }
 #btn-submit {
+    position: relative;
     width: 50px;
     height: 22px;
     border: 2px solid;
@@ -190,6 +194,7 @@ select {
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
+    left: -20px;
 }
 .tlte-block {
     height: 20px;
@@ -221,6 +226,15 @@ input[type=date]{
     75% {
         transform: translateX(10px);
     }
+}
+
+.iconos{
+    position: relative;
+    top:-18px;
+    left: -20px;
+}
+.hide-icon{
+    visibility: hidden;
 }
 
 @media (min-device-width: 576px) and (max-device-width: 915px) and (orientation:landscape){
@@ -276,8 +290,8 @@ input[type=date]{
     .btn-serch {
        width:60px;
        height: 30px;
-       top: -39px;
-       left: 240px;
+       top: -55px;
+       left: 236px;
     }
     .container-sub-block{
         gap:1rem;
@@ -290,6 +304,9 @@ input[type=date]{
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .iconos{
+        top: -25px;
     }
 }
 
@@ -351,7 +368,7 @@ input[type=date]{
     .btn-serch {
        width:60px;
        height: 30px;
-       top: -39px;
+       top: -55px;
        left: 136px;
     }
     .container-sub-block{
@@ -360,5 +377,8 @@ input[type=date]{
     }
     .sub-block-big{
         height: fit-content;
+    }
+    .iconos{
+        top: -25px;
     }
 }
