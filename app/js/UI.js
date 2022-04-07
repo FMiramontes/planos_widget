@@ -933,7 +933,7 @@ const UI = {
         return JSON.stringify(a) === JSON.stringify(b)
     },
     viewModal(view, id, dataset, paint) {
-        const { crm_id, trato, crm: existeCRM, sku } = dataset
+        const { crm_id, trato, crm: existeCRM, sku, fracc_id } = dataset
         let modal = document.getElementById('modal')
         let containerWrap = document.querySelector('.container-wrap')
         if (view) {
@@ -943,6 +943,7 @@ const UI = {
             modal.dataset.trato = trato
             modal.dataset.existecrm = existeCRM
             modal.dataset.sku = sku
+            modal.dataset.fracc_id = fracc_id
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
             container_modal.style.display = 'flex'
@@ -1180,7 +1181,11 @@ const UI = {
     },
     async searchCampaign() {
         const searchValue = document.querySelector('#campaignValue').value
-        // console.log('searchValue', searchValue)
+        const fraccionamientoId =
+            document.querySelector('#modal').dataset.fracc_id || ''
+        console.log('searchValue', searchValue)
+        console.log('fracc_id', fraccionamientoId)
+
         const campaignResultContainer =
             document.querySelector('#campaign-results')
 
@@ -1189,7 +1194,10 @@ const UI = {
         campaignResultContainer.innerHTML = ''
 
         if (searchValue !== '' || searchValue !== undefined) {
-            const searchRequest = await crm.searchCampaigns(searchValue)
+            const searchRequest = await crm.searchCampaigns(
+                searchValue,
+                fraccionamientoId
+            )
 
             // Check request status
             if (searchRequest.ok === true) {
@@ -1527,6 +1535,35 @@ const UI = {
                 }
             })
         }
+    },
+    navegador() {
+        let details = navigator.userAgent
+        let regexp = /android|iphone|kindle|ipad/i
+        let isMobileDevice = regexp.test(details)
+        let objetReturn = {}
+
+        if (isMobileDevice) {
+            objetReturn.device = 'Mobile'
+        } else {
+            objetReturn.device = 'Web'
+        }
+        console.log('details: ', details)
+
+        let es_chrome = details.toLowerCase().indexOf('chrome') > -1
+        let es_firefox = details.toLowerCase().indexOf('firefox') > -1
+        let es_opera = details.toLowerCase().indexOf('opr') > -1
+
+        console.log('browser', es_chrome, es_firefox, es_opera)
+        if (es_chrome) {
+            objetReturn.browser = 'chrome'
+        }
+        if (es_firefox) {
+            objetReturn.browser = 'firefox'
+        }
+        if (es_opera) {
+            objetReturn.browser = 'opera'
+        }
+        return objetReturn
     },
 }
 

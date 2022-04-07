@@ -175,6 +175,8 @@ const maps = {
                     lote.dataset.costototal = product.Unit_Price
                     lote.dataset.dimension = product.Dimension_del_Terreno_M21
                     lote.dataset.costom2 = product.Costo_por_M2
+                    lote.dataset.fracc_name = product.Fraccionamiento.name
+                    lote.dataset.fracc_id = product.Fraccionamiento.id
 
                     if (product.Estado != 'Disponible') {
                         lote.style.fill = '#2e2e2e'
