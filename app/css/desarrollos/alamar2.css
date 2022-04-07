@@ -1,0 +1,146 @@
+.cls-1 {
+    isolation: isolate;
+}
+.cls-2,
+.cls-4 {
+    fill: #f2a888;
+}
+.cls-2,
+.cls-3,
+.cls-4,
+.cls-5 {
+    stroke: #ea8b60;
+    stroke-miterlimit: 10;
+}
+.cls-2,
+.cls-3 {
+    stroke-width: 0.5px;
+}
+.cls-3,
+.cls-5 {
+    fill: #e99b77;
+}
+.cls-4,
+.cls-5 {
+    stroke-width: 0.35px;
+}
+.cls-6 {
+    fill: #3a3a3a;
+}
+.cls-7 {
+    fill: #fff;
+}
+.cls-8,
+.cls-9 {
+    fill: #f2b7a2;
+}
+.cls-9 {
+    opacity: 0.71;
+}
+.cls-10 {
+    fill: #c9d190;
+}
+.cls-11 {
+    fill: #d5d8a3;
+}
+.cls-12 {
+    fill: #dce0af;
+}
+.cls-13 {
+    opacity: 0.2;
+}
+.cls-14,
+.cls-17,
+.cls-25,
+.cls-26,
+.cls-28,
+.cls-29,
+.cls-31 {
+    mix-blend-mode: multiply;
+}
+.cls-15 {
+    fill: #fbfbfb;
+}
+.cls-16,
+.cls-17 {
+    fill: #e3e3e3;
+}
+.cls-18 {
+    fill: #f5f5f5;
+}
+.cls-19 {
+    fill: #435266;
+}
+.cls-20 {
+    fill: #7d9d20;
+}
+.cls-21 {
+    fill: #94bc1d;
+}
+.cls-22 {
+    fill: #b6d755;
+}
+.cls-23 {
+    fill: #876855;
+}
+.cls-24,
+.cls-30 {
+    fill: #7a5f4c;
+    mix-blend-mode: screen;
+}
+.cls-24 {
+    opacity: 0.39;
+}
+.cls-25,
+.cls-26,
+.cls-27,
+.cls-28,
+.cls-29,
+.cls-31 {
+    fill: #ababab;
+}
+.cls-25 {
+    opacity: 0.29;
+}
+.cls-26 {
+    opacity: 0.81;
+}
+.cls-27 {
+    opacity: 0.23;
+    mix-blend-mode: color-dodge;
+}
+.cls-28 {
+    opacity: 0.65;
+}
+.cls-29 {
+    opacity: 0.28;
+}
+.cls-30 {
+    opacity: 0.82;
+}
+.cls-31 {
+    opacity: 0.41;
+}
+
+[data-manzana]:hover {
+stroke: #111111;
+animation: popup 0.75s ease alternate infinite;
+}
+
+@keyframes popup {
+0% {
+    stroke-width: 3px;
+}
+25% {
+    stroke-width: 5px;
+}
+50% {
+    stroke-width: 7px;
+}
+75% {
+    stroke-width: 8px;
+}
+100% {
+    stroke-width: 9px;
+}
+}
