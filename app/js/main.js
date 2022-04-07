@@ -215,7 +215,7 @@ modal.addEventListener('change', (e) => {
 })
 
 //Validate digits phone and mobile 
-modal.document.addEventListener('input',(e)=>{
+modal.addEventListener('input',(e)=>{
     if(e.target.matches('[name="Mobile"]') || e.target.matches('[name="Phone"]') || e.target.matches('[name="Phone_2"]') || e.target.matches('[name="Movil2"]')){
         valid.validateMobile(e.target)
     }
