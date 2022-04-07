@@ -6,8 +6,7 @@ const btn_submit = document.getElementById('btn-submit')
 
 const validate = {
     validateEmail(email, reqired) {
-        let expr =
-            /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+        let expr =/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
         if (reqired == 'required') {
             if (!expr.test(email)) {
                 alerts.showAlert(
@@ -54,13 +53,23 @@ const validate = {
             document.querySelectorAll('[data-existe-en-crm]')
         )
         const inputsInvalid = {}
-        let contPass = 5
+        let contPass = 9
 
         const loggedUser = document.querySelector('#user')
 
         let campana = document.getElementById('campaignValue')
 
         let vendedor = document.querySelector('#vendorsValue')
+
+        let fuentePosible = document.querySelector('[name="Lead_Source"]')
+
+        let modoPago = document.querySelector('[name="Modo_de_pago"]')
+
+        let coordinador = document.querySelector('[name="coordinador"]')
+
+        let nombre2 = document.querySelector('[name="Nombre2"]')
+        let apellido2 = document.querySelector('[name="ApellidoP2"]')
+        let correo2 = document.querySelector('[name="Correo2"]')
 
         let cont = 0
         inputsCheckForm.forEach((e) => {
@@ -84,6 +93,15 @@ const validate = {
             }
         })
 
+        if(nombre2.value !== '' && apellido2.value !== ''){
+            if(correo2.value !== ''){
+                campana.classList.remove('invalid')
+                cont +=1;
+            }else{
+                inputsInvalid.correo2 = correo2.name
+            }        
+        }
+
         if (campana.dataset.campaignid != undefined) {
             campana.classList.remove('invalid')
             cont += 1
@@ -99,7 +117,27 @@ const validate = {
         }
 
         if (loggedUser.dataset.profile === 'Vendedor') {
-            contPass = 4
+            contPass = 8
+        }
+
+        if(fuentePosible.value !== ''){
+            fuentePosible.classList.remove('invalid')
+            cont += 1
+        }else{
+            inputsInvalid.fuentePosible = fuentePosible.name
+        }
+
+        if(modoPago.value !==''){
+            modoPago.classList.remove('invalid')
+            cont += 1
+        }else{
+            inputsInvalid.modoPago = modoPago.name
+        }
+
+        if(coordinador.value !== ''){
+            coordinador.classList.remove('invalid')
+        }else{
+            inputsInvalid.coordinador = coordinador.name
         }
 
         if (cont == contPass) {
@@ -231,6 +269,17 @@ const validate = {
                 )
                 inputApartado.value = minimoApartado
             }
+        }
+    },
+    validateMobile(inputMobile){
+        if(inputMobile.value.length>10){
+            alerts.showAlert(
+                'warning',
+                'No se permiten mas de 10 digitos.'
+            )
+            let digits = inputMobile.value
+            let subStr =  digits.substring(0, digits.length - 1);
+            inputMobile.value = subStr
         }
     },
 }
