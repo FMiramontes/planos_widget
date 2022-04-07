@@ -347,11 +347,11 @@ mapa.addEventListener('mouseover', (e) => {
             lote.textContent = e.target.id
             tooltip.appendChild(lote)
             let estado = document.createElement('p')
-            estado.textContent = 'No disponible'
+            estado.textContent = e.target.dataset.estado
             tooltip.appendChild(estado)
             posicionX = e.pageX + 10
             posicionY = e.pageY + 13
-            e.target.style.fill = '#000'
+            //e.target.style.fill = '#000'
         }
         maps.showPopup(tooltip, posicionX, posicionY)
     }
@@ -361,7 +361,7 @@ mapa.addEventListener('mouseout', (e) => {
         if (e.target.dataset.disponible == 'true') {
             e.target.style.fill = '#de9f27'
         } else {
-            e.target.style.fill = 'rgb(46, 46, 46)'
+            //e.target.style.fill = 'rgb(46, 46, 46)'
         }
         maps.hidePopup(tooltip)
     }

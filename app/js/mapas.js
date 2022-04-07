@@ -177,15 +177,15 @@ const maps = {
                     lote.dataset.costom2 = product.Costo_por_M2
                     lote.dataset.fracc_name = product.Fraccionamiento.name
                     lote.dataset.fracc_id = product.Fraccionamiento.id
+                    lote.dataset.estado = product.Estado
+                    
+                    lote.style.fill = this.statusColor(product.Estado)
+                    lote.style.stroke = '#000'
 
                     if (product.Estado != 'Disponible') {
-                        lote.style.fill = '#2e2e2e'
-                        lote.style.stroke = '#000'
                         lote.removeAttribute('onclick')
                         lote.dataset.disponible = false
                     } else if (product.Estado == 'Disponible') {
-                        lote.style.fill = '#de9f27'
-                        lote.style.stroke = '#000'
                         lote.dataset.disponible = true
                     }
                 }
@@ -202,6 +202,23 @@ const maps = {
     hidePopup(e) {
         e.style.display = 'none'
     },
+    statusColor(status) {
+        const colors = [
+            {"status":"Disponible" , "fill": "#de9f27"},
+            {"status":"Apartado", "fill": "#b5512a"},
+            {"status":"Primer Mensualidad", "fill": '#7de38e'},
+            {"status":"Enganche", "fill": '#398afa'},
+            {"status":"Contado", "fill": '#6908c9'},
+            {"status":"Vendido", "fill": '#2e2e2e'},
+            {"status":"Bloqueado", "fill":'#ff2e2e'},
+            {"status":"Reubicacion", "fill":'#59f4ff'},
+            {"status":"P. Reubicacion", "fill":'#7d7d82'},
+            {"status":"No Existe", "fill":'#dbdbdb'},
+        ]
+
+        const findClass = colors.find(clr => clr.status === status )
+        return findClass.fill
+    }
 }
 
 export default maps
