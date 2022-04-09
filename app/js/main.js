@@ -242,10 +242,17 @@ btnTest.addEventListener('click', (e) => {
 */
 //----------------
 /**/
+<<<<<<< HEAD
 const btnTest = document.getElementById('btn-test')
 btnTest.addEventListener('click', (e) => {
     UI.viewModal(true, '0', '0', false)
 })
+=======
+// const btnTest = document.getElementById('btn-test')
+// btnTest.addEventListener('click', (e) => {
+//     UI.viewModal(true, '0', '0', false)
+// })
+>>>>>>> 38e19150f040c17b10411503c52bfa9cb6887a35
 
 // ---------------------------------------------
 
@@ -352,6 +359,21 @@ mapa.addEventListener('mouseover', (e) => {
             posicionY = e.pageY + 13
             e.target.style.fill = '#e5b252'
             e.target.style.cursor = 'pointer'
+    let banner = document.querySelector('.banner');
+    banner.innerHTML = ''
+            lote = document.createElement('p')
+            lote.textContent = e.target.id
+            banner.appendChild(lote)
+            dimension = document.createElement('p')
+            dimension.textContent =
+            'Dimension: ' + e.target.dataset.dimension + ' m2'
+            banner.appendChild(dimension)
+            costoMetro = document.createElement('p')
+            costoMetro.textContent = 'Costo M2: $ ' + e.target.dataset.costom2
+            banner.appendChild(costoMetro)
+            total = document.createElement('p')
+            total.textContent = 'Costo total: $ ' + e.target.dataset.costototal
+            banner.appendChild(total)
         } else {
             tooltip.innerHTML = ''
             let lote = document.createElement('p')
