@@ -241,19 +241,12 @@ btnTest.addEventListener('click', (e) => {
 })
 */
 //----------------
-/**/
-<<<<<<< HEAD
+/*
 const btnTest = document.getElementById('btn-test')
 btnTest.addEventListener('click', (e) => {
     UI.viewModal(true, '0', '0', false)
 })
-=======
-// const btnTest = document.getElementById('btn-test')
-// btnTest.addEventListener('click', (e) => {
-//     UI.viewModal(true, '0', '0', false)
-// })
->>>>>>> 38e19150f040c17b10411503c52bfa9cb6887a35
-
+*/
 // ---------------------------------------------
 
 //UI.viewModal(true, '0', '0', false)
