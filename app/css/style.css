@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap');
 * {
-    font-size: 14px;
+    font-size: 12px;
     box-sizing: border-box;
 }
 *,
@@ -405,7 +405,7 @@ image {
     .menu-lateral {
         position: absolute;
         width: 30%;
-        height: 100%;
+        height: 90%;
         top: 8.9%;
         overflow-x: hidden;
     }

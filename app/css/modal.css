@@ -4,7 +4,7 @@
     background-color: #de9f27;
     margin-bottom:10px;
 }
-p{
+.titulo-recibo{
     margin: auto;
 }
 .container-wrap{
@@ -16,6 +16,7 @@ p{
     top: -100%;
     opacity: 0;
     transition: top 0.4s, opacity 0.4s;
+    z-index: 4;
 }
 .container-wrap.show {
     top: 0;
@@ -37,7 +38,8 @@ p{
 }
 .modal {
     position: absolute;
-    height: 95%;
+    top: 11%;
+    height: 88%;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -45,7 +47,7 @@ p{
     /* padding: 10px; */
     background: #fff;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
     scroll-behavior: smooth;
 }
 
@@ -55,7 +57,7 @@ p{
 }
 
 .centrado {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
     text-align: center;
 }
@@ -67,7 +69,7 @@ p{
     height: fit-content;
     width: 50%;
     position: absolute;
-    top: 2%;
+    top: 1.5%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -93,12 +95,12 @@ p{
 
 .container-blocks {
     position: absolute;
-    top: 8%;
-    height: 85%;
+    /* top: 10%; */
+    height: 100%;
     width: 415%;
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    /* align-items: flex-start; */
     flex-direction: row;
     overflow: hidden;
     scroll-behavior: smooth;
@@ -106,13 +108,13 @@ p{
 
 .container-block {
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-between; */
     align-items: center;
     flex-direction: column;
     height: 100%;
     width: 103.75%;
     overflow: hidden;
-    padding-left: 1%;
+    padding-left: 1.5%;
 }
 
 .container-sub-block {
@@ -141,7 +143,7 @@ a {
 .sub-block-small {
 }
 .sub-block-medium {
-    height: 150%;
+    /* height: 80%; */
 }
 
 .sub-block-big {
@@ -151,8 +153,11 @@ a {
 .block {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: 90%;
+    height: 86%;
     width: 45vw;
+}
+.block-presupuesto{
+    justify-content: space-between;
 }
 
 .block > span {
@@ -170,8 +175,8 @@ select {
 
 .btn-serch {
     position: absolute;
-    top: -41px;
-    left: 128px;
+    top: -48px;
+    left: 112px;
     border: 1px solid #1a1919;
     background: #1a1919;
     color: #fff;
@@ -194,7 +199,8 @@ select {
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
-    left: -20px;
+    left: -40px;
+    top: -20px;
 }
 .tlte-block {
     height: 20px;
@@ -202,20 +208,36 @@ select {
 #btn-submit:hover {
     background: #de9f27;
     border-color: #de9f27;
-
-    /* color: #1a1919; */
 }
 
 input.invalid {
     border-width: 3px;
-    /* background-color: rgb(253, 181, 181); */
     border-color: rgb(254, 88, 88);
     animation: shake 300ms;
     border-radius: 5px;
 }
-input[type=date]{
+/* input[type=date]{
     width: 77%;
+    height: 20px;
+} */
+.container-block input[type=date],input[type=text],
+input[type=number], input[type=email],[list]{
+    height: 2.5vh;
+    width: 150px;
+    border-color: #000 !important;
+    border-left: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius:  8px; 
+
 }
+.recibo-apartado{
+    display: flex;
+}
+
+.titulo-recibo{
+    margin-right: 20px;
+}
+
 @keyframes shake {
     25% {
         transform: translateX(10px);
@@ -229,12 +251,58 @@ input[type=date]{
 }
 
 .iconos{
+    display: flex;
+    width: 18px;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    top:-18px;
+    height: 21.5px;
+    top: -25.5px;
     left: -20px;
+    border: 2px solid #000 !important;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px; 
+    border-right: none;
 }
+
 .hide-icon{
     visibility: hidden;
+}
+
+/* input{
+    border-color: #000 !important;
+    border-left: none;
+    height: 18px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius:  8px; 
+} */
+
+input:disabled{
+    border-color: rgb(106, 106, 106) !important;
+}
+.icon-disabled{
+    border-color: rgb(106, 106, 106) !important;
+}
+
+i{
+    font-size: 12px;
+}
+
+.banner{
+    background-color: #de9f27;
+    width: 50%;
+    height: 25px;
+    position: absolute;
+    top: 8%;
+    z-index: 2;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* border-radius: 0 0 10px 10px; */
+}
+
+.banner p{
+    font-weight: bold;
 }
 
 @media (min-device-width: 576px) and (max-device-width: 915px) and (orientation:landscape){
@@ -251,6 +319,7 @@ input[type=date]{
         display: grid;
         grid-template-columns: 100%;
         padding: 0%;
+        height: 100%;
     }
     .container-blocks{
       top:1%
@@ -275,10 +344,10 @@ input[type=date]{
         font-size: 20px;
     }
     label{
-        font-size: 16px;
+        font-size: 12px;
     }
     .centrado {
-        font-size: 20px;
+        font-size: 14px;
     }
     input {
         width: 300px;
@@ -286,11 +355,12 @@ input[type=date]{
     }
     input[type=date]{
         width: 300px;
+        height: 32.5px;
     }
     .btn-serch {
        width:60px;
        height: 30px;
-       top: -55px;
+       top: -75px;
        left: 236px;
     }
     .container-sub-block{
@@ -306,7 +376,11 @@ input[type=date]{
         align-items: center;
     }
     .iconos{
-        top: -25px;
+        top: -36px;
+        height: 31.8px;
+    }
+    .banner{
+        top: 12%;
     }
 }
 
@@ -324,6 +398,7 @@ input[type=date]{
         display: grid;
         grid-template-columns: 100%;
         padding: 0%;
+        height: 100%;
     }
     .container-blocks{
       top:1%
@@ -348,7 +423,7 @@ input[type=date]{
         font-size: 20px;
     }
     label{
-        font-size: 16px;
+        font-size: 12px;
     }
     .centrado {
         font-size: 20px;
@@ -364,6 +439,7 @@ input[type=date]{
     }
     input[type=date]{
         width: 200px;
+        height: 32px;
     }
     .btn-serch {
        width:60px;
@@ -379,6 +455,11 @@ input[type=date]{
         height: fit-content;
     }
     .iconos{
-        top: -25px;
+        top: -36px;
+        height: 32px;
+    }
+    .banner{
+        top: 4%;
+        width: 41%;
     }
 }

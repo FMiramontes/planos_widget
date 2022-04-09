@@ -116,6 +116,7 @@
                             <g class="cls-0" id="maps" pointer-events="all"></g>
                             <g class="cls-0" id="details"></g>
                         </svg>
+                    
                     </div>
                     <div id="info-lote"></div>
                     <div class="zoom-panel">
@@ -172,19 +173,14 @@
                             </div>
                         </a>
                     </div>
+                    <div class="banner"></div>
                     <!-- Form -->
                     <div id="modal" class="modal">
-                        <div class="container-blocks">
+                        <div class="container-blocks seccion">
                             <!-- titular-1 -->
                             <div class="container-block" id="titular-1">
                                 <!-- sub block Datos Personales Titular I -->
                                 <div class="container-sub-block sub-block-medium">
-                                    <div class="title-block">
-                                        <span class="centrado">
-                                            Datos Personales Titular I
-                                        </span>
-                                    </div>
-                                    <span class="Linea-Division"></span>
                                     <div class="block" data-contacto="true">
                                         <span>
                                             <label>Nombres:</label>
@@ -226,7 +222,7 @@
                                                 name="Date_of_Birth"
                                                 required
                                             />
-                                            <div class="iconos hide-icon"><i class="fa-solid fa-user"></i></div>
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
                                         </span>
                                         <span>
                                             <label>Lugar de Nacimiento:</label>
@@ -394,12 +390,6 @@
                             <div class="container-block" id="titular-2">
                                 <!-- sub block Datos Personales Titular II -->
                                 <div class="container-sub-block sub-block-medium">
-                                    <div class="title-block">
-                                        <span class="centrado">
-                                            Datos Personales Titular II
-                                        </span>
-                                    </div>
-                                    <span class="Linea-Division"></span>
                                     <div class="block" data-contacto="true">
                                         <span>
                                             <label>Nombres:</label>
@@ -434,7 +424,7 @@
                                                 type="date"
                                                 name="Fecha_Nacimiento2"
                                             />
-                                            <div class="iconos hide-icon"><i class="fa-solid fa-user"></i></div>
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
                                         </span>
                                         <span>
                                             <label>Lugar de Nacimiento:</label>
@@ -577,12 +567,6 @@
                             <div class="container-block" id="referencias">
                                 <!-- sub block Referencias Personales -->
                                 <div class="container-sub-block">
-                                    <div class="title-block">
-                                        <span class="centrado">
-                                            Referencias Personales
-                                        </span>
-                                    </div>
-                                    <span class="Linea-Division"></span>
                                     <div class="block" data-contacto="true">
                                         <span>
                                             <label>Nombre:</label>
@@ -653,7 +637,7 @@
                                                 name="Full_Name"
                                                 data-copy="name"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-user"></i></div>
                                         </span>
                                         <span>
                                             <label>Empresa Donde Trabaja:</label>
@@ -663,7 +647,7 @@
                                                 name="Empresa_en_labora"
                                                 data-copy="Empresa_en_labora"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-industry"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-industry"></i></div>
                                         </span>
                                         <span>
                                             <label>Ingreso Mensual:</label>
@@ -673,7 +657,7 @@
                                                 name="INGRESO_MENSUAL"
                                                 data-copy="INGRESO_MENSUAL"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-dollar-sign"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-dollar-sign"></i></div>
                                         </span>
                                         <span>
                                             <label>Dueño Controlador:</label>
@@ -684,7 +668,7 @@
                                                 name="Full_Name"
                                                 data-copy="name"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-user-check"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-user-check"></i></div>
                                         </span>
                                         <span>
                                             <label>Puesto:</label>
@@ -694,7 +678,7 @@
                                                 name="Puesto"
                                                 data-copy="Ocupacion"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-suitcase"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-suitcase"></i></div>
                                         </span>
                                         <span>
                                             <label>Tiempo:</label>
@@ -704,19 +688,15 @@
                                                 name="A_os_Laborados"
                                                 data-copy="A_os_Laborados"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-clock"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-clock"></i></div>
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <!-- presupuesto -->
-                            <div class="container-block" id="presupuesto">
+                            <div class="container-block block-presupuesto" id="presupuesto">
                                 <!-- sub block Presupuesto -->
                                 <div class="container-sub-block sub-block-big">
-                                    <div class="title-block">
-                                        <span class="centrado"> Presupuesto </span>
-                                    </div>
-                                    <span class="Linea-Division"></span>
                                     <div class="block" data-presupuesto="true">
                                         <span>
                                             <label>Campaña:</label>
@@ -727,7 +707,6 @@
                                                 required
                                             />
                                             <div class="iconos"><i class="fa-solid fa-bell"></i></div>
-                                            <!-- <div class="iconos"><i class="fa-solid fa-bell"></i></div> -->
                                             <div class="container-serch">
                                                 <input
                                                     type="button"
@@ -750,7 +729,6 @@
                                                 list="list-vendedores"
                                             >
                                             <div class="iconos"><i class="fa-solid fa-cash-register"></i></div>
-                                            <!-- <div class="iconos"><i class="fa-solid fa-cash-register"></i></div> -->
                                                 <datalist data-datalist="true" id="list-vendedores">
                                                     <option value=""></option>
                                                 </datalist>
@@ -777,7 +755,6 @@
                                                 name="Fraccionamiento_P"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-house"></i></div>
-                                            <!-- <div class="iconos"><i class="fa-solid fa-house"></i><div> -->
                                         </span>
                                         <span>
                                             <label>Manzana:</label>
@@ -786,7 +763,7 @@
                                                 type="text"
                                                 name="Manzana"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-house"></i></div>
                                         </span>
                                         <span>
                                             <label>Dimensiones:</label>
@@ -795,7 +772,7 @@
                                                 type="text"
                                                 name="dimension"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-ruler-combined"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-ruler-combined"></i></div>
                                         </span>
                                         <span>
                                             <label>Costo Total:</label>
@@ -804,7 +781,7 @@
                                                 type="text"
                                                 name="Costo_Total_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-coins"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-coins"></i></div>
                                         </span>
                                         <span>
                                             <label>Costo con Descuento:</label>
@@ -813,7 +790,7 @@
                                                 type="text"
                                                 name="Costo_Descuento_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-percent"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-percent"></i></div>
                                         </span>
                                         <span>
                                             <label>Enganche:</label>
@@ -822,7 +799,7 @@
                                                 type="text"
                                                 name="Enganche_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-file-invoice-dollar"></i></div>
                                         </span>
                                         <span>
                                             <label>Pagos Mensuales:</label>
@@ -831,7 +808,7 @@
                                                 type="text"
                                                 name="Pago_Mensual_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-file-invoice-dollar"></i></div>
                                         </span>
                                         <span>
                                             <label>Fecha Primer Mensualidad:</label>
@@ -840,7 +817,7 @@
                                                 type="text"
                                                 name="Primer_Mensualidad_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-money-bill-wave"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-money-bill-wave"></i></div>
                                         </span>
                                         <span>
                                             <label>Localizacion:</label>
@@ -849,7 +826,7 @@
                                                 type="text"
                                                 name="Localizacion_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
                                         <span>
                                             <label>Lote:</label>
@@ -858,7 +835,7 @@
                                                 type="text"
                                                 name="Lote"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-road"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-road"></i></div>
                                         </span>
                                         <span>
                                             <label>Costo por M2:</label>
@@ -867,7 +844,7 @@
                                                 type="text"
                                                 name="Costo_M2"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-coins"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-coins"></i></div>
                                         </span>
                                         <span>
                                             <label>Pago Inicial:</label>
@@ -876,7 +853,7 @@
                                                 type="text"
                                                 name="Pago_Inicial_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-money-bill-wave"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-money-bill-wave"></i></div>
                                         </span>
                                         <span>
                                             <label>Saldo a Pagar:</label>
@@ -885,7 +862,7 @@
                                                 type="text"
                                                 name="Saldo_Pagar_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-calendar-day"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-calendar-day"></i></div>
                                         </span>
                                         <span>
                                             <label>Plazo:</label>
@@ -894,7 +871,7 @@
                                                 type="text"
                                                 name="Plazo_P"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-calendar-days"></i></div>
                                         </span>
                                         <span>
                                             <label>Modo de Pago:</label>
@@ -915,25 +892,28 @@
                                     </div>
                                 </div>
                                 <!-- sub block RECIBO DE APARTADO -->
-                                <div class="check">
-                                    <label for="hasApartado"
-                                        >Crear factura de apartado</label
-                                    ><br />
-                                    <label class="toggle on">
-                                        <input
-                                            type="checkbox"
-                                            id="hasApartado"
-                                            name="hasApartado"
-                                        />
-                                        <div class="toggle-slide">
-                                            <div class="toggler"></div>
-                                        </div>
-                                    </label>
-                                </div>
+                            
                                 <div class="container-sub-block">
-                                    <div class="tlte-block">
-                                        <p>RECIBO DE APARTADO</p>
+                                
+                                    <div class=" recibo-apartado">
+                                        <p class="titulo-recibo">RECIBO DE APARTADO</p>
+                                        <div class="check">
+                                            <label class="titulo-recibo" for="hasApartado"
+                                                >Apartado</label
+                                            ><br />
+                                            <label class="toggle on">
+                                                <input
+                                                    type="checkbox"
+                                                    id="hasApartado"
+                                                    name="hasApartado"
+                                                />
+                                                <div class="toggle-slide">
+                                                    <div class="toggler"></div>
+                                                </div>
+                                            </label>
+                                        </div>
                                     </div>
+                                   
                                     <div class="block" data-presupuesto="true">
                                         <span>
                                             <label>Por La Cantidad De:</label>
@@ -955,7 +935,7 @@
                                                 type="text"
                                                 name="Cantidad_Letra_RA"
                                             />
-                                            <div class="iconos"><i class="fa-solid fa-dollar-sign"></i></div>
+                                            <div class="iconos icon-disabled"><i class="fa-solid fa-dollar-sign"></i></div>
                                         </span>
                                     </div>
                                     <div class="title-block">
@@ -970,7 +950,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- </form> -->
                     </div>
                 </div>
