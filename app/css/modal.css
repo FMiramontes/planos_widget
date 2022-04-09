@@ -169,11 +169,11 @@ a {
 select {
     width: 80%;
 }
-.container-serch {
+.container-search {
     position: relative;
 }
 
-.btn-serch {
+.btn-search {
     position: absolute;
     top: -48px;
     left: 112px;

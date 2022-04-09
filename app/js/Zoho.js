@@ -73,12 +73,12 @@ const crm = {
         try {
             const numManzana = manzana.replace(/\D+/, '')
 
-            const serch = fracc == "Alamar" ? "equals" : "starts_with"
+            const search = fracc == "Alamar" ? "equals" : "starts_with"
 
             const request = await ZOHO.CRM.API.searchRecord({
                 Entity: 'Products',
                 Type: 'criteria',
-                Query: `((Nombre_Fraccionamiento:${serch}:${fracc})and(Manzana:equals:${numManzana}))`,
+                Query: `((Nombre_Fraccionamiento:${search}:${fracc})and(Manzana:equals:${numManzana}))`,
             })
 
             if (request.status === 204) {
