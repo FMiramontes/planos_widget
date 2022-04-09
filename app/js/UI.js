@@ -1565,6 +1565,36 @@ const UI = {
         }
         return objetReturn
     },
+    async createLead(dataForm){
+
+        const modal = document.getElementById('modal')
+        const fraccionamientoId = modal.dataset.fracc_id
+        const user = document.getElementById('user')
+        let ownerId
+        if(user?.dataset?.profile === 'Vendedor'){
+            ownerId = user.dataset.crmuserid
+        }else{
+            const user = document.getElementById('vendorsValue')
+            ownerId = user.dataset.vendedorid
+        }
+        // console.log('dataForm: ', dataForm)
+        // console.log('ownerId: ', ownerId)
+        // console.log('fraccionamientoId: ', fraccionamientoId)
+        
+        const createLead = await crm.createLead(dataForm, ownerId, fraccionamientoId)
+        if(createLead.ok){
+            alerts.showAlert(
+                'success',
+                'Posible cliente creado'
+            )
+        }else{
+            alerts.showAlert(
+                createLead.type,
+                'El posible cliente no pudo ser creado !!'
+            )
+        }
+
+    }
 }
 
 const util = {

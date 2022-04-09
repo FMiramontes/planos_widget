@@ -73,10 +73,12 @@ const crm = {
         try {
             const numManzana = manzana.replace(/\D+/, '')
 
+            const serch = fracc == "Alamar" ? "equals" : "starts_with"
+
             const request = await ZOHO.CRM.API.searchRecord({
                 Entity: 'Products',
                 Type: 'criteria',
-                Query: `((Nombre_Fraccionamiento:starts_with:${fracc})and(Manzana:equals:${numManzana}))`,
+                Query: `((Nombre_Fraccionamiento:${serch}:${fracc})and(Manzana:equals:${numManzana}))`,
             })
 
             if (request.status === 204) {
@@ -676,6 +678,62 @@ const crm = {
             }
         }
     },
+    async createLead(newData, ownerId, fraccionamientoId){
+        console.log('Creating Lead...')
+        let data = { ...newData.contacto }
+        let lead = {}
+        console.log('data: ', data)
+        let nombreCompleto = data.First_Name.toUpperCase() + ' ' + data.Apellido_Paterno.toUpperCase() + ' ' + data.Apellido_Materno.toUpperCase()
+        lead.Last_Name = data.Apellido_Paterno.toUpperCase() + ' ' + data.Apellido_Materno.toUpperCase()
+        lead.Apellido_Paterno = data.Apellido_Paterno.toUpperCase()
+        lead.Apellido_Materno = data.Apellido_Materno.toUpperCase()
+        lead.First_Name = data.First_Name.toUpperCase()
+        lead.Interesado_en = { id: fraccionamientoId }
+        lead.Lead_Source = data.Lead_Source
+        lead.Lead_Status = "Alta de Lead"
+        lead.Owner = { id: ownerId }
+        lead.Company = nombreCompleto
+        lead.Mobile = data.Mobile
+        lead.Email = data.Email
+        console.log('lead: ', lead)
+        
+        
+
+        try {
+            const request = await ZOHO.CRM.API.insertRecord({
+                Entity: 'Leads',
+                APIData: lead,
+                Trigger: [],
+            })
+            console.log('Zoho create contact: ', request)
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
+
+            // Record found
+            return {
+                code: 201,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            console.log(error)
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+
 }
 
 const creator = {

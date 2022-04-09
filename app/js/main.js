@@ -117,6 +117,17 @@ document.getElementById('btn-submit').addEventListener('click', (e) => {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
 })
+
+document.getElementById('btn-cratelead').addEventListener('click', (e) => {
+    const dataForm = UI.getDataForm()
+
+    if (valid.validateDataLead()) {
+        UI.createLead(dataForm)
+    } else {
+        alerts.showAlert('warning', 'Informacion Incompleta.')
+    }
+})
+
 const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
 const input_location = document.querySelector('input[name="Localizacion_P"]')
 const map = document.getElementById('map')
@@ -230,12 +241,12 @@ btnTest.addEventListener('click', (e) => {
 })
 */
 //----------------
-/*
+/**/
 const btnTest = document.getElementById('btn-test')
 btnTest.addEventListener('click', (e) => {
     UI.viewModal(true, '0', '0', false)
 })
-*/
+
 // ---------------------------------------------
 
 //UI.viewModal(true, '0', '0', false)

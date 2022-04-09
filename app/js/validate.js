@@ -149,6 +149,89 @@ const validate = {
         }
     },
 
+    validateDataLead() {
+        const inputsCheckForm = Array.from(
+            document.querySelectorAll('[data-existe-en-crm]')
+        )
+        const inputsInvalid = {}
+        let contPass = 6
+
+        const loggedUser = document.querySelector('#user')
+
+        let vendedor = document.querySelector('#vendorsValue')
+
+        let fuentePosible = document.querySelector('[name="Lead_Source"]')
+        let mobile = document.querySelector('[name="Mobile"]')
+
+        let nombre2 = document.querySelector('[name="Nombre2"]')
+        let apellido2 = document.querySelector('[name="ApellidoP2"]')
+        let correo2 = document.querySelector('[name="Correo2"]')
+
+        let cont = 0
+        inputsCheckForm.forEach((e) => {
+            if (
+                e.name == 'First_Name' ||
+                e.name == 'Apellido_Paterno' ||
+                e.name == 'Email'
+            ) {
+                if (e.value != '') {
+                    e.classList.remove('invalid')
+                    cont += 1
+                } else {
+                    if (e.name == 'First_Name') {
+                        inputsInvalid.fname = e.name
+                    } else if (e.name == 'Apellido_Paterno') {
+                        inputsInvalid.lname = e.name
+                    } else if (e.name == 'Email') {
+                        inputsInvalid.email = e.name
+                    }
+                }
+            }
+        })
+
+        if(nombre2.value !== '' && apellido2.value !== ''){
+            if(correo2.value !== ''){
+                campana.classList.remove('invalid')
+                cont +=1;
+            }else{
+                inputsInvalid.correo2 = correo2.name
+            }        
+        }
+
+        if (vendedor.value !== '') {
+            vendedor.classList.remove('invalid')
+            cont += 1
+        } else {
+            inputsInvalid.vendedor = vendedor.name
+        }
+
+        if (mobile.value !== '') {
+            mobile.classList.remove('invalid')
+            cont += 1
+        } else {
+            inputsInvalid.Mobile = mobile.name
+        }
+
+        if (loggedUser.dataset.profile === 'Vendedor') {
+            contPass = 5
+        }
+
+        if(fuentePosible.value !== ''){
+            fuentePosible.classList.remove('invalid')
+            cont += 1
+        }else{
+            inputsInvalid.fuentePosible = fuentePosible.name
+        }
+        console.log('cont: ', cont, 'contPass: ', contPass)
+        if (cont == contPass) {
+            return true
+        } else {
+            //pintar alertas
+            this.inputsInvalid(inputsInvalid)
+            return false
+        }
+    },
+
     inputsInvalid(inputsInvalid) {
         let inputCheck = Object.values(inputsInvalid)
 
@@ -271,6 +354,7 @@ const validate = {
             }
         }
     },
+
     validateMobile(inputMobile){
         if(inputMobile.value.length>10){
             alerts.showAlert(
