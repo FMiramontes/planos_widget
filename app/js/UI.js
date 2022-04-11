@@ -275,11 +275,19 @@ const UI = {
         Blocks.forEach((block) => {
             const spans = Array.from(block.children)
             spans.forEach((span) => {
-                if (block?.dataset?.contacto)
-                    if (span.children[1].value !== '')
+                if (block?.dataset?.contacto){
+                    if (span.children[1].value !== '') {
                         contacto[span.children[1].name] = span.children[1].value
-                if (block?.dataset?.presupuesto)
+                    }
+                    // sobreescribe valor con el valor del checkbox
+                    if (span.children[1].type === 'checkbox'){
+                        contacto[span.children[1].name] = span.children[1].checked
+                    }
+                }
+                   
+                if (block?.dataset?.presupuesto){
                     Presupuesto[span.children[1].name] = span.children[1].value
+                }
             })
         })
 

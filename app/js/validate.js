@@ -53,7 +53,7 @@ const validate = {
             document.querySelectorAll('[data-existe-en-crm]')
         )
         const inputsInvalid = {}
-        let contPass = 9
+        let contPass = 8
 
         const loggedUser = document.querySelector('#user')
 
@@ -94,6 +94,7 @@ const validate = {
         })
 
         if(nombre2.value !== '' && apellido2.value !== ''){
+            contPass = 9
             if(correo2.value !== ''){
                 campana.classList.remove('invalid')
                 cont +=1;
@@ -117,7 +118,7 @@ const validate = {
         }
 
         if (loggedUser.dataset.profile === 'Vendedor') {
-            contPass = 8
+            contPass = 7
         }
 
         if(fuentePosible.value !== ''){
@@ -136,10 +137,11 @@ const validate = {
 
         if(coordinador.value !== ''){
             coordinador.classList.remove('invalid')
+            cont += 1
         }else{
             inputsInvalid.coordinador = coordinador.name
         }
-
+        
         if (cont == contPass) {
             return true
         } else {
@@ -236,7 +238,6 @@ const validate = {
         let inputCheck = Object.values(inputsInvalid)
 
         inputCheck.forEach((input) => {
-            //console.log(input)
             let inp = document.querySelector(`[name=${input}]`)
             inp.classList.add('invalid')
         })
