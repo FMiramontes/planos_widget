@@ -110,7 +110,6 @@ document.addEventListener('click', (e) => {
 
 document.getElementById('btn-submit').addEventListener('click', (e) => {
     const newData = UI.getDataForm()
-
     if (valid.validateForm() && valid.validDataLists()) {
         UI.validate(CRMData, newData)
     } else {

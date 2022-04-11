@@ -148,12 +148,28 @@
                                 Titular 1
                             </div>
                         </a>
+                        <a href="#uif-titular-1">
+                            <div
+                                class="btn-menu-modal tab"
+                                data-tab-target="#titular1"
+                            >
+                                UIF Titular 1
+                            </div>
+                        </a>
                         <a href="#titular-2">
                             <div
                                 class="btn-menu-modal tab"
                                 data-tab-target="#titular2"
                             >
                                 Titular 2
+                            </div>
+                        </a>
+                        <a href="#uif-titular-2">
+                            <div
+                                class="btn-menu-modal tab"
+                                data-tab-target="#titular2"
+                            >
+                                UIF Titular 2
                             </div>
                         </a>
                         <a href="#referencias">
@@ -240,7 +256,7 @@
                                                 id="estado-civil"
                                                 list="list-estado-civil"
                                             >
-                                                <datalist data-datalist="true" id="list-estado-civil">
+                                                <datalist id="list-estado-civil">
                                                     <option value="Casado(a)">
                                                         Casado(a)
                                                     </option>
@@ -394,6 +410,143 @@
                                             value="create lead"
                                         />
                                     </span>
+                                </div>
+                            </div>
+                            <!-- uif-titular-1 -->
+                            <div class="container-block" id="uif-titular-1">
+                                <!-- sub block Datos Personales Titular I -->
+                                <div class="container-sub-block">
+                                    <div class="block " data-contacto="true">
+                                        <span>
+                                            <label>CURP:</label>
+                                            <input
+                                                type="text"
+                                                name="CURP"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>RFC:</label>
+                                            <input
+                                                type="text"
+                                                name="RFC"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Tipo Identificacion:</label>
+                                            <input
+                                                name="Tipo_Identificacion"
+                                                list="list-Tipo_Identificacion"
+                                            />
+                                            <datalist id="list-Tipo_Identificacion">
+                                                <option value="Acta Constitutiva">
+                                                    Acta Constitutiva
+                                                </option>
+                                                <option value="Cartilla Militar">
+                                                    Cartilla Militar
+                                                </option>
+                                                <option value="Cedula Profesional">
+                                                    Cedula Profesional
+                                                </option>
+                                                <option value="Credencial de Elector">
+                                                    Credencial de Elector
+                                                </option>
+                                                <option value="Identificacion Americana">
+                                                    Identificacion Americana
+                                                </option>
+                                                <option value="Licencia de Conducir">
+                                                    Licencia de Conducir
+                                                </option>
+                                                <option value="Matricula Consular">
+                                                    Matricula Consular
+                                                </option>
+                                                <option value="Pasaporte">
+                                                    Pasaporte
+                                                </option>
+                                                <option value="Tarjeta de Residencia">
+                                                    Tarjeta de Residencia
+                                                </option>
+                                                <option value="Visa">
+                                                    Visa
+                                                </option>
+                                            </datalist>
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Autoridad Que Lo Emite:</label>
+                                            <input
+                                                type="text"
+                                                name="Autoridad_Que_Lo_Emite"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Tipo de Comprobante:</label>
+                                            <input
+                                                type="text"
+                                                name="Tipo_de_Comprobante"
+                                                required
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Operaciones dentro de 6 meses:</label>
+                                            <input
+                                                type="number"
+                                                name="Numero_de_operaciones_dentro_de_6_meses"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-phone"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Numero de Identificacion:</label>
+                                            <input
+                                                type="number"
+                                                name="Numero_de_Identificacion"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Constancia Beneficiario:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Constancia_Beneficiario"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-phone"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Otro Apoderado:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Otro_Apoderado"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Constancia de CURP:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Constancia_de_CURP"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Constancia RFC:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Constancia_RFC"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Suma UMAS:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Suma_UMAS"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <!-- titular-2 -->
@@ -571,6 +724,143 @@
                                             />
                                             <div class="iconos"><i class="fa-solid fa-clock"></i></div>
                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- uif-titular-2 -->
+                            <div class="container-block" id="uif-titular-2">
+                                <!-- sub block Datos Personales Titular I -->
+                                <div class="container-sub-block">
+                                    <div class="block " data-contacto="true">
+                                        <span>
+                                            <label>CURP:</label>
+                                            <input
+                                                type="text"
+                                                name="CURP2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>RFC:</label>
+                                            <input
+                                                type="text"
+                                                name="RFC2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Tipo Identificacion:</label>
+                                            <input
+                                                name="Tipo_Identificacion2"
+                                                list="list-Tipo_Identificacion"
+                                            />
+                                            <datalist id="list-Tipo_Identificacion">
+                                                <option value="Acta Constitutiva">
+                                                    Acta Constitutiva
+                                                </option>
+                                                <option value="Cartilla Militar">
+                                                    Cartilla Militar
+                                                </option>
+                                                <option value="Cedula Profesional">
+                                                    Cedula Profesional
+                                                </option>
+                                                <option value="Credencial de Elector">
+                                                    Credencial de Elector
+                                                </option>
+                                                <option value="Identificacion Americana">
+                                                    Identificacion Americana
+                                                </option>
+                                                <option value="Licencia de Conducir">
+                                                    Licencia de Conducir
+                                                </option>
+                                                <option value="Matricula Consular">
+                                                    Matricula Consular
+                                                </option>
+                                                <option value="Pasaporte">
+                                                    Pasaporte
+                                                </option>
+                                                <option value="Tarjeta de Residencia">
+                                                    Tarjeta de Residencia
+                                                </option>
+                                                <option value="Visa">
+                                                    Visa
+                                                </option>
+                                            </datalist>
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Autoridad Que Lo Emite:</label>
+                                            <input
+                                                type="text"
+                                                name="Autoridad_Que_Lo_Emite_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Tipo de Comprobante:</label>
+                                            <input
+                                                type="text"
+                                                name="Tipo_de_Comprobante_2"
+                                                required
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Operaciones dentro de 6 meses:</label>
+                                            <input
+                                                type="number"
+                                                name="Numero_de_operaciones_dentro_de_6_meses_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-phone"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Numero de Identificacion:</label>
+                                            <input
+                                                type="number"
+                                                name="No_Identificacion2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Constancia Beneficiario:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Constancia_Beneficiario_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-phone"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Otro Apoderado:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Otro_Apoderado2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Constancia de CURP:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Constancia_de_CURP_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Constancia RFC:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Constancia_RFC_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span>
+                                        <!-- <span>
+                                            <label>Suma UMAS:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Suma_UMAS"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-envelope"></i></div>
+                                        </span> -->
                                     </div>
                                 </div>
                             </div>

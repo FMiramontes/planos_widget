@@ -235,7 +235,11 @@ const UI = {
                 let input = document.querySelector(`[name='${key}']`)
 
                 if (CRMData[key]) {
-                    input.value = CRMData[key]
+                    if (input.type === 'checkbox'){
+                        input.checked = CRMData[key]
+                    }else{
+                        input.value = CRMData[key]
+                    }
                 } else {
                     console.log('-----------------------------------------')
                     console.log('input', input)
@@ -263,7 +267,11 @@ const UI = {
         Blocks.forEach((block) => {
             const spans = Array.from(block.children)
             spans.forEach((span) => {
-                span.children[1].value = ''
+                if (span.children[1].type === 'checkbox'){
+                    span.children[1].checked = false
+                }else{
+                    span.children[1].value = ''
+                }
             })
         })
     },
@@ -275,11 +283,19 @@ const UI = {
         Blocks.forEach((block) => {
             const spans = Array.from(block.children)
             spans.forEach((span) => {
-                if (block?.dataset?.contacto)
-                    if (span.children[1].value !== '')
+                if (block?.dataset?.contacto){
+                    if (span.children[1].value !== '') {
                         contacto[span.children[1].name] = span.children[1].value
-                if (block?.dataset?.presupuesto)
+                    }
+                    // sobreescribe valor con el valor del checkbox
+                    if (span.children[1].type === 'checkbox'){
+                        contacto[span.children[1].name] = span.children[1].checked
+                    }
+                }
+                   
+                if (block?.dataset?.presupuesto){
                     Presupuesto[span.children[1].name] = span.children[1].value
+                }
             })
         })
 
