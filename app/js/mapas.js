@@ -205,13 +205,13 @@ const maps = {
     statusColor(status) {
         const colors = [
             {"status":"Disponible" , "fill": "#de9f27"},
-            {"status":"Apartado", "fill": "#b5512a"},
-            {"status":"Primer Mensualidad", "fill": '#7de38e'},
+            {"status":"Apartado", "fill": "#ebe08a"},
+            {"status":"Primer Mensualidad", "fill": '#93d6c9'},
             {"status":"Enganche", "fill": '#398afa'},
-            {"status":"Contado", "fill": '#6908c9'},
+            {"status":"Contado", "fill": '#7494c5'},
             {"status":"Vendido", "fill": '#2e2e2e'},
-            {"status":"Bloqueado", "fill":'#ff2e2e'},
-            {"status":"Reubicacion", "fill":'#59f4ff'},
+            {"status":"Bloqueado", "fill":'#C2554F'},
+            {"status":"Reubicacion", "fill":'#5dbfcb'},
             {"status":"P. Reubicacion", "fill":'#7d7d82'},
             {"status":"No Existe", "fill":'#dbdbdb'},
         ]

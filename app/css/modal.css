@@ -1,4 +1,4 @@
-.Linea-Division {
+l.Linea-Division {
     width: 40%;
     height: 4px;
     background-color: #de9f27;
@@ -329,7 +329,7 @@ i{
         height: 100%;
     }
     .container-blocks{
-      top:1%
+      top:5%
     } 
     .title-block{
         margin-top: 50px;
@@ -384,10 +384,15 @@ i{
     }
     .iconos{
         top: -36px;
-        height: 31.8px;
+        height: 28px;
     }
     .banner{
-        top: 12%;
+        top: 9%;
+    }
+    .btn-cratelead{
+        width: 100px;
+        top:-25px;
+        left: 140px;
     }
 }
 
@@ -443,13 +448,12 @@ i{
         justify-content: center;
         align-items: center;
     }
-    input {
+    .container-block input[type=date],input[type=text],
+    input[type=number], input[type=email],[list] {
         width: 200px;
-        height: 30px;
-    }
-    input[type=date]{
-        width: 200px;
-        height: 32px;
+        height: 28px;
+        /* clases de prueba */
+        border-radius: 0 10px 10px 0;
     }
     .btn-search {
        width:60px;
@@ -469,10 +473,15 @@ i{
         height: 28px;
     }
     .banner{
-        top: 4%;
+        top: 8%;
         width: 41%;
     }
     .btn-cratelead{
-        left: 100px;
+        width: 80px;
+        left: 130px;
+    }
+    .contact span{
+        text-overflow: ellipsis;
+        font-size: 10px;
     }
 }

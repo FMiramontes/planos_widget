@@ -73,7 +73,7 @@ body {
     }
 }
 
-[data-disponible='false']:hover {
+/* [data-disponible='false']:hover {
     animation: colorHover 0.75s ease alternate infinite;
 }
 @keyframes colorHover {
@@ -88,7 +88,7 @@ body {
     100% {
         fill: #5c5c5c;
     }
-}
+} */
 
 image {
     pointer-events: none;
@@ -409,7 +409,7 @@ image {
         top: 8.9%;
         overflow-x: hidden;
     }
-    .zoom-panel {
+    #zoom-in, #zoom-out{
         display: none;
     }
 }
