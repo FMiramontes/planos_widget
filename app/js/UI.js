@@ -235,9 +235,9 @@ const UI = {
                 let input = document.querySelector(`[name='${key}']`)
 
                 if (CRMData[key]) {
-                    if (input.type === 'checkbox'){
+                    if (input.type === 'checkbox') {
                         input.checked = CRMData[key]
-                    }else{
+                    } else {
                         input.value = CRMData[key]
                     }
                 } else {
@@ -267,9 +267,9 @@ const UI = {
         Blocks.forEach((block) => {
             const spans = Array.from(block.children)
             spans.forEach((span) => {
-                if (span.children[1].type === 'checkbox'){
+                if (span.children[1].type === 'checkbox') {
                     span.children[1].checked = false
-                }else{
+                } else {
                     span.children[1].value = ''
                 }
             })
@@ -283,17 +283,18 @@ const UI = {
         Blocks.forEach((block) => {
             const spans = Array.from(block.children)
             spans.forEach((span) => {
-                if (block?.dataset?.contacto){
+                if (block?.dataset?.contacto) {
                     if (span.children[1].value !== '') {
                         contacto[span.children[1].name] = span.children[1].value
                     }
                     // sobreescribe valor con el valor del checkbox
-                    if (span.children[1].type === 'checkbox'){
-                        contacto[span.children[1].name] = span.children[1].checked
+                    if (span.children[1].type === 'checkbox') {
+                        contacto[span.children[1].name] =
+                            span.children[1].checked
                     }
                 }
-                   
-                if (block?.dataset?.presupuesto){
+
+                if (block?.dataset?.presupuesto) {
                     Presupuesto[span.children[1].name] = span.children[1].value
                 }
             })
@@ -1306,6 +1307,32 @@ const UI = {
             if (getCampaignRequest.ok) {
                 const campaignData = getCampaignRequest.data
 
+                let precioFinalProducto = 0
+                let enganche = 0
+
+                // CRM Campaign fields
+                const formaDePago = campaignData.Tipo_de_Promocion
+                const politicaCampana = campaignData.Tipo_de_Politica
+                const tipoDeDescuento = campaignData.Tipo_de_Descuento
+                console.log('campana', campaignData)
+                // Consultar tipo de politica para asignar costo m2
+                if (
+                    campaignData.Fraccionamientos.id != null &&
+                    formaDePago === 'Financiado' &&
+                    politicaCampana === 'Primer Mensualidad'
+                ) {
+                    const requestModule = await crm.getFraccionamiento(
+                        campaignData.Fraccionamientos.id
+                    )
+
+                    const moduleData = requestModule.data
+                    const costoM2_sinEnganche =
+                        moduleData.Precio_de_lista_M2_Sin_Enganche
+
+                    document.querySelector(`input[name="Costo_M2"]`).value =
+                        costoM2_sinEnganche.toFixed(2)
+                }
+
                 // Form Product field values
                 const DIMENSIONES = document.querySelector(
                     `input[name="dimension"]`
@@ -1317,13 +1344,6 @@ const UI = {
                     parseFloat(DIMENSIONES) * parseFloat(COSTO_M2)
 
                 // Variables
-                let precioFinalProducto = 0
-                let enganche = 0
-
-                // CRM Campaign fields
-                const formaDePago = campaignData.Tipo_de_Promocion
-                const politicaCampana = campaignData.Tipo_de_Politica
-                const tipoDeDescuento = campaignData.Tipo_de_Descuento
 
                 // Apartado
                 if (campaignData.Tipo_de_Apartado != null) {
@@ -1581,38 +1601,38 @@ const UI = {
         }
         return objetReturn
     },
-    async createLead(dataForm){
+    async createLead(dataForm) {
         const createLead = confirm('Desea crear el Posible cliente ')
-        if(createLead){
+        if (createLead) {
             const modal = document.getElementById('modal')
             const fraccionamientoId = modal.dataset.fracc_id
             const user = document.getElementById('user')
             let ownerId
-            if(user?.dataset?.profile === 'Vendedor'){
+            if (user?.dataset?.profile === 'Vendedor') {
                 ownerId = user.dataset.crmuserid
-            }else{
+            } else {
                 const user = document.getElementById('vendorsValue')
                 ownerId = user.dataset.vendedorid
             }
             // console.log('dataForm: ', dataForm)
             // console.log('ownerId: ', ownerId)
             // console.log('fraccionamientoId: ', fraccionamientoId)
-            
-            const createLeadRequest = await crm.createLead(dataForm, ownerId, fraccionamientoId)
-            if(createLeadRequest.ok){
-                alerts.showAlert(
-                    'success',
-                    'Posible cliente creado'
-                )
-            }else{
+
+            const createLeadRequest = await crm.createLead(
+                dataForm,
+                ownerId,
+                fraccionamientoId
+            )
+            if (createLeadRequest.ok) {
+                alerts.showAlert('success', 'Posible cliente creado')
+            } else {
                 alerts.showAlert(
                     createLead.type,
                     'El posible cliente no pudo ser creado !!'
                 )
             }
         }
-
-    }
+    },
 }
 
 const util = {

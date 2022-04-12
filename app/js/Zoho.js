@@ -73,7 +73,7 @@ const crm = {
         try {
             const numManzana = manzana.replace(/\D+/, '')
 
-            const search = fracc == "Alamar" ? "equals" : "starts_with"
+            const search = fracc == 'Alamar' ? 'equals' : 'starts_with'
 
             const request = await ZOHO.CRM.API.searchRecord({
                 Entity: 'Products',
@@ -678,26 +678,32 @@ const crm = {
             }
         }
     },
-    async createLead(newData, ownerId, fraccionamientoId){
+    async createLead(newData, ownerId, fraccionamientoId) {
         console.log('Creating Lead...')
         let data = { ...newData.contacto }
         let lead = {}
         console.log('data: ', data)
-        let nombreCompleto = data.First_Name.toUpperCase() + ' ' + data.Apellido_Paterno.toUpperCase() + ' ' + data.Apellido_Materno.toUpperCase()
-        lead.Last_Name = data.Apellido_Paterno.toUpperCase() + ' ' + data.Apellido_Materno.toUpperCase()
+        let nombreCompleto =
+            data.First_Name.toUpperCase() +
+            ' ' +
+            data.Apellido_Paterno.toUpperCase() +
+            ' ' +
+            data.Apellido_Materno.toUpperCase()
+        lead.Last_Name =
+            data.Apellido_Paterno.toUpperCase() +
+            ' ' +
+            data.Apellido_Materno.toUpperCase()
         lead.Apellido_Paterno = data.Apellido_Paterno.toUpperCase()
         lead.Apellido_Materno = data.Apellido_Materno.toUpperCase()
         lead.First_Name = data.First_Name.toUpperCase()
         lead.Interesado_en = { id: fraccionamientoId }
         lead.Lead_Source = data.Lead_Source
-        lead.Lead_Status = "Alta de Lead"
+        lead.Lead_Status = 'Alta de Lead'
         lead.Owner = { id: ownerId }
         lead.Company = nombreCompleto
         lead.Mobile = data.Mobile
         lead.Email = data.Email
         console.log('lead: ', lead)
-        
-        
 
         try {
             const request = await ZOHO.CRM.API.insertRecord({
@@ -733,7 +739,39 @@ const crm = {
             }
         }
     },
+    async getFraccionamiento(id) {
+        try {
+            const request = await ZOHO.CRM.API.getRecord({
+                Entity: 'Fraccionamientos',
+                RecordID: id,
+            })
 
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
 }
 
 const creator = {
