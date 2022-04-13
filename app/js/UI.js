@@ -962,7 +962,7 @@ const UI = {
             modal.dataset.fracc_id = fracc_id
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
-            container_modal.style.display = 'flex'
+            // container_modal.style.display = 'flex'
         } else {
             // container_modal.style.display = 'none'
             modal.dataset.item = ''

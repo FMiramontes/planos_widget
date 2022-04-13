@@ -75,6 +75,7 @@
     width: 55px;
     margin-right: 20px;
     text-align: right;
+    font-size: 14px;
 }
 .toggle {
     display: flex;
@@ -151,6 +152,7 @@
 }
 .nombre-desarrollo {
     /* height: 10%; */
+    font-size: 14px;
     z-index: 0;
     background-color: #000;
     color: #fff;

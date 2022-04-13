@@ -137,7 +137,7 @@ if (
     navegador.device === 'Mobile'
 ) {
     document.addEventListener('click', (e) => {
-        if (e.target.matches('[data-lote]')) {
+        if (e.target.matches('[data-lote]') && e.target.dataset.crm == 'true') {
             input_frac.value = map.dataset.name
             input_location.value = map.dataset.localidad
 
@@ -168,6 +168,11 @@ if (
                     CRMData = UI.getDataForm()
                 }
 
+                let banner = document.querySelector('.banner');
+                banner.innerHTML = ''
+                let trato = document.createElement('p')
+                trato.textContent = e.target.dataset.trato;
+                banner.appendChild(trato)
                 UI.viewModal(true, e.target?.id, e.target.dataset, true)
             } else {
                 // console.log('no disponible', e)
@@ -177,7 +182,7 @@ if (
     })
 } else {
     document.addEventListener('dblclick', (e) => {
-        if (e.target.matches('[data-lote]')) {
+        if (e.target.matches('[data-lote]') && e.target.dataset.crm == 'true') {
             input_frac.value = map.dataset.name
             input_location.value = map.dataset.localidad
 
@@ -207,6 +212,11 @@ if (
 
                     CRMData = UI.getDataForm()
                 }
+                let banner = document.querySelector('.banner');
+                banner.innerHTML = ''
+                let trato = document.createElement('p')
+                trato.textContent = e.target.dataset.trato;
+                banner.appendChild(trato)
 
                 UI.viewModal(true, e.target?.id, e.target.dataset, true)
             } else {
@@ -332,62 +342,50 @@ let posicionX = 0
 
 mapa.addEventListener('mouseover', (e) => {
     if (e.target.matches('[data-lote]')) {
-        if (e.target.dataset.disponible == 'true') {
-            tooltip.innerHTML = ''
-            let lote = document.createElement('p')
-            lote.textContent = e.target.id
-            tooltip.appendChild(lote)
-            let dimension = document.createElement('p')
-            dimension.textContent =
-                'Dimension: ' + e.target.dataset.dimension + ' m2'
-            tooltip.appendChild(dimension)
-            let costoMetro = document.createElement('p')
-            costoMetro.textContent = 'Costo M2: $ ' + e.target.dataset.costom2
-            tooltip.appendChild(costoMetro)
-            let total = document.createElement('p')
-            total.textContent = 'Costo total: $ ' + e.target.dataset.costototal
-            tooltip.appendChild(total)
-            posicionX = e.pageX + 10
-            posicionY = e.pageY + 13
-            e.target.style.fill = '#e5b252'
-            e.target.style.cursor = 'pointer'
-    let banner = document.querySelector('.banner');
-    banner.innerHTML = ''
-            lote = document.createElement('p')
-            lote.textContent = e.target.id
-            banner.appendChild(lote)
-            dimension = document.createElement('p')
-            dimension.textContent =
-            'Dimension: ' + e.target.dataset.dimension + ' m2'
-            banner.appendChild(dimension)
-            costoMetro = document.createElement('p')
-            costoMetro.textContent = 'Costo M2: $ ' + e.target.dataset.costom2
-            banner.appendChild(costoMetro)
-            total = document.createElement('p')
-            total.textContent = 'Costo total: $ ' + e.target.dataset.costototal
-            banner.appendChild(total)
-        } else {
-            tooltip.innerHTML = ''
-            let lote = document.createElement('p')
-            lote.textContent = e.target.id
-            tooltip.appendChild(lote)
-            let estado = document.createElement('p')
-            estado.textContent = e.target.dataset.estado
-            tooltip.appendChild(estado)
-            posicionX = e.pageX + 10
-            posicionY = e.pageY + 13
-            //e.target.style.fill = '#000'
+        posicionX = e.pageX + 10
+        posicionY = e.pageY + 13
+        if(e.target.dataset.crm == 'true')
+        {
+            if (e.target.dataset.disponible == 'true') {
+                tooltip.innerHTML = ''
+                let lote = document.createElement('p')
+                lote.textContent = e.target.dataset.trato
+                tooltip.appendChild(lote)
+                let dimension = document.createElement('p')
+                dimension.textContent =
+                    'Dimension: ' + e.target.dataset.dimension + ' m2'
+                tooltip.appendChild(dimension)
+                let costoMetro = document.createElement('p')
+                costoMetro.textContent = 'Costo M2: $ ' + e.target.dataset.costom2
+                tooltip.appendChild(costoMetro)
+                let total = document.createElement('p')
+                total.textContent = 'Costo total: $ ' + e.target.dataset.costototal
+                tooltip.appendChild(total)
+                // e.target.style.fill = '#e5b252'
+                e.target.style.cursor = 'pointer'
+            } else {
+                tooltip.innerHTML = ''
+                let lote = document.createElement('p')
+                lote.textContent = e.target.dataset.trato
+                tooltip.appendChild(lote)
+                let estado = document.createElement('p')
+                estado.textContent = e.target.dataset.estado
+                tooltip.appendChild(estado)
+                //e.target.style.fill = '#000'
+            }
         }
-        maps.showPopup(tooltip, posicionX, posicionY)
+        else{
+            tooltip.innerHTML = ''
+            let msg = document.createElement('p')
+            msg.style.lineHeight = '1'
+            msg.textContent = 'Producto '  + e.target.id + ' no creado en CRM. \r\n Enviar petición'
+            tooltip.appendChild(msg)
+        }
+    maps.showPopup(tooltip, posicionX, posicionY)
     }
 })
 mapa.addEventListener('mouseout', (e) => {
     if (e.target.matches('[data-lote]')) {
-        if (e.target.dataset.disponible == 'true') {
-            e.target.style.fill = '#de9f27'
-        } else {
-            //e.target.style.fill = 'rgb(46, 46, 46)'
-        }
         maps.hidePopup(tooltip)
     }
 })
