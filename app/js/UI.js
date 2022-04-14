@@ -650,7 +650,9 @@ const UI = {
                     `input[name="dimension"]`
                 ).value
 
-                let costoProducto = parseFloat(DIMENSIONES) * costoM2
+                let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(
+                    2
+                )
                 console.log('Costo Producto $', costoProducto)
 
                 const updateProductCRM = await crm.updateProduct(
