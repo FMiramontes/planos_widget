@@ -132,100 +132,64 @@ const input_location = document.querySelector('input[name="Localizacion_P"]')
 const map = document.getElementById('map')
 let navegador = UI.navegador()
 console.log('navegador: ', navegador)
-if (
-    (navegador.browser === 'chrome' || navegador.browser === 'firefox') &&
-    navegador.device === 'Mobile'
-) {
-    document.addEventListener('click', (e) => {
-        if (e.target.matches('[data-lote]') && e.target.dataset.crm == 'true') {
-            input_frac.value = map.dataset.name
-            input_location.value = map.dataset.localidad
+if ((navegador.browser === 'chrome' || navegador.browser === 'firefox') &&
+    navegador.device === 'Mobile'){
+        selectLote('click')
+    }
+    
+    else {
+        selectLote('dblclick')
+    }
 
-            if (e.target.dataset.disponible == 'true') {
-                const contactDiv = document.getElementById('contact')
-                const contact_id =
-                    contactDiv.dataset?.contactid === undefined
-                        ? false
-                        : contactDiv.dataset?.contactid
+function selectLote (type){
+    document.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            if (e.target.dataset.crm == 'true') {
+                input_frac.value = map.dataset.name
+                input_location.value = map.dataset.localidad
 
-                CRMData = {}
-
-                if (contact_id === false || contact_id === undefined) {
-                    valid.validContact(false)
-                } else {
-                    const accout_id =
-                        contactDiv.dataset?.accountid === undefined
+                if (e.target.dataset.disponible == 'true') {
+                    const contactDiv = document.getElementById('contact')
+                    const contact_id =
+                        contactDiv.dataset?.contactid === undefined
                             ? false
-                            : contactDiv.dataset?.accountid
+                            : contactDiv.dataset?.contactid
 
-                    console.log('main contact_id: ', contact_id)
+                    CRMData = {}
 
-                    console.log('main accout_id: ', accout_id)
-                    UI.paintDataInForm(contact_id, accout_id).then(() =>
-                        valid.validContact(true)
-                    )
+                    if (contact_id === false || contact_id === undefined) {
+                        valid.validContact(false)
+                    } else {
+                        const accout_id =
+                            contactDiv.dataset?.accountid === undefined
+                                ? false
+                                : contactDiv.dataset?.accountid
 
-                    CRMData = UI.getDataForm()
+                        console.log('main contact_id: ', contact_id)
+
+                        console.log('main accout_id: ', accout_id)
+                        UI.paintDataInForm(contact_id, accout_id).then(() =>
+                            valid.validContact(true)
+                        )
+
+                        CRMData = UI.getDataForm()
+                    }
+                    let banner = document.querySelector('.banner')
+                    banner.innerHTML = ''
+                    let trato = document.createElement('p')
+                    trato.textContent = e.target.dataset.trato
+                    banner.appendChild(trato)
+
+                    UI.viewModal(true, e.target?.id, e.target.dataset, true)
                 }
-
-                let banner = document.querySelector('.banner');
-                banner.innerHTML = ''
-                let trato = document.createElement('p')
-                trato.textContent = e.target.dataset.trato;
-                banner.appendChild(trato)
-                UI.viewModal(true, e.target?.id, e.target.dataset, true)
             } else {
-                // console.log('no disponible', e)
-                // MostrarAlerta()
+                UI.cliqLoteFaltante(map.dataset.name, e.target.id)
             }
         }
     })
-} else {
-    document.addEventListener('dblclick', (e) => {
-        if (e.target.matches('[data-lote]') && e.target.dataset.crm == 'true') {
-            input_frac.value = map.dataset.name
-            input_location.value = map.dataset.localidad
 
-            if (e.target.dataset.disponible == 'true') {
-                const contactDiv = document.getElementById('contact')
-                const contact_id =
-                    contactDiv.dataset?.contactid === undefined
-                        ? false
-                        : contactDiv.dataset?.contactid
-
-                CRMData = {}
-
-                if (contact_id === false || contact_id === undefined) {
-                    valid.validContact(false)
-                } else {
-                    const accout_id =
-                        contactDiv.dataset?.accountid === undefined
-                            ? false
-                            : contactDiv.dataset?.accountid
-
-                    console.log('main contact_id: ', contact_id)
-
-                    console.log('main accout_id: ', accout_id)
-                    UI.paintDataInForm(contact_id, accout_id).then(() =>
-                        valid.validContact(true)
-                    )
-
-                    CRMData = UI.getDataForm()
-                }
-                let banner = document.querySelector('.banner');
-                banner.innerHTML = ''
-                let trato = document.createElement('p')
-                trato.textContent = e.target.dataset.trato;
-                banner.appendChild(trato)
-
-                UI.viewModal(true, e.target?.id, e.target.dataset, true)
-            } else {
-                // console.log('no disponible', e)
-                // MostrarAlerta()
-            }
-        }
-    })
 }
+
 modal.addEventListener('change', (e) => {
     if (e.target.matches('[data-email]')) {
         valid.validateEmail(e.target.value, e.target.dataset.email)
@@ -234,9 +198,14 @@ modal.addEventListener('change', (e) => {
     }
 })
 
-//Validate digits phone and mobile 
-modal.addEventListener('input',(e)=>{
-    if(e.target.matches('[name="Mobile"]') || e.target.matches('[name="Phone"]') || e.target.matches('[name="Phone_2"]') || e.target.matches('[name="Movil2"]')){
+//Validate digits phone and mobile
+modal.addEventListener('input', (e) => {
+    if (
+        e.target.matches('[name="Mobile"]') ||
+        e.target.matches('[name="Phone"]') ||
+        e.target.matches('[name="Phone_2"]') ||
+        e.target.matches('[name="Movil2"]')
+    ) {
         valid.validateMobile(e.target)
     }
 })
@@ -344,8 +313,7 @@ mapa.addEventListener('mouseover', (e) => {
     if (e.target.matches('[data-lote]')) {
         posicionX = e.pageX + 10
         posicionY = e.pageY + 13
-        if(e.target.dataset.crm == 'true')
-        {
+        if (e.target.dataset.crm == 'true') {
             if (e.target.dataset.disponible == 'true') {
                 tooltip.innerHTML = ''
                 let lote = document.createElement('p')
@@ -356,10 +324,12 @@ mapa.addEventListener('mouseover', (e) => {
                     'Dimension: ' + e.target.dataset.dimension + ' m2'
                 tooltip.appendChild(dimension)
                 let costoMetro = document.createElement('p')
-                costoMetro.textContent = 'Costo M2: $ ' + e.target.dataset.costom2
+                costoMetro.textContent =
+                    'Costo M2: $ ' + e.target.dataset.costom2
                 tooltip.appendChild(costoMetro)
                 let total = document.createElement('p')
-                total.textContent = 'Costo total: $ ' + e.target.dataset.costototal
+                total.textContent =
+                    'Costo total: $ ' + e.target.dataset.costototal
                 tooltip.appendChild(total)
                 // e.target.style.fill = '#e5b252'
                 e.target.style.cursor = 'pointer'
@@ -373,15 +343,17 @@ mapa.addEventListener('mouseover', (e) => {
                 tooltip.appendChild(estado)
                 //e.target.style.fill = '#000'
             }
-        }
-        else{
+        } else {
             tooltip.innerHTML = ''
             let msg = document.createElement('p')
             msg.style.lineHeight = '1'
-            msg.textContent = 'Producto '  + e.target.id + ' no creado en CRM. \r\n Enviar petición'
+            msg.textContent =
+                'Producto ' +
+                e.target.id +
+                ' no creado en CRM. \r\n Enviar petición'
             tooltip.appendChild(msg)
         }
-    maps.showPopup(tooltip, posicionX, posicionY)
+        maps.showPopup(tooltip, posicionX, posicionY)
     }
 })
 mapa.addEventListener('mouseout', (e) => {

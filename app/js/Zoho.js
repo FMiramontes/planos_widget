@@ -1101,4 +1101,46 @@ const books = {
     },
 }
 
-export { crm, creator, books }
+const cliq = {
+    async postToChannel(channel, msg){
+        try{
+            const config = {
+                method: 'POST',
+                url: `https://cliq.zoho.com/api/v2/channelsbyname/${channel}/message`,
+                parameters: {'text': msg}
+            }
+    
+            var conn_name = "cliq";
+
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+            console.log('requestCliq', request)
+            if (
+                request.code !== 'SUCCESS'
+            ) {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: 'Error al postear en el canal',
+                }
+            }
+            //
+            return {
+                code: 200,
+                ok: true,
+                data: {},
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    } 
+}
+
+export { crm, creator, books, cliq }

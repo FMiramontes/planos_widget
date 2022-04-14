@@ -1,4 +1,4 @@
-import { crm, creator, books } from './Zoho.js'
+import { crm, creator, books, cliq } from './Zoho.js'
 // import creator from './Zoho.js'
 // import boocks from './Zoho.js'
 import alerts from './alertas.js'
@@ -1611,6 +1611,15 @@ const UI = {
                 )
             }
         }
+
+    },
+    async cliqLoteFaltante(frac, id){
+        let msg = 'Se intento cotizar el producto: ' + id + ' del fraccionamiento: ' + frac + ' Se requiere crearlo para continuar'
+        const envio = await cliq.postToChannel('lotesfaltantes', msg)
+        if(envio.ok) {
+            alerts.showAlert(envio.type, "Se posteo correctamente dentro del canal")
+        }
+        console.log('envio', envio)
 
     }
 }
