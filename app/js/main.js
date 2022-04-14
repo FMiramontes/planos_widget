@@ -110,7 +110,8 @@ document.addEventListener('click', (e) => {
 
 document.getElementById('btn-submit').addEventListener('click', (e) => {
     const newData = UI.getDataForm()
-    if (valid.validateForm() && valid.validDataLists()) {
+    // if (valid.validateForm() && valid.validDataLists()) {
+    if (valid.validateForm()) {
         UI.validate(CRMData, newData)
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
@@ -224,9 +225,14 @@ modal.addEventListener('change', (e) => {
     }
 })
 
-//Validate digits phone and mobile 
-modal.addEventListener('input',(e)=>{
-    if(e.target.matches('[name="Mobile"]') || e.target.matches('[name="Phone"]') || e.target.matches('[name="Phone_2"]') || e.target.matches('[name="Movil2"]')){
+//Validate digits phone and mobile
+modal.addEventListener('input', (e) => {
+    if (
+        e.target.matches('[name="Mobile"]') ||
+        e.target.matches('[name="Phone"]') ||
+        e.target.matches('[name="Phone_2"]') ||
+        e.target.matches('[name="Movil2"]')
+    ) {
         valid.validateMobile(e.target)
     }
 })
@@ -351,14 +357,14 @@ mapa.addEventListener('mouseover', (e) => {
             posicionY = e.pageY + 13
             e.target.style.fill = '#e5b252'
             e.target.style.cursor = 'pointer'
-    let banner = document.querySelector('.banner');
-    banner.innerHTML = ''
+            let banner = document.querySelector('.banner')
+            banner.innerHTML = ''
             lote = document.createElement('p')
             lote.textContent = e.target.id
             banner.appendChild(lote)
             dimension = document.createElement('p')
             dimension.textContent =
-            'Dimension: ' + e.target.dataset.dimension + ' m2'
+                'Dimension: ' + e.target.dataset.dimension + ' m2'
             banner.appendChild(dimension)
             costoMetro = document.createElement('p')
             costoMetro.textContent = 'Costo M2: $ ' + e.target.dataset.costom2

@@ -637,13 +637,61 @@ const UI = {
                 throw new Error('No se pudo crear el trato')
             }
 
+            // Revisar si se modifico costo por M2
+            const checkCostoM2 = document.querySelector(
+                `input[name="Costo_M2"]`
+            )
+            if (checkCostoM2.dataset.m2_update !== undefined) {
+                // Actualizar el costo x m2 al producto
+                console.log('actualizando costo x m2')
+                const costoM2 = checkCostoM2.value
+
+                const DIMENSIONES = document.querySelector(
+                    `input[name="dimension"]`
+                ).value
+
+                let costoProducto = parseFloat(DIMENSIONES) * costoM2
+                console.log('Costo Producto $', costoProducto)
+
+                const updateProductCRM = await crm.updateProduct(
+                    product_id,
+                    costoM2,
+                    costoProducto
+                )
+
+                const updateProductBooks = await books.updateProduct(
+                    productBooksId,
+                    {
+                        rate: costoProducto,
+                    }
+                )
+                if (updateProductCRM.ok) {
+                    alerts.showAlert('success', 'Costo x M2 actualizado en CRM')
+                }
+
+                if (updateProductBooks.ok) {
+                    alerts.showAlert(
+                        'success',
+                        'Costo x M2 actualizado en Books'
+                    )
+                }
+            }
+
             // Aplicar descuento a Producto
             const discountRequest = await crm.aplicarDescuentoProducto(
                 Campaign_id,
                 product_id
             )
-            if (discountRequest.ok) {
+            console.log('DESCUENTO:', discountRequest)
+            if (discountRequest.ok && discountRequest.data.code === 200) {
+                // Descuento aplicado
                 alerts.showAlert('success', 'Descuento aplicado a Producto')
+            } else if (
+                discountRequest.ok &&
+                discountRequest.data.code === 400
+            ) {
+                // No cuenta con descuento...
+                console.log('No cuenta con descuento...')
             } else {
                 alerts.showAlert(
                     'warning',
@@ -928,6 +976,7 @@ const UI = {
                         document.querySelector('#coordinadorValue').value = ''
                         vend.value = ''
                         this.removeDatasets('#campaignValue')
+                        this.removeDatasets('input[name="Costo_M2"]')
                         this.paintDeals()
                         this.removeDatasets('[name="Cantidad_RA"]')
                         // this.removeDatasets('#vendorsValue')
@@ -950,7 +999,14 @@ const UI = {
         return JSON.stringify(a) === JSON.stringify(b)
     },
     viewModal(view, id, dataset, paint) {
-        const { crm_id, trato, crm: existeCRM, sku, fracc_id } = dataset
+        const {
+            crm_id,
+            trato,
+            crm: existeCRM,
+            sku,
+            fracc_id,
+            esquina,
+        } = dataset
         let modal = document.getElementById('modal')
         let containerWrap = document.querySelector('.container-wrap')
         if (view) {
@@ -961,6 +1017,7 @@ const UI = {
             modal.dataset.existecrm = existeCRM
             modal.dataset.sku = sku
             modal.dataset.fracc_id = fracc_id
+            modal.dataset.esquina = esquina
             console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
             container_modal.style.display = 'flex'
@@ -1307,6 +1364,7 @@ const UI = {
             if (getCampaignRequest.ok) {
                 const campaignData = getCampaignRequest.data
 
+                // Variables
                 let precioFinalProducto = 0
                 let enganche = 0
 
@@ -1329,21 +1387,38 @@ const UI = {
                     const costoM2_sinEnganche =
                         moduleData.Precio_de_lista_M2_Sin_Enganche
 
-                    document.querySelector(`input[name="Costo_M2"]`).value =
-                        costoM2_sinEnganche.toFixed(2)
+                    const inputCosto = document.querySelector(
+                        `input[name="Costo_M2"]`
+                    )
+                    inputCosto.value = costoM2_sinEnganche.toFixed(2)
+                    inputCosto.dataset.m2_update = 'true'
                 }
 
                 // Form Product field values
                 const DIMENSIONES = document.querySelector(
                     `input[name="dimension"]`
                 ).value
-                const COSTO_M2 = document.querySelector(
+                let COSTO_M2 = document.querySelector(
                     `input[name="Costo_M2"]`
                 ).value
+
+                // Consultar lotificacion si es esquina
+                const modal = document.querySelector('#modal')
+                const esEsquina = modal.dataset.esquina
+                if (esEsquina !== undefined && esEsquina === 'true') {
+                    console.log('Producto en esquina')
+                    const costo = document.querySelector(
+                        `input[name="Costo_M2"]`
+                    )
+                    const newCosto = parseFloat(costo.value) + 10
+                    console.log('costo esquina:', newCosto)
+                    costo.value = newCosto.toFixed(2)
+                    COSTO_M2 = newCosto.toFixed(2)
+                    costo.dataset.m2_update = 'true'
+                }
+
                 const COSTO_PRODUCTO =
                     parseFloat(DIMENSIONES) * parseFloat(COSTO_M2)
-
-                // Variables
 
                 // Apartado
                 if (campaignData.Tipo_de_Apartado != null) {

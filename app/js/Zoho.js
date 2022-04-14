@@ -421,6 +421,49 @@ const crm = {
             }
         }
     },
+    async updateProduct(productID, costoM2, costoProducto) {
+        console.log('Updating product...')
+        const product = {
+            id: productID,
+            Costo_por_M2: costoM2,
+            Unit_Price: costoProducto,
+            Costo_total_del_terreno: costoProducto,
+            Saldo: costoProducto,
+        }
+
+        try {
+            const request = await ZOHO.CRM.API.updateRecord({
+                Entity: 'Products',
+                APIData: product,
+                Trigger: [],
+            })
+
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
+
+            // Record updated
+            return {
+                code: 200,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async createAccount(data) {
         console.log('Creating account...')
         try {
@@ -512,7 +555,7 @@ const crm = {
 
             // Record found
             return {
-                code: 201,
+                code: 200,
                 ok: true,
                 data: request.data[0],
                 type: 'success',
@@ -1122,6 +1165,43 @@ const books = {
             }
 
             // Invoice sent
+            return {
+                code: 200,
+                ok: true,
+                data: request.details.statusMessage,
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async updateProduct(item_id, data) {
+        try {
+            const conn_name = 'productobooks'
+            const config = {
+                method: 'PUT',
+                url: `https://books.zoho.com/api/v3/items/${item_id}?organization_id=651425182`,
+                parameters: data,
+            }
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+
+            console.log('Zoho - updateInvoice: ', request)
+            if (request.details.statusMessage.code !== 0) {
+                return {
+                    code: 400,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: 'Producto no actualizado',
+                }
+            }
+
+            // Updated product
             return {
                 code: 200,
                 ok: true,

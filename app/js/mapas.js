@@ -178,7 +178,8 @@ const maps = {
                     lote.dataset.fracc_name = product.Fraccionamiento.name
                     lote.dataset.fracc_id = product.Fraccionamiento.id
                     lote.dataset.estado = product.Estado
-                    
+                    lote.dataset.esquina = product.Es_esquina
+
                     lote.style.fill = this.statusColor(product.Estado)
                     lote.style.stroke = '#000'
 
@@ -204,21 +205,21 @@ const maps = {
     },
     statusColor(status) {
         const colors = [
-            {"status":"Disponible" , "fill": "#de9f27"},
-            {"status":"Apartado", "fill": "#b5512a"},
-            {"status":"Primer Mensualidad", "fill": '#7de38e'},
-            {"status":"Enganche", "fill": '#398afa'},
-            {"status":"Contado", "fill": '#6908c9'},
-            {"status":"Vendido", "fill": '#2e2e2e'},
-            {"status":"Bloqueado", "fill":'#ff2e2e'},
-            {"status":"Reubicacion", "fill":'#59f4ff'},
-            {"status":"P. Reubicacion", "fill":'#7d7d82'},
-            {"status":"No Existe", "fill":'#dbdbdb'},
+            { status: 'Disponible', fill: '#de9f27' },
+            { status: 'Apartado', fill: '#b5512a' },
+            { status: 'Primer Mensualidad', fill: '#7de38e' },
+            { status: 'Enganche', fill: '#398afa' },
+            { status: 'Contado', fill: '#6908c9' },
+            { status: 'Vendido', fill: '#2e2e2e' },
+            { status: 'Bloqueado', fill: '#ff2e2e' },
+            { status: 'Reubicacion', fill: '#59f4ff' },
+            { status: 'P. Reubicacion', fill: '#7d7d82' },
+            { status: 'No Existe', fill: '#dbdbdb' },
         ]
 
-        const findClass = colors.find(clr => clr.status === status )
+        const findClass = colors.find((clr) => clr.status === status)
         return findClass.fill
-    }
+    },
 }
 
 export default maps
