@@ -110,7 +110,8 @@ document.addEventListener('click', (e) => {
 
 document.getElementById('btn-submit').addEventListener('click', (e) => {
     const newData = UI.getDataForm()
-    if (valid.validateForm() && valid.validDataLists()) {
+    // if (valid.validateForm() && valid.validDataLists()) {
+    if (valid.validateForm()) {
         UI.validate(CRMData, newData)
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
