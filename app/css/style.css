@@ -380,6 +380,37 @@ image {
     animation: grow 1s ease-in-out 0.45s infinite;
 }
 
+.container-colors{
+    height: 150px;
+    width: 120px;
+    background-color: #464545;
+    position: absolute;
+    top: 77.5px;
+    left: 30px;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    z-index: 2;
+     visibility: hidden;
+}
+.indicador{
+    display: flex;
+    justify-content: left;
+    gap: 15px;
+}
+.color{
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+}
+
+.estado{
+    color: #e3e3e3;
+    font-size: 9px;
+}
+
 @keyframes grow {
     0%,
     100% {
@@ -413,4 +444,9 @@ image {
     #zoom-in, #zoom-out{
         display: none;
     }
+
+    .container-colors{
+        visibility: visible;
+    }
 }
+
