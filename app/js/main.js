@@ -381,3 +381,9 @@ let btnRefresh = document.getElementById('refresh-btn')
 btnRefresh.addEventListener('click', () => {
     UI.paintDeals()
 })
+
+let infoColor = document.getElementById('info-colors')
+infoColor.addEventListener('click', () => {
+    let cardColor = document.querySelector('.container-colors')
+    cardColor.classList.toggle('showCard')
+})

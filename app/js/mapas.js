@@ -136,7 +136,7 @@ const maps = {
         lostes2.forEach((lote) => {
             try {
                 if (lote.id.includes('L')) {
-                    lote.style.fill = '#de9f27'
+                    lote.style.fill = '#f8c15b'
                     lote.style.stroke = '#000'
                     lote.setAttribute('stroke-width', '1')
                     lote.dataset.lote = ''

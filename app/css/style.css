@@ -145,6 +145,7 @@ image {
     border: none;
     background-color: rgb(15, 15, 15);
     border-radius: 7px 0px 0px 7px;
+    cursor: pointer;
 }
 
 .container-deals {
@@ -327,23 +328,21 @@ image {
     font-size: 18px;
 }
 
-.refresh-btn{
+#refresh-btn{
     position: absolute;
-    margin-left: 175px;
-    width: 30px;
-    height: 40px;
+    top: 1%;
+    right: 6%;
     z-index: 4;
-    border-radius: 40px;
-    background-color: rgb(22, 22, 22);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
+    font-size: large;
+    margin-left: 1%;
+    color: #000;
 }
 
-.refresh-btn:hover{
-    background-color: #de9f27;
+#refresh-btn:hover{
+    cursor: pointer;
+    color: #de9f27;
     transition: all .25s;
+    transform: scale(1.1);
 }
 
 /* Loader */
@@ -380,20 +379,49 @@ image {
     animation: grow 1s ease-in-out 0.45s infinite;
 }
 
+#info-colors{
+    position: absolute;
+    top: 15%;
+    left: 4%;
+    cursor: pointer;
+}
+#info-colors i {
+    font-size: xx-large;
+    color: #464545;
+}
+
 .container-colors{
     height: 150px;
-    width: 120px;
+    width: 130px;
     background-color: #464545;
     position: absolute;
-    top: 77.5px;
-    left: 30px;
+    top: 16%;
+    left: 8%;
     border-radius: 10px;
     padding: 15px;
-    display: flex;
     flex-direction: column;
     justify-content: space-between; 
     z-index: 2;
-     visibility: hidden;
+    display: none;
+}
+.showCard {
+    opacity: 1;
+    animation: show .2s;
+    transform: scale(1);
+    display: flex;
+}
+
+@keyframes show {
+    from {
+        transform: scale(0);
+        opacity: 0;
+        z-index: -1;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+        z-index: 2;
+    }
 }
 .indicador{
     display: flex;
@@ -401,14 +429,14 @@ image {
     gap: 15px;
 }
 .color{
-    height: 8px;
-    width: 8px;
+    height: 12px;
+    width: 12px;
     border-radius: 100%;
 }
 
 .estado{
     color: #e3e3e3;
-    font-size: 9px;
+    font-size: 11px;
 }
 
 @keyframes grow {
@@ -429,24 +457,15 @@ image {
 }
 
 @media (max-device-width: 480px) {
-    .container {
-        grid-template-areas:
-            'menu menu menu menu menu menu'
-            'container-map container-map container-map container-map container-map container-map ';
-    }
-    .menu-lateral {
+    
+    .menu-lateral2 {
         position: absolute;
         width: 30%;
-        height: 90%;
-        top: 8.9%;
-        overflow-x: hidden;
+        height: 88%;
+        top: 8.7%;
     }
     #zoom-in, #zoom-out{
         display: none;
-    }
-
-    .container-colors{
-        visibility: visible;
     }
 }
 
