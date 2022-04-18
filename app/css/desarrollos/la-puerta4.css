@@ -8,7 +8,7 @@
     stroke-width: 0.35px;
 }
 .cls-2 {
-    fill: #ec9469;
+    fill: #f7a57c;
 }
 .cls-3 {
     fill: #2e5e8b;
@@ -22,22 +22,26 @@
 [data-manzana]:hover {
     stroke: #2e5e8b;
     animation: popup 0.75s ease alternate infinite;
-  }
-  
-  @keyframes popup {
+}
+
+@keyframes popup {
     0% {
-      stroke-width: 3px;
+        stroke-width: 3px;
     }
+
     25% {
-      stroke-width: 5px;
+        stroke-width: 5px;
     }
+
     50% {
-      stroke-width: 7px;
+        stroke-width: 7px;
     }
+
     75% {
-      stroke-width: 8px;
+        stroke-width: 8px;
     }
+
     100% {
-      stroke-width: 9px;
+        stroke-width: 9px;
     }
-  }
+}
