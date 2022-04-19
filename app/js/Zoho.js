@@ -464,6 +464,47 @@ const crm = {
             }
         }
     },
+    async removeDiscount(productID) {
+        console.log('Removing discount to product in CRM...')
+        const product = {
+            id: productID,
+            Precio_con_Descuento: null,
+            Tiene_Descuento: false,
+        }
+
+        try {
+            const request = await ZOHO.CRM.API.updateRecord({
+                Entity: 'Products',
+                APIData: product,
+                Trigger: [],
+            })
+
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
+
+            // Record updated
+            return {
+                code: 200,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async createAccount(data) {
         console.log('Creating account...')
         try {
@@ -1217,24 +1258,67 @@ const books = {
             }
         }
     },
+    async removeDiscountBooks(item_id) {
+        try {
+            const conn_name = 'productobooks'
+
+            const data = {
+                custom_fields: [
+                    { label: 'Precio con Descuento', value: '' },
+                    { label: 'Tiene Descuento', value: false },
+                ],
+            }
+
+            const config = {
+                method: 'PUT',
+                url: `https://books.zoho.com/api/v3/items/${item_id}?organization_id=651425182`,
+                parameters: data,
+            }
+            const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
+
+            console.log('Zoho - removing discount', request)
+            if (request.details.statusMessage.code !== 0) {
+                return {
+                    code: 400,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: 'Producto no actualizado',
+                }
+            }
+
+            // Updated product
+            return {
+                code: 200,
+                ok: true,
+                data: request.details.statusMessage,
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
 }
 
 const cliq = {
-    async postToChannel(channel, msg){
-        try{
+    async postToChannel(channel, msg) {
+        try {
             const config = {
                 method: 'POST',
                 url: `https://cliq.zoho.com/api/v2/channelsbyname/${channel}/message`,
-                parameters: {'text': msg}
+                parameters: { text: msg },
             }
-    
-            var conn_name = "cliq";
+
+            var conn_name = 'cliq'
 
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
             console.log('requestCliq', request)
-            if (
-                request.code !== 'SUCCESS'
-            ) {
+            if (request.code !== 'SUCCESS') {
                 return {
                     code: '400',
                     ok: false,
@@ -1258,7 +1342,7 @@ const cliq = {
                 message: error.message,
             }
         }
-    } 
+    },
 }
 
 export { crm, creator, books, cliq }

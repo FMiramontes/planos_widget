@@ -591,6 +591,11 @@ const UI = {
             let today = new Date()
             let date = util.addDate(today, 'D', 7)
 
+            const tipoCompra =
+                campa_a.dataset?.formadepago == 'Financiado'
+                    ? 'Crédito'
+                    : 'Contado'
+
             const DealData = {
                 Deal_Name: modal.dataset.trato,
                 Nombre_de_Producto: { id: product_id },
@@ -600,7 +605,7 @@ const UI = {
                 Modo_de_pago: [newData.presupuesto.Modo_de_pago],
                 Lead_Source: newData.contacto.Lead_Source,
                 Type: tipoDeCompra,
-                Tipo_de_Compra1: campa_a.dataset?.formadepago,
+                Tipo_de_Compra1: tipoCompra,
 
                 Amount:
                     inputDescuento !== ''
@@ -636,6 +641,18 @@ const UI = {
             } else {
                 throw new Error('No se pudo crear el trato')
             }
+
+            // Quitar valores de descuento
+            const removeDiscountRequestCRM = await crm.removeDiscount(
+                product_id
+            )
+            const removeDiscountRequestBooks = await books.removeDiscountBooks(
+                productBooksId
+            )
+            console.log({
+                removeDiscountRequestCRM,
+                removeDiscountRequestBooks,
+            })
 
             // Revisar si se modifico costo por M2
             const checkCostoM2 = document.querySelector(
@@ -1707,17 +1724,23 @@ const UI = {
                 )
             }
         }
-
     },
-    async cliqLoteFaltante(frac, id){
-        let msg = 'Se intento cotizar el producto: ' + id + ' del fraccionamiento: ' + frac + ' Se requiere crearlo para continuar'
+    async cliqLoteFaltante(frac, id) {
+        let msg =
+            'Se intento cotizar el producto: ' +
+            id +
+            ' del fraccionamiento: ' +
+            frac +
+            ' Se requiere crearlo para continuar'
         const envio = await cliq.postToChannel('lotesfaltantes', msg)
-        if(envio.ok) {
-            alerts.showAlert(envio.type, "Se posteo correctamente dentro del canal")
+        if (envio.ok) {
+            alerts.showAlert(
+                envio.type,
+                'Se posteo correctamente dentro del canal'
+            )
         }
         console.log('envio', envio)
-
-    }
+    },
 }
 
 const util = {
