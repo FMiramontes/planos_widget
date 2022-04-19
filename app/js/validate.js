@@ -49,198 +49,106 @@ const validate = {
     },
 
     validateForm() {
-        const inputsCheckForm = Array.from(
-            document.querySelectorAll('[data-existe-en-crm]')
-        )
-        const inputsInvalid = {}
-        let contPass = 8
 
         const loggedUser = document.querySelector('#user')
 
-        let campana = document.getElementById('campaignValue')
-
-        let vendedor = document.querySelector('#vendorsValue')
-
-        let fuentePosible = document.querySelector('[name="Lead_Source"]')
-
-        let modoPago = document.querySelector('[name="Modo_de_pago"]')
-
-        let coordinador = document.querySelector('[name="coordinador"]')
-
         let nombre2 = document.querySelector('[name="Nombre2"]')
         let apellido2 = document.querySelector('[name="ApellidoP2"]')
-        let correo2 = document.querySelector('[name="Correo2"]')
 
-        let cont = 0
-        inputsCheckForm.forEach((e) => {
-            if (
-                e.name == 'First_Name' ||
-                e.name == 'Apellido_Paterno' ||
-                e.name == 'Email'
-            ) {
-                if (e.value != '') {
-                    e.classList.remove('invalid')
-                    cont += 1
-                } else {
-                    if (e.name == 'First_Name') {
-                        inputsInvalid.fname = e.name
-                    } else if (e.name == 'Apellido_Paterno') {
-                        inputsInvalid.lname = e.name
-                    } else if (e.name == 'Email') {
-                        inputsInvalid.email = e.name
-                    }
+        const inputsInvalid= []
+
+        const inputsCheckForm = [
+            "First_Name",
+            "Apellido_Paterno",
+            "Email",
+            "Campanya",
+            "Lead_Source",
+            "Modo_de_pago",
+            "coordinador",
+        ]
+
+        //Comprueba si es vendedor
+        if(loggedUser.dataset.profile !== 'Vendedor'){
+            inputsCheckForm.push("vendors")
+        }
+
+        //Comprueba segundo cliente
+        if(nombre2.value !== '' && apellido2.value !== ''){
+            //tiene segundo cliente
+            inputsCheckForm.push("Correo2")
+        }
+
+        //Comprueba si estan llenos correctamente
+        inputsCheckForm.forEach((e)=>{
+            let inputToCheck = document.querySelector(`[name=${e}]`)
+
+            //Condicion especial dataset Campanya
+            if(e !== "Campanya"){
+                if(inputToCheck.value !== ''){
+                    inputToCheck.classList.remove('invalid')
+                }else{
+                    let inputNotValid = {name:`${e}`}
+                    inputsInvalid.push(inputNotValid)
+                }
+            }else{
+                if(inputToCheck.dataset.campaignid != undefined){
+                    inputToCheck.classList.remove('invalid')
+                }else{
+                    let inputNotValid = {name:`${e}`}
+                    inputsInvalid.push(inputNotValid)
                 }
             }
         })
 
-        if(nombre2.value !== '' && apellido2.value !== ''){
-            contPass = 9
-            if(correo2.value !== ''){
-                campana.classList.remove('invalid')
-                cont +=1;
-            }else{
-                inputsInvalid.correo2 = correo2.name
-            }        
-        }
-
-        if (campana.dataset.campaignid != undefined) {
-            campana.classList.remove('invalid')
-            cont += 1
-        } else {
-            inputsInvalid.campana = campana.name
-        }
-
-        if (vendedor.value !== '') {
-            vendedor.classList.remove('invalid')
-            cont += 1
-        } else {
-            inputsInvalid.vendedor = vendedor.name
-        }
-
-        if (loggedUser.dataset.profile === 'Vendedor') {
-            contPass = 7
-        }
-
-        if(fuentePosible.value !== ''){
-            fuentePosible.classList.remove('invalid')
-            cont += 1
-        }else{
-            inputsInvalid.fuentePosible = fuentePosible.name
-        }
-
-        if(modoPago.value !==''){
-            modoPago.classList.remove('invalid')
-            cont += 1
-        }else{
-            inputsInvalid.modoPago = modoPago.name
-        }
-
-        if(coordinador.value !== ''){
-            coordinador.classList.remove('invalid')
-            cont += 1
-        }else{
-            inputsInvalid.coordinador = coordinador.name
-        }
-        
-        if (cont == contPass) {
+        if (inputsInvalid.length === 0) {
             return true
         } else {
-            //pintar alertas
+            //Pintar alertas
             this.inputsInvalid(inputsInvalid)
             return false
         }
     },
 
     validateDataLead() {
-        const inputsCheckForm = Array.from(
-            document.querySelectorAll('[data-existe-en-crm]')
-        )
-        const inputsInvalid = {}
-        let contPass = 6
 
         const loggedUser = document.querySelector('#user')
 
-        let vendedor = document.querySelector('#vendorsValue')
+        const inputsInvalid = []
+        
+        const inputsCheckForm = [
+            "First_Name",
+            "Apellido_Paterno",
+            "Email",
+            "Lead_Source",
+            "Mobile",
+            "vendors",
+        ]
 
-        let fuentePosible = document.querySelector('[name="Lead_Source"]')
-        let mobile = document.querySelector('[name="Mobile"]')
-
-        let nombre2 = document.querySelector('[name="Nombre2"]')
-        let apellido2 = document.querySelector('[name="ApellidoP2"]')
-        let correo2 = document.querySelector('[name="Correo2"]')
-
-        let cont = 0
         inputsCheckForm.forEach((e) => {
-            if (
-                e.name == 'First_Name' ||
-                e.name == 'Apellido_Paterno' ||
-                e.name == 'Email'
-            ) {
-                if (e.value != '') {
-                    e.classList.remove('invalid')
-                    cont += 1
-                } else {
-                    if (e.name == 'First_Name') {
-                        inputsInvalid.fname = e.name
-                    } else if (e.name == 'Apellido_Paterno') {
-                        inputsInvalid.lname = e.name
-                    } else if (e.name == 'Email') {
-                        inputsInvalid.email = e.name
-                    }
-                }
+            let inputToCheck = document.querySelector(`[name=${e}]`)
+            
+            if(inputToCheck.value !== ''){
+                inputToCheck.classList.remove('invalid')
+            }else{
+                let inputNotValid = {name:`${e}`}
+                inputsInvalid.push(inputNotValid)
             }
         })
-
-        if(nombre2.value !== '' && apellido2.value !== ''){
-            if(correo2.value !== ''){
-                campana.classList.remove('invalid')
-                cont +=1;
-            }else{
-                inputsInvalid.correo2 = correo2.name
-            }        
-        }
-
-        if (vendedor.value !== '') {
-            vendedor.classList.remove('invalid')
-            cont += 1
-        } else {
-            inputsInvalid.vendedor = vendedor.name
-        }
-
-        if (mobile.value !== '') {
-            mobile.classList.remove('invalid')
-            cont += 1
-        } else {
-            inputsInvalid.Mobile = mobile.name
-        }
-
-        if (loggedUser.dataset.profile === 'Vendedor') {
-            contPass = 5
-        }
-
-        if(fuentePosible.value !== ''){
-            fuentePosible.classList.remove('invalid')
-            cont += 1
-        }else{
-            inputsInvalid.fuentePosible = fuentePosible.name
-        }
-        console.log('cont: ', cont, 'contPass: ', contPass)
-        if (cont == contPass) {
+        if (inputsInvalid.length === 0) {
             return true
         } else {
-            //pintar alertas
+            //Pintar alertas
             this.inputsInvalid(inputsInvalid)
             return false
         }
     },
 
     inputsInvalid(inputsInvalid) {
-        let inputCheck = Object.values(inputsInvalid)
-
-        inputCheck.forEach((input) => {
-            let inp = document.querySelector(`[name=${input}]`)
-            inp.classList.add('invalid')
-        })
+        for (const inp in inputsInvalid){
+            //console.log(`${inp}: ${inputsInvalid[inp].name}`)
+            let input = document.querySelector(`[name=${inputsInvalid[inp].name}]`)
+            input.classList.add('invalid')
+        }
     },
 
     validateRecursos() {

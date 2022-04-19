@@ -232,7 +232,7 @@ input[type=date]{
 .container-block input[type=date],input[type=text],
 input[type=number], input[type=email],[list]{
     width: 150px;
-    border-color: #000 !important;
+    border-color: #000;
     border-left: none;
     border-top-right-radius: 8px;
     border-bottom-right-radius:  8px; 
