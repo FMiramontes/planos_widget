@@ -243,7 +243,6 @@ containerModal.addEventListener('click', (event) => {
 let Iconmenu = document.querySelector('.btn-menu')
 let menu = document.querySelector('#menu-lateral')
 let btnMenuSpan = document.querySelector('.btn-menu span')
-let menuFraccionamiento = document.querySelectorAll('.fracionamiento')
 
 Iconmenu.addEventListener('click', () => {
     /*Abrir menu*/
@@ -254,7 +253,12 @@ function cerrarMenu() {
     menu.classList.toggle('open')
     btnMenuSpan.classList.toggle('active')
 }
-menuFraccionamiento.forEach((div) => div.addEventListener('click', cerrarMenu))
+
+menu.addEventListener('click', (e) =>{
+    if(e.target.matches('[data-index]')){
+        cerrarMenu()
+    }
+})
 
 /*Abrir menu tratos*/
 let Iconmenu2 = document.getElementById('btn-menu-deals')
@@ -264,15 +268,8 @@ Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     cerrarMenu2()
 })
-
 function cerrarMenu2() {
     menu2.classList.toggle('open')
-    console.log(Iconmenu2)
-    if (Iconmenu2.value == '<<') {
-        console.log('value: ', Iconmenu2.value)
-        Iconmenu2.value = '>>'
-    }
-    if (Iconmenu2.value == '>>') Iconmenu2.value = '<<'
 }
 
 // tabs Modal
