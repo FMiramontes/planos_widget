@@ -667,7 +667,9 @@ const UI = {
                     `input[name="dimension"]`
                 ).value
 
-                let costoProducto = parseFloat(DIMENSIONES) * costoM2
+                let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(
+                    2
+                )
                 console.log('Costo Producto $', costoProducto)
 
                 const updateProductCRM = await crm.updateProduct(
@@ -1390,17 +1392,17 @@ const UI = {
                 const politicaCampana = campaignData.Tipo_de_Politica
                 const tipoDeDescuento = campaignData.Tipo_de_Descuento
                 console.log('campana', campaignData)
-                // Consultar tipo de politica para asignar costo m2
+                // Obtener costo x m2
+                const requestModule = await crm.getFraccionamiento(
+                    campaignData.Fraccionamientos.id
+                )
+                const moduleData = requestModule.data
+
                 if (
                     campaignData.Fraccionamientos.id != null &&
                     formaDePago === 'Financiado' &&
                     politicaCampana === 'Primer Mensualidad'
                 ) {
-                    const requestModule = await crm.getFraccionamiento(
-                        campaignData.Fraccionamientos.id
-                    )
-
-                    const moduleData = requestModule.data
                     const costoM2_sinEnganche =
                         moduleData.Precio_de_lista_M2_Sin_Enganche
 
@@ -1409,6 +1411,14 @@ const UI = {
                     )
                     inputCosto.value = costoM2_sinEnganche.toFixed(2)
                     inputCosto.dataset.m2_update = 'true'
+                } else {
+                    const costoM2_Enganche = moduleData.Precio_de_lista_M2
+                    console.log(costoM2_Enganche)
+
+                    const inputCosto = document.querySelector(
+                        `input[name="Costo_M2"]`
+                    )
+                    inputCosto.value = costoM2_Enganche.toFixed(2)
                 }
 
                 // Form Product field values
