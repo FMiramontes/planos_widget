@@ -193,6 +193,7 @@
 .menu-lateral.open,
 .menu-lateral2.open {
     transform: translate(0, 0);
+    transition: transform 0.4s ease;
 }
 
 #close {
