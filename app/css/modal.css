@@ -218,13 +218,6 @@ select {
     background: #de9f27;
     border-color: #de9f27;
 }
-
-input.invalid {
-    border-width: 3px;
-    border-color: rgb(254, 88, 88);
-    animation: shake 300ms;
-    border-radius: 5px;
-}
 input[type=date]{
     width: 150px;
     height:18px;
@@ -242,6 +235,12 @@ input[type=number], input[type=email],[list]{
     display: flex;
 }
 
+input.invalid {
+    border-width: 3px;
+    border-color: rgb(254, 88, 88);
+    animation: shake 300ms;
+    border-radius: 5px;
+}
 .titulo-recibo{
     margin-right: 20px;
 }
