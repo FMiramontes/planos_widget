@@ -266,11 +266,8 @@ let menu2 = document.querySelector('#menu-lateral2')
 
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
-    cerrarMenu2()
-})
-function cerrarMenu2() {
     menu2.classList.toggle('open')
-}
+})
 
 // tabs Modal
 const tabs = document.querySelectorAll('[data-tab-target]')
