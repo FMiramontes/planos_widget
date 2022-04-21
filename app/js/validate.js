@@ -217,9 +217,11 @@ const validate = {
         )
         let validArray = true
         dataLists.forEach((dl) => {
-            let value = dl.previousElementSibling.value
+            
+            let value = dl.previousElementSibling.previousElementSibling.value
+            console.log('dl prev prev: ',dl.previousElementSibling.previousElementSibling.value)
             let list = Array.from(dl.children)
-            let valid = list.find((element) => element.value == value)
+            let valid = list.find((element) => element.textContent == value)
             console.log('valid: ', valid)
             if (valid == undefined) validArray = false
         })
