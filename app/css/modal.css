@@ -125,7 +125,7 @@ l.Linea-Division {
     align-items: center;
     flex-direction: column;
 }
-/* .sub-block-titular1, .sub-direccion-titular1{
+.sub-block-titular1, .sub-direccion-titular1{
     position: relative;
     top:-45px;
 }
@@ -136,7 +136,7 @@ l.Linea-Division {
 .sub-empresa-titular1{
     position: relative;
     top:-62px;
-} */
+}
 /* Tab */
 .tab {
     cursor: pointer;
