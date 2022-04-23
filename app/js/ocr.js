@@ -51,19 +51,19 @@ function getDetails(ocr) {
     testOCR.paintDataInForm(data)
 }
 
-let containerWrap = document.querySelector('.container-wrap')
-const btnTest = document.getElementById('test')
-btnTest.addEventListener('click', (e) => {
-    containerWrap.classList.add('show')
-})
+// let containerWrap = document.querySelector('.container-wrap')
+// const btnTest = document.getElementById('test')
+// btnTest.addEventListener('click', (e) => {
+//     containerWrap.classList.add('show')
+// })
 
-let containerModal = document.querySelector('.container-modal')
+// let containerModal = document.querySelector('.container-modal')
 
-containerModal.addEventListener('click', (event) => {
-    if (event.target == containerModal) {
-        containerWrap.classList.remove('show')
-    }
-})
+// containerModal.addEventListener('click', (event) => {
+//     if (event.target == containerModal) {
+//         containerWrap.classList.remove('show')
+//     }
+// })
 
 const testOCR = {
     async paintDataInForm(data) {

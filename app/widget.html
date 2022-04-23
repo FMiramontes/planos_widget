@@ -18,6 +18,8 @@
             defer
         ></script>
         <script src="./js/main.js" type="module" defer></script>
+        <script type="module" src="https://unpkg.com/@microblink/blinkid-in-browser-sdk@5.16.0/ui/dist/blinkid-in-browser/blinkid-in-browser.esm.js" defer></script>
+        <script src="./js/ocr.js" defer></script>
     </head>
 
     <body>
@@ -236,8 +238,11 @@
                         <div class="container-blocks seccion">
                             <!-- titular-1 -->
                             <div class="container-block" id="titular-1">
+                                <div class="scan">
+                                    <blinkid-in-browser engine-location="http://localhost:5501/app/resources" license-key="sRwAAAYJbG9jYWxob3N0r/lOPgo/w35CpJmmLFU6ZvQo91dJ4ZKwsdw5T3SdgLVSxQJqC0b4h88P99oj0jMHb2hmrm7m4B7mgrct2ok9WoIpz+6KhaZybZsS9uIcED7N53zg5gyN0f5MWNBCYV5Jrth0Wi6hvoKJhptos15XkIdSa6kulLWYXlIoq6oMyDOrrWlecGES34HAuqSMHG3RtpjHUJ/StCe5jRen+LabE3MrOPrBGjkI" recognizers="BlinkIdRecognizer"></blinkid-in-browser>
+                                </div>
                                 <!-- sub block Datos Personales Titular I -->
-                                <div class="container-sub-block">
+                                <div class="container-sub-block sub-block-titular1">
                                     <div class="block sub-block-medium" data-contacto="true">
                                         <span>
                                             <label>Nombres:</label>
@@ -366,7 +371,7 @@
                                     </div>
                                 </div>
                                 <!-- sub block direccion -->
-                                <div class="container-sub-block">
+                                <div class="container-sub-block sub-direccion-titular1">
                                     <div class="title-block">
                                         <span class="centrado"> Direccion </span>
                                     </div>
@@ -397,7 +402,7 @@
                                     </div>
                                 </div>
                                 <!-- sub block datos empleo -->
-                                <div class="container-sub-block">
+                                <div class="container-sub-block sub-empresa-titular1">
                                     <div class="title-block">
                                         <span class="centrado">
                                             Datos de la empresa
@@ -592,8 +597,11 @@
                             </div>
                             <!-- titular-2 -->
                             <div class="container-block" id="titular-2">
+                                <div class="scan">
+                                    <blinkid-in-browser engine-location="http://localhost:5501/app/resources" license-key="sRwAAAYJbG9jYWxob3N0r/lOPgo/w35CpJmmLFU6ZvQo91dJ4ZKwsdw5T3SdgLVSxQJqC0b4h88P99oj0jMHb2hmrm7m4B7mgrct2ok9WoIpz+6KhaZybZsS9uIcED7N53zg5gyN0f5MWNBCYV5Jrth0Wi6hvoKJhptos15XkIdSa6kulLWYXlIoq6oMyDOrrWlecGES34HAuqSMHG3RtpjHUJ/StCe5jRen+LabE3MrOPrBGjkI" recognizers="BlinkIdRecognizer"></blinkid-in-browser>
+                                </div>
                                 <!-- sub block Datos Personales Titular II -->
-                                <div class="container-sub-block">
+                                <div class="container-sub-block sub-block-titular2">
                                     <div class="block sub-block-medium" data-contacto="true">
                                         <span>
                                             <label>Nombres:</label>
