@@ -24,7 +24,6 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         UI.userVendors(data.users[0])
         UI.addfuentes()
         UI.coordinador()
-        UI.paintDeals()
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
@@ -35,6 +34,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         img_user.setAttribute('src', data.users[0].image_link)
         user.lastElementChild.innerText = data.users[0].full_name
         user.firstElementChild.appendChild(img_user)
+        UI.paintDeals()
     })
 })
 
