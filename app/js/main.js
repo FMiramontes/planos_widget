@@ -24,7 +24,6 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         UI.userVendors(data.users[0])
         UI.addfuentes()
         UI.coordinador()
-        UI.paintDeals()
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
@@ -35,6 +34,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         img_user.setAttribute('src', data.users[0].image_link)
         user.lastElementChild.innerText = data.users[0].full_name
         user.firstElementChild.appendChild(img_user)
+        UI.paintDeals()
     })
 })
 
@@ -110,8 +110,7 @@ document.addEventListener('click', (e) => {
 
 document.getElementById('btn-submit').addEventListener('click', (e) => {
     const newData = UI.getDataForm()
-    // if (valid.validateForm() && valid.validDataLists()) {
-    if (valid.validateForm() && valid.validDataLists()) {
+    if (valid.validateForm() && valid.validDataLists('submit')) {
         UI.validate(CRMData, newData)
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
@@ -121,7 +120,7 @@ document.getElementById('btn-submit').addEventListener('click', (e) => {
 document.getElementById('btn-cratelead').addEventListener('click', (e) => {
     const dataForm = UI.getDataForm()
 
-    if (valid.validateDataLead()) {
+    if (valid.validateDataLead() && valid.validDataLists('lead')) {
         UI.createLead(dataForm)
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')

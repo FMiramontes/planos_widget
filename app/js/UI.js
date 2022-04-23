@@ -1615,56 +1615,27 @@ const UI = {
         containerDeals.innerHTML = ''
         const user = document.getElementById('user')
         console.log('user: ', user.dataset)
-        let date = new Date()
-        let previusDate = util.addDate(date, 'D', -1)
-        console.log('previusDate: ', previusDate)
-        const dataDeals1 = await creator.getDeals(previusDate)
-        console.log('dataDeals1: ', dataDeals1)
 
-        if (dataDeals1.ok) {
-            dataDeals1.data.forEach((deal) => {
-                console.log(
-                    'Owner: ',
-                    deal.Propietario,
-                    'user: ',
-                    user.children[1].textContent
-                )
-                if (
-                    deal.Propietario == user.children[1].textContent ||
-                    user.children[1].textContent == 'Sistemas Concordia'
-                ) {
-                    let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.IDOportunidad}`
-                    let card = `
-                    <section class="card-trato">
-                        <section class="titulo-trato">${deal.ZCRMIDTerreno1}</section>
-                        <section class="trato-cont">
-                            <a href=${url} target="_blank" class="btn-trato">Preliminar</a>
-                        </section>
-                    </section>`
-                    containerDeals.insertAdjacentHTML('beforeend', card)
-                }
-            })
+        const userId = user.dataset?.crmuserid
+        console.log('userId: ', userId)
+        const userAdmin = user.dataset?.profile == 'Administrator' ? true : false
+        console.log('userAdmin: ', userAdmin)
+        let dataDeals
+        if (userAdmin) {
+            dataDeals = await crm.getAllDeals()
+            console.log('dataDealsAll: ', dataDeals)
+        } else {
+            dataDeals = await crm.serchDealsByOwner(userId)
+            console.log('dataDeals: ', dataDeals)
         }
 
-        const dataDeals2 = await creator.getDeals(date)
-        console.log('dataDeals2: ', dataDeals2)
-
-        if (dataDeals2.ok) {
-            dataDeals2.data.forEach((deal) => {
-                console.log(
-                    'Owner: ',
-                    deal.Propietario,
-                    'user: ',
-                    user.children[1].textContent
-                )
-                if (
-                    deal.Propietario == user.children[1].textContent ||
-                    user.children[1].textContent == 'Sistemas Concordia'
-                ) {
-                    let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.IDOportunidad}`
+        if (dataDeals.ok) {
+            dataDeals.data.forEach((deal) => {
+                if (userAdmin || deal.Owner.id == userId) {
+                    let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
                     let card = `
                         <section class="card-trato">
-                            <section class="titulo-trato">${deal.ZCRMIDTerreno1}</section>
+                            <section class="titulo-trato">${deal.Deal_Name}</section>
                             <section class="trato-cont">
                                 <a href=${url} target="_blank" class="btn-trato">Preliminar</a>
                             </section>

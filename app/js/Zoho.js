@@ -610,6 +610,77 @@ const crm = {
             }
         }
     },
+    async serchDealsByOwner(OwnerId){
+        try {
+            const qry =  `(Owner:equals:${OwnerId})`
+            
+
+            const request = await ZOHO.CRM.API.searchRecord({
+                Entity: 'Deals',
+                Type: 'criteria',
+                Query: qry,
+            })
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data,
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async getAllDeals(){
+        try {
+            const request = await ZOHO.CRM.API.getAllRecords({
+                Entity: 'Deals',
+                sort_order:"desc",
+                per_page:200,
+                page:1
+            })
+
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data,
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async associateProduct(product_id, deal_id) {
         try {
             const APIData = {
@@ -917,47 +988,6 @@ const creator = {
             if (
                 request.code !== 'SUCCESS' ||
                 request.details.statusMessage?.data?.ID === undefined
-            ) {
-                return {
-                    code: '400',
-                    ok: false,
-                    data: null,
-                    type: 'warning',
-                    message: request.details.statusMessage.message,
-                }
-            }
-            //
-            return {
-                code: 200,
-                ok: true,
-                data: request.details.statusMessage?.data,
-                type: 'success',
-            }
-        } catch (error) {
-            return {
-                code: 500,
-                ok: false,
-                type: 'danger',
-                message: error.message,
-            }
-        }
-    },
-    async getDeals(date) {
-        let textDate = date.toISOString().split('T')[0]
-        const connectionName = 'creator'
-        const req_data = {
-            method: 'GET',
-            url: `https://creator.zoho.com/api/v2/sistemas134/cotizador1/report/Presupuesto_Report?GenerarContrato==true&Fecha=${textDate}`,
-        }
-        try {
-            const request = await ZOHO.CRM.CONNECTION.invoke(
-                connectionName,
-                req_data
-            )
-            console.log('Creator get Presupuesto record request: ', request)
-            if (
-                request.code !== 'SUCCESS' ||
-                request.details.statusMessage?.code !== 3000
             ) {
                 return {
                     code: '400',

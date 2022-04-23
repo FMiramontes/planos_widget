@@ -211,18 +211,34 @@ const validate = {
         //console.log('validateRecursos ......')
     },
 
-    validDataLists() {
+    validDataLists(modo) {
+
         const dataLists = Array.from(
             document.querySelectorAll('[data-datalist="true"]')
         )
+
+        const loggedUser = document.querySelector('#user')
+
+        if(modo === 'lead'){
+            if(loggedUser.dataset.profile === 'Vendedor'){
+                dataLists.splice(1, 3)
+            }else{
+                dataLists.splice(2, 2)
+            }
+        }else if(modo === 'submit'){
+            if(loggedUser.dataset.profile === 'Vendedor'){
+                dataLists.splice(1, 1)
+            }
+        }
+        
         let validArray = true
         dataLists.forEach((dl) => {
             
             let value = dl.previousElementSibling.previousElementSibling.value
-            console.log('dl prev prev: ',dl.previousElementSibling.previousElementSibling.value)
+            //console.log('dl prev prev: ',dl.previousElementSibling.previousElementSibling.value)
             let list = Array.from(dl.children)
             let valid = list.find((element) => element.textContent == value)
-            console.log('valid: ', valid)
+            //console.log('valid: ', valid)
             if (valid == undefined) validArray = false
         })
         return validArray
