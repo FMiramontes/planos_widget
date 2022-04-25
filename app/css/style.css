@@ -446,10 +446,11 @@ blinkid-in-browser {
     --mb-component-button-size: 35px;
     --mb-font-weight: 700;
     --mb-component-action-buttons-justify-content: flex-end;
+    --mb-component-background: transparent;
   }
   .scan{
     align-self: flex-start;
-    margin-top: 5px;
+    z-index: 2;
   }
 
 @keyframes grow {

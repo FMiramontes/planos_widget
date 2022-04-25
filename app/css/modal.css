@@ -127,7 +127,8 @@ l.Linea-Division {
 }
 .sub-block-titular1, .sub-direccion-titular1{
     position: relative;
-    top:-45px;
+    top:-35px; 
+    /* Top 45px */
 }
 .sub-block-titular2{
     position: relative;
