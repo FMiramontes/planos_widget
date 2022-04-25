@@ -342,6 +342,7 @@ const crm = {
         contacto.Apellido_Paterno = contacto.Apellido_Paterno.toUpperCase()
         contacto.Apellido_Materno = contacto.Apellido_Materno.toUpperCase()
         contacto.Owner = { id: ownerId }
+        contacto.Widget_Planos = true
         // Marcar checkbox Segundo_Cliente si los campos tienen valor
         if (
             contacto?.Nombre2 !== undefined &&
@@ -507,6 +508,7 @@ const crm = {
     },
     async createAccount(data) {
         console.log('Creating account...')
+        data.Widget_Planos = true
         try {
             const request = await ZOHO.CRM.API.insertRecord({
                 Entity: 'Accounts',
@@ -542,6 +544,7 @@ const crm = {
     },
     async createDeal(data) {
         try {
+            data.Widget_Planos = true
             let request = await ZOHO.CRM.API.insertRecord({
                 Entity: 'Deals',
                 APIData: data,
@@ -610,10 +613,9 @@ const crm = {
             }
         }
     },
-    async serchDealsByOwner(OwnerId){
+    async serchDealsByOwner(OwnerId) {
         try {
-            const qry =  `(Owner:equals:${OwnerId})`
-            
+            const qry = `(Owner:equals:${OwnerId})`
 
             const request = await ZOHO.CRM.API.searchRecord({
                 Entity: 'Deals',
@@ -646,13 +648,13 @@ const crm = {
             }
         }
     },
-    async getAllDeals(){
+    async getAllDeals() {
         try {
             const request = await ZOHO.CRM.API.getAllRecords({
                 Entity: 'Deals',
-                sort_order:"desc",
-                per_page:200,
-                page:1
+                sort_order: 'desc',
+                per_page: 200,
+                page: 1,
             })
 
             if (request.status === 204) {
