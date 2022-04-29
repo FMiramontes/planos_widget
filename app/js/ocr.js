@@ -1,7 +1,7 @@
 console.log('Running OCR...')
 
 // Register listener for successful scan event to obtain results
-const t1 = document.getElementById('scan-titular2')
+const t1 = document.getElementById('scan-titular1')
 
 // scan-titular1
 
