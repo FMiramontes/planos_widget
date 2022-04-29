@@ -1,0 +1,107 @@
+.cls-1 {
+  isolation: isolate;
+}
+.cls-2 {
+  fill: #8e8db2;
+}
+.cls-2,
+.cls-23,
+.cls-3,
+.cls-6 {
+  stroke: #5760ac;
+  stroke-miterlimit: 10;
+  stroke-width: 0.25px;
+}
+.cls-3 {
+  fill: none;
+}
+.cls-4 {
+  fill: #c9bb65;
+}
+.cls-5 {
+  fill: #3a3a3a;
+}
+.cls-6 {
+  fill: #c9d190;
+}
+.cls-7 {
+  fill: #dfe2b7;
+  opacity: 0.41;
+}
+.cls-8 {
+  fill: #fbfbfb;
+}
+.cls-10,
+.cls-9 {
+  fill: #e3e3e3;
+}
+.cls-10 {
+  mix-blend-mode: multiply;
+}
+.cls-11 {
+  fill: #d93527;
+}
+.cls-12 {
+  fill: #b32b20;
+}
+.cls-13 {
+  fill: #f26155;
+}
+.cls-14 {
+  fill: #a1271d;
+}
+.cls-15 {
+  fill: #f5f5f5;
+}
+.cls-16 {
+  fill: #435266;
+}
+.cls-17 {
+  fill: #fff;
+}
+.cls-18 {
+  fill: #7d9d20;
+}
+.cls-19 {
+  fill: #94bc1d;
+}
+.cls-20 {
+  fill: #b6d755;
+}
+.cls-21 {
+  fill: #a6775b;
+}
+.cls-22 {
+  fill: #6e503d;
+}
+.cls-23 {
+  fill: #a4a4bc;
+}
+.cls-24 {
+  fill: #b8b8cc;
+}
+.cls-25 {
+  fill: #cacadb;
+}
+[data-manzana]:hover {
+    stroke: #604c98;
+    animation: popup 0.75s ease alternate infinite;
+  }
+  
+  @keyframes popup {
+    0% {
+      stroke-width: 3px;
+    }
+    25% {
+      stroke-width: 5px;
+    }
+    50% {
+      stroke-width: 7px;
+    }
+    75% {
+      stroke-width: 8px;
+    }
+    100% {
+      stroke-width: 9px;
+    }
+  }
