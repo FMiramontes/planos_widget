@@ -440,6 +440,19 @@ image {
     font-size: 11px;
 }
 
+blinkid-in-browser {
+    --mb-component-action-label-font-size: 14px;
+    --mb-component-border-style: none;
+    --mb-component-button-size: 35px;
+    --mb-font-weight: 700;
+    --mb-component-action-buttons-justify-content: flex-end;
+    --mb-component-background: transparent;
+  }
+  .scan{
+    align-self: flex-start;
+    z-index: 2;
+  }
+
 @keyframes grow {
     0%,
     100% {

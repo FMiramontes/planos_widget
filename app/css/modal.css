@@ -125,6 +125,19 @@ l.Linea-Division {
     align-items: center;
     flex-direction: column;
 }
+.sub-block-titular1, .sub-direccion-titular1{
+    position: relative;
+    top:-35px; 
+    /* Top 45px */
+}
+.sub-block-titular2{
+    position: relative;
+    top:-37px;
+}
+.sub-empresa-titular1{
+    position: relative;
+    top:-62px;
+}
 /* Tab */
 .tab {
     cursor: pointer;
@@ -188,8 +201,8 @@ select {
 }
 .btn-cratelead{
     position: relative;
-    top: -71%;
-    left: -40px;
+    top: -338%;
+    left: -32px;
     padding: 8px 12px;
 }
 
@@ -420,6 +433,10 @@ i{
         transform: scale(0.5);
         top: -18px;
     }
+    .scan{
+        margin:auto;
+        margin-bottom: 25px;
+    }
 }
 /* max 575 */
 @media screen and (min-device-width:300px) and (max-device-width: 499px) {
@@ -522,5 +539,9 @@ i{
     }
     input[type="checkbox"]{
         left: 4px;
+    }
+    .scan{
+        margin:auto;
+        margin-bottom: 25px;
     }
 }
