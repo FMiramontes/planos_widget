@@ -774,6 +774,7 @@ const UI = {
                             .value || 0,
                     Fecha: util.formatDate(),
                 }
+                console.log({ DealData, Campaign_id, detailsJson })
                 const jsonCotizacion = await util.createCotizacion(
                     DealData,
                     Campaign_id,
@@ -1618,7 +1619,8 @@ const UI = {
 
         const userId = user.dataset?.crmuserid
         console.log('userId: ', userId)
-        const userAdmin = user.dataset?.profile == 'Administrator' ? true : false
+        const userAdmin =
+            user.dataset?.profile == 'Administrator' ? true : false
         console.log('userAdmin: ', userAdmin)
         let dataDeals
         if (userAdmin) {
@@ -1888,7 +1890,7 @@ const util = {
         if (formaDePago != 'Contado') {
             if (politicaCampana == 'Primer Mensualidad') {
                 field_Tipodepolitica = 'Primer Mensualidad'
-                if (tipoDeDescuento != null || tipoDeDescuento != '') {
+                if (tipoDeDescuento != null) {
                     if (tipoDeDescuento == 'Monto') {
                         let montoDeDescuento = campaign.Monto_Descuento
                         reportObj.montoDescuento = campaign.Monto_Descuento

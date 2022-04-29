@@ -860,6 +860,40 @@ const crm = {
         lead.Company = nombreCompleto
         lead.Mobile = data.Mobile
         lead.Email = data.Email
+        /*
+        {
+
+            "calle": "werwer",
+            "Colonia": "werwer",
+            "Mailing_City": "werwer",
+            "Mailing_Zip": "werwer",
+
+            "Empresa_en_labora": "werwer",
+            "Ocupacion": "werwer",
+            "INGRESO_MENSUAL": "241651",
+            "A_os_Laborados": "4",
+        }
+        */
+        //
+        lead.Lugar_de_nacimiento = data.Lugar_de_nacimiento
+        lead.Date_of_Birth = data.Date_of_Birth
+        lead.CURP = data.CURP
+        lead.Estado_Civil = data.Estado_Civil
+        lead.Phone = data.Phone
+
+        //
+        lead.Empresa_en_labora = data.Empresa_en_labora
+        lead.Puesto = data.Ocupacion
+        lead.INGRESO_MENSUAL = data.INGRESO_MENSUAL
+        lead.A_os_Laborados = data.A_os_Laborados
+
+        //
+        lead.Street = data.calle
+        lead.City = data.Mailing_City
+        // lead.State = data.Phone
+        lead.Zip_Code = data.Mailing_Zip
+        lead.Country = data.Colonia
+
         console.log('lead: ', lead)
 
         try {
