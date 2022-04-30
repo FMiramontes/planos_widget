@@ -386,6 +386,26 @@ const fuentesCliente = [
     "CONTROL EXA 91.7",
 ]
 
+document.addEventListener('click', async (e) => {
+    if (e.target.matches('[data-manzana]')) {
+        console.log(e.target.tagName)
+
+        const map = e.target.closest('#map')
+
+        let name = map.dataset.name
+        let commerceId = map.dataset.commerceId
+
+        console.log("dataset: ",map.dataset) 
+        let auxManzana = e.target.id.split('-')
+        const manzana = auxManzana[0]
+        // const svgNombre = e.target.closest('svg').dataset.desarrollo
+
+        await Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana)
+        await Mapas.getDisponiblidad(name, manzana)
+        beforeManzana = manzana
+    }
+})
+
 const UI = {
     async loadMenuLateral() {
         const data = await crm.getAllFraccionamientos()
@@ -468,19 +488,19 @@ const UI = {
         mapa.dataset.commerceId = id
         mapa.dataset.localidad = localidad
 
-        mapa.addEventListener('click', async (e) => {
-            if (e.target.matches('[data-manzana]')) {
-                console.log(e.target.tagName)
+        // document.addEventListener('click', async (e) => {
+        //     if (e.target.matches('[data-manzana]')) {
+        //         console.log(e.target.tagName)
 
-                let auxManzana = e.target.id.split('-')
-                const manzana = auxManzana[0]
-                // const svgNombre = e.target.closest('svg').dataset.desarrollo
+        //         let auxManzana = e.target.id.split('-')
+        //         const manzana = auxManzana[0]
+        //         // const svgNombre = e.target.closest('svg').dataset.desarrollo
 
-                await Mapas.loadManzana(manzana, id, desarrollo, beforeManzana)
-                await Mapas.getDisponiblidad(name, manzana)
-                beforeManzana = manzana
-            }
-        })
+        //         await Mapas.loadManzana(manzana, id, desarrollo, beforeManzana)
+        //         await Mapas.getDisponiblidad(name, manzana)
+        //         beforeManzana = manzana
+        //     }
+        // })
         //
     },
     parseOuterHTML(text) {
