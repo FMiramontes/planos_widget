@@ -72,7 +72,6 @@ const crm = {
     async fetchDisponibilidad(fracc, manzana) {
         try {
             const numManzana = manzana.replace(/\D+/, '')
-
             const search = fracc == 'Alamar' ? 'equals' : 'starts_with'
 
             const request = await ZOHO.CRM.API.searchRecord({
@@ -91,7 +90,39 @@ const crm = {
                 }
             }
 
-            // Record found
+            // Check for more records
+            if (request.info.more_records) {
+                let records = [...request.data]
+
+                const request2 = await ZOHO.CRM.API.searchRecord({
+                    Entity: 'Products',
+                    Type: 'criteria',
+                    Query: `((Nombre_Fraccionamiento:${search}:${fracc})and(Manzana:equals:${numManzana}))`,
+                    page: 2,
+                    per_page: 200,
+                })
+
+                if (request2.status === 204) {
+                    return {
+                        code: 200,
+                        ok: true,
+                        data: request.data,
+                        type: 'success',
+                    }
+                }
+
+                records = [...records, ...request2.data]
+
+                // Records found
+                return {
+                    code: 200,
+                    ok: true,
+                    data: records,
+                    type: 'success',
+                }
+            }
+
+            // Records found
             return {
                 code: 200,
                 ok: true,
