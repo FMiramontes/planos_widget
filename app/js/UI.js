@@ -457,8 +457,8 @@ const UI = {
                     console.log('UI desarrollo:', desarrollo)
 
                     data.data.forEach((i) => {
-                        console.log('i.Name', i.Name.toLowerCase())
-                        console.log('name', name)
+                        // console.log('i.Name', i.Name.toLowerCase())
+                        // console.log('name', name)
                         if(i.Name.toLowerCase() == name){
                             contenedorFracc.innerHTML = `
                             <h3 class="nombre-fracc">${i.Name}</h3>
