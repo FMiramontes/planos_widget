@@ -107,8 +107,11 @@ const UI = {
                 if (e.target.matches('[data-index]')) {
                     let containerMap = document.getElementById('map')
                     let loader = document.getElementById('loader-mapa')
+                    let contenedorFracc = document.getElementById('logo-fracc')
+
                     loader.style.display = 'flex'
                     containerMap.style.display = 'none'
+                    contenedorFracc.style.display = 'none'
                     let name = e.target.dataset.name.toLowerCase()
                     console.log('Desarrollo', name)
                     const nameSvg = name.replaceAll(' ', '-')
@@ -128,11 +131,25 @@ const UI = {
 
                     console.log('UI desarrollo:', desarrollo)
 
+                    data.data.forEach((i) => {
+                        console.log('i.Name', i.Name.toLowerCase())
+                        console.log('name', name)
+                        if(i.Name.toLowerCase() == name){
+                            contenedorFracc.innerHTML = `
+                            <h3 class="nombre-fracc">${i.Name}</h3>
+                            <div class="img-fracc"><img src="${i.logo}" alt="" loading="lazy"></div>
+                            ` 
+                        }
+                    })
+
                     beforeManzana = ''
 
                     this.loadPlano(e)
                     loader.style.display = 'none'
+                    let bordeSvg = document.querySelector('.map svg');
+                    bordeSvg.style.boxShadow = 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px'
                     containerMap.style.display = 'flex'
+                    contenedorFracc.style.display = 'flex'
 
                     let resetButton = document.getElementById('zoom-reset')
 

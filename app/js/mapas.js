@@ -210,7 +210,7 @@ const maps = {
             { status: 'Primer Mensualidad', fill: '#7de38e' },
             { status: 'Enganche', fill: '#398afa' },
             { status: 'Contado', fill: '#6908c9' },
-            { status: 'Vendido', fill: '#2e2e2e' },
+            { status: 'Vendido', fill: '#5C5C5C' },
             { status: 'Bloqueado', fill: '#ff2e2e' },
             { status: 'Reubicacion', fill: '#59f4ff' },
             { status: 'P. Reubicacion', fill: '#7d7d82' },
