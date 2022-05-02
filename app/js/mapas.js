@@ -14,20 +14,9 @@ const maps = {
         if (beforeManzana !== '') {
             let num = beforeManzana.replace(/\D+/g, '')
 
-            // let num = numManzana
-
-            // console.log('num: ', num)
-
             let beforePosition = this.position(num)
-
-            // console.log('beforePosition: ', beforePosition)
-
             let block = desarrollo.blocks[beforePosition]
-            // console.log('manzana: ', manzana)
-            // console.log('beforeManzana: ', beforeManzana)
-
             let beforeManzanaJson = block.find((m) => m.Numero == beforeManzana)
-            // console.log('beforeManzanaJson: ', beforeManzanaJson)
 
             if (beforeManzanaJson !== undefined) {
                 let ContainerBeforeManzana = document.getElementById(
@@ -42,17 +31,11 @@ const maps = {
     },
     loadLotes(desarrollo, manzana, position) {
         let ContainerManzana = document.getElementById(manzana)
-
         ContainerManzana.innerHTML = ''
-
         let block = desarrollo.blocks[position]
-
         let manzanaJson = block.find((m) => m.Numero == manzana)
 
-        console.log('Maps manzanaJson: ', manzanaJson)
-
         manzanaJson?.Lotes.forEach((l) => {
-            // console.log('Lotes: ', l)
             ContainerManzana.insertAdjacentHTML(
                 'beforeend',
                 UI.parseOuterHTML(l)
@@ -62,33 +45,11 @@ const maps = {
 
     async loadManzana(manzana, id, desarrollo, beforeManzana) {
         // const svg = await desarrollo.json()
-
-        // console.log('desarrollo: ', desarrollo)
-
         let num = manzana.replace(/\D+/g, '')
-
         // let num = numManzana.split('')
-
         let position = this.position(num)
 
-        console.log('Maps position: ', position)
-
         this.loadBlocks(desarrollo, manzana, position, beforeManzana)
-
-        // console.log('blocks: ', blocks)
-
-        // const Lotes = await this.loadLotes(manzana, desarrollo, position)
-        // console.log('Lotes: ', Lotes)
-        // const frac = await crm.onamiento(id)
-
-        // const fracc = frac.data
-
-        // console.log('frac: ', fracc)
-
-        // this.bloquearManzana(fracc)
-
-        // const target = document.querySelector('[id*="Manzana"]');
-        // target.style.transform = 'scale(' + zoom + ')'
     },
     async bloquearManzana(fracc) {
         const Manzanas = document.querySelectorAll('[data-manzana]')
@@ -114,14 +75,11 @@ const maps = {
         try {
             //   const request = await fetch(`/server/ecommerce/crm/getDisponibilidad/${fraccionamiento}/${manzana}`)
             const data = await crm.fetchDisponibilidad(fraccionamiento, manzana)
-            // console.log('peticion disponibilidad', data)
 
             if (data.type == 'warning' || data.type == 'success')
                 this.pintarDisponibles()
 
             if (data.ok) {
-                // console.log('Disponibilidad:', data.data)
-
                 if (data.data.length > 0)
                     this.poblarLotificacion(await data.data)
             }

@@ -6,7 +6,8 @@ const btn_submit = document.getElementById('btn-submit')
 
 const validate = {
     validateEmail(email, reqired) {
-        let expr =/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+        let expr =
+            /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
         if (reqired == 'required') {
             if (!expr.test(email)) {
                 alerts.showAlert(
@@ -35,66 +36,61 @@ const validate = {
             document.querySelectorAll('[data-existe-en-crm]')
         )
 
-        //console.log('validate inputsToDisabled: ', inputsToDisabled)
-
         inputsToDisabled.forEach((e) => {
             if (e.value != '') {
                 e.disabled = existeEnCRM
-                //console.log('validate e: ', e)
             } else {
                 e.disabled = false
-                //console.log('validate e: ', e)
             }
         })
     },
 
     validateForm() {
-
         const loggedUser = document.querySelector('#user')
 
         let nombre2 = document.querySelector('[name="Nombre2"]')
         let apellido2 = document.querySelector('[name="ApellidoP2"]')
 
-        const inputsInvalid= []
+        const inputsInvalid = []
 
         const inputsCheckForm = [
-            "First_Name",
-            "Apellido_Paterno",
-            "Email",
-            "Campanya",
-            "Lead_Source",
-            "Modo_de_pago",
-            "coordinador",
+            'First_Name',
+            'Apellido_Paterno',
+            'Email',
+            'Campanya',
+            'Lead_Source',
+            'Modo_de_pago',
+            'coordinador',
         ]
 
         //Comprueba si es vendedor
-        if(loggedUser.dataset.profile !== 'Vendedor'){
-            inputsCheckForm.push("vendors")
+        if (loggedUser.dataset.profile !== 'Vendedor') {
+            inputsCheckForm.push('vendors')
         }
 
         //Comprueba segundo cliente
-        if(nombre2.value !== '' && apellido2.value !== ''){
+        if (nombre2.value !== '' && apellido2.value !== '') {
             //tiene segundo cliente
-            inputsCheckForm.push("Correo2")
+            inputsCheckForm.push('Correo2')
         }
 
         //Comprueba si estan llenos correctamente
-        inputsCheckForm.forEach((e)=>{
+        inputsCheckForm.forEach((e) => {
             let inputToCheck = document.querySelector(`[name=${e}]`)
 
             //Condicion especial dataset Campanya
-            if(e !== "Campanya"){
-                if(inputToCheck.value !== ''){
+            if (e !== 'Campanya') {
+                if (inputToCheck.value !== '') {
                     inputToCheck.classList.remove('invalid')
-                }else{
-                    let inputNotValid = {name:`${e}`}
+                } else {
+                    let inputNotValid = { name: `${e}` }
                     inputsInvalid.push(inputNotValid)
                 }
-            }else{
-                if(inputToCheck.dataset.campaignid != undefined){
+            } else {
+                if (inputToCheck.dataset.campaignid != undefined) {
                     inputToCheck.classList.remove('invalid')
-                }else{
-                    let inputNotValid = {name:`${e}`}
+                } else {
+                    let inputNotValid = { name: `${e}` }
                     inputsInvalid.push(inputNotValid)
                 }
             }
@@ -110,27 +106,26 @@ const validate = {
     },
 
     validateDataLead() {
-
         const loggedUser = document.querySelector('#user')
 
         const inputsInvalid = []
-        
+
         const inputsCheckForm = [
-            "First_Name",
-            "Apellido_Paterno",
-            "Email",
-            "Lead_Source",
-            "Mobile",
-            "vendors",
+            'First_Name',
+            'Apellido_Paterno',
+            'Email',
+            'Lead_Source',
+            'Mobile',
+            'vendors',
         ]
 
         inputsCheckForm.forEach((e) => {
             let inputToCheck = document.querySelector(`[name=${e}]`)
-            
-            if(inputToCheck.value !== ''){
+
+            if (inputToCheck.value !== '') {
                 inputToCheck.classList.remove('invalid')
-            }else{
-                let inputNotValid = {name:`${e}`}
+            } else {
+                let inputNotValid = { name: `${e}` }
                 inputsInvalid.push(inputNotValid)
             }
         })
@@ -144,9 +139,10 @@ const validate = {
     },
 
     inputsInvalid(inputsInvalid) {
-        for (const inp in inputsInvalid){
-            //console.log(`${inp}: ${inputsInvalid[inp].name}`)
-            let input = document.querySelector(`[name=${inputsInvalid[inp].name}]`)
+        for (const inp in inputsInvalid) {
+            let input = document.querySelector(
+                `[name=${inputsInvalid[inp].name}]`
+            )
             input.classList.add('invalid')
         }
     },
@@ -155,13 +151,11 @@ const validate = {
         let inputsRecursos = Array.from(
             document.querySelectorAll('[data-aporta-recursos]')
         )
-        //console.log(inputsRecursos)
         let nombre_completo = document.getElementById('nombre_completo')
         let dueno_controlador = document.getElementById('dueno_controlador')
 
         inputsRecursos.forEach((e) => {
             e.addEventListener('change', (e) => {
-                //console.log(e.target)
                 let temp = document.querySelector(
                     `[data-copy=${e.target.name}]`
                 )
@@ -199,46 +193,37 @@ const validate = {
 
                     nombre_completo.value = nn
                     dueno_controlador.value = nn
-                    //console.log('nombre: ',nn)
                 } else {
                     temp.value = e.target.value
                 }
-                //console.log('temp: ',temp)
-                //console.log('e: ', e.target.value)
             })
         })
-
-        //console.log('validateRecursos ......')
     },
 
     validDataLists(modo) {
-
         const dataLists = Array.from(
             document.querySelectorAll('[data-datalist="true"]')
         )
 
         const loggedUser = document.querySelector('#user')
 
-        if(modo === 'lead'){
-            if(loggedUser.dataset.profile === 'Vendedor'){
+        if (modo === 'lead') {
+            if (loggedUser.dataset.profile === 'Vendedor') {
                 dataLists.splice(1, 3)
-            }else{
+            } else {
                 dataLists.splice(2, 2)
             }
-        }else if(modo === 'submit'){
-            if(loggedUser.dataset.profile === 'Vendedor'){
+        } else if (modo === 'submit') {
+            if (loggedUser.dataset.profile === 'Vendedor') {
                 dataLists.splice(1, 1)
             }
         }
-        
+
         let validArray = true
         dataLists.forEach((dl) => {
-            
             let value = dl.previousElementSibling.previousElementSibling.value
-            //console.log('dl prev prev: ',dl.previousElementSibling.previousElementSibling.value)
             let list = Array.from(dl.children)
             let valid = list.find((element) => element.textContent == value)
-            //console.log('valid: ', valid)
             if (valid == undefined) validArray = false
         })
         return validArray
@@ -282,14 +267,11 @@ const validate = {
         }
     },
 
-    validateMobile(inputMobile){
-        if(inputMobile.value.length>10){
-            alerts.showAlert(
-                'warning',
-                'No se permiten mas de 10 digitos.'
-            )
+    validateMobile(inputMobile) {
+        if (inputMobile.value.length > 10) {
+            alerts.showAlert('warning', 'No se permiten mas de 10 digitos.')
             let digits = inputMobile.value
-            let subStr =  digits.substring(0, digits.length - 1);
+            let subStr = digits.substring(0, digits.length - 1)
             inputMobile.value = subStr
         }
     },
