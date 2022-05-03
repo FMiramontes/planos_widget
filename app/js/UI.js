@@ -398,10 +398,11 @@ document.addEventListener('click', async (e) => {
         console.log("dataset: ",map.dataset) 
         let auxManzana = e.target.id.split('-')
         const manzana = auxManzana[0]
-        // const svgNombre = e.target.closest('svg').dataset.desarrollo
+        // const svgNombre = e.target.closest('svg').dataset.desarrollo 
+        await Promise.all([Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana), Mapas.getDisponiblidad(name, manzana) ]);
 
-        await Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana)
-        await Mapas.getDisponiblidad(name, manzana)
+        // await Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana)
+        // await Mapas.getDisponiblidad(name, manzana)
         beforeManzana = manzana
     }
 })
