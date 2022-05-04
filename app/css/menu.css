@@ -267,8 +267,8 @@
     width: 150px;
     height: 120px;
     margin: 3vh auto;
-    background-color: rgb(230, 227, 227);
-    border-radius: 15px;
+    background-color: #d3cfcf;
+    border-radius: 15px 15px 8px 8px;
 }
 
 .titulo-trato {
@@ -276,7 +276,7 @@
     height: 60%;
     background-color: black;
     border-radius: 15px 15px 0 0;
-    font-weight: bold;
+    font-weight: 500;
     text-align: center;
     display: grid;
     align-items: center;
@@ -290,7 +290,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: rgb(231, 231, 231);
+    background-color: #d3cfcf;
     border-radius: 0 0 15px 15px;
 }
 
@@ -307,6 +307,6 @@
 .deal-stage{
     height: 10%;
     width: 100%;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
