@@ -43,7 +43,7 @@ const maps = {
     loadLotes(desarrollo, manzana, position) {
         let ContainerManzana = document.getElementById(manzana)
 
-        ContainerManzana.innerHTML = ''
+        // ContainerManzana.innerHTML = ''
 
         let block = desarrollo.blocks[position]
 
@@ -54,7 +54,7 @@ const maps = {
         manzanaJson?.Lotes.forEach((l) => {
             // console.log('Lotes: ', l)
             ContainerManzana.insertAdjacentHTML(
-                'beforeend',
+                'afterbegin',
                 UI.parseOuterHTML(l)
             )
         })

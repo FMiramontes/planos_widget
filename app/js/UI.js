@@ -400,7 +400,8 @@ document.addEventListener('click', async (e) => {
         const manzana = auxManzana[0]
         // const svgNombre = e.target.closest('svg').dataset.desarrollo 
         await Promise.all([Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana), Mapas.getDisponiblidad(name, manzana) ]);
-
+        let parentManzana = e.target.parentNode
+        parentManzana.removeChild(e.target)
         // await Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana)
         // await Mapas.getDisponiblidad(name, manzana)
         beforeManzana = manzana
