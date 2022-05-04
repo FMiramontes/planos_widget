@@ -196,12 +196,54 @@ const maps = {
         })
     },
     showPopup(e, x, y) {
-        e.style.left = x + 'px'
-        e.style.top = y + 'px'
-        e.style.display = 'block'
+        const tooltip = document.getElementById('info-lote')
+        if (e.target.dataset.crm == 'true') {
+            if (e.target.dataset.disponible == 'true') {
+                tooltip.innerHTML = ''
+                let lote = document.createElement('p')
+                lote.textContent = e.target.dataset.trato
+                tooltip.appendChild(lote)
+                let dimension = document.createElement('p')
+                dimension.textContent =
+                    'Dimension: ' + e.target.dataset.dimension + ' m2'
+                tooltip.appendChild(dimension)
+                let costoMetro = document.createElement('p')
+                costoMetro.textContent =
+                    'Costo M2: $ ' + e.target.dataset.costom2
+                tooltip.appendChild(costoMetro)
+                let total = document.createElement('p')
+                total.textContent =
+                    'Costo total: $ ' + e.target.dataset.costototal
+                tooltip.appendChild(total)
+                // e.target.style.fill = '#e5b252'
+                e.target.style.cursor = 'pointer'
+            } else {
+                tooltip.innerHTML = ''
+                let lote = document.createElement('p')
+                lote.textContent = e.target.dataset.trato
+                tooltip.appendChild(lote)
+                let estado = document.createElement('p')
+                estado.textContent = e.target.dataset.estado
+                tooltip.appendChild(estado)
+                //e.target.style.fill = '#000'
+            }
+        } else {
+            tooltip.innerHTML = ''
+            let msg = document.createElement('p')
+            msg.style.lineHeight = '1'
+            msg.textContent =
+                'Producto ' +
+                e.target.id +
+                ' no creado en CRM. \r\n Enviar petición'
+            tooltip.appendChild(msg)
+        }
+        tooltip.style.left = x + 'px'
+        tooltip.style.top = y + 'px'
+        tooltip.style.display = 'block'
     },
-    hidePopup(e) {
-        e.style.display = 'none'
+    hidePopup() {
+        const tooltip = document.getElementById('info-lote')
+        tooltip.style.display = 'none'
     },
     statusColor(status) {
         const colors = [

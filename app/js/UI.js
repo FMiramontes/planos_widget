@@ -2020,9 +2020,11 @@ const UI = {
 
         let es_chrome = details.toLowerCase().indexOf('chrome') > -1
         let es_firefox = details.toLowerCase().indexOf('firefox') > -1
-        let es_opera = details.toLowerCase().indexOf('opr') > -1
+        let es_opera = details.toLowerCase().indexOf('opr') > -1        
+        let es_safari = details.toLowerCase().indexOf('safari') > -1
 
-        console.log('browser', es_chrome, es_firefox, es_opera)
+
+        console.log('browser', es_chrome, es_firefox, es_opera, es_safari)
         if (es_chrome) {
             objetReturn.browser = 'chrome'
         }
@@ -2031,6 +2033,9 @@ const UI = {
         }
         if (es_opera) {
             objetReturn.browser = 'opera'
+        }
+        if (es_safari) {
+            objetReturn.browser = 'safari'
         }
         return objetReturn
     },
