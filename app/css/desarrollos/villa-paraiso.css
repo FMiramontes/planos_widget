@@ -1,0 +1,60 @@
+.cls-1 {
+    fill: #94c49b;
+}
+
+.cls-1,
+.cls-2,
+.cls-3 {
+    stroke: #37b567;
+    stroke-miterlimit: 10;
+    stroke-width: 0.5px;
+}
+
+.cls-2 {
+    fill: #70b58a;
+}
+
+.cls-3 {
+    fill: #a1c9a6;
+}
+
+.cls-4 {
+    fill: #303030;
+}
+
+.cls-5 {
+    fill: #fff;
+}
+
+.cls-6 {
+    fill: #a3c5ce;
+}
+
+/* Animacion hover desarrollos */
+[data-manzana]:hover {
+    stroke: #303030;
+    animation: popup .75s ease alternate infinite;
+}
+
+@keyframes popup {
+    0% {
+        stroke-width: 3px;
+    }
+
+    25% {
+        stroke-width: 5px;
+    }
+
+    50% {
+        stroke-width: 8px;
+    }
+
+    75% {
+        stroke-width: 10px;
+    }
+
+    100% {
+        stroke-width: 12px;
+    }
+
+}
