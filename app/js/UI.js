@@ -386,6 +386,26 @@ const fuentesCliente = [
     "CONTROL EXA 91.7",
 ]
 
+const sucursales = [
+    "Oficina Cazzar",
+    "Oficina Altiplano",
+    "Oficina Alamar",
+    "Oficina Sainz",
+    "Oficina Lomas del Valle",
+    "Costa Dorada",
+    "Oficina Seven Eleven",
+    "Oficina Cielo",
+    "Oficina Villa Toscana",
+    "Oficina La Gloria",
+    "Oficina Sendero",
+    "Oficina La Puerta",
+    "Oficina Santa Ana",
+    "Oficina Los Angeles",
+    "Oficina San Ysidro",
+    "Oficina Ensenada",
+    "Oficina Puerto Nuevo"
+]
+
 document.addEventListener('click', async (e) => {
     if (e.target.matches('[data-manzana]')) {
         console.log(e.target.tagName)
@@ -1946,11 +1966,18 @@ const UI = {
     addfuentes() {
         console.log('Prueba')
         const selectFuentes = document.getElementById('list-fuente')
-        console.log('selectFuentes: ', selectFuentes)
         fuentesCliente.forEach((f) => {
             let option = document.createElement('option')
             option.innerText = f
             selectFuentes.appendChild(option)
+        })
+    },
+    addSucursales() {
+        const selectsucursales = document.getElementById('list-Sucursales')
+        sucursales.forEach((f) => {
+            let option = document.createElement('option')
+            option.innerText = f
+            selectsucursales.appendChild(option)
         })
     },
     async paintDeals() {
