@@ -31,13 +31,15 @@ const maps = {
     },
     loadLotes(desarrollo, manzana, position) {
         let ContainerManzana = document.getElementById(manzana)
-        ContainerManzana.innerHTML = ''
+
+        // ContainerManzana.innerHTML = ''
+
         let block = desarrollo.blocks[position]
         let manzanaJson = block.find((m) => m.Numero == manzana)
 
         manzanaJson?.Lotes.forEach((l) => {
             ContainerManzana.insertAdjacentHTML(
-                'beforeend',
+                'afterbegin',
                 UI.parseOuterHTML(l)
             )
         })
