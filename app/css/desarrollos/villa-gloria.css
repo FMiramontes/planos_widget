@@ -1,0 +1,50 @@
+.cls-1 {
+    fill: #d5b0b9;
+}
+.cls-1,
+.cls-2,
+.cls-3 {
+    stroke: #c796a2;
+    stroke-miterlimit: 10;
+}
+.cls-2 {
+    fill: #d5b0b9;
+}
+.cls-3 {
+    fill: #e3c9cf;
+}
+.cls-4 {
+    fill: #49252e;
+}
+.cls-5 {
+    font-size: 47.43px;
+    font-family: MyriadPro-Bold, Myriad Pro;
+    font-weight: 700;
+}
+.cls-5,
+.cls-6 {
+    fill: #fff;
+}
+[data-manzana]:hover{
+    stroke: #49252e;
+    animation: popup .75s ease alternate infinite;       
+  }
+  
+  @keyframes popup {
+    0% {
+      stroke-width: 3px;
+    }
+    25% {
+        stroke-width: 5px;
+      }
+    50% {
+        stroke-width: 8px;
+    }
+    75% {
+        stroke-width: 10px;
+    }
+    100% {
+        stroke-width: 12px;
+    }
+    
+  }
