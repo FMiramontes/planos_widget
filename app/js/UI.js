@@ -470,9 +470,10 @@ const UI = {
                     data.data.forEach((i) => {
                         if (i.Name.toLowerCase() == name) {
                             contenedorFracc.innerHTML = `
-                            <h3 class="nombre-fracc">${i.Name}</h3>
                             <div class="img-fracc"><img src="${i.logo}" alt="" loading="lazy"></div>
-                            `
+                            ` 
+                            let nombreFracc = document.querySelector('.nombre-fracc');
+                            nombreFracc.innerText = `${i.Name}`;
                         }
                     })
 
@@ -1843,16 +1844,16 @@ const UI = {
     },
     async paintDeals() {
         const colors = {
-            'Presentación del Producto': '#de9f27',
-            Cotización: '#de9g27',
-            'Cita en el Fraccionamiento': '#da9b27',
-            'Asistencia del Cliente Al Fraccionamiento': '#fa9b11',
-            'Pago de Apartado': '#b5512a',
-            'Pago de Enganche': '#398afa',
-            'Primer mensualidad': '#7de38e',
-            'Cerrado (ganado)': '#6908c9',
-            'Cerrado (perdido)': '#ff2e2e',
-            Cancelado: '#ff2e1a',
+            "Presentación del Producto": "#de9f27",
+            "Cotización": "#b5512a",
+            "Cita en el Fraccionamiento": "#7de38e",
+            "Asistencia del Cliente Al Fraccionamiento": "#398afa",
+            "Pago de Apartado": "#6908c9",
+            "Pago de Enganche": "#2e2e2e",
+            "Primer mensualidad": "#f8c15b",
+            "Cerrado (ganado)": "#4f9b40",
+            "Cerrado (perdido)": "#d44141",
+            "Cancelado": "#ff2e2e",
         }
         const containerDeals = document.getElementById('container-deals')
         containerDeals.innerHTML = ''
@@ -1873,12 +1874,16 @@ const UI = {
                 if (userAdmin || deal.Owner.id == userId) {
                     let stage = deal.Stage
                     let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
+                    let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
                     let card = `
                         <section class="card-trato">
                             <section class="titulo-trato">${deal.Deal_Name}</section>
                             <section class="trato-cont">
-                                <a href=${url} target="_blank" class="btn-trato">Preliminar</a>
+                                <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                                <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                                <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
                             </section>
+                            <p><b>${deal.Owner.name}</b></p>
                             <div class='deal-stage' style="background-color: ${colors[stage]}"></div>
                         </section>`
                     containerDeals.insertAdjacentHTML('beforeend', card)

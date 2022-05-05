@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&family=Lato:wght@400;700&display=swap');
+
 * {
     /* font-size: 12px; */
     box-sizing: border-box;
@@ -44,7 +46,22 @@ body {
     position: absolute;
     bottom: 5%;
     left: 5%;
-    opacity: 0.7;
+    opacity: 0.8;
+    z-index: 2;
+    pointer-events: none;
+}
+.nombre-fracc{
+    position: absolute;
+    top:10%;
+    left: 5%;
+    letter-spacing: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    color: #2d3436;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none; 
     z-index: 2;
     pointer-events: none;
 }
@@ -412,8 +429,8 @@ svg .cls-0{
 
 #info-colors{
     position: absolute;
-    top: 15%;
-    left: 4%;
+    top: 21%;
+    left: 5%;
     cursor: pointer;
 }
 #info-colors i {
@@ -422,18 +439,38 @@ svg .cls-0{
 }
 
 .container-colors{
-    height: 150px;
-    width: 130px;
-    background-color: #464545;
     position: absolute;
-    top: 16%;
-    left: 8%;
+    background-color: #464545;
     border-radius: 10px;
     padding: 15px;
     flex-direction: column;
     justify-content: space-between; 
     z-index: 2;
     display: none;
+    top: 19%;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none; 
+}
+.color-lote{
+    left: 8%;
+}
+.color-deals{
+    right: 16%;
+}
+.color-deals:after{
+    content: "";
+    position: absolute;
+    right: -15px;
+    margin-left: 50px;
+    bottom: 20px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 15px solid #464545;
 }
 .showCard {
     opacity: 1;

@@ -299,6 +299,9 @@ let menu2 = document.querySelector('#menu-lateral2')
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     menu2.classList.toggle('open')
+    let cardColor = document.querySelector('.color-deals')
+    cardColor.classList.toggle('showCard')
+
 })
 
 // tabs Modal
@@ -382,6 +385,6 @@ btnRefresh.addEventListener('click', () => {
 
 let infoColor = document.getElementById('info-colors')
 infoColor.addEventListener('click', () => {
-    let cardColor = document.querySelector('.container-colors')
+    let cardColor = document.querySelector('.color-lote')
     cardColor.classList.toggle('showCard')
 })
