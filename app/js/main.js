@@ -282,44 +282,27 @@ mapa.addEventListener('mouseover', (e) => {
         posicionY = e.pageY + 13
         if (e.target.dataset.crm == 'true') {
             if (e.target.dataset.disponible == 'true') {
-                tooltip.innerHTML = ''
-                let lote = document.createElement('p')
-                lote.textContent = e.target.dataset.trato
-                tooltip.appendChild(lote)
-                let dimension = document.createElement('p')
-                dimension.textContent =
-                    'Dimension: ' + e.target.dataset.dimension + ' m2'
-                tooltip.appendChild(dimension)
-                let costoMetro = document.createElement('p')
-                costoMetro.textContent =
-                    'Costo M2: $ ' + e.target.dataset.costom2
-                tooltip.appendChild(costoMetro)
-                let total = document.createElement('p')
-                total.textContent =
-                    'Costo total: $ ' + e.target.dataset.costototal
-                tooltip.appendChild(total)
-                // e.target.style.fill = '#e5b252'
+                tooltip.innerHTML = `
+                <p> ${e.target.dataset.trato}</p>
+                <p> Dimension: ${e.target.dataset.dimension}</p>
+                <p> Costo M2: $ ${e.target.dataset.costom2}</p>
+                <p> Costo total: $ ${e.target.dataset.costototal}</p>
+                `
                 e.target.style.cursor = 'pointer'
             } else {
-                tooltip.innerHTML = ''
-                let lote = document.createElement('p')
-                lote.textContent = e.target.dataset.trato
-                tooltip.appendChild(lote)
-                let estado = document.createElement('p')
-                estado.textContent = e.target.dataset.estado
-                tooltip.appendChild(estado)
-                //e.target.style.fill = '#000'
+                tooltip.innerHTML = `
+                <p> ${e.target.dataset.trato}</p>
+                <p> ${e.target.dataset.estado}</p>
+                `
             }
-        } else {
-            tooltip.innerHTML = ''
-            let msg = document.createElement('p')
-            msg.style.lineHeight = '1'
-            msg.textContent =
-                'Producto ' +
-                e.target.id +
-                ' no creado en CRM. \r\n Enviar petición'
-            tooltip.appendChild(msg)
-        }
+        } else if (e.target.dataset.crm == 'false'|| e.target.dataset.crm == undefined) {
+            tooltip.innerHTML = `
+            <div class="no-creado">
+                <p>Producto ${e.target.id} no creado.</p>
+                <p>Enviar petición</p>
+            </div>
+            `
+        } 
         maps.showPopup(tooltip, posicionX, posicionY)
     }
 })

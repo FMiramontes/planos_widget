@@ -72,6 +72,7 @@ const maps = {
     async getDisponiblidad(fraccionamiento, manzana) {
         // preloader.style.display = 'flex'
         // containerMapa.style.display = 'none'
+        let Tooltip = document.getElementById('info-lote')
         try {
             //   const request = await fetch(`/server/ecommerce/crm/getDisponibilidad/${fraccionamiento}/${manzana}`)
             const data = await crm.fetchDisponibilidad(fraccionamiento, manzana)
@@ -86,6 +87,7 @@ const maps = {
         } catch (error) {
             console.log(error)
         }
+        this.hidePopup(Tooltip)
     },
     pintarDisponibles() {
         const tempLotes = document.querySelectorAll('.cls-2')
