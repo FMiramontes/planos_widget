@@ -968,7 +968,7 @@ const UI = {
                 Lead_Source: newData.contacto.Lead_Source,
                 Type: tipoDeCompra,
                 Tipo_de_Compra1: tipoCompra,
-
+                Sucursal_de_Firma: newData.presupuesto.Sucursal_de_Firma,
                 Amount:
                     inputDescuento !== ''
                         ? parseFloat(inputDescuento)
