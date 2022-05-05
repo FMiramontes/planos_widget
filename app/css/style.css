@@ -222,7 +222,12 @@ image {
 }
 /* Tooltip Lote */
 #info-lote {
-    width: 200px;
+    width: 230px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;   
     line-height: 1px;
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -233,6 +238,13 @@ image {
     position: absolute;
     display: none;
     z-index: 3;
+}
+svg .cls-0{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;   
 }
 /* Botones Zoom */
 .zoom-panel {

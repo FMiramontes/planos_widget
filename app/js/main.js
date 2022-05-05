@@ -14,6 +14,10 @@ const menuForm = document.querySelector('.menu-form')
 const vendedoresInput = document.querySelector('#vendorsValue')
 let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 
+let posicionY = 0
+let posicionX = 0
+let mapa = document.querySelector('.map')
+
 let CRMData = {},
     qselector
 
@@ -129,18 +133,72 @@ const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
 const input_location = document.querySelector('input[name="Localizacion_P"]')
 const map = document.getElementById('map')
 let navegador = UI.navegador()
-
-if (
-    (navegador.browser === 'chrome' || navegador.browser === 'firefox') &&
-    navegador.device === 'Mobile'
-) {
-    selectLote('click')
-} else {
-    selectLote('dblclick')
-}
-
-function selectLote(type) {
-    document.addEventListener(`${type}`, (e) => {
+console.log('navegador: ', navegador)
+if ((navegador.browser === 'chrome' || navegador.browser === 'firefox' || navegador.browser === 'safari') &&
+    navegador.device === 'Mobile'){
+        mostrarTooltip('touchstart')
+        hideTooltip('touchend')
+    }
+    else {
+        showTooltip('mouseover')
+        hideTooltip('mouseout')
+    }
+// Celular doble click
+let timeout;
+let lastTap = 0;
+    document.addEventListener('touchend', function(e) {
+        if (e.target.matches('[data-lote]')) {
+            let currentTime = new Date().getTime();
+            let tapLength = currentTime - lastTap;
+            clearTimeout(timeout);
+            if (tapLength < 500 && tapLength > 0) {
+                e.preventDefault();
+                if (e.target.dataset.crm == 'true') {
+                    input_frac.value = map.dataset.name
+                    input_location.value = map.dataset.localidad
+    
+                    if (e.target.dataset.disponible == 'true') {
+                        const contactDiv = document.getElementById('contact')
+                        const contact_id =
+                            contactDiv.dataset?.contactid === undefined
+                                ? false
+                                : contactDiv.dataset?.contactid
+    
+                        CRMData = {}
+    
+                        if (contact_id === false || contact_id === undefined) {
+                            valid.validContact(false)
+                        } else {
+                            const accout_id =
+                                contactDiv.dataset?.accountid === undefined
+                                    ? false
+                                    : contactDiv.dataset?.accountid
+    
+                            console.log('main contact_id: ', contact_id)
+    
+                            console.log('main accout_id: ', accout_id)
+                            UI.paintDataInForm(contact_id, accout_id).then(() =>
+                                valid.validContact(true)
+                            )
+    
+                            CRMData = UI.getDataForm()
+                        }
+                        let banner = document.querySelector('.banner')
+                        banner.innerHTML = ''
+                        let trato = document.createElement('p')
+                        trato.textContent = e.target.dataset.trato
+                        banner.appendChild(trato)
+    
+                        UI.viewModal(true, e.target?.id, e.target.dataset, true)
+                    }
+                } else {
+                    UI.cliqLoteFaltante(map.dataset.name, e.target.id)
+                }
+            }
+            lastTap = currentTime;
+        }
+    });
+    document.addEventListener('dblclick', (e) => {
         if (e.target.matches('[data-lote]')) {
             if (e.target.dataset.crm == 'true') {
                 input_frac.value = map.dataset.name
@@ -181,8 +239,8 @@ function selectLote(type) {
                 UI.cliqLoteFaltante(map.dataset.name, e.target.id)
             }
         }
-    })
-}
+    }),
+
 
 modal.addEventListener('change', (e) => {
     if (e.target.matches('[data-email]')) {
@@ -190,7 +248,7 @@ modal.addEventListener('change', (e) => {
     } else if (e.target.matches('[data-aporta-recursos]')) {
         valid.validateRecursos()
     }
-})
+}),
 
 //Validate digits phone and mobile
 modal.addEventListener('input', (e) => {
@@ -272,45 +330,36 @@ let resetButton = document
 
 // Tooltip
 const tooltip = document.getElementById('info-lote')
-let mapa = document.querySelector('.map')
-let posicionY = 0
-let posicionX = 0
 
-mapa.addEventListener('mouseover', (e) => {
-    if (e.target.matches('[data-lote]')) {
-        posicionX = e.pageX + 10
-        posicionY = e.pageY + 13
-        if (e.target.dataset.crm == 'true') {
-            if (e.target.dataset.disponible == 'true') {
-                tooltip.innerHTML = `
-                <p> ${e.target.dataset.trato}</p>
-                <p> Dimension: ${e.target.dataset.dimension}</p>
-                <p> Costo M2: $ ${e.target.dataset.costom2}</p>
-                <p> Costo total: $ ${e.target.dataset.costototal}</p>
-                `
-                e.target.style.cursor = 'pointer'
-            } else {
-                tooltip.innerHTML = `
-                <p> ${e.target.dataset.trato}</p>
-                <p> ${e.target.dataset.estado}</p>
-                `
-            }
-        } else if (e.target.dataset.crm == 'false'|| e.target.dataset.crm == undefined) {
-            tooltip.innerHTML = `
-            <div class="no-creado">
-                <p>Producto ${e.target.id} no creado.</p>
-                <p>Enviar petición</p>
-            </div>
-            `
-        } 
-        maps.showPopup(tooltip, posicionX, posicionY)
-    }
-})
-mapa.addEventListener('mouseout', (e) => {
-    if (e.target.matches('[data-lote]')) {
-        maps.hidePopup(tooltip)
-    }
-})
+function showTooltip(type) {
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            posicionX = e.pageX + 10
+            posicionY = e.pageY + 13
+            
+            maps.showPopup(e, posicionX, posicionY)
+        }
+    })
+}
+
+function mostrarTooltip(type) {
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            posicionX = e.changedTouches[0].pageX + 10
+            posicionY = e.changedTouches[0].pageY + 13
+            
+            maps.showPopup(e, posicionX, posicionY)
+        }
+    })
+}
+
+function hideTooltip(type){
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            maps.hidePopup()
+        }
+    })
+}
 
 vendedoresInput.addEventListener('change', (event) => {
     // Remove any dataset if exists
