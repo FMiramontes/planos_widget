@@ -26,7 +26,6 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
-            console.log(error)
             return {
                 code: 500,
                 ok: false,
@@ -320,8 +319,6 @@ const crm = {
         }
     },
     async UpdateContact(data, contactId) {
-        console.log('Updating contact...')
-        console.log(data)
         let dataContacto = data.contacto
 
         var updateCRM = {
@@ -354,6 +351,12 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            // Create Log
+            createLog(error, 'Error', {
+                args: { data, contactId },
+                invoke: 'UpdateContact',
+            })
+
             return {
                 code: 500,
                 ok: false,
@@ -363,7 +366,6 @@ const crm = {
         }
     },
     async CreateContact(data, accountId, ownerId) {
-        console.log('Creating contact...')
         const contacto = { ...data.contacto }
         contacto.Last_Name =
             contacto.Apellido_Paterno + ' ' + contacto.Apellido_Materno
@@ -388,7 +390,7 @@ const crm = {
                 APIData: contacto,
                 Trigger: [],
             })
-            console.log('Zoho create contact: ', request)
+
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -407,7 +409,11 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
-            console.log(error)
+            createLog(error, 'Error', {
+                args: { data, accountId, ownerId },
+                invoke: 'CreateContact',
+            })
+
             return {
                 code: 500,
                 ok: false,
@@ -417,7 +423,6 @@ const crm = {
         }
     },
     async updateContact(data) {
-        console.log('Updating contact...')
         const { contacto } = data
 
         try {
@@ -445,6 +450,11 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { data },
+                invoke: 'updateContact',
+            })
+
             return {
                 code: 500,
                 ok: false,
@@ -454,7 +464,6 @@ const crm = {
         }
     },
     async updateProduct(productID, costoM2, costoProducto) {
-        console.log('Updating product...')
         const product = {
             id: productID,
             Costo_por_M2: costoM2,
@@ -488,6 +497,11 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { productID, costoM2, costoProducto },
+                invoke: 'updateProduct',
+            })
+
             return {
                 code: 500,
                 ok: false,
@@ -497,7 +511,6 @@ const crm = {
         }
     },
     async removeDiscount(productID) {
-        console.log('Removing discount to product in CRM...')
         const product = {
             id: productID,
             Precio_con_Descuento: null,
@@ -529,6 +542,10 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { productID },
+                invoke: 'removeDiscount',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -538,7 +555,6 @@ const crm = {
         }
     },
     async createAccount(data) {
-        console.log('Creating account...')
         data.Widget_Planos = true
         try {
             const request = await ZOHO.CRM.API.insertRecord({
@@ -546,7 +562,6 @@ const crm = {
                 APIData: data,
                 Trigger: [],
             })
-            console.log('create account: ', request)
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -565,6 +580,10 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { data },
+                invoke: 'createAccount',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -582,7 +601,6 @@ const crm = {
                 Trigger: [],
             })
 
-            console.log('Create Deal: ', request)
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -601,6 +619,7 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', { args: { data }, invoke: 'createDeal' })
             return {
                 code: 500,
                 ok: false,
@@ -617,7 +636,6 @@ const crm = {
                 Trigger: [],
             })
 
-            console.log('Zoho updateDeal: ', request)
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -636,6 +654,7 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', { args: { data }, invoke: 'updateDeal' })
             return {
                 code: 500,
                 ok: false,
@@ -728,7 +747,6 @@ const crm = {
                 APIData: APIData,
             })
 
-            console.log('Zoho - associateProduct: ', request)
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -747,6 +765,10 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { product_id, deal_id },
+                invoke: 'associateProduct',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -766,7 +788,7 @@ const crm = {
                     userId,
                 }),
             })
-            console.log('zoho: convert lead', request)
+
             if (request.code !== 'success') {
                 return {
                     code: '400',
@@ -784,6 +806,10 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { leadId, userId },
+                invoke: 'convertToContact',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -793,10 +819,6 @@ const crm = {
         }
     },
     async aplicarDescuentoProducto(campanaID, productoID) {
-        // CRM function
-        // for testing... change second argument to a different name
-        // console.log('Actual product ID', productId)
-        // let productoID = '2234337000023667433'
         const functionName = 'aplicardescuentoproducto'
         try {
             const request = await ZOHO.CRM.FUNCTIONS.execute(functionName, {
@@ -805,7 +827,7 @@ const crm = {
                     productoID,
                 }),
             })
-            console.log('zoho function: aplicar descuento', request)
+
             if (request.code !== 'success') {
                 return {
                     code: '400',
@@ -823,6 +845,10 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { campanaID, productoID },
+                invoke: 'aplicarDescuentoProducto',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -839,7 +865,6 @@ const crm = {
                 per_page: per_page,
             })
 
-            console.log('Zoho getUsers: ', request)
             if (request.status === 204) {
                 return {
                     code: request.status,
@@ -867,10 +892,9 @@ const crm = {
         }
     },
     async createLead(newData, ownerId, fraccionamientoId) {
-        console.log('Creating Lead...')
         let data = { ...newData.contacto }
         let lead = {}
-        console.log('data: ', data)
+
         let nombreCompleto =
             data.First_Name.toUpperCase() +
             ' ' +
@@ -925,15 +949,13 @@ const crm = {
         lead.Zip_Code = data.Mailing_Zip
         lead.Country = data.Colonia
 
-        console.log('lead: ', lead)
-
         try {
             const request = await ZOHO.CRM.API.insertRecord({
                 Entity: 'Leads',
                 APIData: lead,
                 Trigger: [],
             })
-            console.log('Zoho create contact: ', request)
+
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -952,7 +974,10 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
-            console.log(error)
+            createLog(error, 'Error', {
+                args: { newData, ownerId, fraccionamientoId },
+                invoke: 'createLead',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -998,7 +1023,6 @@ const crm = {
 
 const creator = {
     async createRecord(data) {
-        console.log('createRecordData', data)
         const connectionName = 'creator'
         const req_data = {
             parameters: data,
@@ -1010,7 +1034,6 @@ const creator = {
                 connectionName,
                 req_data
             )
-            console.log('Zoho - associateProduct: ', request)
             if (
                 request.code !== 'SUCCESS' ||
                 request.details.statusMessage?.data?.ID === undefined
@@ -1031,6 +1054,10 @@ const creator = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { data },
+                invoke: 'createRecord',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -1040,7 +1067,6 @@ const creator = {
         }
     },
     async getRecord(id) {
-        console.log('Creator getRecordById', id)
         const connectionName = 'creator'
         const req_data = {
             method: 'GET',
@@ -1051,7 +1077,6 @@ const creator = {
                 connectionName,
                 req_data
             )
-            console.log('Creator get record request: ', request)
             if (
                 request.code !== 'SUCCESS' ||
                 request.details.statusMessage?.data?.ID === undefined
@@ -1097,7 +1122,6 @@ const books = {
             }
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - sendInvoice: ', request)
             if (!request?.details?.statusMessage?.contacts[0]?.contact_id) {
                 return {
                     code: '404',
@@ -1124,7 +1148,6 @@ const books = {
         }
     },
     async syncContact(id) {
-        console.log('Zoho syncContact id: ', id)
         try {
             const conn_name = 'syncbooks'
             const config = {
@@ -1132,10 +1155,8 @@ const books = {
                 url: `https://books.zoho.com/api/v3/crm/contact/${id}/import?organization_id=${organization_id}`,
                 // url: `https://books.zoho.com/api/v3/crm/contact/${id}/import?organization_id=651425182`,
             }
-            console.log('Zoho syncContact config: ', config)
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - syncContact: ', request)
             if (!request?.details?.statusMessage?.data?.customer_id) {
                 return {
                     code: '404',
@@ -1153,6 +1174,8 @@ const books = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', { args: { id }, invoke: 'syncContact' })
+
             return {
                 code: 500,
                 ok: false,
@@ -1175,7 +1198,7 @@ const books = {
             const item = items.find((item) => {
                 if (item.sku === sku) return item
             })
-            console.log('Zoho - getProductBySku: ', request)
+
             if (request.code !== 'SUCCESS' || item === undefined) {
                 return {
                     code: request.data[0].status,
@@ -1215,7 +1238,6 @@ const books = {
             }
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - createProduct: ', request)
             if (request.data[0].code !== 'SUCCESS') {
                 return {
                     code: request.data[0].status,
@@ -1234,6 +1256,11 @@ const books = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { data },
+                invoke: 'createProduct',
+            })
+
             return {
                 code: 500,
                 ok: false,
@@ -1255,7 +1282,6 @@ const books = {
             }
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - createInvoice: ', request)
             if (request.details.statusMessage.code !== 0) {
                 return {
                     code: 400,
@@ -1274,6 +1300,10 @@ const books = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { data },
+                invoke: 'createInvoice',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -1291,7 +1321,6 @@ const books = {
             }
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - sendInvoice: ', request)
             if (request.details.statusMessage.code !== 0) {
                 return {
                     code: 400,
@@ -1310,6 +1339,7 @@ const books = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', { args: { id }, invoke: 'sendInvoice' })
             return {
                 code: 500,
                 ok: false,
@@ -1328,7 +1358,6 @@ const books = {
             }
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - updateInvoice: ', request)
             if (request.details.statusMessage.code !== 0) {
                 return {
                     code: 400,
@@ -1347,6 +1376,10 @@ const books = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { item_id, data },
+                invoke: 'updateProduct',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -1373,7 +1406,6 @@ const books = {
             }
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
 
-            console.log('Zoho - removing discount', request)
             if (request.details.statusMessage.code !== 0) {
                 return {
                     code: 400,
@@ -1392,6 +1424,10 @@ const books = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { item_id },
+                invoke: 'removeDiscountBooks',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -1414,7 +1450,7 @@ const cliq = {
             var conn_name = 'cliq'
 
             const request = await ZOHO.CRM.CONNECTION.invoke(conn_name, config)
-            console.log('requestCliq', request)
+
             if (request.code !== 'SUCCESS') {
                 return {
                     code: '400',
@@ -1432,6 +1468,10 @@ const cliq = {
                 type: 'success',
             }
         } catch (error) {
+            createLog(error, 'Error', {
+                args: { channel, msg },
+                invoke: 'postToChannel',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -1440,6 +1480,28 @@ const cliq = {
             }
         }
     },
+}
+
+async function createLog(log, status, info) {
+    const connectionName = 'creator'
+
+    const obj = {
+        data: {
+            app: 'widget testing',
+            log,
+            status,
+            additional_info: info,
+        },
+    }
+
+    const req_data = {
+        parameters: obj,
+        method: 'POST',
+        url: 'https://creator.zoho.com/api/v2/sistemas134/cotizador1/form/logs',
+    }
+
+    const response = await ZOHO.CRM.CONNECTION.invoke(connectionName, req_data)
+    return response
 }
 
 export { crm, creator, books, cliq }

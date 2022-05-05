@@ -19,7 +19,6 @@ let CRMData = {},
 
 ZOHO.embeddedApp.on('PageLoad', async function (data) {
     ZOHO.CRM.CONFIG.getCurrentUser().then(function (data) {
-        console.log('Current user', data)
         const user = document.getElementById('user')
         UI.userVendors(data.users[0])
         UI.addfuentes()
@@ -29,7 +28,6 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
         if (data.users[0].profile.name === 'Vendedor') {
-            console.log('es Vendedor')
             document.querySelector('#vendorsValue').value = data.users[0].id
         }
         img_user.setAttribute('src', data.users[0].image_link)
@@ -96,7 +94,6 @@ document.addEventListener('click', (e) => {
         e.target.dataset.module == 'campaign' &&
         e.target.dataset.result == 'found'
     ) {
-        console.log(e.target.dataset.module)
         UI.selectCampaign(e.target)
         UI.fillCampaignDetails(e.target)
     }
@@ -132,17 +129,17 @@ const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
 const input_location = document.querySelector('input[name="Localizacion_P"]')
 const map = document.getElementById('map')
 let navegador = UI.navegador()
-console.log('navegador: ', navegador)
-if ((navegador.browser === 'chrome' || navegador.browser === 'firefox') &&
-    navegador.device === 'Mobile'){
-        selectLote('click')
-    }
-    
-    else {
-        selectLote('dblclick')
-    }
 
-function selectLote (type){
+if (
+    (navegador.browser === 'chrome' || navegador.browser === 'firefox') &&
+    navegador.device === 'Mobile'
+) {
+    selectLote('click')
+} else {
+    selectLote('dblclick')
+}
+
+function selectLote(type) {
     document.addEventListener(`${type}`, (e) => {
         if (e.target.matches('[data-lote]')) {
             if (e.target.dataset.crm == 'true') {
@@ -166,9 +163,6 @@ function selectLote (type){
                                 ? false
                                 : contactDiv.dataset?.accountid
 
-                        console.log('main contact_id: ', contact_id)
-
-                        console.log('main accout_id: ', accout_id)
                         UI.paintDataInForm(contact_id, accout_id).then(() =>
                             valid.validContact(true)
                         )
@@ -188,7 +182,6 @@ function selectLote (type){
             }
         }
     })
-
 }
 
 modal.addEventListener('change', (e) => {
@@ -210,25 +203,6 @@ modal.addEventListener('input', (e) => {
         valid.validateMobile(e.target)
     }
 })
-
-// ---------------------------------------------
-/*
-const btnTest = document.getElementById('btn-submit-test')
-btnTest.addEventListener('click', (e) => {
-    let valid = UI.validDataLists()
-    console.log('main valid: ', valid)
-})
-*/
-//----------------
-/*
-const btnTest = document.getElementById('btn-test')
-btnTest.addEventListener('click', (e) => {
-    UI.viewModal(true, '0', '0', false)
-})
-*/
-// ---------------------------------------------
-
-//UI.viewModal(true, '0', '0', false)
 
 let containerWrap = document.querySelector('.container-wrap')
 let containerModal = document.querySelector('.container-modal')
@@ -254,8 +228,8 @@ function cerrarMenu() {
     btnMenuSpan.classList.toggle('active')
 }
 
-menu.addEventListener('click', (e) =>{
-    if(e.target.matches('[data-index]')){
+menu.addEventListener('click', (e) => {
+    if (e.target.matches('[data-index]')) {
         cerrarMenu()
     }
 })
@@ -271,10 +245,8 @@ Iconmenu2.addEventListener('click', () => {
 
 // tabs Modal
 const tabs = document.querySelectorAll('[data-tab-target]')
-console.log('tabs: ', tabs)
 
 tabs.forEach((tab) => {
-    console.log('tab:', tab)
     tab.addEventListener('click', () => {
         tabs.forEach((tab) => {
             tab.classList.remove('active')

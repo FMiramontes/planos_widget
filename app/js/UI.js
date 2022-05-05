@@ -48,342 +48,342 @@ const coords = [
 ]
 
 const fuentesCliente = [
-    "Aviso",
-    "Llamada no solicitada",
-    "Recomendación de empleado",
-    "Recomendación externa",
-    "Tienda en línea",
-    "Socio",
-    "Facebook",
-    "Twitter",
-    "Relaciones públicas",
-    "Alias del correo electrónico de ventas",
-    "Google+",
-    "Socio de seminarios",
-    "Seminario interno",
-    "Exposición comercial",
-    "Descargar web",
-    "Investigación web",
-    "Casos de la Web",
-    "Correo web",
-    "Chat",
-    "Infomercial",
-    "Página Web",
-    "Carteleras",
-    "Periodico",
-    "Radio",
-    "Volanteo",
-    "Oficinas",
-    "Referido Inverplus",
-    "Recomendados",
-    "Flyers",
-    "Camion",
-    "Google AdWords",
-    "CARRERA ROSARITO ABRIL 2022",
-    "CARRETA PLAZA LAS AMERICAS",
-    "CARTELERA SENTRI",
-    "CONTENEDOR ALAMAR 3",
-    "DESARROLLO LOS OLIVOS",
-    "DESARROLLO RANCHO ESCONDIDO",
-    "ENTREVISTA INVASORA USA",
-    "EVENTO LIBERTEX 2022",
-    "EXPO BODA 2022",
-    "FACEBOOK CAMPESTRE VALLECITOS",
-    "FACEBOOK CIELO",
-    "FACEBOOK ENCINO SOLO",
-    "FACEBOOK MISION DE GUADALUPE",
-    "FACEBOOK RANCHETTES",
-    "FACEBOOK RANCHO LAS PUERTAS",
-    "FACEBOOK RESIDENCIAL LOS OLIVOS",
-    "FACEBOOK VISTA DE PUERTO NUEVO",
-    "GIGANTOGRAFIA COSTA DORADA",
-    "GRUPO CADENA",
-    "LANDING PAGE CIELO",
-    "LANDING PAGE COSTA DORADA",
-    "LANDING PAGE SAHARA",
-    "LANDING PAGE TERRENOS CAMPESTRES",
-    "OFICINA LAS AMERICAS",
-    "PANTALLA ALAMEDA",
-    "PASE CALL CENTER LA GLORIA",
-    "PISTA DE HIELO 2021",
-    "PROSPECCION AMBULANTE ROSARITO",
-    "ZONKEYS 2022",
-    "CAMION TOSCANA",
-    "CARTELERA AGUAJE DE LA TUNA",
-    "CARTELERA ALAMAR",
-    "CARTELERA ALAMAR 2",
-    "CARTELERA ALAMAR 3",
-    "CARTELERA AVENIDA INTERNACIONAL",
-    "CARTELERA CARRETERA ROSARITO ENSENADA",
-    "CARTELERA CAZZAR",
-    "CARTELERA CENTRO CIVICO ROSARITO",
-    "CARTELERA CENTRO HISTORICO TKT",
-    "CARTELERA CHARLYS",
-    "CARTELERA CIELO",
-    "CARTELERA CORPORATIVO DEL PRADO",
-    "CARTELERA COSTA DORADA 1",
-    "CARTELERA COSTA DORADA 3",
-    "CARTELERA COSTA DORADA 4",
-    "CARTELERA COSTA DORADA 5",
-    "CARTELERA CRISTO POR CALAFIA",
-    "CARTELERA CUAUHTEMOC",
-    "CARTELERA CUCAPAH",
-    "CARTELERA CUOTA 1 COSTA DORADA",
-    "CARTELERA CUOTA ROS-ENS VILLA TOSCANA",
-    "CARTELERA CUOTA TKT",
-    "CARTELERA DOBLE ESCÉNICA",
-    "CARTELERA EL CHAPARRAL",
-    "CARTELERA EL CHAPARRAL 2",
-    "CARTELERA ENTRADA A PLAYAS",
-    "CARTELERA ENTRADA PLAYAS",
-    "CARTELERA ESCENICA PLAYAS-ROS",
-    "CARTELERA ESCENICA ROSARITO ENS",
-    "CARTELERA GARITA CHAPARRAL",
-    "CARTELERA GARITA DE OTAY 1",
-    "CARTELERA GARITA DE OTAY 2",
-    "CARTELERA INTERNACIONAL 2",
-    "CARTELERA LAGUNA SALADA",
-    "CARTELERA LIBRE ESCENICA ENSENADA",
-    "CARTELERA LIBRE ROSARITO 1",
-    "CARTELERA LIBRE ROSARITO 2",
-    "CARTELERA LIBRE ROSARITO 3",
-    "CARTELERA LINEA 3",
-    "CARTELERA LINEA CIELO 1",
-    "CARTELERA MUJER INVERPLUS",
-    "CARTELERA NODO OTAY",
-    "CARTELERA PABELLON ROSARITO",
-    "CARTELERA PANAMERICANO",
-    "CARTELERA PLAZA GALERIAS",
-    "CARTELERA PLAZA INFINITI",
-    "CARTELERA PRIMOTAPIA-ARENALES",
-    "CARTELERA PUENTE REAL INN",
-    "CARTELERA READY LANE",
-    "CARTELERA READY LANE 2",
-    "CARTELERA READY LANE 5",
-    "CARTELERA REAL DE SANTA FE",
-    "CARTELERA SAHARA",
-    "CARTELERA SAN PEDRO",
-    "CARTELERA SIMSA",
-    "CARTELERA SUBIDA AEROPUERTO",
-    "CARTELERA TERAN TERAN MEXICALI",
-    "CARTELERA UBICACIÓN VILLA TOSCANA",
-    "CARTELERA UNIPOLAR CHICO ROSARITO",
-    "CARTELERA UNIPOLAR CUOTA PLAYAS DE TIJ- RTO",
-    "CARTELERA UNIPOLAR ENTRADA TIJ",
-    "CARTELERA VISTAS DEL RIO 1",
-    "CASA DE PIEDRA",
-    "CASETA MISIÓN GUADALUPE",
-    "CHAT FB",
-    "CIELO OFICINAS",
-    "CIELO RESIDENCIAL VALLAS",
-    "CONTENEDOR 1 PASEO LAS BRISAS",
-    "CONTENEDOR 2 PASEO LAS BRISAS",
-    "CONTENEDOR ALAMAR",
-    "CONTENEDOR BETHEL",
-    "CONTENEDOR CANTAMAR",
-    "CONTENEDOR CASA DE PIEDRA",
-    "CONTENEDOR CIELO 2",
-    "CONTENEDOR COSTA DORADA 1",
-    "CONTENEDOR COSTA DORADA 3",
-    "CONTENEDOR LA FONDA",
-    "CONTENEDOR LA PALOMA",
-    "CONTENEDOR LOMAS DEL VALLE",
-    "CONTENEDOR MISIÓN GUADALUPE",
-    "CONTENEDOR PARAISO LADRILLERA",
-    "CONTENEDOR POPOTLA",
-    "CONTENEDOR PUERTO NUEVO",
-    "CONTENEDOR RANCHO LA PUERTA",
-    "CONTENEDOR REAL DE SANTA FE",
-    "CONTENEDOR REAL DE SANTA FE 1",
-    "CONTENEDOR SAHARA",
-    "CONTENEDOR SAHARA 2",
-    "CONTENEDOR SANTA FE LA PAJARITA",
-    "CONTENEDOR SANTA FE TOOGINOS",
-    "CONTENEDOR SEVEN ELEVEN",
-    "CONTENEDOR TARAY",
-    "CONTENEDOR TERAN TERAN",
-    "CONTENEDOR VALLE DE GUADALUPE",
-    "CONTENEDOR VALLE DEL CIMARRON 1",
-    "CONTENEDOR VALLE DEL CIMARRON 2",
-    "CONTROL REMOTO LA INVASORA 94.5",
-    "CONTROL REMOTO PULSAR",
-    "DESARROLLO VISTAS DEL RIO",
-    "DESAYUNOS MUJER INVERPLUS",
-    "EL SHOW DE MARIO ALBERTO",
-    "EL TRIANGULO VALLE DE GUADALUPE",
-    "EMPODERATE LA",
-    "ENCUESTAS",
-    "ENCUESTAS CALLE TIJUANA",
-    "ENCUESTAS LINEA OTAY",
-    "ENCUESTAS MEXICALI",
-    "ENCUESTAS SAN YSIDRO",
-    "ENSENADA VILLA MARINA",
-    "ENTREVISTA GUSTAVO VARGAS",
-    "ENTREVISTA TV AZTECA",
-    "ENTREVISTAS RADIO LOS ANGELES",
-    "ENTREVISTAS TELEVISA",
-    "ENVIOS MASIVOS",
-    "EVENTO FATO",
-    "EVENTO SENIOR EXPO ONTARIO CA",
-    "EXA FM",
-    "EXPO ARTE Y DECO ROSARITO 2019",
-    "EXPO BODA 2020",
-    "EXPO MUEBLE",
-    "FACEBOOK AGENTES",
-    "FACEBOOK ALAMAR",
-    "FACEBOOK ALFREDO ALVAREZ",
-    "FACEBOOK BETHEL",
-    "FACEBOOK COSTA DORADA",
-    "FACEBOOK EMPRESA",
-    "FACEBOOK GRUPO CONCORDIA USA",
-    "FACEBOOK SAHARA",
-    "FACEBOOK TARAY",
-    "FACEBOOK VILLA PARAISO",
-    "FACEBOOK VILLATOSCANA",
-    "FACEBOOK VISTAS DEL RIO",
-    "FB AGENTE 1",
-    "FB AGENTE 10",
-    "FB AGENTE 11",
-    "FB AGENTE 12",
-    "FB AGENTE 13",
-    "FB AGENTE 14",
-    "FB AGENTE 15",
-    "FB AGENTE 16",
-    "FB AGENTE 17",
-    "FB AGENTE 18",
-    "FB AGENTE 19",
-    "FB AGENTE 2",
-    "FB AGENTE 20",
-    "FB AGENTE 21",
-    "FB AGENTE 22",
-    "FB AGENTE 23",
-    "FB AGENTE 24",
-    "FB AGENTE 25",
-    "FB AGENTE 26",
-    "FB AGENTE 27",
-    "FB AGENTE 28",
-    "FB AGENTE 3",
-    "FB AGENTE 4",
-    "FB AGENTE 5",
-    "FB AGENTE 6",
-    "FB AGENTE 7",
-    "FB AGENTE 8",
-    "FB AGENTE 9",
-    "FLYERS TABLOIDES TOSCANA",
-    "FLYERS / TABLOIDES CIELO",
-    "FLYERS / TABLOIDES VILLA GLORIA",
-    "FLYERS LINEA",
-    "FLYERS LOS ANGELES",
-    "GIGANTOGRAFIA SENTRI",
-    "HOSPITAL ÁNGELES",
-    "INFOMERCIAL AZTECA LA",
-    "INFOMERCIAL CANAL 22",
-    "INFOMERCIAL ESTRELLA TV",
-    "INFOMERCIAL TELEMUNDO LOS ANGELES",
-    "INFOMERCIAL TELEMUNDO SAN DIEGO",
-    "INFOMERCIAL TELEVISA GUADALAJARA",
-    "INFOMERCIAL TELEVISA MEXICALI",
-    "INFOMERCIAL TELEVISA MONTERREY",
-    "INFOMERCIAL TELEVISA TIJUANA",
-    "INFOMERCIAL TV AZTECA",
-    "INFOMERCIAL UNIVISION LA",
-    "LA BUENA EL MALO Y EL FEO",
-    "LA MEJOR 90.7",
-    "LA OPINION",
-    "LA PUERTA",
-    "LA QUE BUENA LA",
-    "LA RAZA LA",
-    "LA TIMES",
-    "LINEA 1",
-    "LINEA 2",
-    "LINEA 4",
-    "LLAMADA EN FRIO",
-    "LOS ANGELES MIXER 2019",
-    "LOS PANCHOS",
-    "MARQUESINA SENTRI",
-    "Memorial Day Facebook",
-    "MENCIÓN LA RANCHERA",
-    "MERCADO DE ABASTOS",
-    "MUJER INVERPLUS",
-    "MURO PLAZA CALIFORNIA",
-    "NOCHES DE INVERSIÓN CAZZAR",
-    "OFICINA ALAMAR",
-    "OFICINA ALTIPLANO",
-    "OFICINA BETHEL",
-    "OFICINA CAZZAR",
-    "OFICINA LOS ANGELES",
-    "OFICINA PLAYAS",
-    "OFICINA PUERTO NUEVO",
-    "OFICINA SENDEROS ROSARITO",
-    "OFICINAS LINEA",
-    "PAGINA WEB CIELO",
-    "PAGINA WEB GRUPO CONCORDIA",
-    "PAGINA WEB TECATE",
-    "PAGINA WEB TOSCANA",
-    "PANTALLA CESPT",
-    "PANTALLA CHAPARRAL",
-    "PANTALLA HOTEL CORONA",
-    "PANTALLA OTAY",
-    "PANTALLA PLAZA FIESTA",
-    "PANTALLA REAL INN",
-    "PANTALLA TV AZTECA",
-    "PERIODICO FRONTERA",
-    "PLAN DE RECOMPENSA",
-    "PONOSA VALLAS CIELO",
-    "PONOSA VALLAS PARAÍSO",
-    "PROMOCIÓN 40",
-    "PROMOTORES VIRTUALES",
-    "PROSPECTADORES GARITA",
-    "PUENTE BUENA VISTA",
-    "PUENTE PLAYAS",
-    "PUERTO NUEVO",
-    "PUNTO DE VENTA ALAMAR",
-    "PUNTO DE VENTA BELLA VISTA",
-    "PUNTO DE VENTA BRISAS",
-    "PUNTO DE VENTA CASA KEPLER",
-    "PUNTO DE VENTA CIMARRÓN",
-    "PUNTO DE VENTA LA GLORIA",
-    "PUNTO DE VENTA MERCADO HIDALGO",
-    "PUNTO DE VENTA PONOSA",
-    "RADIO GUSTAVO VARGAS",
-    "RADIO LATINA",
-    "READY LANE 3",
-    "READY LANE 4",
-    "REPORTE DE GARITAS",
-    "SABOR A VALLE 28",
-    "SABOR A VALLE 29",
-    "SENTRI",
-    "SPOT CNR",
-    "SPOT TELEVISA",
-    "SPOT TELEVISA 6:00 PM",
-    "SPOT TELEVISA 8:00 PM",
-    "SPOT TV AZTECA",
-    "SPOT TV AZTECA 10:00 AM",
-    "SPOT TV AZTECA 8:30 PM",
-    "SUCCESSFUL AGING EXPO 2019",
-    "TAMALE FESTIVAL",
-    "TECATE LOS ENCINOS",
-    "TECATE PFC",
-    "TELEVISA TIJUANA",
-    "TORNEO DE GOLF REAL DEL MAR 2019",
-    "TOURS",
-    "TV AZTECA SAN DIEGO",
-    "UNIDAD DE VENTA",
-    "UNIRADIO",
-    "UNIRADIO PULSAR",
-    "VALLA MOVIL ELEVADA",
-    "VALLAS MISIÓN DE GUADALUPE",
-    "VALLAS SEVEN ELEVEN",
-    "VILLA GLORIA",
-    "VILLA GLORIA OFICINAS",
-    "VILLA TOSCANA OFICINAS",
-    "VIVANUNCIOS",
-    "VOLANTE BAJA REAL STATE TOUR",
-    "VOLANTE VENTAS",
-    "VOLANTES MISION",
-    "WEB GPO CONCORDIA USA",
-    "WEB MÓVIL SYS",
-    "CONTROL EXA 91.7",
+    'Aviso',
+    'Llamada no solicitada',
+    'Recomendación de empleado',
+    'Recomendación externa',
+    'Tienda en línea',
+    'Socio',
+    'Facebook',
+    'Twitter',
+    'Relaciones públicas',
+    'Alias del correo electrónico de ventas',
+    'Google+',
+    'Socio de seminarios',
+    'Seminario interno',
+    'Exposición comercial',
+    'Descargar web',
+    'Investigación web',
+    'Casos de la Web',
+    'Correo web',
+    'Chat',
+    'Infomercial',
+    'Página Web',
+    'Carteleras',
+    'Periodico',
+    'Radio',
+    'Volanteo',
+    'Oficinas',
+    'Referido Inverplus',
+    'Recomendados',
+    'Flyers',
+    'Camion',
+    'Google AdWords',
+    'CARRERA ROSARITO ABRIL 2022',
+    'CARRETA PLAZA LAS AMERICAS',
+    'CARTELERA SENTRI',
+    'CONTENEDOR ALAMAR 3',
+    'DESARROLLO LOS OLIVOS',
+    'DESARROLLO RANCHO ESCONDIDO',
+    'ENTREVISTA INVASORA USA',
+    'EVENTO LIBERTEX 2022',
+    'EXPO BODA 2022',
+    'FACEBOOK CAMPESTRE VALLECITOS',
+    'FACEBOOK CIELO',
+    'FACEBOOK ENCINO SOLO',
+    'FACEBOOK MISION DE GUADALUPE',
+    'FACEBOOK RANCHETTES',
+    'FACEBOOK RANCHO LAS PUERTAS',
+    'FACEBOOK RESIDENCIAL LOS OLIVOS',
+    'FACEBOOK VISTA DE PUERTO NUEVO',
+    'GIGANTOGRAFIA COSTA DORADA',
+    'GRUPO CADENA',
+    'LANDING PAGE CIELO',
+    'LANDING PAGE COSTA DORADA',
+    'LANDING PAGE SAHARA',
+    'LANDING PAGE TERRENOS CAMPESTRES',
+    'OFICINA LAS AMERICAS',
+    'PANTALLA ALAMEDA',
+    'PASE CALL CENTER LA GLORIA',
+    'PISTA DE HIELO 2021',
+    'PROSPECCION AMBULANTE ROSARITO',
+    'ZONKEYS 2022',
+    'CAMION TOSCANA',
+    'CARTELERA AGUAJE DE LA TUNA',
+    'CARTELERA ALAMAR',
+    'CARTELERA ALAMAR 2',
+    'CARTELERA ALAMAR 3',
+    'CARTELERA AVENIDA INTERNACIONAL',
+    'CARTELERA CARRETERA ROSARITO ENSENADA',
+    'CARTELERA CAZZAR',
+    'CARTELERA CENTRO CIVICO ROSARITO',
+    'CARTELERA CENTRO HISTORICO TKT',
+    'CARTELERA CHARLYS',
+    'CARTELERA CIELO',
+    'CARTELERA CORPORATIVO DEL PRADO',
+    'CARTELERA COSTA DORADA 1',
+    'CARTELERA COSTA DORADA 3',
+    'CARTELERA COSTA DORADA 4',
+    'CARTELERA COSTA DORADA 5',
+    'CARTELERA CRISTO POR CALAFIA',
+    'CARTELERA CUAUHTEMOC',
+    'CARTELERA CUCAPAH',
+    'CARTELERA CUOTA 1 COSTA DORADA',
+    'CARTELERA CUOTA ROS-ENS VILLA TOSCANA',
+    'CARTELERA CUOTA TKT',
+    'CARTELERA DOBLE ESCÉNICA',
+    'CARTELERA EL CHAPARRAL',
+    'CARTELERA EL CHAPARRAL 2',
+    'CARTELERA ENTRADA A PLAYAS',
+    'CARTELERA ENTRADA PLAYAS',
+    'CARTELERA ESCENICA PLAYAS-ROS',
+    'CARTELERA ESCENICA ROSARITO ENS',
+    'CARTELERA GARITA CHAPARRAL',
+    'CARTELERA GARITA DE OTAY 1',
+    'CARTELERA GARITA DE OTAY 2',
+    'CARTELERA INTERNACIONAL 2',
+    'CARTELERA LAGUNA SALADA',
+    'CARTELERA LIBRE ESCENICA ENSENADA',
+    'CARTELERA LIBRE ROSARITO 1',
+    'CARTELERA LIBRE ROSARITO 2',
+    'CARTELERA LIBRE ROSARITO 3',
+    'CARTELERA LINEA 3',
+    'CARTELERA LINEA CIELO 1',
+    'CARTELERA MUJER INVERPLUS',
+    'CARTELERA NODO OTAY',
+    'CARTELERA PABELLON ROSARITO',
+    'CARTELERA PANAMERICANO',
+    'CARTELERA PLAZA GALERIAS',
+    'CARTELERA PLAZA INFINITI',
+    'CARTELERA PRIMOTAPIA-ARENALES',
+    'CARTELERA PUENTE REAL INN',
+    'CARTELERA READY LANE',
+    'CARTELERA READY LANE 2',
+    'CARTELERA READY LANE 5',
+    'CARTELERA REAL DE SANTA FE',
+    'CARTELERA SAHARA',
+    'CARTELERA SAN PEDRO',
+    'CARTELERA SIMSA',
+    'CARTELERA SUBIDA AEROPUERTO',
+    'CARTELERA TERAN TERAN MEXICALI',
+    'CARTELERA UBICACIÓN VILLA TOSCANA',
+    'CARTELERA UNIPOLAR CHICO ROSARITO',
+    'CARTELERA UNIPOLAR CUOTA PLAYAS DE TIJ- RTO',
+    'CARTELERA UNIPOLAR ENTRADA TIJ',
+    'CARTELERA VISTAS DEL RIO 1',
+    'CASA DE PIEDRA',
+    'CASETA MISIÓN GUADALUPE',
+    'CHAT FB',
+    'CIELO OFICINAS',
+    'CIELO RESIDENCIAL VALLAS',
+    'CONTENEDOR 1 PASEO LAS BRISAS',
+    'CONTENEDOR 2 PASEO LAS BRISAS',
+    'CONTENEDOR ALAMAR',
+    'CONTENEDOR BETHEL',
+    'CONTENEDOR CANTAMAR',
+    'CONTENEDOR CASA DE PIEDRA',
+    'CONTENEDOR CIELO 2',
+    'CONTENEDOR COSTA DORADA 1',
+    'CONTENEDOR COSTA DORADA 3',
+    'CONTENEDOR LA FONDA',
+    'CONTENEDOR LA PALOMA',
+    'CONTENEDOR LOMAS DEL VALLE',
+    'CONTENEDOR MISIÓN GUADALUPE',
+    'CONTENEDOR PARAISO LADRILLERA',
+    'CONTENEDOR POPOTLA',
+    'CONTENEDOR PUERTO NUEVO',
+    'CONTENEDOR RANCHO LA PUERTA',
+    'CONTENEDOR REAL DE SANTA FE',
+    'CONTENEDOR REAL DE SANTA FE 1',
+    'CONTENEDOR SAHARA',
+    'CONTENEDOR SAHARA 2',
+    'CONTENEDOR SANTA FE LA PAJARITA',
+    'CONTENEDOR SANTA FE TOOGINOS',
+    'CONTENEDOR SEVEN ELEVEN',
+    'CONTENEDOR TARAY',
+    'CONTENEDOR TERAN TERAN',
+    'CONTENEDOR VALLE DE GUADALUPE',
+    'CONTENEDOR VALLE DEL CIMARRON 1',
+    'CONTENEDOR VALLE DEL CIMARRON 2',
+    'CONTROL REMOTO LA INVASORA 94.5',
+    'CONTROL REMOTO PULSAR',
+    'DESARROLLO VISTAS DEL RIO',
+    'DESAYUNOS MUJER INVERPLUS',
+    'EL SHOW DE MARIO ALBERTO',
+    'EL TRIANGULO VALLE DE GUADALUPE',
+    'EMPODERATE LA',
+    'ENCUESTAS',
+    'ENCUESTAS CALLE TIJUANA',
+    'ENCUESTAS LINEA OTAY',
+    'ENCUESTAS MEXICALI',
+    'ENCUESTAS SAN YSIDRO',
+    'ENSENADA VILLA MARINA',
+    'ENTREVISTA GUSTAVO VARGAS',
+    'ENTREVISTA TV AZTECA',
+    'ENTREVISTAS RADIO LOS ANGELES',
+    'ENTREVISTAS TELEVISA',
+    'ENVIOS MASIVOS',
+    'EVENTO FATO',
+    'EVENTO SENIOR EXPO ONTARIO CA',
+    'EXA FM',
+    'EXPO ARTE Y DECO ROSARITO 2019',
+    'EXPO BODA 2020',
+    'EXPO MUEBLE',
+    'FACEBOOK AGENTES',
+    'FACEBOOK ALAMAR',
+    'FACEBOOK ALFREDO ALVAREZ',
+    'FACEBOOK BETHEL',
+    'FACEBOOK COSTA DORADA',
+    'FACEBOOK EMPRESA',
+    'FACEBOOK GRUPO CONCORDIA USA',
+    'FACEBOOK SAHARA',
+    'FACEBOOK TARAY',
+    'FACEBOOK VILLA PARAISO',
+    'FACEBOOK VILLATOSCANA',
+    'FACEBOOK VISTAS DEL RIO',
+    'FB AGENTE 1',
+    'FB AGENTE 10',
+    'FB AGENTE 11',
+    'FB AGENTE 12',
+    'FB AGENTE 13',
+    'FB AGENTE 14',
+    'FB AGENTE 15',
+    'FB AGENTE 16',
+    'FB AGENTE 17',
+    'FB AGENTE 18',
+    'FB AGENTE 19',
+    'FB AGENTE 2',
+    'FB AGENTE 20',
+    'FB AGENTE 21',
+    'FB AGENTE 22',
+    'FB AGENTE 23',
+    'FB AGENTE 24',
+    'FB AGENTE 25',
+    'FB AGENTE 26',
+    'FB AGENTE 27',
+    'FB AGENTE 28',
+    'FB AGENTE 3',
+    'FB AGENTE 4',
+    'FB AGENTE 5',
+    'FB AGENTE 6',
+    'FB AGENTE 7',
+    'FB AGENTE 8',
+    'FB AGENTE 9',
+    'FLYERS TABLOIDES TOSCANA',
+    'FLYERS / TABLOIDES CIELO',
+    'FLYERS / TABLOIDES VILLA GLORIA',
+    'FLYERS LINEA',
+    'FLYERS LOS ANGELES',
+    'GIGANTOGRAFIA SENTRI',
+    'HOSPITAL ÁNGELES',
+    'INFOMERCIAL AZTECA LA',
+    'INFOMERCIAL CANAL 22',
+    'INFOMERCIAL ESTRELLA TV',
+    'INFOMERCIAL TELEMUNDO LOS ANGELES',
+    'INFOMERCIAL TELEMUNDO SAN DIEGO',
+    'INFOMERCIAL TELEVISA GUADALAJARA',
+    'INFOMERCIAL TELEVISA MEXICALI',
+    'INFOMERCIAL TELEVISA MONTERREY',
+    'INFOMERCIAL TELEVISA TIJUANA',
+    'INFOMERCIAL TV AZTECA',
+    'INFOMERCIAL UNIVISION LA',
+    'LA BUENA EL MALO Y EL FEO',
+    'LA MEJOR 90.7',
+    'LA OPINION',
+    'LA PUERTA',
+    'LA QUE BUENA LA',
+    'LA RAZA LA',
+    'LA TIMES',
+    'LINEA 1',
+    'LINEA 2',
+    'LINEA 4',
+    'LLAMADA EN FRIO',
+    'LOS ANGELES MIXER 2019',
+    'LOS PANCHOS',
+    'MARQUESINA SENTRI',
+    'Memorial Day Facebook',
+    'MENCIÓN LA RANCHERA',
+    'MERCADO DE ABASTOS',
+    'MUJER INVERPLUS',
+    'MURO PLAZA CALIFORNIA',
+    'NOCHES DE INVERSIÓN CAZZAR',
+    'OFICINA ALAMAR',
+    'OFICINA ALTIPLANO',
+    'OFICINA BETHEL',
+    'OFICINA CAZZAR',
+    'OFICINA LOS ANGELES',
+    'OFICINA PLAYAS',
+    'OFICINA PUERTO NUEVO',
+    'OFICINA SENDEROS ROSARITO',
+    'OFICINAS LINEA',
+    'PAGINA WEB CIELO',
+    'PAGINA WEB GRUPO CONCORDIA',
+    'PAGINA WEB TECATE',
+    'PAGINA WEB TOSCANA',
+    'PANTALLA CESPT',
+    'PANTALLA CHAPARRAL',
+    'PANTALLA HOTEL CORONA',
+    'PANTALLA OTAY',
+    'PANTALLA PLAZA FIESTA',
+    'PANTALLA REAL INN',
+    'PANTALLA TV AZTECA',
+    'PERIODICO FRONTERA',
+    'PLAN DE RECOMPENSA',
+    'PONOSA VALLAS CIELO',
+    'PONOSA VALLAS PARAÍSO',
+    'PROMOCIÓN 40',
+    'PROMOTORES VIRTUALES',
+    'PROSPECTADORES GARITA',
+    'PUENTE BUENA VISTA',
+    'PUENTE PLAYAS',
+    'PUERTO NUEVO',
+    'PUNTO DE VENTA ALAMAR',
+    'PUNTO DE VENTA BELLA VISTA',
+    'PUNTO DE VENTA BRISAS',
+    'PUNTO DE VENTA CASA KEPLER',
+    'PUNTO DE VENTA CIMARRÓN',
+    'PUNTO DE VENTA LA GLORIA',
+    'PUNTO DE VENTA MERCADO HIDALGO',
+    'PUNTO DE VENTA PONOSA',
+    'RADIO GUSTAVO VARGAS',
+    'RADIO LATINA',
+    'READY LANE 3',
+    'READY LANE 4',
+    'REPORTE DE GARITAS',
+    'SABOR A VALLE 28',
+    'SABOR A VALLE 29',
+    'SENTRI',
+    'SPOT CNR',
+    'SPOT TELEVISA',
+    'SPOT TELEVISA 6:00 PM',
+    'SPOT TELEVISA 8:00 PM',
+    'SPOT TV AZTECA',
+    'SPOT TV AZTECA 10:00 AM',
+    'SPOT TV AZTECA 8:30 PM',
+    'SUCCESSFUL AGING EXPO 2019',
+    'TAMALE FESTIVAL',
+    'TECATE LOS ENCINOS',
+    'TECATE PFC',
+    'TELEVISA TIJUANA',
+    'TORNEO DE GOLF REAL DEL MAR 2019',
+    'TOURS',
+    'TV AZTECA SAN DIEGO',
+    'UNIDAD DE VENTA',
+    'UNIRADIO',
+    'UNIRADIO PULSAR',
+    'VALLA MOVIL ELEVADA',
+    'VALLAS MISIÓN DE GUADALUPE',
+    'VALLAS SEVEN ELEVEN',
+    'VILLA GLORIA',
+    'VILLA GLORIA OFICINAS',
+    'VILLA TOSCANA OFICINAS',
+    'VIVANUNCIOS',
+    'VOLANTE BAJA REAL STATE TOUR',
+    'VOLANTE VENTAS',
+    'VOLANTES MISION',
+    'WEB GPO CONCORDIA USA',
+    'WEB MÓVIL SYS',
+    'CONTROL EXA 91.7',
 ]
 
 const sucursales = [
@@ -408,14 +408,9 @@ const sucursales = [
 
 document.addEventListener('click', async (e) => {
     if (e.target.matches('[data-manzana]')) {
-        console.log(e.target.tagName)
-
         const map = e.target.closest('#map')
-
         let name = map.dataset.name
         let commerceId = map.dataset.commerceId
-
-        console.log("dataset: ",map.dataset) 
         let auxManzana = e.target.id.split('-')
         const manzana = auxManzana[0]
         // const svgNombre = e.target.closest('svg').dataset.desarrollo
@@ -433,7 +428,6 @@ const UI = {
         if ((data.ok = true)) {
             const menu = document.getElementById('menu-lateral')
             data.data.forEach((i, index) => {
-                // console.log(i.fraccionamientos.logo)
                 let frac = document.createElement('div')
                 frac.dataset.localidad = i.Localidad
                 frac.dataset.index = index
@@ -458,7 +452,6 @@ const UI = {
                     containerMap.style.display = 'none'
                     contenedorFracc.style.display = 'none'
                     let name = e.target.dataset.name.toLowerCase()
-                    console.log('Desarrollo', name)
                     const nameSvg = name.replaceAll(' ', '-')
 
                     let tempDesartollo = await fetch(
@@ -466,7 +459,6 @@ const UI = {
                     )
 
                     desarrollo = await tempDesartollo.json()
-                    console.log('--------------------------------')
                     let svgDesarrollo = document.querySelector('svg')
                     let viewBoxSvg = desarrollo.viewBoxSVG[0]
                     svgDesarrollo.setAttribute('viewBox', viewBoxSvg)
@@ -474,16 +466,12 @@ const UI = {
                     const style = document.getElementById('style')
                     style.innerHTML = `@import url(./css/desarrollos/${nameSvg}.css);`
 
-                    console.log('UI desarrollo:', desarrollo)
-
                     data.data.forEach((i) => {
-                        // console.log('i.Name', i.Name.toLowerCase())
-                        // console.log('name', name)
-                        if(i.Name.toLowerCase() == name){
+                        if (i.Name.toLowerCase() == name) {
                             contenedorFracc.innerHTML = `
                             <h3 class="nombre-fracc">${i.Name}</h3>
                             <div class="img-fracc"><img src="${i.logo}" alt="" loading="lazy"></div>
-                            ` 
+                            `
                         }
                     })
 
@@ -491,14 +479,14 @@ const UI = {
 
                     this.loadPlano(e)
                     loader.style.display = 'none'
-                    let bordeSvg = document.querySelector('.map svg');
-                    bordeSvg.style.boxShadow = 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px'
+                    let bordeSvg = document.querySelector('.map svg')
+                    bordeSvg.style.boxShadow =
+                        'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px'
                     containerMap.style.display = 'flex'
                     contenedorFracc.style.display = 'flex'
 
                     let resetButton = document.getElementById('zoom-reset')
 
-                    console.log('click reset...')
                     resetButton.click()
                 }
             })
@@ -524,21 +512,6 @@ const UI = {
         mapa.dataset.name = name
         mapa.dataset.commerceId = id
         mapa.dataset.localidad = localidad
-
-        // document.addEventListener('click', async (e) => {
-        //     if (e.target.matches('[data-manzana]')) {
-        //         console.log(e.target.tagName)
-
-        //         let auxManzana = e.target.id.split('-')
-        //         const manzana = auxManzana[0]
-        //         // const svgNombre = e.target.closest('svg').dataset.desarrollo
-
-        //         await Mapas.loadManzana(manzana, id, desarrollo, beforeManzana)
-        //         await Mapas.getDisponiblidad(name, manzana)
-        //         beforeManzana = manzana
-        //     }
-        // })
-        //
     },
     parseOuterHTML(text) {
         let tempText1 = text.normalize()
@@ -587,8 +560,6 @@ const UI = {
         contactData = await crm.getContact(contact_id)
 
         if (contactData.ok === true) {
-            console.log('Contact: ', contactData)
-
             // pintar informacion en Formulario
             const Keys = this.getKeysForm()
             const CRMData = contactData.data
@@ -602,26 +573,13 @@ const UI = {
                     } else {
                         input.value = CRMData[key]
                     }
-                } else {
-                    console.log('-----------------------------------------')
-                    console.log('input', input)
-                    console.log('No value', key)
                 }
             })
             this.addRecursos(CRMData)
-
-            //const btn_submit = document.getElementById('btn-submit')
-            //btn_submit.disabled = false
-            //valid.validateForm(true)
         }
 
         if (accout_id !== false) {
-            console.log('UI accout_id: ', accout_id)
             accountData = await crm.getAccount(accout_id)
-
-            if (accountData.ok === true) {
-                console.log('Account: ', accountData)
-            }
         }
     },
     cleanForm() {
@@ -662,9 +620,7 @@ const UI = {
             })
         })
 
-        console.log('contacto: ', contacto)
         form.contacto = contacto
-        console.log('Presupuesto: ', Presupuesto)
         form.presupuesto = Presupuesto
 
         return form
@@ -685,9 +641,7 @@ const UI = {
             })
         })
 
-        console.log('contacto: ', contacto)
         form.contacto = contacto
-        console.log('Presupuesto: ', Presupuesto)
         form.presupuesto = Presupuesto
 
         return form
@@ -749,8 +703,6 @@ const UI = {
                 temp_accout_id,
                 contactName
 
-            console.log('contactid: ', contactDiv?.dataset?.contactid)
-
             if (
                 contactDiv.dataset?.contactid !== '' &&
                 contactDiv.dataset?.contactid !== undefined &&
@@ -768,8 +720,6 @@ const UI = {
                     newData.contacto.Apellido_Materno
             }
 
-            console.log('contactName', contactName)
-
             if (
                 contactDiv.dataset?.accountid !== '' &&
                 contactDiv.dataset?.accountid !== undefined &&
@@ -783,10 +733,7 @@ const UI = {
             // const email = 'asdfasdf@gmail.com'
 
             if (temp_contact_id == false) {
-                console.log('if UI temp_contact_id: ', temp_contact_id)
                 let conatctRequest = await crm.searchContact(email, 'Contacts')
-
-                console.log('UI conatctRequest: ', conatctRequest)
 
                 // Create account
                 accountName =
@@ -810,21 +757,15 @@ const UI = {
                 if (conatctRequest.ok) {
                     contact_id = conatctRequest.data[0].id
                     // contacto existe en CRM
-                    console.log(
-                        'Account_Name',
-                        conatctRequest.data[0].Account_Name
-                    )
                     if (conatctRequest.data[0].Account_Name !== null) {
                         // Cuenta no encontrada
                         const createAccountRequest = await crm.createAccount(
                             accountData
                         )
-                        console.log('UI createAccount: ', createAccountRequest)
 
                         accountId = createAccountRequest.data.details.id
                     }
                     const syncContact = await books.syncContact(contact_id)
-                    console.log('UI syncContact: ', syncContact)
                     if (syncContact.ok) {
                         // contacto sincronizado en books
                         id_contactBooks = syncContact.data.customer_id
@@ -865,20 +806,15 @@ const UI = {
                     }
                 }
             } else {
-                console.log('else UI temp_contact_id: ', temp_contact_id)
                 contact_id = temp_contact_id
                 let update = this.checkUpdate(CRMData, newData)
-                console.log('UI update: ', update)
                 if (!update) {
                     const updateRequest = await crm.UpdateContact(
                         newData,
                         contact_id
                     )
-                    console.log('UI UpdateContact: ', updateRequest)
                 }
-                console.log('UI temp_accout_id: ', temp_accout_id)
                 if (temp_accout_id == false) {
-                    console.log('if UI temp_accout_id: ', temp_accout_id)
                     accountName =
                         newData.contacto.First_Name +
                         ' ' +
@@ -901,7 +837,6 @@ const UI = {
                     )
                     accountId = createAccountRequest.data.details.id
                 } else {
-                    console.log('else UI temp_accout_id: ', temp_accout_id)
                     accountId = temp_accout_id
                     accountName = contactDiv.dataset?.accountname
                 }
@@ -988,10 +923,7 @@ const UI = {
                 DealData.Owner = { id: vend.dataset.vendedorid }
             }
 
-            console.log('DealData', DealData)
-
             const DealRequest = await crm.createDeal(DealData)
-            console.log('DealRequest: ', DealRequest)
             if (DealRequest.ok) {
                 alerts.showAlert('success', 'Trato creado en CRM')
                 Deal_id = DealRequest.data.details.id
@@ -1011,10 +943,6 @@ const UI = {
             const removeDiscountRequestBooks = await books.removeDiscountBooks(
                 productBooksId
             )
-            console.log({
-                removeDiscountRequestCRM,
-                removeDiscountRequestBooks,
-            })
 
             // Revisar si se modifico costo por M2
             const checkCostoM2 = document.querySelector(
@@ -1022,7 +950,6 @@ const UI = {
             )
             if (checkCostoM2.dataset.m2_update !== undefined) {
                 // Actualizar el costo x m2 al producto
-                console.log('actualizando costo x m2')
                 const costoM2 = checkCostoM2.value
 
                 const DIMENSIONES = document.querySelector(
@@ -1032,7 +959,6 @@ const UI = {
                 let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(
                     2
                 )
-                console.log('Costo Producto $', costoProducto)
 
                 const updateProductCRM = await crm.updateProduct(
                     product_id,
@@ -1063,7 +989,6 @@ const UI = {
                 Campaign_id,
                 product_id
             )
-            console.log('DESCUENTO:', discountRequest)
             if (discountRequest.ok && discountRequest.data.code === 200) {
                 // Descuento aplicado
                 alerts.showAlert('success', 'Descuento aplicado a Producto')
@@ -1072,19 +997,12 @@ const UI = {
                 discountRequest.data.code === 400
             ) {
                 // No cuenta con descuento...
-                console.log('No cuenta con descuento...')
             } else {
                 alerts.showAlert(
                     'warning',
                     'No se aplico descuento a Producto. Favor de hacerlo manualmente'
                 )
             }
-
-            console.log('accountId: ', accountId)
-            console.log('contact_id: ', contact_id)
-            console.log('id_contactBooks: ', id_contactBooks)
-            console.log('productBooksId: ', productBooksId)
-            console.log('Deal_id: ', Deal_id)
 
             if (
                 accountId &&
@@ -1093,23 +1011,6 @@ const UI = {
                 productBooksId &&
                 Deal_id
             ) {
-                // Cotizacion
-                // const recordData = {
-                //     data: {
-                //         IDOportunidad: Deal_id,
-                //         IDContactoCRM: contact_id,
-                //         NombreContacto: contactName,
-                //         Cuenta: accountName.toUpperCase() || "",
-                //         MododePago: 'EFECTIVO',
-                //         Propietario: DealData.Owner,
-                //         EmailContacto: newData.contacto.Email,
-                //         Contacto: contactName,
-                //         IDProductoBooks: productBooksId,
-                //         Fraccionamiento: document.querySelector('input[name="Fraccionamiento_P"]') || ""
-                //     },
-                // }
-
-                // juntar informacion de registros creados para pasar a la function para crear cotizacion
                 const detailsJson = {
                     IDOportunidad: Deal_id,
                     IDContactoCRM: contact_id,
@@ -1136,23 +1037,20 @@ const UI = {
                             .value || 0,
                     Fecha: util.formatDate(),
                 }
-                console.log({ DealData, Campaign_id, detailsJson })
                 const jsonCotizacion = await util.createCotizacion(
                     DealData,
                     Campaign_id,
                     detailsJson
                 )
-                console.log('json Cotizacion', jsonCotizacion)
 
                 const recordData = {
                     data: {
                         ...jsonCotizacion,
                     },
                 }
-                console.log('recordData', recordData)
 
                 const createCotizacion = await creator.createRecord(recordData)
-                console.log('createCotizacion: ', createCotizacion)
+
                 if (createCotizacion.ok) {
                     alerts.showAlert('success', 'Cotizacion creada')
                     creator_id = createCotizacion.data?.ID
@@ -1320,7 +1218,6 @@ const UI = {
                             const invoiceRequest = await books.createInvoice(
                                 arrInvoices[i]
                             )
-                            console.log('INVOICE REQUEST', invoiceRequest)
                             if (invoiceRequest.ok) {
                                 //Send Invoice
                                 const sendInvoiceRequest =
@@ -1344,9 +1241,6 @@ const UI = {
                                     'Hubo un problema al intentar crear factura'
                                 )
                             }
-                            console.log(
-                                `UI createInvoice: index ${i}', ${invoiceRequest}`
-                            )
                         }
 
                         // End of process
@@ -1369,15 +1263,12 @@ const UI = {
             }
             this.removeContact()
         } catch (error) {
-            console.log(error)
             alerts.showAlert('danger', error.message)
         }
         console.timeEnd()
     },
     fechaDePago(date) {},
     checkUpdate(a, b) {
-        console.log('a: ', a)
-        console.log('b: ', b)
         return JSON.stringify(a) === JSON.stringify(b)
     },
     viewModal(view, id, dataset, paint) {
@@ -1400,14 +1291,12 @@ const UI = {
             modal.dataset.sku = sku
             modal.dataset.fracc_id = fracc_id
             modal.dataset.esquina = esquina
-            console.log('paint', paint)
             if (paint) this.paintDataPresupuesto(id, dataset)
             // container_modal.style.display = 'flex'
         } else {
             // container_modal.style.display = 'none'
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
-            console.log('close modal...')
             this.removeInvalid()
         }
     },
@@ -1415,7 +1304,6 @@ const UI = {
         let invalidInputs = Array.from(
             document.getElementsByClassName('invalid')
         )
-        //console.log({invalidInputs})
         invalidInputs.forEach((inp) => {
             inp.classList.remove('invalid')
         })
@@ -1444,7 +1332,6 @@ const UI = {
     async searchContact() {
         const searchValue = document.querySelector('#search-value').value
         const resultContainer = document.querySelector('#contact-results')
-        // console.log('searchValue', searchValue)
         resultContainer.innerHTML = ''
 
         if (searchValue !== '' || searchValue !== undefined) {
@@ -1454,7 +1341,6 @@ const UI = {
             if (searchRequest.ok === true) {
                 // Found records
                 const records = searchRequest.data
-                // console.log('records: ', records)
                 let df = new DocumentFragment()
                 records.forEach((record) => {
                     var temp = document.createElement('template')
@@ -1481,7 +1367,6 @@ const UI = {
         const searchLabel = document.querySelector('.module-switch label')
 
         const searchModule = searchLabel.dataset.modulesearch
-        // console.log('searchValue', searchValue)
         resultContainer.innerHTML = ''
 
         if (searchValue !== '' || searchValue !== undefined) {
@@ -1494,7 +1379,6 @@ const UI = {
             if (searchRequest.ok === true) {
                 // Found records
                 const records = searchRequest.data
-                // console.log('records: ', records)
                 let df = new DocumentFragment()
                 records.forEach((record) => {
                     var temp = document.createElement('template')
@@ -1580,14 +1464,12 @@ const UI = {
     },
     async selectLead(selectedOption) {
         const convert = confirm('Desea convertir al Posible cliente a Contacto')
-        console.log(selectedOption)
         const userID = document.getElementById('user').dataset.crmuserid
         if (convert) {
             // Logica para convertir lead
             const leadId = selectedOption.dataset.leadid
             if (leadId !== undefined) {
                 const convertLead = await crm.convertToContact(leadId, userID)
-                console.log(convertLead)
                 if (convertLead.ok) {
                     alerts.showAlert('success', 'Lead convertido a Contacto')
                     const data = convertLead.data
@@ -1639,8 +1521,6 @@ const UI = {
         const searchValue = document.querySelector('#campaignValue').value
         const fraccionamientoId =
             document.querySelector('#modal').dataset.fracc_id || ''
-        console.log('searchValue', searchValue)
-        console.log('fracc_id', fraccionamientoId)
 
         const campaignResultContainer =
             document.querySelector('#campaign-results')
@@ -1659,7 +1539,6 @@ const UI = {
             if (searchRequest.ok === true) {
                 // Found records
                 const records = searchRequest.data
-                // console.log('records: ', records)
                 let df = new DocumentFragment()
                 records.forEach((record) => {
                     var temp = document.createElement('template')
@@ -1688,9 +1567,7 @@ const UI = {
         }
     },
     selectCampaign(selectedOption) {
-        console.log('selecting campaign...')
         const campaignInput = document.querySelector('#campaignValue')
-        console.log(selectedOption)
         campaignInput.value = ''
         campaignInput.value = selectedOption.children[0].textContent
         campaignInput.dataset.campaignid = selectedOption.dataset.campaignid
@@ -1754,7 +1631,6 @@ const UI = {
                 const formaDePago = campaignData.Tipo_de_Promocion
                 const politicaCampana = campaignData.Tipo_de_Politica
                 const tipoDeDescuento = campaignData.Tipo_de_Descuento
-                console.log('campana', campaignData)
                 // Obtener costo x m2
                 const requestModule = await crm.getFraccionamiento(
                     campaignData.Fraccionamientos.id
@@ -1776,8 +1652,6 @@ const UI = {
                     inputCosto.dataset.m2_update = 'true'
                 } else {
                     const costoM2_Enganche = moduleData.Precio_de_lista_M2
-                    console.log(costoM2_Enganche)
-
                     const inputCosto = document.querySelector(
                         `input[name="Costo_M2"]`
                     )
@@ -1796,12 +1670,10 @@ const UI = {
                 const modal = document.querySelector('#modal')
                 const esEsquina = modal.dataset.esquina
                 if (esEsquina !== undefined && esEsquina === 'true') {
-                    console.log('Producto en esquina')
                     const costo = document.querySelector(
                         `input[name="Costo_M2"]`
                     )
                     const newCosto = parseFloat(costo.value) + 10
-                    console.log('costo esquina:', newCosto)
                     costo.value = newCosto.toFixed(2)
                     COSTO_M2 = newCosto.toFixed(2)
                     costo.dataset.m2_update = 'true'
@@ -1885,10 +1757,6 @@ const UI = {
 
                 // Assign Unit Price to field
                 fieldCosto.value = COSTO_PRODUCTO.toFixed(2)
-
-                console.log({ enganche })
-                console.log({ precioFinalProducto })
-                console.log({ COSTO_PRODUCTO })
             }
         }
     },
@@ -1905,8 +1773,6 @@ const UI = {
         inputRecursos[3].children[1].value = cname //duenyo controlador
         inputRecursos[4].children[1].value = ''
         inputRecursos[5].children[1].value = dcontacto['A_os_Laborados'] //tiempo laborado
-
-        console.log('add recustos........')
     },
     async getUsers(type) {
         let end = true
@@ -1915,7 +1781,6 @@ const UI = {
         let page = 1
         do {
             let request = await crm.getUsers(page, 200)
-            console.log('UI getUsers: ', request)
             if (request.ok) {
                 if (request?.data?.info?.more_records) {
                     page++
@@ -1929,7 +1794,6 @@ const UI = {
                 end = false
             }
             if (cont > 5) end = false
-            console.log('end: ', end)
             cont++
         } while (end)
         const value = users.filter((user) => {
@@ -1948,7 +1812,6 @@ const UI = {
                 option.textContent = user.full_name
                 vendorSelect.appendChild(option)
             })
-            console.log('UI userVendors users: ', users)
         } else {
             VendedorContainer.style = 'display: none;'
         }
@@ -1960,11 +1823,8 @@ const UI = {
         datasets.forEach((key) => {
             delete elem.dataset[key]
         })
-
-        console.log(`Reset of datasets for ${selector}`, elem.dataset)
     },
     addfuentes() {
-        console.log('Prueba')
         const selectFuentes = document.getElementById('list-fuente')
         fuentesCliente.forEach((f) => {
             let option = document.createElement('option')
@@ -1982,42 +1842,35 @@ const UI = {
     },
     async paintDeals() {
         const colors = {
-            "Presentación del Producto": "#de9f27",
-            "Cotización": "#de9g27",
-            "Cita en el Fraccionamiento": "#da9b27",
-            "Asistencia del Cliente Al Fraccionamiento": "#fa9b11",
-            "Pago de Apartado": "#b5512a",
-            "Pago de Enganche": "#398afa",
-            "Primer mensualidad": "#7de38e",
-            "Cerrado (ganado)": "#6908c9",
-            "Cerrado (perdido)": "#ff2e2e",
-            "Cancelado": "#ff2e1a",
-        } 
+            'Presentación del Producto': '#de9f27',
+            Cotización: '#de9g27',
+            'Cita en el Fraccionamiento': '#da9b27',
+            'Asistencia del Cliente Al Fraccionamiento': '#fa9b11',
+            'Pago de Apartado': '#b5512a',
+            'Pago de Enganche': '#398afa',
+            'Primer mensualidad': '#7de38e',
+            'Cerrado (ganado)': '#6908c9',
+            'Cerrado (perdido)': '#ff2e2e',
+            Cancelado: '#ff2e1a',
+        }
         const containerDeals = document.getElementById('container-deals')
         containerDeals.innerHTML = ''
         const user = document.getElementById('user')
-        console.log('user: ', user.dataset)
 
         const userId = user.dataset?.crmuserid
-        console.log('userId: ', userId)
         const userAdmin =
             user.dataset?.profile == 'Administrator' ? true : false
-        console.log('userAdmin: ', userAdmin)
         let dataDeals
         if (userAdmin) {
             dataDeals = await crm.getAllDeals()
-            console.log('dataDealsAll: ', dataDeals)
         } else {
             dataDeals = await crm.serchDealsByOwner(userId)
-            console.log('dataDeals: ', dataDeals)
         }
 
         if (dataDeals.ok) {
             dataDeals.data.forEach((deal) => {
-                
                 if (userAdmin || deal.Owner.id == userId) {
                     let stage = deal.Stage
-                    console.log("//----------------------------------------")
                     let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
                     let card = `
                         <section class="card-trato">
@@ -2043,13 +1896,11 @@ const UI = {
         } else {
             objetReturn.device = 'Web'
         }
-        console.log('details: ', details)
 
         let es_chrome = details.toLowerCase().indexOf('chrome') > -1
         let es_firefox = details.toLowerCase().indexOf('firefox') > -1
         let es_opera = details.toLowerCase().indexOf('opr') > -1
 
-        console.log('browser', es_chrome, es_firefox, es_opera)
         if (es_chrome) {
             objetReturn.browser = 'chrome'
         }
@@ -2074,9 +1925,6 @@ const UI = {
                 const user = document.getElementById('vendorsValue')
                 ownerId = user.dataset.vendedorid
             }
-            // console.log('dataForm: ', dataForm)
-            // console.log('ownerId: ', ownerId)
-            // console.log('fraccionamientoId: ', fraccionamientoId)
 
             const createLeadRequest = await crm.createLead(
                 dataForm,
@@ -2107,7 +1955,6 @@ const UI = {
                 'Se posteo correctamente dentro del canal'
             )
         }
-        console.log('envio', envio)
     },
 }
 
@@ -2120,7 +1967,6 @@ const util = {
 
         let manzana = parseInt(numManzana)
         let secciones_array = data.Secciones
-        console.log('secciones_array', secciones_array)
         secciones_array.forEach((e) => {
             if (manzana >= e.init && manzana <= e.end) {
                 if (e.lots != null && manzana == e.end) {
@@ -2166,12 +2012,7 @@ const util = {
             date: date.toISOString().split('T')[0],
             due_date: due_date.toISOString().split('T')[0],
             zcrm_potential_id: idOportunidad,
-            // custom_fields: [
-            //     {
-            //         label: 'Commerce',
-            //         value: 'Widget',
-            //     },
-            // ],
+
             custom_fields: [
                 {
                     label: 'Modo de Pago',
@@ -2196,8 +2037,6 @@ const util = {
     addDate(date, type, num) {
         let addMonth = new Date(date)
 
-        console.log('Util addDate addMonth: ', addMonth)
-
         if (type == 'D') {
             addMonth.setDate(date.getDate() + num)
         } else if (type == 'M') {
@@ -2205,7 +2044,7 @@ const util = {
         } else if (type == 'Y') {
             addMonth.setYear(date.getYear() + num)
         }
-        console.log('Util addDate addMonth: ', addMonth)
+
         return addMonth
     },
     formatDate() {
@@ -2238,7 +2077,6 @@ const util = {
     async createCotizacion(deal, campaignId, recordData) {
         const requestCampaign = await crm.getCampaign(campaignId)
         const campaign = requestCampaign.data
-        console.log({ campaign })
 
         const NOMBRE_PRODUCTO = deal.Deal_Name
         const DIMENSIONES = parseFloat(recordData.Dimemsiones)
@@ -2321,14 +2159,10 @@ const util = {
                 // Calcular descuento en base al costo total del terreno
                 if (tipoDeDescuento == null) {
                     precioTotalDelTerreno = DIMENSIONES * COSTO_M2
-                    console.log('1 : NO TIENE DESCUENTO')
                     saldoDelTerreno = DIMENSIONES * COSTO_M2 - descuentoEnganche
-                    console.log(DIMENSIONES, COSTO_M2, descuentoEnganche)
                 } else {
-                    console.log('2 : TIENE DESCUENTO ')
                     if (tipoDeDescuento == 'Monto') {
                         montoDescuento = campaign.Monto_Descuento
-                        console.log('tiene descuento de monto', montoDescuento)
                         reportObj.MontoDescuento = montoDescuento
                         descuento_temp = COSTO_M2 - montoDescuento
                         precioTotalDelTerreno = DIMENSIONES * descuento_temp
@@ -2337,10 +2171,6 @@ const util = {
                     } else if (tipoDeDescuento == 'Porcentaje') {
                         porcentajeDescuento =
                             campaign.Porcentaje_Descuento / 100
-                        console.log(
-                            'tiene descuento de porcentaje',
-                            porcentajeDescuento
-                        )
                         reportObj.PorcentajeDescuento =
                             campaign.Porcentaje_Descuento
                         descuentoPorcentaje =
