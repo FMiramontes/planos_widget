@@ -13,10 +13,11 @@ const modal = document.getElementById('modal')
 const menuForm = document.querySelector('.menu-form')
 const vendedoresInput = document.querySelector('#vendorsValue')
 let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
-
+const tabs = document.querySelectorAll('[data-tab-target]')
 let posicionY = 0
 let posicionX = 0
 let mapa = document.querySelector('.map')
+
 
 let CRMData = {},
     qselector
@@ -134,15 +135,49 @@ const input_location = document.querySelector('input[name="Localizacion_P"]')
 const map = document.getElementById('map')
 let navegador = UI.navegador()
 console.log('navegador: ', navegador)
-if ((navegador.browser === 'chrome' || navegador.browser === 'firefox' || navegador.browser === 'safari') &&
+if ((navegador.browser === 'chrome' || navegador.browser === 'firefox'||navegador.browser === 'safari') &&
     navegador.device === 'Mobile'){
         mostrarTooltip('touchstart')
         hideTooltip('touchend')
+    
+        tabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                fadeIn(document.getElementById('container-blocks'),
+                1000);
+                tabs.forEach((tab) => {
+                    tab.classList.remove('active')
+                })
+                tab.classList.add('active')
+                scrollToBottom()
+            })
+        })
+      
     }
     else {
+        modal.style.scrollBehavior = 'smooth'
         showTooltip('mouseover')
         hideTooltip('mouseout')
     }
+// Scroll Modal Celular
+    function scrollToBottom() {
+        modal.scrollIntoView(false);
+      }
+
+// Animacion modal
+
+function fadeIn(element, duration = 1000) {
+    element.style.display = '';
+    element.style.opacity = 0;
+    let last = +new Date();
+    let tick = function() {
+      element.style.opacity = +element.style.opacity + (new Date() - last) / duration;
+      last = +new Date();
+      if (+element.style.opacity < 1) {
+        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+      }
+    };
+    tick();
+  }
 // Celular doble click
 let timeout;
 let lastTap = 0;
@@ -305,7 +340,6 @@ Iconmenu2.addEventListener('click', () => {
 })
 
 // tabs Modal
-const tabs = document.querySelectorAll('[data-tab-target]')
 
 tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
