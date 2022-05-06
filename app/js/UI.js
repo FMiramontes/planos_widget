@@ -1150,7 +1150,7 @@ const UI = {
                                         inputDescuento !== ''
                                             ? parseFloat(inputDescuento)
                                             : MontoTotal
-                                    rate = tempRate
+                                    rate = tempRate - apartado 
                                     // rate = MontoTotal - apartado
                                 }
 
