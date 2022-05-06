@@ -1673,13 +1673,21 @@ const UI = {
                 const modal = document.querySelector('#modal')
                 const esEsquina = modal.dataset.esquina
                 if (esEsquina !== undefined && esEsquina === 'true') {
+                    // Se le agrega 10 dlls a precio x m2
                     const costo = document.querySelector(
                         `input[name="Costo_M2"]`
                     )
+                    costo.dataset.m2_update = 'true'
                     const newCosto = parseFloat(costo.value) + 10
                     costo.value = newCosto.toFixed(2)
                     COSTO_M2 = newCosto.toFixed(2)
-                    costo.dataset.m2_update = 'true'
+
+                    // Si producto es esquina, tiene una campana de contado con descuento tipo monto, no se le debe agregar 10 dlls.
+                    if (tipoDeDescuento === 'Monto' && formaDePago === 'Contado') {
+                        const newCosto = parseFloat(costo.value) - 10
+                        costo.value = newCosto.toFixed(2)
+                        COSTO_M2 = newCosto.toFixed(2)
+                    }
                 }
 
                 const COSTO_PRODUCTO =
