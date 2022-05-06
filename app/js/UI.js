@@ -9,6 +9,21 @@ let desarrollo = new Array()
 
 let beforeManzana = ''
 
+const departamentos = [
+    "Call Center",
+    "Call Center Sala de Ventas Cazzar",
+    "Call Center Costa La Gloria",
+    "Call Center Costa 1",
+    "Call Center Costa 1A",
+    "Call Center Costa 2",
+    "Call Center Costa 3",
+    "Call Center Ensenada",
+    "Call Center Costa 1 Puerto Nuevo",
+    "Unidad de Venta",
+    "Ventas",
+    "Cobranza"
+]
+
 const coords = [
     'Carlos Lenin',
     'Coord. Claudia Noriega',
@@ -901,7 +916,7 @@ const UI = {
                 Nombre_de_Producto: { id: product_id },
                 Account_Name: { id: accountId },
                 // Amount: newData.presupuesto.Saldo_Pagar_P,
-
+                Departamento: newData.contacto.Departamento,
                 Modo_de_pago: [newData.presupuesto.Modo_de_pago],
                 Lead_Source: newData.contacto.Lead_Source,
                 Type: tipoDeCompra,
@@ -1836,11 +1851,19 @@ const UI = {
         })
     },
     addSucursales() {
-        const selectsucursales = document.getElementById('list-Sucursales')
+        const selectSucursales = document.getElementById('list-Sucursales')
         sucursales.forEach((f) => {
             let option = document.createElement('option')
             option.innerText = f
-            selectsucursales.appendChild(option)
+            selectSucursales.appendChild(option)
+        })
+    },
+    addDepartamentos() {
+        const selectDeparetamentos = document.getElementById('list-departamento')
+        departamentos.forEach((f) => {
+            let option = document.createElement('option')
+            option.innerText = f
+            selectDeparetamentos.appendChild(option)
         })
     },
     async paintDeals() {

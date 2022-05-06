@@ -27,6 +27,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         UI.userVendors(data.users[0])
         UI.addfuentes()
         UI.addSucursales()
+        UI.addDepartamentos()
         UI.coordinador()
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
