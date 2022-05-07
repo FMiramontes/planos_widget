@@ -376,22 +376,6 @@ svg .cls-0{
     font-size: 18px;
 }
 
-#refresh-btn{
-    position: absolute;
-    top: 1%;
-    right: 6%;
-    z-index: 4;
-    font-size: large;
-    margin-left: 1%;
-    color: #000;
-}
-
-#refresh-btn:hover{
-    cursor: pointer;
-    color: #de9f27;
-    transition: all .25s;
-    transform: scale(1.1);
-}
 
 /* Loader */
 #loader-mapa {

@@ -1967,6 +1967,21 @@ const UI = {
             )
         }
     },
+    searchDeals(search){
+        const deals = Array.from(document.getElementById('container-deals').children)
+        // console.log(deals)
+        deals.forEach((i) => {
+            let dealName = i.children[0].innerText.toLowerCase()
+            console.log("search: ",search.toLowerCase())
+            console.log("deal: ",dealName)
+            console.log('-------------------------------------------')
+            if(!dealName.match(search)){
+                i.style = "display: none"
+            }else if(search == '' || dealName.match(search)){
+                i.style = "display: flex"
+            }
+        })
+    },
 }
 
 const util = {
