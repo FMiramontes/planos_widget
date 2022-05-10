@@ -67,6 +67,7 @@
                     <input type="button" id="search-contact" value="search" />
                     <div id="contact-results" class="search-result"></div>
                 </div>
+                <img class="logo-gc" src="https://download-accl.zoho.com/v1/docs/prv/e1059800565b4274b43668bc53ccba3e64e94?_t=1652135839262">
                 <!-- <div class="btn-menu2">
                     <span></span>
                 </div> -->
@@ -118,7 +119,12 @@
             </div>
             <!-- Menu Lateral tratos -->
             <div data-menu="menu" id="menu-lateral2" class="menu-lateral2">
-                <i id="refresh-btn" class="fa-solid fa-arrows-rotate" style="height: 15px; width: 15px;"></i>
+                <div class="container-seach-deals">
+                    <input type="text" class="search-deal" id="search-deal">
+                    <i id="search-deal-btn" class="fa-solid fa-search" style="height: 15px; width: 15px;"></i>
+                    <i id="refresh-btn" class="fa-solid fa-arrows-rotate" style="height: 15px; width: 15px;"></i> 
+                </div>
+                <!-- <i id="refresh-btn" class="fa-solid fa-arrows-rotate" style="height: 15px; width: 15px;"></i> -->
                 <button id="btn-menu-deals" class="btn-menu-deals"><i class="fa-solid fa-chevron-left" style="color: white;"></i></button>
                 <div id="container-deals" class="container-deals"></div>
             </div>
@@ -1404,7 +1410,7 @@
             <div data-archivos="true" id="modal-archivos" class="container-wrap">
                 <div data-archivos="true" class="container-modal camera-container" id="camera-container">
                     <select name="" class="select-camera" id="select-camera"></select>
-                    <video></video>
+                    <video autoplay></video>
                     <div class="controls">
                         <div class="play"><i class="fa-solid fa-play"></i></div>
                         <div class="stop"><i class="fa-solid fa-stop"></i></div>
@@ -1412,7 +1418,7 @@
                         <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
                     </div>
                     <canvas></canvas>
-                    <img  alt=""/>
+                    <img id="screanshot"  alt=""/>
             
                 </div>
             </div>

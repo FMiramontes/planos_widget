@@ -61,6 +61,8 @@ const validate = {
             'Lead_Source',
             'Modo_de_pago',
             'coordinador',
+            'Departamento',
+            'Sucursal_de_Firma',
         ]
 
         //Comprueba si es vendedor

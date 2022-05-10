@@ -264,8 +264,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 160px;
-    height: 170px;
+    width: 175px;
+    height: 160px;
     margin: 3vh auto;
     background-color: #d3cfcf;
     border-radius: 15px 15px 8px 8px;
@@ -303,6 +303,70 @@
     border-radius: 5px;
 }
 
+.menu-lateral2 {
+    /* background-color: #f0f0f0; */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: top;
+    transform: translate(89%, 0);
+    transition: transform 0.3s ease;
+    z-index: 3;
+    padding-top: 20px;
+    overflow-y: auto;
+    width: 20vw;
+    height: 88%;
+    top: 8.9%;
+    right: 0;
+    position: absolute;
+}
+
+.color-deals{
+    right: 19%;
+}
+
+.btn-menu-deals {
+    position: absolute;
+    right: 87%;
+    top: 40vh;
+    width: 1.5vw;
+    height: 8vh;
+    z-index: 5;
+    border: none;
+    background-color: rgb(15, 15, 15);
+    border-radius: 7px 0px 0px 7px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.container-deals {
+    position: absolute;
+    top: 0.4%;
+    left: 13%;
+    height: 87vh;
+    width: 87%;
+    background-color: #f0f0f0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 4vh;
+}
+.container-deals > div::nth-last-child(1) {
+    margin-bottom: 2vh;
+    background-color: #44cc66;
+}
+
+/* .menu-lateral2::before {
+    content: '';
+    position: absolute;
+    top: 0vh;
+    right: 0vh;
+    background-color: #d1a102;
+    height: 5vh;
+    width: 5vw;
+    z-index: 10;
+} */
+
 
 /* style menu tratos*/
 .deal-stage{
@@ -312,6 +376,102 @@
     border-bottom-right-radius: 15px;
 }
 
-.trato-cont .fa-solid{
-    pointer-events: none;
+.container-seach-deals{
+    height: 22px;
+    width: 70%;
+    position: relative;
+    top: -2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 4;
+}
+
+.container-seach-deals > * {
+    position: absolute;
+}
+
+.container-seach-deals .search-deal{
+    border: 1px solid #a7a1a1 !important;
+    border-radius: 4px !important;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    width: 180px;
+} 
+
+.container-seach-deals > .fa-solid{
+    position: absolute;
+    right: 6%;
+    z-index: 4;
+    font-size: large;
+    margin-left: 1%;
+    color: #000;
+}
+
+.container-seach-deals > .fa-solid:hover{
+    cursor: pointer;
+    color: #de9f27;
+    transition: all .25s;
+    transform: scale(1.1);
+}
+
+.container-seach-deals .fa-search{ 
+    left: 83%;
+    
+}
+
+.container-seach-deals .fa-arrows-rotate{ 
+    left: 105%;
+}
+
+
+
+@media (min-device-width: 1921px) {
+    
+.container-deals {
+        height: 90vh;
+    }
+    /* style menu tratos*/
+
+.container-seach-deals{
+    height: 22px;
+    width: 70%;
+    position: relative;
+    top: -2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 4;
+}
+
+.container-seach-deals .search-deal{
+    width: 200px;
+} 
+
+.container-seach-deals .fa-search{ 
+    left: 83%;
+    
+}
+
+.container-seach-deals .fa-arrows-rotate{ 
+    left: 105%;
+}
+}
+
+@media (max-device-width: 480px) {
+    
+    .menu-lateral2 {
+        position: absolute;
+        width: 30%;
+        height: 88%;
+        top: 8.7%;
+    }
+    #zoom-in, #zoom-out{
+        display: none;
+    }
+    .color-deals{
+        right: 29%;
+    }
 }

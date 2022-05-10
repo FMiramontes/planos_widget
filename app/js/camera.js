@@ -2,7 +2,7 @@ import UI from './UI.js'
 
 const video = document.querySelector('video')
 const canvas = document.querySelector('canvas')
-const img = document.querySelector('img')
+const img = document.getElementById('screanshot')
 const cameraOptions = document.getElementById('select-camera')
 
 const play = document.querySelector('.play')
@@ -43,8 +43,7 @@ stop.onclick = () => {
     
     if(streamStarted){
         console.log("streamStarted: ", streamStarted)
-        // video.play()
-        video.pause()
+        video.play()
         console.log(video)
         return
     }
@@ -59,12 +58,16 @@ play.onclick = async () =>{
                 exact: cameraOptions.value,
             }
         }
-        startStream(updatedConstrains)
+        console.log("updatedConstrains",updatedConstrains)
+        const stream = await navigator.mediaDevices.getUserMedia(updatedConstrains)
+        console.log("stream: ",stream)
+        handlesStream(stream)
     }
 }
 
 const startStream = async (constrains) =>{
     const stream = await navigator.mediaDevices.getUserMedia(constrains)
+    console.log("stream: ",stream)
     handlesStream(stream)
 }
 

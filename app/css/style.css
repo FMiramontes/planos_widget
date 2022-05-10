@@ -18,6 +18,10 @@ body {
     font-family: 'Raleway', sans-serif;
     overflow-x: hidden;
 }
+.logo-gc{
+    width: 180px;
+    height: 100px;
+}
 /* Div tooltip no creado */
 .no-creado{
     line-height: 0.5;
@@ -151,65 +155,6 @@ image {
     position: absolute;
 }
 
-.menu-lateral2 {
-    /* background-color: #f0f0f0; */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: top;
-    transform: translate(89%, 0);
-    transition: transform 0.3s ease;
-    z-index: 3;
-    padding-top: 20px;
-    overflow-y: auto;
-    width: 17vw;
-    height: 88%;
-    top: 8.9%;
-    right: 0;
-    position: absolute;
-}
-
-.btn-menu-deals {
-    position: absolute;
-    right: 87%;
-    top: 40vh;
-    width: 1.5vw;
-    height: 8vh;
-    z-index: 5;
-    border: none;
-    background-color: rgb(15, 15, 15);
-    border-radius: 7px 0px 0px 7px;
-    cursor: pointer;
-    color: #fff;
-}
-
-.container-deals {
-    position: absolute;
-    top: 0.4%;
-    left: 13%;
-    height: 90vh;
-    width: 87%;
-    background-color: #f0f0f0;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-.container-deals > div::nth-last-child(1) {
-    margin-bottom: 2vh;
-    background-color: #44cc66;
-}
-
-/* .menu-lateral2::before {
-    content: '';
-    position: absolute;
-    top: 0vh;
-    right: 0vh;
-    background-color: #d1a102;
-    height: 5vh;
-    width: 5vw;
-    z-index: 10;
-} */
-
 .menu-lateral::-webkit-scrollbar,
 .container-deals::-webkit-scrollbar {
     width: 10px;
@@ -300,7 +245,6 @@ svg .cls-0{
 /* Search container */
 .search {
     position: relative;
-    margin: 4rem;
 }
 
 .search-result {
@@ -376,22 +320,6 @@ svg .cls-0{
     font-size: 18px;
 }
 
-#refresh-btn{
-    position: absolute;
-    top: 1%;
-    right: 6%;
-    z-index: 4;
-    font-size: large;
-    margin-left: 1%;
-    color: #000;
-}
-
-#refresh-btn:hover{
-    cursor: pointer;
-    color: #de9f27;
-    transition: all .25s;
-    transform: scale(1.1);
-}
 
 /* Loader */
 #loader-mapa {
@@ -457,9 +385,7 @@ svg .cls-0{
 .color-lote{
     left: 8%;
 }
-.color-deals{
-    right: 16%;
-}
+
 .color-deals:after{
     content: "";
     position: absolute;
@@ -537,16 +463,4 @@ blinkid-in-browser {
     }
 }
 
-@media (max-device-width: 480px) {
-    
-    .menu-lateral2 {
-        position: absolute;
-        width: 30%;
-        height: 88%;
-        top: 8.7%;
-    }
-    #zoom-in, #zoom-out{
-        display: none;
-    }
-}
 
