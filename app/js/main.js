@@ -12,6 +12,7 @@ const searchLabel = document.querySelector('.module-switch label')
 const modal = document.getElementById('modal')
 const menuForm = document.querySelector('.menu-form')
 const vendedoresInput = document.querySelector('#vendorsValue')
+const searchDeals = document.getElementById('search-deal')
 let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 const tabs = document.querySelectorAll('[data-tab-target]')
 let posicionY = 0
@@ -41,6 +42,11 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         user.firstElementChild.appendChild(img_user)
         UI.paintDeals()
     })
+})
+
+searchDeals.addEventListener('input',(e) => {
+    console.log(e.target.value)
+    UI.searchDeals(e.target.value.toLowerCase())
 })
 
 ZOHO.embeddedApp.init().then(function () {
