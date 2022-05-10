@@ -18,6 +18,10 @@ body {
     font-family: 'Raleway', sans-serif;
     overflow-x: hidden;
 }
+.logo-gc{
+    width: 180px;
+    height: 100px;
+}
 /* Div tooltip no creado */
 .no-creado{
     line-height: 0.5;
@@ -241,7 +245,6 @@ svg .cls-0{
 /* Search container */
 .search {
     position: relative;
-    margin: 4rem;
 }
 
 .search-result {
