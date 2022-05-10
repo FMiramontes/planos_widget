@@ -3,7 +3,7 @@ import maps from './mapas.js'
 import valid from './validate.js'
 import alerts from './alertas.js'
 import './zoom.js'
-import './camera.js'
+import camera from './camera.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
@@ -93,10 +93,14 @@ document.addEventListener('click', (e) => {
     console.log("document: ",e)
     const modalArchivos = document.getElementById('modal-archivos')
     if (e.target.matches('[data-file]')) {
+        camera.autoPlay()
         modalArchivos.classList.add('show')
+        
     }
     else if(e.target.matches('[data-archivos]')) {
+
         modalArchivos.classList.remove('show')
+        camera.autoStop()
     }
 })
 

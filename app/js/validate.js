@@ -129,6 +129,7 @@ const validate = {
             } else {
                 let inputNotValid = { name: `${e}` }
                 inputsInvalid.push(inputNotValid)
+                alert("Name: ",e)
             }
         })
         if (inputsInvalid.length === 0) {
@@ -214,6 +215,7 @@ const validate = {
                 dataLists.splice(1, 3)
             } else {
                 dataLists.splice(2, 2)
+
             }
         } else if (modo === 'submit') {
             if (loggedUser.dataset.profile === 'Vendedor') {
@@ -228,6 +230,11 @@ const validate = {
             let valid = list.find((element) => element.textContent == value)
             if (valid == undefined) validArray = false
         })
+        if(!validArray){
+            dataLists.map((dl) => {
+                if(element.textContent !== value) console.log("Elemento: ", element)
+            })
+        }
         return validArray
     },
 

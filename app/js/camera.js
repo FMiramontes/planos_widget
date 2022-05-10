@@ -10,12 +10,14 @@ const stop = document.querySelector('.stop')
 const screanShot = document.querySelector('.screanShot')
 const save = document.querySelector('.save')
 
+let stream
 let streamStarted = false
 let image = ''
+let blob = ''
 
 const constrain = {
-    video:{
-        with:{
+    video: {
+        with: {
             min: 1280,
             ideal: 1920,
             max: 2560,
@@ -23,89 +25,89 @@ const constrain = {
         height: {
             min: 720,
             ideal: 1080,
-            max: 1440, 
-        }   
+            max: 1440,
+        },
+    },
+}
+
+const util = {
+    async getCameraSelection(){
+        const devices = await navigator.mediaDevices.enumerateDevices()
+        const videoDevices = devices.filter(
+            (device) => device.kind === 'videoinput'
+        )
+        const options = videoDevices.map((videoDevice) => {
+            return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`
+        })
+        cameraOptions.innerHTML = options.join('')
+    },
+    async startStream(constrains){
+        stream = await navigator.mediaDevices.getUserMedia(constrains)
+        console.log('stream: ', stream)
+        streamStarted = true
+        this.handlesStream(stream)
+    },
+    handlesStream(stream){
+        window.localStream = stream
+        video.srcObject = stream
+        streamStarted = true
     }
 }
 
-const autoPlay = () =>{
-    if('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia){
-        const updatedConstrains = {
-            ...constrain,
-            deviceId: {
-                exact: cameraOptions.value,
-            }
-        }
-        startStream(updatedConstrains)
-    }
+
+screanShot.onclick = async () => {
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
+
+    let ctx = canvas.getContext('2d')
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+    image = canvas.toDataURL('image/jpeg')
+
+    const base64Response = await fetch(image)
+    blob = await base64Response.blob()
+
+    img.src = image
+    img.classList.add('show-photo')
+    setTimeout(() => {
+        img.classList = ''
+    }, 600)
 }
 
-const getCameraSelection = async () => {
-    const devices = await navigator.mediaDevices.enumerateDevices()
-    const videoDevices = devices.filter((device) => device.kind === "videoinput")
-    const options = videoDevices.map((videoDevice) => {
-        return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`
+save.onclick = () => {
+    const dealId = '2234337000174109002'
+    ZOHO.CRM.API.attachFile({
+        Entity: 'Deals',
+        RecordID: dealId,
+        File: { Name: 'myFile.jpg', Content: blob },
+    }).then(function (data) {
+        console.log(data)
     })
-    cameraOptions.innerHTML = options.join("")
-    autoPlay()
 }
+util.getCameraSelection()
 
-// stop.onclick = () => {
-    
-//     if(streamStarted){
-//         console.log("streamStarted: ", streamStarted)
-//         video.play()
-//         console.log(video)
-//         return
-//     }
-// }
 
-// play.onclick = async () =>{
-//     alert(cameraOptions.value)
-//     if('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia){
-//         const updatedConstrains = {
-//             ...constrain,
-//             deviceId: {
-//                 exact: cameraOptions.value,
-//             }
-//         }
-//         console.log("updatedConstrains",updatedConstrains)
-//         startStream(updatedConstrains)
-//     }
-// }
-
-const startStream = async (constrains) =>{
-    const stream = await navigator.mediaDevices.getUserMedia(constrains)
-    stop.onclick = () => {
-    
-        if(streamStarted){
-            console.log("streamStarted: ", streamStarted)
-            video.play()
-            console.log(video)
-            return
+const camera = {
+    autoPlay() {
+        if (
+            'mediaDevices' in navigator &&
+            navigator.mediaDevices.getUserMedia
+        ) {
+            const updatedConstrains = {
+                ...constrain,
+                deviceId: {
+                    exact: cameraOptions.value,
+                },
+            }
+            util.startStream(updatedConstrains)
         }
-    }
-    console.log("stream: ",stream)
-    handlesStream(stream)
+    },
+
+    autoStop() {
+        localStream.getTracks().forEach((track) => {
+            track.stop()
+        })
+    },
 }
 
-const handlesStream = (stream) => {
-    video.srcObject = stream
-    streamStarted = true
-}
-
-
-
-save.onclick = () =>{
-    // const cameraContainer = document.getElementById('camera-container')
-    // const dealId = cameraContainer.dataset.dealId
-    const dealId = "2234337000174109002"
-    ZOHO.CRM.API.attachFile({Entity:"Deals",RecordID:dealId,File:{Name:"myFile.png",Content:image}}).then(function(data){
-        console.log(data);
-    });
-}
-getCameraSelection()
-
-// ZOHO.CRM.API.attachFile({Entity:"Deals",RecordID:"1000000031092",File:{Name:"myFile.txt",Content:image}}).then(function(data){
-// 	console.log(data);
-// });
+export default camera
