@@ -28,7 +28,17 @@ const constrain = {
     }
 }
 
-
+const autoPlay = () =>{
+    if('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia){
+        const updatedConstrains = {
+            ...constrain,
+            deviceId: {
+                exact: cameraOptions.value,
+            }
+        }
+        startStream(updatedConstrains)
+    }
+}
 
 const getCameraSelection = async () => {
     const devices = await navigator.mediaDevices.enumerateDevices()
@@ -37,36 +47,44 @@ const getCameraSelection = async () => {
         return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`
     })
     cameraOptions.innerHTML = options.join("")
+    autoPlay()
 }
 
-stop.onclick = () => {
+// stop.onclick = () => {
     
-    if(streamStarted){
-        console.log("streamStarted: ", streamStarted)
-        video.play()
-        console.log(video)
-        return
-    }
-}
+//     if(streamStarted){
+//         console.log("streamStarted: ", streamStarted)
+//         video.play()
+//         console.log(video)
+//         return
+//     }
+// }
 
-play.onclick = async () =>{
-    alert(cameraOptions.value)
-    if('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia){
-        const updatedConstrains = {
-            ...constrain,
-            deviceId: {
-                exact: cameraOptions.value,
-            }
-        }
-        console.log("updatedConstrains",updatedConstrains)
-        const stream = await navigator.mediaDevices.getUserMedia(updatedConstrains)
-        console.log("stream: ",stream)
-        handlesStream(stream)
-    }
-}
+// play.onclick = async () =>{
+//     alert(cameraOptions.value)
+//     if('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia){
+//         const updatedConstrains = {
+//             ...constrain,
+//             deviceId: {
+//                 exact: cameraOptions.value,
+//             }
+//         }
+//         console.log("updatedConstrains",updatedConstrains)
+//         startStream(updatedConstrains)
+//     }
+// }
 
 const startStream = async (constrains) =>{
     const stream = await navigator.mediaDevices.getUserMedia(constrains)
+    stop.onclick = () => {
+    
+        if(streamStarted){
+            console.log("streamStarted: ", streamStarted)
+            video.play()
+            console.log(video)
+            return
+        }
+    }
     console.log("stream: ",stream)
     handlesStream(stream)
 }
@@ -76,26 +94,7 @@ const handlesStream = (stream) => {
     streamStarted = true
 }
 
-screanShot.onclick = () =>{
-    console.log("screanShot")
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
 
-    let ctx = canvas.getContext('2d')
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-
-    image = canvas.toDataURL("image/png")
-    console.log("image")
-    console.log(image)
-    img.src = image
-    
-    // img.classList.remove('hide')
-    img.classList.add('show-photo')
-    setTimeout(() => {
-        img.classList = ''
-    }, 600);
-    // img.classList = ''
-}
 
 save.onclick = () =>{
     // const cameraContainer = document.getElementById('camera-container')
@@ -105,8 +104,8 @@ save.onclick = () =>{
         console.log(data);
     });
 }
-
 getCameraSelection()
+
 // ZOHO.CRM.API.attachFile({Entity:"Deals",RecordID:"1000000031092",File:{Name:"myFile.txt",Content:image}}).then(function(data){
 // 	console.log(data);
 // });
