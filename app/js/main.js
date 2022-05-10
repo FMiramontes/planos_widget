@@ -3,6 +3,7 @@ import maps from './mapas.js'
 import valid from './validate.js'
 import alerts from './alertas.js'
 import './zoom.js'
+import './camera.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
@@ -64,6 +65,7 @@ searchCampaigntBtn.addEventListener('click', () => {
     UI.searchCampaign()
 })
 
+
 document.addEventListener('click', (e) => {
     qselector = document.querySelector(
         `[data-module="${e.target.dataset.module}"]`
@@ -79,6 +81,17 @@ document.addEventListener('click', (e) => {
 
 inputApartado.addEventListener('change', (e) => {
     valid.validateApartado(e.target)
+})
+
+document.addEventListener('click', (e) => {
+    console.log("document: ",e)
+    const modalArchivos = document.getElementById('modal-archivos')
+    if (e.target.matches('[data-file]')) {
+        modalArchivos.classList.add('show')
+    }
+    else if(e.target.matches('[data-archivos]')) {
+        modalArchivos.classList.remove('show')
+    }
 })
 
 // # Assign contact to #contact element

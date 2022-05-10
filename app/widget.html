@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="./css/alerts.css" />
         <!-- <link rel="stylesheet" href="./css/mapas.css" /> -->
         <link rel="stylesheet" href="./css/modal.css" />
+        <link rel="stylesheet" href="./css/camera.css" />
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -30,7 +31,7 @@
                     <span></span>
                 </div>
                 <!-- Boton test -->
-                <!-- <input type="button" value="test" id="btn-test"> -->
+                <input data-file="true" type="button" value="test" id="btn-test">
                 <!-- User -->
                 <div id="user" class="user">
                     <div class="img_user"></div>
@@ -1400,6 +1401,22 @@
                     <div class="banner"></div>
                 </div>
             </div>
+            <div data-archivos="true" id="modal-archivos" class="container-wrap">
+                <div data-archivos="true" class="container-modal camera-container" id="camera-container">
+                    <select name="" class="select-camera" id="select-camera"></select>
+                    <video></video>
+                    <div class="controls">
+                        <div class="play"><i class="fa-solid fa-play"></i></div>
+                        <div class="stop"><i class="fa-solid fa-stop"></i></div>
+                        <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
+                        <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
+                    </div>
+                    <canvas></canvas>
+                    <img  alt=""/>
+            
+                </div>
+            </div>
         </div>
+        
     </body>
 </html>

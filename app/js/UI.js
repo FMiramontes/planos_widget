@@ -1914,6 +1914,7 @@ const UI = {
                                 <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
                                 <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
                                 <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
+                                <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
                             </section>
                             <p><b>${deal.Owner.name}</b></p>
                             <div class='deal-stage' style="background-color: ${colors[stage]}"></div>
