@@ -1,4 +1,6 @@
 import UI from './UI.js'
+import { crm } from './Zoho.js'
+import alerts from './alertas.js'
 
 const video = document.querySelector('video')
 const canvas = document.querySelector('canvas')
@@ -74,15 +76,30 @@ screanShot.onclick = async () => {
     }, 600)
 }
 
-save.onclick = () => {
-    const dealId = '2234337000174109002'
-    ZOHO.CRM.API.attachFile({
-        Entity: 'Deals',
-        RecordID: dealId,
-        File: { Name: 'myFile.jpg', Content: blob },
-    }).then(function (data) {
-        console.log(data)
-    })
+save.onclick = async (e) => {
+    const datsets = e.target.closest('.camera-container').dataset
+    const dealId = datsets.dealId
+    const dealName = datsets.dealname
+    const FileName = 'myFile'
+
+    console.log('datsets: ', datsets)
+    console.log('dealId: ', dealId)
+    console.log('dealName: ', dealName)
+    console.log('FileName: ', FileName)
+
+    
+    if(blob !== ''){
+      const request = await crm.attachFile(dealId, FileName, blob) 
+      console.log("camera request: ",request)
+      if(request.ok){
+        alerts.showAlert('success', `${FileName} fue adjuntado con exito. En el trato ${dealName} `)
+      }else{
+        alerts.showAlert('warning', `no fue posible adjuntar el documento`) 
+      }
+    }else{
+        alerts.showAlert('warning', `la imagen del documento ${FileName} aun no a sido tomada`)
+    } 
+    
 }
 util.getCameraSelection()
 

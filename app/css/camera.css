@@ -7,15 +7,11 @@
     align-items: center;
 }
 
-.camera-container .container-video{
+
+.camera-container video{
     margin-top: 5vh;
     height: 90%;
     width: 90%;
-}
-
-.camera-container .container-video video{
-    height: 100%;
-    width: 100%;
 
     background-color: black;
     border-radius: 4px;

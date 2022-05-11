@@ -93,12 +93,15 @@ document.addEventListener('click', (e) => {
     console.log("document: ",e)
     const modalArchivos = document.getElementById('modal-archivos')
     if (e.target.matches('[data-file]')) {
+        modalArchivos.children[0].dataset.dealId = e.target.parentNode.dataset.dealid
+        modalArchivos.children[0].dataset.dealname = e.target.parentNode.dataset.dealname
         camera.autoPlay()
         modalArchivos.classList.add('show')
         
     }
     else if(e.target.matches('[data-archivos]')) {
-
+        modalArchivos.children[0].dataset.dealId = ''
+        modalArchivos.children[0].dataset.dealname = ''
         modalArchivos.classList.remove('show')
         camera.autoStop()
     }

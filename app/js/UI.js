@@ -1910,7 +1910,7 @@ const UI = {
                     let card = `
                         <section class="card-trato">
                             <section class="titulo-trato">${deal.Deal_Name}</section>
-                            <section class="trato-cont">
+                            <section class="trato-cont" data-dealid='${deal.id}' data-dealname='${deal.Deal_Name}'>
                                 <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
                                 <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
                                 <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>

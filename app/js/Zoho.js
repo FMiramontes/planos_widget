@@ -1008,6 +1008,42 @@ const crm = {
             }
         }
     },
+    async attachFile(dealId, FileName, blob){
+        try {
+            const request = await ZOHO.CRM.API.attachFile({
+                Entity: 'Deals',
+                RecordID: dealId,
+                File: { Name: `${FileName}.jpg`, Content: blob },
+            })
+
+            console.log("Zoho request: ",request)
+
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    }
 }
 
 const creator = {
