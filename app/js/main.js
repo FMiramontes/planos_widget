@@ -125,6 +125,7 @@ document.getElementById('btn-cratelead').addEventListener('click', (e) => {
     const dataForm = UI.getDataForm()
 
     if (valid.validateDataLead() && valid.validDataLists('lead')) {
+        
         UI.createLead(dataForm)
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')

@@ -61,6 +61,8 @@ const validate = {
             'Lead_Source',
             'Modo_de_pago',
             'coordinador',
+            'Departamento',
+            'Sucursal_de_Firma',
         ]
 
         //Comprueba si es vendedor
@@ -209,18 +211,20 @@ const validate = {
 
         if (modo === 'lead') {
             if (loggedUser.dataset.profile === 'Vendedor') {
-                dataLists.splice(1, 3)
+                dataLists.splice(1, 5)
             } else {
-                dataLists.splice(2, 2)
+                dataLists.splice(1, 1)
+                dataLists.splice(2, 3)
             }
         } else if (modo === 'submit') {
             if (loggedUser.dataset.profile === 'Vendedor') {
-                dataLists.splice(1, 1)
+                dataLists.splice(2, 1)
             }
         }
 
         let validArray = true
         dataLists.forEach((dl) => {
+            
             let value = dl.previousElementSibling.previousElementSibling.value
             let list = Array.from(dl.children)
             let valid = list.find((element) => element.textContent == value)
