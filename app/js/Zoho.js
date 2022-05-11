@@ -894,19 +894,20 @@ const crm = {
     async createLead(newData, ownerId, fraccionamientoId) {
         let data = { ...newData.contacto }
         let lead = {}
+        let nombreCompleto
 
-        let nombreCompleto =
-            data.First_Name.toUpperCase() +
-            ' ' +
-            data.Apellido_Paterno.toUpperCase() +
-            ' ' +
-            data.Apellido_Materno.toUpperCase()
-        lead.Last_Name =
-            data.Apellido_Paterno.toUpperCase() +
-            ' ' +
-            data.Apellido_Materno.toUpperCase()
+        if(data.Apellido_Materno === undefined){
+            nombreCompleto = data.First_Name.toUpperCase() + ' ' + data.Apellido_Paterno.toUpperCase()
+            lead.Last_Name = data.Apellido_Paterno.toUpperCase()
+            lead.Apellido_Materno = ''
+        }else{
+            nombreCompleto = data.First_Name.toUpperCase() + ' ' + data.Apellido_Paterno.toUpperCase() + ' ' + data.Apellido_Materno.toUpperCase()
+            lead.Last_Name = data.Apellido_Paterno.toUpperCase() + ' ' + data.Apellido_Materno.toUpperCase()
+            lead.Apellido_Materno = data.Apellido_Materno.toUpperCase()
+        }
+        
         lead.Apellido_Paterno = data.Apellido_Paterno.toUpperCase()
-        lead.Apellido_Materno = data.Apellido_Materno.toUpperCase()
+        
         lead.First_Name = data.First_Name.toUpperCase()
         lead.Interesado_en = { id: fraccionamientoId }
         lead.Lead_Source = data.Lead_Source

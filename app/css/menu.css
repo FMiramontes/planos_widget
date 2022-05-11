@@ -176,7 +176,7 @@
 }
 
 .container-img img {
-    width: auto;
+    width: 100%;
     height: auto;
     padding: 15px;
     pointer-events: none;
