@@ -120,9 +120,9 @@
             <!-- Menu Lateral tratos -->
             <div data-menu="menu" id="menu-lateral2" class="menu-lateral2">
                 <div class="container-seach-deals">
+                    <i class="fa-solid fa-search" ></i>
                     <input type="text" class="search-deal" id="search-deal">
-                    <i id="search-deal-btn" class="fa-solid fa-search" style="height: 15px; width: 15px;"></i>
-                    <i id="refresh-btn" class="fa-solid fa-arrows-rotate" style="height: 15px; width: 15px;"></i> 
+                    <i id="refresh-btn" class="fa-solid fa-arrows-rotate" ></i> 
                 </div>
                 <!-- <i id="refresh-btn" class="fa-solid fa-arrows-rotate" style="height: 15px; width: 15px;"></i> -->
                 <button id="btn-menu-deals" class="btn-menu-deals"><i class="fa-solid fa-chevron-left" style="color: white;"></i></button>
@@ -1341,6 +1341,17 @@
                                                 <option value=""></option>
                                             </datalist>
                                         </span>
+                                        <span>
+                                            <label>Zona:</label>
+                                            <input
+                                                name="Gerente"
+                                                list="list-Gerente"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                            <datalist data-datalist="true" id="list-Gerente">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </span>
                                     </div>
                                 </div>
                                 <!-- sub block RECIBO DE APARTADO -->
@@ -1416,8 +1427,14 @@
                         <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
                     </div>
                     <canvas></canvas>
-                    <img id="screanshot"  alt=""/>
+                    <div id="screanshots" class="screanshots"></div>
+                    
                 </div>
+            </div>
+            <div data-img="false" id="visualize" class="visualize">
+                <img id="visualize-img" class="visualize-img" >
+                    
+                </img>
             </div>
         </div>
         

@@ -265,15 +265,24 @@
     align-items: center;
     justify-content: center;
     width: 175px;
-    height: 160px;
+    height: 200px;
     margin: 3vh auto;
     background-color: #d3cfcf;
     border-radius: 15px 15px 8px 8px;
 }
 
+.card-trato p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
 .titulo-trato {
     width: 100%;
-    height: 50%;
+    height: 100%;
+    padding: 3% 0px;
     background-color: black;
     border-radius: 15px 15px 0 0;
     font-weight: 500;
@@ -285,14 +294,16 @@
 }
 
 .trato-cont {
-    height: 75%;
-    width: 100%;
+    height: 100%;
+    width: 90%;
     display: grid;
-    grid-template-columns: repeat(3,30%) ;
+    grid-template-columns: repeat(3,30%);
     justify-content: space-evenly;
     align-items: center;
     background-color: #d3cfcf;
     border-radius: 0 0 15px 15px;
+    grid-gap: 5%;
+    margin-top: 2%;
 }
 
 .btn-trato {
@@ -350,9 +361,13 @@
     overflow-x: hidden;
     overflow-y: auto;
     padding-top: 4vh;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
 }
 .container-deals > div::nth-last-child(1) {
-    margin-bottom: 2vh;
+    margin-bottom: 3vh;
     background-color: #44cc66;
 }
 
@@ -370,8 +385,12 @@
 
 /* style menu tratos*/
 .deal-stage{
+    text-align: center;
     height: 10%;
+    font-size: larger;
+    /* font-weight: bold; */
     width: 100%;
+    color: white;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
 }
@@ -380,7 +399,7 @@
     height: 22px;
     width: 70%;
     position: relative;
-    top: -2%;
+    top: -1%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -393,23 +412,26 @@
 }
 
 .container-seach-deals .search-deal{
-    border: 1px solid #a7a1a1 !important;
+    border: 2px solid #000000;
+    border-left: none;
+    
     border-radius: 4px !important;
     height: 100%;
+    width: 80%;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-    width: 180px;
+    margin-left: 12%;
 } 
 
 .container-seach-deals > .fa-solid{
     position: absolute;
-    right: 6%;
+    
     z-index: 4;
     font-size: large;
     margin-left: 1%;
     color: #000;
 }
 
-.container-seach-deals > .fa-solid:hover{
+.container-seach-deals > .fa-arrows-rotate:hover{
     cursor: pointer;
     color: #de9f27;
     transition: all .25s;
@@ -417,12 +439,22 @@
 }
 
 .container-seach-deals .fa-search{ 
-    left: 83%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    height: 110%;
+    width: 10%;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    
     
 }
 
 .container-seach-deals .fa-arrows-rotate{ 
     left: 105%;
+    right: 6%;
 }
 
 
@@ -451,7 +483,7 @@
 } 
 
 .container-seach-deals .fa-search{ 
-    left: 83%;
+    /* left: 83%; */
     
 }
 

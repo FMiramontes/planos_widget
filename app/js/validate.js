@@ -129,7 +129,6 @@ const validate = {
             } else {
                 let inputNotValid = { name: `${e}` }
                 inputsInvalid.push(inputNotValid)
-                alert("Name: ",e)
             }
         })
         if (inputsInvalid.length === 0) {

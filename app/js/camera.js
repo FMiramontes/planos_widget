@@ -4,7 +4,7 @@ import alerts from './alertas.js'
 
 const video = document.querySelector('video')
 const canvas = document.querySelector('canvas')
-const img = document.getElementById('screanshot')
+const imgs = document.getElementById('screanshots')
 const cameraOptions = document.getElementById('select-camera')
 
 const play = document.querySelector('.play')
@@ -53,8 +53,59 @@ const util = {
         window.localStream = stream
         video.srcObject = stream
         streamStarted = true
-    }
+    },
+    addScreanShot(image){
+        // <img id="screanshot"  alt=""/>
+        const div = document.createElement('div')
+        div.classList.add('screanshot-img')
+
+        const i = document.createElement('i')
+        i.classList.add('fa-solid')
+        i.classList.add('fa-circle-xmark')
+        i.dataset.clearimg = "true"
+        div.appendChild(i)
+
+        const img = document.createElement('img')
+        img.dataset.img = "true"
+        div.appendChild(img)
+        
+        // img.classList = ''
+
+        imgs.insertAdjacentElement('beforeend',div)
+
+        img.src = image
+        img.classList.add('show-photo')
+        setTimeout(() => {
+            img.classList = ''
+        }, 600)
+        
+    },
 }
+
+document.addEventListener('click',(e) => {
+    if(e.target.matches('[data-clearimg]')){
+        console.log("image dblClick: ",e)
+        let padre = e.target.parentNode.parentNode
+        console.log(padre)
+        let hijo = e.target.parentNode
+        console.log(hijo)
+        padre.removeChild(hijo);
+    }
+})
+
+document.addEventListener('click',(e) => {
+    const img = document.getElementById('visualize-img')
+    const modalImg = document.getElementById('visualize')
+    if(e.target.matches('[data-img="true"]')){
+        
+        modalImg.classList.add('show')
+        img.src = e.target.currentSrc
+    }
+    if(e.target.matches('[data-img="false"]')){
+        img.src = ''
+        modalImg.classList.remove('show')
+    }
+})
 
 
 screanShot.onclick = async () => {
@@ -69,36 +120,38 @@ screanShot.onclick = async () => {
     const base64Response = await fetch(image)
     blob = await base64Response.blob()
 
-    img.src = image
-    img.classList.add('show-photo')
-    setTimeout(() => {
-        img.classList = ''
-    }, 600)
+    util.addScreanShot(image)
 }
 
 save.onclick = async (e) => {
+    const screanshots = Array.from(document.getElementById('screanshots').children)
     const datsets = e.target.closest('.camera-container').dataset
     const dealId = datsets.dealId
     const dealName = datsets.dealname
-    const FileName = 'myFile'
+    const FileName = 'Document'
 
     console.log('datsets: ', datsets)
     console.log('dealId: ', dealId)
     console.log('dealName: ', dealName)
     console.log('FileName: ', FileName)
 
-    
-    if(blob !== ''){
-      const request = await crm.attachFile(dealId, FileName, blob) 
-      console.log("camera request: ",request)
-      if(request.ok){
-        alerts.showAlert('success', `${FileName} fue adjuntado con exito. En el trato ${dealName} `)
-      }else{
-        alerts.showAlert('warning', `no fue posible adjuntar el documento`) 
-      }
-    }else{
-        alerts.showAlert('warning', `la imagen del documento ${FileName} aun no a sido tomada`)
-    } 
+
+    screanshots.forEach(async (screanshot) => {
+        let image = screanshot.children[1].src
+        let base64Response = await fetch(image)
+        let blob = await base64Response.blob()
+        if(blob !== ''){
+        const request = await crm.attachFile(dealId, FileName, blob) 
+        console.log("camera request: ",request)
+        if(request.ok){
+            alerts.showAlert('success', `${FileName} fue adjuntado con exito. En el trato ${dealName} `)
+        }else{
+            alerts.showAlert('warning', `no fue posible adjuntar el documento`) 
+        }
+        }else{
+            alerts.showAlert('warning', `la imagen del documento ${FileName} aun no a sido tomada`)
+        }
+    })
     
 }
 util.getCameraSelection()
