@@ -360,8 +360,8 @@ let menu2 = document.querySelector('#menu-lateral2')
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     menu2.classList.toggle('open')
-    let cardColor = document.querySelector('.color-deals')
-    cardColor.classList.toggle('showCard')
+    // let cardColor = document.querySelector('.color-deals')
+    // cardColor.classList.toggle('showCard')
 })
 
 // tabs Modal
