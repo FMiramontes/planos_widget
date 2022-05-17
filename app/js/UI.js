@@ -788,6 +788,8 @@ const UI = {
                 }
 
                 if (conatctRequest.ok) {
+                    const convert = confirm('El correo ya esta registrado en CRM')
+                    if(!convert) throw new Error('Proceso omitido por el usuario')
                     contact_id = conatctRequest.data[0].id
                     // contacto existe en CRM
                     if (conatctRequest.data[0].Account_Name !== null) {
@@ -946,6 +948,7 @@ const UI = {
                 Campaign_Source: { id: Campaign_id },
                 Contact_Name: { id: contact_id },
                 Coordinador: coordinadorArray,
+                Gerente: newData.presupuesto.Gerente,
             }
 
             if (user.dataset.profile === 'Vendedor') {
@@ -1037,6 +1040,17 @@ const UI = {
                 )
             }
 
+            
+            let des = ''
+
+            if (formadepago == 'Contado') {
+                des = formadepago
+            } else {
+                des = politica
+            }
+
+            const fecha  = util.fechaDePago(des)
+
             if (
                 accountId &&
                 contact_id &&
@@ -1068,7 +1082,8 @@ const UI = {
                     Costo_M2:
                         document.querySelector('input[name="Costo_M2"]')
                             .value || 0,
-                    Fecha: util.formatDate(),
+                    Fecha: util.formatDate(new Date()),
+                    FechadePago: util.formatDate(fecha),
                 }
                 const jsonCotizacion = await util.createCotizacion(
                     DealData,
@@ -1108,13 +1123,7 @@ const UI = {
 
                         // let today = new Date()
                         // let date = util.addDate(today, 'D', 7)
-                        let des = ''
-
-                        if (formadepago == 'Contado') {
-                            des = formadepago
-                        } else {
-                            des = politica
-                        }
+                        
 
                         // Creacion de facturas
                         let arrInvoices = []
@@ -1296,11 +1305,15 @@ const UI = {
             }
             this.removeContact()
         } catch (error) {
-            alerts.showAlert('danger', error.message)
+            if(error.message == "Proceso omitido por el usuario"){
+                alerts.showAlert('warning', error.message)
+            }else{
+                alerts.showAlert('danger', error.message) 
+            }
+            
         }
         console.timeEnd()
     },
-    fechaDePago(date) {},
     checkUpdate(a, b) {
         return JSON.stringify(a) === JSON.stringify(b)
     },
@@ -1341,7 +1354,6 @@ const UI = {
             inp.classList.remove('invalid')
         })
     },
-
     paintDataPresupuesto(id, dataset) {
         const { costototal, costom2, dimension } = dataset
         // const Total = document.querySelector('input[name="Costo_Total_P"]')
@@ -2052,6 +2064,56 @@ const UI = {
 }
 
 const util = {
+    fechaDePago(formaDePago) {
+        const checkApartado = document.querySelector('#hasApartado').checked
+        let today = new Date()
+        let fechaPago, date
+        if(checkApartado){
+            date = util.addDate(today, 'D', 7)
+            let diaPago = this.diasDePago(date)
+            let diaDate = date.getDate()
+            let dias = diaPago - diaDate
+            fechaPago = this.addDate(date, 'D',  dias)
+        }else{
+        
+            date = today 
+            let diaPago = this.diasDePago(date)
+            let diaDate = date.getDate()
+            let dias = diaPago - diaDate
+            fechaPago = this.addDate(date, 'D', dias)
+        }
+
+        if(formaDePago == "Enganche"){
+            return this.addDate(fechaPago, 'M', 1)
+        }else{
+            return fechaPago
+        }
+
+
+    },
+    diasDePago(date){
+        let Dia = date.getDate()
+        let DiadePago = ''
+
+        if(Dia >= 1 && Dia <= 6)
+        {
+            DiadePago = 6;
+        }
+        if(Dia >= 7 && Dia <= 15)
+        {
+            DiadePago = 15;
+        }
+        if(Dia >= 16 && Dia <= 21)
+        {
+            DiadePago = 21;
+        }
+        if(Dia >= 22 && Dia <= 31)
+        {
+            DiadePago = 28;
+        }
+        
+        return DiadePago
+    },
     getSeccion(item, data) {
         let item_name, sku, seccion_id, nombre_fracionamiento
         let item_array = item.split('-')
@@ -2140,8 +2202,8 @@ const util = {
 
         return addMonth
     },
-    formatDate() {
-        const currentDate = new Date()
+    formatDate(date) {
+        const currentDate = new Date(date)
 
         let monthNames = [
             'Jan',
