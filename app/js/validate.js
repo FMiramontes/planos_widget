@@ -230,6 +230,11 @@ const validate = {
             let valid = list.find((element) => element.textContent == value)
             if (valid == undefined) validArray = false
         })
+        if(!validArray){
+            dataLists.map((dl) => {
+                if(element.textContent !== value) console.log("Elemento: ", element)
+            })
+        }
         return validArray
     },
 

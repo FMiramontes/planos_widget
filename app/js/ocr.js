@@ -43,8 +43,8 @@ const testOCR = {
     
         /* Nacimiento */
         const Lugar_de_nacimiento = ocr.placeOfBirth
-        const diaNacimiento = ocr.dateOfBirth.day
-        const mesNacimiento = ocr.dateOfBirth.month
+        const diaNacimiento = ocr.dateOfBirth.day  < 10 ? `0${ocr.dateOfBirth.day}` : ocr.dateOfBirth.day
+        const mesNacimiento = ocr.dateOfBirth.month < 10 ? `0${ocr.dateOfBirth.month}` : ocr.dateOfBirth.month
         const a_oNacimiento = ocr.dateOfBirth.year
         const Date_of_Birth = `${a_oNacimiento}-${mesNacimiento}-${diaNacimiento}`
     
