@@ -1996,29 +1996,34 @@ const UI = {
     async createLead(dataForm) {
         const createLead = confirm('Desea crear el Posible cliente ')
         if (createLead) {
-            const modal = document.getElementById('modal')
-            const fraccionamientoId = modal.dataset.fracc_id
-            const user = document.getElementById('user')
-            let ownerId
-            if (user?.dataset?.profile === 'Vendedor') {
-                ownerId = user.dataset.crmuserid
-            } else {
-                const user = document.getElementById('vendorsValue')
-                ownerId = user.dataset.vendedorid
-            }
+            const requestLead = await crm.searchContact(dataForm.contacto.Email, 'Leads')
+            if(requestLead.ok){
+                alerts.showAlert('warning', `El correo ${dataForm.contacto.Email}, ya se encuentra en crm !!`)
+            }else{
+                const modal = document.getElementById('modal')
+                const fraccionamientoId = modal.dataset.fracc_id
+                const user = document.getElementById('user')
+                let ownerId
+                if (user?.dataset?.profile === 'Vendedor') {
+                    ownerId = user.dataset.crmuserid
+                } else {
+                    const user = document.getElementById('vendorsValue')
+                    ownerId = user.dataset.vendedorid
+                }
 
-            const createLeadRequest = await crm.createLead(
-                dataForm,
-                ownerId,
-                fraccionamientoId
-            )
-            if (createLeadRequest.ok) {
-                alerts.showAlert('success', 'Posible cliente creado')
-            } else {
-                alerts.showAlert(
-                    createLead.type,
-                    'El posible cliente no pudo ser creado !!'
+                const createLeadRequest = await crm.createLead(
+                    dataForm,
+                    ownerId,
+                    fraccionamientoId
                 )
+                if (createLeadRequest.ok) {
+                    alerts.showAlert('success', 'Posible cliente creado')
+                } else {
+                    alerts.showAlert(
+                        createLead.type,
+                        'El posible cliente no pudo ser creado !!'
+                    )
+                }
             }
         }
     },
