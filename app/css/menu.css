@@ -264,9 +264,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 175px;
+    width: 185px;
     height: 200px;
-    margin: 3vh auto;
+    margin: 2vh auto;
     background-color: #d3cfcf;
     border-radius: 15px 15px 8px 8px;
 }
@@ -277,6 +277,7 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
+    margin: 5px;
 }
 
 .titulo-trato {
@@ -307,7 +308,7 @@
 }
 
 .btn-trato {
-    padding: 8px 16px;
+    padding: 8px 20px;
     border: none;
     background-color: rgb(22, 22, 22);
     color: white;
@@ -333,9 +334,6 @@
     position: absolute;
 }
 
-.color-deals{
-    right: 19%;
-}
 
 .btn-menu-deals {
     position: absolute;
@@ -391,15 +389,16 @@
     /* font-weight: bold; */
     width: 100%;
     color: white;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    word-break: break-all;
 }
 
 .container-seach-deals{
     height: 22px;
     width: 70%;
     position: relative;
-    top: -1%;
+    top: -2%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -448,7 +447,7 @@
     height: 110%;
     width: 10%;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-    
+    background-color: #fff;
     
 }
 
@@ -502,8 +501,5 @@
     }
     #zoom-in, #zoom-out{
         display: none;
-    }
-    .color-deals{
-        right: 29%;
     }
 }
