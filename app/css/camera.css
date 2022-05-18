@@ -32,30 +32,35 @@
     flex-direction: column;
     top: 8%;
 
-    height: 90%;
-    width: 10%;
-    left: 85%;
+    height: 98%;
+    width: 13%;
+    left: 83.7%;
     
-    /* pointer-events: none; */
+    pointer-events: none;
     overflow: hidden;
     overflow-y:auto;
 }
-
-
-
-
-
+  
+.screanShot:hover,
+.save:hover
+{
+    transform: scale(1.2);
+} 
+.screanShot,
+.save
+{
+    transition: all 1s ease;
+} 
 
 .camera-container .screanshot-img{
-    /* margin-top: 2%; */
+    margin-bottom: 7%;
     height: 10%;
-    width: 90%;
+    width: 70%;
     /* top: 83%;
     left: 84%; */
     transition: all .5s;
     z-index: 2;
     pointer-events: all;
-    margin: 5% 8%;
 
 }
 
@@ -68,26 +73,28 @@
 .camera-container .screanshot-img .fa-circle-xmark{
     position: relative;
     font-size: 150%;
-    height: 15%;
-    width: 15%;
+    height: 18%;
+    width: 18%;
     /* background-color: aqua; */
-    top: 25%;
-    left: 90%;
+    top: 21%;
+    left: 58%;
     z-index: 3;
     pointer-events: all;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 
 }
 .camera-container .screanshot-img img{
     position: relative;
     height: 100%;
     width: 100%;
+    left: -46px;
     z-index: 2;
     pointer-events: all;
     border-radius: 4px;
-    border: 1px solid rgb(255, 255, 255);
+    border: 1px solid #fff;
 
 }
+
 
 .camera-container .show-photo{
     opacity: 1;
@@ -148,11 +155,16 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: rgb(255, 255, 255);
+    background-color: transparent;
+    color: #fff;
     height: 100%;
     width: 50%;
     border-radius: 4vh;
-    border: 3px solid black;
+    border: 3px solid #fff;
+}
+.controls{
+    display: flex;
+    gap: 1.2rem;
 }
 .camera-container .fa-solid{
     font-size: 4vh;
@@ -162,12 +174,17 @@
 .camera-container .select-camera{
     position: relative;
     width: 15%;
-    top: 90%;
+    background: transparent;
+    color:#fff;
+    top: 90.7%;
     left: 20%;
     z-index: 1;
-    font-size: 200%;
+    font-size: 18px;
     font-weight: bold;
     padding: .5%;
+    border: 3px solid #fff;
+    border-radius: 12px;
+    outline: none;
 }
 
 /* modal img */
@@ -198,7 +215,7 @@
     position: relative;
     top: 0vh;
     width: 90%;
-    height: 90%;
+    height: 98%;
     /* pointer-events: none; */
     background: rgba(0, 0, 0, 0.5);
     display: flex;
@@ -207,4 +224,69 @@
     align-items: center;
     z-index: 10;
     transition: all 0.8s ease;
+}
+   
+@media screen and (min-width:1024px ) and (max-width: 1368px){
+    .camera-container .screanshot-img img{
+        left: -34px;
+    }
+    .camera-container .screanshot-img .fa-circle-xmark{
+        left: 63%;
+    }
+}
+/* Media Querys Celular */
+@media (min-device-width:394px) and (max-device-width: 480px) {
+    .camera-container .screanshot-img img{
+        width: 90%;
+    }
+    .camera-container .screanshot-img .fa-circle-xmark{
+        top: 21%;
+        left: 47%;
+    }
+    .camera-container .controls{
+      width:13%;
+      height: 25%;
+    }
+    .camera-container .screanshots{
+        width: 18%;
+        left: 78%;
+    }
+}
+/* Xiaomi */
+@media (min-device-width:376px) and (max-device-width: 393px) {
+    .camera-container .screanshot-img img{
+        width: 85%;
+        left:-18px;
+    }
+    .camera-container .screanshot-img .fa-circle-xmark{
+        top: 21%;
+        left: 60.2%;
+    }
+    .camera-container .controls{
+      width:13%;
+      height: 25%;
+    }
+    .camera-container .screanshots{
+        width: 18%;
+        left: 80%;
+    }
+}
+/* Iphone 11 */
+@media (min-device-width:300px) and (max-device-width: 375px) {
+    .camera-container .screanshot-img img{
+        width: 90%;
+    }
+    .camera-container .screanshot-img .fa-circle-xmark{
+        top: 21%;
+        left: 47%;
+    }
+    .camera-container .controls{
+      width:13%;
+      height: 25%;
+    }
+    .camera-container .screanshots{
+        width: 20%;
+        height: 100%;
+        left: 73.2%;
+    }
 }
