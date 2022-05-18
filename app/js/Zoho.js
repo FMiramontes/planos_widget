@@ -789,6 +789,19 @@ const crm = {
                 }),
             })
 
+            const details =  JSON.parse(request.details?.output)
+            console.log("details: ", details)
+
+            if(details.code == "DUPLICATE_DATA"){
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: details.code,
+                }
+            }
+
             if (request.code !== 'success') {
                 return {
                     code: '400',
@@ -1037,6 +1050,11 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
+
+            createLog(error, 'Error', {
+                args: { dealId, FileName, blob },
+                invoke: 'attachFile',
+            })
             return {
                 code: 500,
                 ok: false,
@@ -1510,11 +1528,11 @@ const cliq = {
 
 async function createLog(log, status, info) {
     const connectionName = 'creator'
-
+    let message = log?.message
     const obj = {
         data: {
             app: 'widget testing',
-            log,
+            message,
             status,
             additional_info: info,
         },

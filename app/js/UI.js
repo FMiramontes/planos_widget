@@ -1515,6 +1515,7 @@ const UI = {
             const leadId = selectedOption.dataset.leadid
             if (leadId !== undefined) {
                 const convertLead = await crm.convertToContact(leadId, userID)
+                console.log("convertLead: ", convertLead)
                 if (convertLead.ok) {
                     alerts.showAlert('success', 'Lead convertido a Contacto')
                     const data = convertLead.data
@@ -1549,6 +1550,13 @@ const UI = {
                     deleteContact.addEventListener('click', (e) => {
                         this.cleanForm()
                     })
+                }else{
+                    if(convertLead.message == "DUPLICATE_DATA"){
+                        alerts.showAlert('warning', 'Contacto Duplicado')
+                    }else{
+                        alerts.showAlert('warning', 'El contacto no se pudo sincronizar!!')
+                    }
+                    
                 }
             }
         }
@@ -1997,7 +2005,8 @@ const UI = {
         const createLead = confirm('Desea crear el Posible cliente ')
         if (createLead) {
             const requestLead = await crm.searchContact(dataForm.contacto.Email, 'Leads')
-            if(requestLead.ok){
+            const requestContact = await crm.searchContact(dataForm.contacto.Email, 'Contacts')
+            if(requestLead.ok && requestContact.ok){
                 alerts.showAlert('warning', `El correo ${dataForm.contacto.Email}, ya se encuentra en crm !!`)
             }else{
                 const modal = document.getElementById('modal')
