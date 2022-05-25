@@ -1,9 +1,10 @@
-import UI from './UI.js'
+import {UI, util} from './UI.js'
 import maps from './mapas.js'
 import valid from './validate.js'
 import alerts from './alertas.js'
 import './zoom.js'
 import camera from './camera.js'
+import datalists from './dataList.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
@@ -14,24 +15,41 @@ const modal = document.getElementById('modal')
 const menuForm = document.querySelector('.menu-form')
 const vendedoresInput = document.querySelector('#vendorsValue')
 const searchDeals = document.getElementById('search-deal')
-let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 const tabs = document.querySelectorAll('[data-tab-target]')
+const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
+const input_location = document.querySelector('input[name="Localizacion_P"]')
+const map = document.getElementById('map')
+const elem = document.getElementById('svg-map')
+const panzoom = Panzoom(elem)
+let containerWrap = document.querySelector('.container-wrap')
+let containerModal = document.querySelector('.container-modal')
+let Iconmenu = document.querySelector('.btn-menu')
+let menu = document.querySelector('#menu-lateral')
+let btnMenuSpan = document.querySelector('.btn-menu span')
+let Iconmenu2 = document.getElementById('btn-menu-deals')
+let menu2 = document.querySelector('#menu-lateral2')
+let btnRefresh = document.getElementById('refresh-btn')
+let infoColor = document.getElementById('info-colors')
+let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
+let mapa = document.querySelector('.map')
+let navegador = util.navegador()
+let timeout
+let lastTap = 0
 let posicionY = 0
 let posicionX = 0
-let mapa = document.querySelector('.map')
+let CRMData = {}, qselector
 
-let CRMData = {},
-    qselector
-
+// inicialización de Zoho SDK 
 ZOHO.embeddedApp.on('PageLoad', async function (data) {
     ZOHO.CRM.CONFIG.getCurrentUser().then(function (data) {
         const user = document.getElementById('user')
         UI.userVendors(data.users[0])
-        UI.addfuentes()
-        UI.addSucursales()
-        UI.addDepartamentos()
-        UI.addZona()
-        UI.coordinador()
+        console.log("datalists: ", datalists)
+        UI.addDataList(datalists.coords, 'coo')
+        UI.addDataList(datalists.departamentos, 'departamento')
+        UI.addDataList(datalists.fuentesCliente, 'fuente')
+        UI.addDataList(datalists.sucursales, 'Sucursales')
+        UI.addDataList(datalists.zonas, 'Gerente')
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
@@ -45,13 +63,117 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
     })
 })
 
+ZOHO.embeddedApp.init().then(function () {
+    UI.loadMenuLateral()
+})
+
+// Funciones
+if (
+    (navegador.browser === 'chrome' ||
+        navegador.browser === 'firefox' ||
+        navegador.browser === 'safari') &&
+    navegador.device === 'Mobile'
+) {
+    mostrarTooltip('touchstart')
+    hideTooltip('touchend')
+
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+            fadeIn(document.getElementById('container-blocks'), 1000)
+            tabs.forEach((tab) => {
+                tab.classList.remove('active')
+            })
+            tab.classList.add('active')
+            scrollToBottom()
+        })
+    })
+} else {
+    modal.style.scrollBehavior = 'smooth'
+    showTooltip('mouseover')
+    hideTooltip('mouseout')
+}
+// Scroll Modal Celular
+function scrollToBottom() {
+    modal.scrollIntoView(false)
+}
+// Animacion modal
+function fadeIn(element, duration = 1000) {
+    element.style.display = ''
+    element.style.opacity = 0
+    let last = +new Date()
+    let tick = function () {
+        element.style.opacity =
+            +element.style.opacity + (new Date() - last) / duration
+        last = +new Date()
+        if (+element.style.opacity < 1) {
+            ;(window.requestAnimationFrame && requestAnimationFrame(tick)) ||
+                setTimeout(tick, 16)
+        }
+    }
+    tick()
+}
+// Celular doble click
+function cerrarMenu() {
+    menu.classList.toggle('open')
+    btnMenuSpan.classList.toggle('active')
+}
+// tabs Modal
+tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+        tabs.forEach((tab) => {
+            tab.classList.remove('active')
+        })
+        tab.classList.add('active')
+    })
+})
+
+//ZOOM
+document
+    .getElementById('zoom-in')
+    .addEventListener('click', panzoom.zoomIn)
+document
+    .getElementById('zoom-out')
+    .addEventListener('click', panzoom.zoomOut)
+document
+    .getElementById('zoom-reset')
+    .addEventListener('click', panzoom.reset)
+
+
+function showTooltip(type) {
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            posicionX = e.pageX + 10
+            posicionY = e.pageY + 13
+
+            maps.showPopup(e, posicionX, posicionY)
+        }
+    })
+}
+
+function mostrarTooltip(type) {
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            posicionX = e.changedTouches[0].pageX + 10
+            posicionY = e.changedTouches[0].pageY + 13
+
+            maps.showPopup(e, posicionX, posicionY)
+        }
+    })
+}
+
+function hideTooltip(type) {
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            maps.hidePopup()
+        }
+    })
+}
+
+// Eventos
+
 searchDeals.addEventListener('input', (e) => {
     console.log(e.target.value)
     UI.searchDeals(e.target.value.toLowerCase())
-})
-
-ZOHO.embeddedApp.init().then(function () {
-    UI.loadMenuLateral()
 })
 
 searchContactBtn.addEventListener('click', () => {
@@ -67,6 +189,7 @@ switchSearch.addEventListener('change', () => {
         searchLabel.textContent = 'Contacts'
     }
 })
+
 searchCampaigntBtn.addEventListener('click', () => {
     UI.searchCampaign()
 })
@@ -113,10 +236,10 @@ document.addEventListener('click', (e) => {
         if (modulo !== undefined) {
             if (modulo === 'Contacts') {
                 UI.selectContact(e.target)
-                UI.cleanForm()
+                util.cleanForm()
             } else {
                 UI.selectLead(e.target)
-                UI.cleanForm()
+                util.cleanForm()
             }
         }
     }
@@ -138,7 +261,7 @@ document.addEventListener('click', (e) => {
 })
 
 document.getElementById('btn-submit').addEventListener('click', (e) => {
-    const newData = UI.getDataForm()
+    const newData = util.getDataForm()
     if (valid.validateForm() && valid.validDataLists('submit')) {
         UI.validate(CRMData, newData)
     } else {
@@ -147,7 +270,7 @@ document.getElementById('btn-submit').addEventListener('click', (e) => {
 })
 
 document.getElementById('btn-cratelead').addEventListener('click', (e) => {
-    const dataForm = UI.getDataForm()
+    const dataForm = util.getDataForm()
 
     if (valid.validateDataLead() && valid.validDataLists('lead')) {
         UI.createLead(dataForm)
@@ -156,60 +279,6 @@ document.getElementById('btn-cratelead').addEventListener('click', (e) => {
     }
 })
 
-const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
-const input_location = document.querySelector('input[name="Localizacion_P"]')
-const map = document.getElementById('map')
-let navegador = UI.navegador()
-console.log('navegador: ', navegador)
-if (
-    (navegador.browser === 'chrome' ||
-        navegador.browser === 'firefox' ||
-        navegador.browser === 'safari') &&
-    navegador.device === 'Mobile'
-) {
-    mostrarTooltip('touchstart')
-    hideTooltip('touchend')
-
-    tabs.forEach((tab) => {
-        tab.addEventListener('click', () => {
-            fadeIn(document.getElementById('container-blocks'), 1000)
-            tabs.forEach((tab) => {
-                tab.classList.remove('active')
-            })
-            tab.classList.add('active')
-            scrollToBottom()
-        })
-    })
-} else {
-    modal.style.scrollBehavior = 'smooth'
-    showTooltip('mouseover')
-    hideTooltip('mouseout')
-}
-// Scroll Modal Celular
-function scrollToBottom() {
-    modal.scrollIntoView(false)
-}
-
-// Animacion modal
-
-function fadeIn(element, duration = 1000) {
-    element.style.display = ''
-    element.style.opacity = 0
-    let last = +new Date()
-    let tick = function () {
-        element.style.opacity =
-            +element.style.opacity + (new Date() - last) / duration
-        last = +new Date()
-        if (+element.style.opacity < 1) {
-            ;(window.requestAnimationFrame && requestAnimationFrame(tick)) ||
-                setTimeout(tick, 16)
-        }
-    }
-    tick()
-}
-// Celular doble click
-let timeout
-let lastTap = 0
 document.addEventListener('touchend', function (e) {
     if (e.target.matches('[data-lote]')) {
         let currentTime = new Date().getTime()
@@ -245,7 +314,7 @@ document.addEventListener('touchend', function (e) {
                             valid.validContact(true)
                         )
 
-                        CRMData = UI.getDataForm()
+                        CRMData = util.getDataForm()
                     }
                     let banner = document.querySelector('.banner')
                     banner.innerHTML = ''
@@ -262,6 +331,7 @@ document.addEventListener('touchend', function (e) {
         lastTap = currentTime
     }
 })
+
 document.addEventListener('dblclick', (e) => {
     if (e.target.matches('[data-lote]')) {
         if (e.target.dataset.crm == 'true') {
@@ -289,7 +359,7 @@ document.addEventListener('dblclick', (e) => {
                         valid.validContact(true)
                     )
 
-                    CRMData = UI.getDataForm()
+                    CRMData = util.getDataForm()
                 }
                 let banner = document.querySelector('.banner')
                 banner.innerHTML = ''
@@ -304,27 +374,26 @@ document.addEventListener('dblclick', (e) => {
         }
     }
 }),
-    modal.addEventListener('change', (e) => {
-        if (e.target.matches('[data-email]')) {
-            valid.validateEmail(e.target.value, e.target.dataset.email)
-        } else if (e.target.matches('[data-aporta-recursos]')) {
-            valid.validateRecursos()
-        }
-    }),
-    //Validate digits phone and mobile
-    modal.addEventListener('input', (e) => {
-        if (
-            e.target.matches('[name="Mobile"]') ||
-            e.target.matches('[name="Phone"]') ||
-            e.target.matches('[name="Phone_2"]') ||
-            e.target.matches('[name="Movil2"]')
-        ) {
-            valid.validateMobile(e.target)
-        }
-    })
 
-let containerWrap = document.querySelector('.container-wrap')
-let containerModal = document.querySelector('.container-modal')
+modal.addEventListener('change', (e) => {
+    if (e.target.matches('[data-email]')) {
+        valid.validateEmail(e.target.value, e.target.dataset.email)
+    } else if (e.target.matches('[data-aporta-recursos]')) {
+        valid.validateRecursos()
+    }
+}),
+
+//Validate digits phone and mobile
+modal.addEventListener('input', (e) => {
+    if (
+        e.target.matches('[name="Mobile"]') ||
+        e.target.matches('[name="Phone"]') ||
+        e.target.matches('[name="Phone_2"]') ||
+        e.target.matches('[name="Movil2"]')
+    ) {
+        valid.validateMobile(e.target)
+    }
+})
 
 containerModal.addEventListener('click', (event) => {
     if (event.target == containerModal) {
@@ -333,19 +402,10 @@ containerModal.addEventListener('click', (event) => {
     }
 })
 
-let Iconmenu = document.querySelector('.btn-menu')
-let menu = document.querySelector('#menu-lateral')
-let btnMenuSpan = document.querySelector('.btn-menu span')
-
 Iconmenu.addEventListener('click', () => {
     /*Abrir menu*/
     cerrarMenu()
 })
-
-function cerrarMenu() {
-    menu.classList.toggle('open')
-    btnMenuSpan.classList.toggle('active')
-}
 
 menu.addEventListener('click', (e) => {
     if (e.target.matches('[data-index]')) {
@@ -354,74 +414,12 @@ menu.addEventListener('click', (e) => {
 })
 
 /*Abrir menu tratos*/
-let Iconmenu2 = document.getElementById('btn-menu-deals')
-let menu2 = document.querySelector('#menu-lateral2')
-
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     menu2.classList.toggle('open')
     // let cardColor = document.querySelector('.color-deals')
     // cardColor.classList.toggle('showCard')
 })
-
-// tabs Modal
-
-tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-        tabs.forEach((tab) => {
-            tab.classList.remove('active')
-        })
-        tab.classList.add('active')
-    })
-})
-
-//ZOOM
-let elem = document.getElementById('svg-map')
-
-const panzoom = Panzoom(elem)
-
-let zoomInButton = document
-    .getElementById('zoom-in')
-    .addEventListener('click', panzoom.zoomIn)
-let zoomOutButton = document
-    .getElementById('zoom-out')
-    .addEventListener('click', panzoom.zoomOut)
-let resetButton = document
-    .getElementById('zoom-reset')
-    .addEventListener('click', panzoom.reset)
-
-// Tooltip
-const tooltip = document.getElementById('info-lote')
-
-function showTooltip(type) {
-    mapa.addEventListener(`${type}`, (e) => {
-        if (e.target.matches('[data-lote]')) {
-            posicionX = e.pageX + 10
-            posicionY = e.pageY + 13
-
-            maps.showPopup(e, posicionX, posicionY)
-        }
-    })
-}
-
-function mostrarTooltip(type) {
-    mapa.addEventListener(`${type}`, (e) => {
-        if (e.target.matches('[data-lote]')) {
-            posicionX = e.changedTouches[0].pageX + 10
-            posicionY = e.changedTouches[0].pageY + 13
-
-            maps.showPopup(e, posicionX, posicionY)
-        }
-    })
-}
-
-function hideTooltip(type) {
-    mapa.addEventListener(`${type}`, (e) => {
-        if (e.target.matches('[data-lote]')) {
-            maps.hidePopup()
-        }
-    })
-}
 
 vendedoresInput.addEventListener('change', (event) => {
     // Remove any dataset if exists
@@ -436,13 +434,10 @@ vendedoresInput.addEventListener('change', (event) => {
     }
 })
 
-let btnRefresh = document.getElementById('refresh-btn')
-
 btnRefresh.addEventListener('click', () => {
     UI.paintDeals()
 })
 
-let infoColor = document.getElementById('info-colors')
 infoColor.addEventListener('click', () => {
     let cardColor = document.querySelector('.color-lote')
     cardColor.classList.toggle('showCard')

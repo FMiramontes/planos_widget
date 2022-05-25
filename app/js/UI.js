@@ -1,440 +1,10 @@
 import { crm, creator, books, cliq } from './Zoho.js'
-// import creator from './Zoho.js'
-// import boocks from './Zoho.js'
 import alerts from './alertas.js'
 import Mapas from './mapas.js'
-import valid from './validate.js'
 
 let desarrollo = new Array()
 
 let beforeManzana = ''
-
-const departamentos = [
-    "Call Center",
-    "Call Center Sala de Ventas Cazzar",
-    "Call Center Costa La Gloria",
-    "Call Center Costa 1",
-    "Call Center Costa 1A",
-    "Call Center Costa 2",
-    "Call Center Costa 3",
-    "Call Center Ensenada",
-    "Call Center Costa 1 Puerto Nuevo",
-    "Unidad de Venta",
-    "Ventas",
-    "Cobranza"
-]
-
-const coords = [
-    'Carlos Lenin',
-    'Coord. Claudia Noriega',
-    'Coord. Gabriela Cano',
-    'Coord. Edgar Trejo',
-    'Coord. Mariana Fragoso',
-    'Aux. Yulissa Orozco',
-    'Aux. Adolfo Martinez',
-    'Aux. Alejandro Cazorla',
-    'Aux. Ashram Mendez',
-    'Aux. Bernardo Tovar',
-    'Aux. Ezequiel Espinoza',
-    'Aux. Ana Lizeth Lopez',
-    'Aux. Kristina Voronina',
-    'Aux. Alejandra Garcia',
-    'Aux. Damaris Lopez',
-    'Aux. Jared Mendez',
-    'Aux. Isabel Aguilar',
-    'Aux. Sabrina Martinez',
-    'Aux. Gabriel Hidalgo',
-    'Aux. Arturo Ubiedo',
-    'Aux. Nayeli Juarez',
-    'Aux. Vanessa Parra',
-    'Aux. Veronica Gonzalez',
-    'Aux. Victoria Martin',
-    'Aux. Jesica Garcia',
-    'Coord. Carlos Merlo',
-    'Evaristo Lizarraga',
-    'Diana Hernandez',
-    'Elizabeth Portillo',
-    'Coord. Gabriela Solano',
-    'Elizabeth Portillo y/o Gabriela Solano',
-    'Elizabeth Portillo y/o Ana Lizeth Lopez',
-    'Elizabeth Portillo y/o Carlos Maldonado',
-    'Coordinador Prueba',
-    'Coord. Fernanda Peralta',
-]
-
-const fuentesCliente = [
-    'Aviso',
-    'Llamada no solicitada',
-    'Recomendación de empleado',
-    'Recomendación externa',
-    'Tienda en línea',
-    'Socio',
-    'Facebook',
-    'Twitter',
-    'Relaciones públicas',
-    'Alias del correo electrónico de ventas',
-    'Google+',
-    'Socio de seminarios',
-    'Seminario interno',
-    'Exposición comercial',
-    'Descargar web',
-    'Investigación web',
-    'Casos de la Web',
-    'Correo web',
-    'Chat',
-    'Infomercial',
-    'Página Web',
-    'Carteleras',
-    'Periodico',
-    'Radio',
-    'Volanteo',
-    'Oficinas',
-    'Referido Inverplus',
-    'Recomendados',
-    'Flyers',
-    'Camion',
-    'Google AdWords',
-    'CARRERA ROSARITO ABRIL 2022',
-    'CARRETA PLAZA LAS AMERICAS',
-    'CARTELERA SENTRI',
-    'CONTENEDOR ALAMAR 3',
-    'DESARROLLO LOS OLIVOS',
-    'DESARROLLO RANCHO ESCONDIDO',
-    'ENTREVISTA INVASORA USA',
-    'EVENTO LIBERTEX 2022',
-    'EXPO BODA 2022',
-    'FACEBOOK CAMPESTRE VALLECITOS',
-    'FACEBOOK CIELO',
-    'FACEBOOK ENCINO SOLO',
-    'FACEBOOK MISION DE GUADALUPE',
-    'FACEBOOK RANCHETTES',
-    'FACEBOOK RANCHO LAS PUERTAS',
-    'FACEBOOK RESIDENCIAL LOS OLIVOS',
-    'FACEBOOK VISTA DE PUERTO NUEVO',
-    'GIGANTOGRAFIA COSTA DORADA',
-    'GRUPO CADENA',
-    'LANDING PAGE CIELO',
-    'LANDING PAGE COSTA DORADA',
-    'LANDING PAGE SAHARA',
-    'LANDING PAGE TERRENOS CAMPESTRES',
-    'OFICINA LAS AMERICAS',
-    'PANTALLA ALAMEDA',
-    'PASE CALL CENTER LA GLORIA',
-    'PISTA DE HIELO 2021',
-    'PROSPECCION AMBULANTE ROSARITO',
-    'ZONKEYS 2022',
-    'CAMION TOSCANA',
-    'CARTELERA AGUAJE DE LA TUNA',
-    'CARTELERA ALAMAR',
-    'CARTELERA ALAMAR 2',
-    'CARTELERA ALAMAR 3',
-    'CARTELERA AVENIDA INTERNACIONAL',
-    'CARTELERA CARRETERA ROSARITO ENSENADA',
-    'CARTELERA CAZZAR',
-    'CARTELERA CENTRO CIVICO ROSARITO',
-    'CARTELERA CENTRO HISTORICO TKT',
-    'CARTELERA CHARLYS',
-    'CARTELERA CIELO',
-    'CARTELERA CORPORATIVO DEL PRADO',
-    'CARTELERA COSTA DORADA 1',
-    'CARTELERA COSTA DORADA 3',
-    'CARTELERA COSTA DORADA 4',
-    'CARTELERA COSTA DORADA 5',
-    'CARTELERA CRISTO POR CALAFIA',
-    'CARTELERA CUAUHTEMOC',
-    'CARTELERA CUCAPAH',
-    'CARTELERA CUOTA 1 COSTA DORADA',
-    'CARTELERA CUOTA ROS-ENS VILLA TOSCANA',
-    'CARTELERA CUOTA TKT',
-    'CARTELERA DOBLE ESCÉNICA',
-    'CARTELERA EL CHAPARRAL',
-    'CARTELERA EL CHAPARRAL 2',
-    'CARTELERA ENTRADA A PLAYAS',
-    'CARTELERA ENTRADA PLAYAS',
-    'CARTELERA ESCENICA PLAYAS-ROS',
-    'CARTELERA ESCENICA ROSARITO ENS',
-    'CARTELERA GARITA CHAPARRAL',
-    'CARTELERA GARITA DE OTAY 1',
-    'CARTELERA GARITA DE OTAY 2',
-    'CARTELERA INTERNACIONAL 2',
-    'CARTELERA LAGUNA SALADA',
-    'CARTELERA LIBRE ESCENICA ENSENADA',
-    'CARTELERA LIBRE ROSARITO 1',
-    'CARTELERA LIBRE ROSARITO 2',
-    'CARTELERA LIBRE ROSARITO 3',
-    'CARTELERA LINEA 3',
-    'CARTELERA LINEA CIELO 1',
-    'CARTELERA MUJER INVERPLUS',
-    'CARTELERA NODO OTAY',
-    'CARTELERA PABELLON ROSARITO',
-    'CARTELERA PANAMERICANO',
-    'CARTELERA PLAZA GALERIAS',
-    'CARTELERA PLAZA INFINITI',
-    'CARTELERA PRIMOTAPIA-ARENALES',
-    'CARTELERA PUENTE REAL INN',
-    'CARTELERA READY LANE',
-    'CARTELERA READY LANE 2',
-    'CARTELERA READY LANE 5',
-    'CARTELERA REAL DE SANTA FE',
-    'CARTELERA SAHARA',
-    'CARTELERA SAN PEDRO',
-    'CARTELERA SIMSA',
-    'CARTELERA SUBIDA AEROPUERTO',
-    'CARTELERA TERAN TERAN MEXICALI',
-    'CARTELERA UBICACIÓN VILLA TOSCANA',
-    'CARTELERA UNIPOLAR CHICO ROSARITO',
-    'CARTELERA UNIPOLAR CUOTA PLAYAS DE TIJ- RTO',
-    'CARTELERA UNIPOLAR ENTRADA TIJ',
-    'CARTELERA VISTAS DEL RIO 1',
-    'CASA DE PIEDRA',
-    'CASETA MISIÓN GUADALUPE',
-    'CHAT FB',
-    'CIELO OFICINAS',
-    'CIELO RESIDENCIAL VALLAS',
-    'CONTENEDOR 1 PASEO LAS BRISAS',
-    'CONTENEDOR 2 PASEO LAS BRISAS',
-    'CONTENEDOR ALAMAR',
-    'CONTENEDOR BETHEL',
-    'CONTENEDOR CANTAMAR',
-    'CONTENEDOR CASA DE PIEDRA',
-    'CONTENEDOR CIELO 2',
-    'CONTENEDOR COSTA DORADA 1',
-    'CONTENEDOR COSTA DORADA 3',
-    'CONTENEDOR LA FONDA',
-    'CONTENEDOR LA PALOMA',
-    'CONTENEDOR LOMAS DEL VALLE',
-    'CONTENEDOR MISIÓN GUADALUPE',
-    'CONTENEDOR PARAISO LADRILLERA',
-    'CONTENEDOR POPOTLA',
-    'CONTENEDOR PUERTO NUEVO',
-    'CONTENEDOR RANCHO LA PUERTA',
-    'CONTENEDOR REAL DE SANTA FE',
-    'CONTENEDOR REAL DE SANTA FE 1',
-    'CONTENEDOR SAHARA',
-    'CONTENEDOR SAHARA 2',
-    'CONTENEDOR SANTA FE LA PAJARITA',
-    'CONTENEDOR SANTA FE TOOGINOS',
-    'CONTENEDOR SEVEN ELEVEN',
-    'CONTENEDOR TARAY',
-    'CONTENEDOR TERAN TERAN',
-    'CONTENEDOR VALLE DE GUADALUPE',
-    'CONTENEDOR VALLE DEL CIMARRON 1',
-    'CONTENEDOR VALLE DEL CIMARRON 2',
-    'CONTROL REMOTO LA INVASORA 94.5',
-    'CONTROL REMOTO PULSAR',
-    'DESARROLLO VISTAS DEL RIO',
-    'DESAYUNOS MUJER INVERPLUS',
-    'EL SHOW DE MARIO ALBERTO',
-    'EL TRIANGULO VALLE DE GUADALUPE',
-    'EMPODERATE LA',
-    'ENCUESTAS',
-    'ENCUESTAS CALLE TIJUANA',
-    'ENCUESTAS LINEA OTAY',
-    'ENCUESTAS MEXICALI',
-    'ENCUESTAS SAN YSIDRO',
-    'ENSENADA VILLA MARINA',
-    'ENTREVISTA GUSTAVO VARGAS',
-    'ENTREVISTA TV AZTECA',
-    'ENTREVISTAS RADIO LOS ANGELES',
-    'ENTREVISTAS TELEVISA',
-    'ENVIOS MASIVOS',
-    'EVENTO FATO',
-    'EVENTO SENIOR EXPO ONTARIO CA',
-    'EXA FM',
-    'EXPO ARTE Y DECO ROSARITO 2019',
-    'EXPO BODA 2020',
-    'EXPO MUEBLE',
-    'FACEBOOK AGENTES',
-    'FACEBOOK ALAMAR',
-    'FACEBOOK ALFREDO ALVAREZ',
-    'FACEBOOK BETHEL',
-    'FACEBOOK COSTA DORADA',
-    'FACEBOOK EMPRESA',
-    'FACEBOOK GRUPO CONCORDIA USA',
-    'FACEBOOK SAHARA',
-    'FACEBOOK TARAY',
-    'FACEBOOK VILLA PARAISO',
-    'FACEBOOK VILLATOSCANA',
-    'FACEBOOK VISTAS DEL RIO',
-    'FB AGENTE 1',
-    'FB AGENTE 10',
-    'FB AGENTE 11',
-    'FB AGENTE 12',
-    'FB AGENTE 13',
-    'FB AGENTE 14',
-    'FB AGENTE 15',
-    'FB AGENTE 16',
-    'FB AGENTE 17',
-    'FB AGENTE 18',
-    'FB AGENTE 19',
-    'FB AGENTE 2',
-    'FB AGENTE 20',
-    'FB AGENTE 21',
-    'FB AGENTE 22',
-    'FB AGENTE 23',
-    'FB AGENTE 24',
-    'FB AGENTE 25',
-    'FB AGENTE 26',
-    'FB AGENTE 27',
-    'FB AGENTE 28',
-    'FB AGENTE 3',
-    'FB AGENTE 4',
-    'FB AGENTE 5',
-    'FB AGENTE 6',
-    'FB AGENTE 7',
-    'FB AGENTE 8',
-    'FB AGENTE 9',
-    'FLYERS TABLOIDES TOSCANA',
-    'FLYERS / TABLOIDES CIELO',
-    'FLYERS / TABLOIDES VILLA GLORIA',
-    'FLYERS LINEA',
-    'FLYERS LOS ANGELES',
-    'GIGANTOGRAFIA SENTRI',
-    'HOSPITAL ÁNGELES',
-    'INFOMERCIAL AZTECA LA',
-    'INFOMERCIAL CANAL 22',
-    'INFOMERCIAL ESTRELLA TV',
-    'INFOMERCIAL TELEMUNDO LOS ANGELES',
-    'INFOMERCIAL TELEMUNDO SAN DIEGO',
-    'INFOMERCIAL TELEVISA GUADALAJARA',
-    'INFOMERCIAL TELEVISA MEXICALI',
-    'INFOMERCIAL TELEVISA MONTERREY',
-    'INFOMERCIAL TELEVISA TIJUANA',
-    'INFOMERCIAL TV AZTECA',
-    'INFOMERCIAL UNIVISION LA',
-    'LA BUENA EL MALO Y EL FEO',
-    'LA MEJOR 90.7',
-    'LA OPINION',
-    'LA PUERTA',
-    'LA QUE BUENA LA',
-    'LA RAZA LA',
-    'LA TIMES',
-    'LINEA 1',
-    'LINEA 2',
-    'LINEA 4',
-    'LLAMADA EN FRIO',
-    'LOS ANGELES MIXER 2019',
-    'LOS PANCHOS',
-    'MARQUESINA SENTRI',
-    'Memorial Day Facebook',
-    'MENCIÓN LA RANCHERA',
-    'MERCADO DE ABASTOS',
-    'MUJER INVERPLUS',
-    'MURO PLAZA CALIFORNIA',
-    'NOCHES DE INVERSIÓN CAZZAR',
-    'OFICINA ALAMAR',
-    'OFICINA ALTIPLANO',
-    'OFICINA BETHEL',
-    'OFICINA CAZZAR',
-    'OFICINA LOS ANGELES',
-    'OFICINA PLAYAS',
-    'OFICINA PUERTO NUEVO',
-    'OFICINA SENDEROS ROSARITO',
-    'OFICINAS LINEA',
-    'PAGINA WEB CIELO',
-    'PAGINA WEB GRUPO CONCORDIA',
-    'PAGINA WEB TECATE',
-    'PAGINA WEB TOSCANA',
-    'PANTALLA CESPT',
-    'PANTALLA CHAPARRAL',
-    'PANTALLA HOTEL CORONA',
-    'PANTALLA OTAY',
-    'PANTALLA PLAZA FIESTA',
-    'PANTALLA REAL INN',
-    'PANTALLA TV AZTECA',
-    'PERIODICO FRONTERA',
-    'PLAN DE RECOMPENSA',
-    'PONOSA VALLAS CIELO',
-    'PONOSA VALLAS PARAÍSO',
-    'PROMOCIÓN 40',
-    'PROMOTORES VIRTUALES',
-    'PROSPECTADORES GARITA',
-    'PUENTE BUENA VISTA',
-    'PUENTE PLAYAS',
-    'PUERTO NUEVO',
-    'PUNTO DE VENTA ALAMAR',
-    'PUNTO DE VENTA BELLA VISTA',
-    'PUNTO DE VENTA BRISAS',
-    'PUNTO DE VENTA CASA KEPLER',
-    'PUNTO DE VENTA CIMARRÓN',
-    'PUNTO DE VENTA LA GLORIA',
-    'PUNTO DE VENTA MERCADO HIDALGO',
-    'PUNTO DE VENTA PONOSA',
-    'RADIO GUSTAVO VARGAS',
-    'RADIO LATINA',
-    'READY LANE 3',
-    'READY LANE 4',
-    'REPORTE DE GARITAS',
-    'SABOR A VALLE 28',
-    'SABOR A VALLE 29',
-    'SENTRI',
-    'SPOT CNR',
-    'SPOT TELEVISA',
-    'SPOT TELEVISA 6:00 PM',
-    'SPOT TELEVISA 8:00 PM',
-    'SPOT TV AZTECA',
-    'SPOT TV AZTECA 10:00 AM',
-    'SPOT TV AZTECA 8:30 PM',
-    'SUCCESSFUL AGING EXPO 2019',
-    'TAMALE FESTIVAL',
-    'TECATE LOS ENCINOS',
-    'TECATE PFC',
-    'TELEVISA TIJUANA',
-    'TORNEO DE GOLF REAL DEL MAR 2019',
-    'TOURS',
-    'TV AZTECA SAN DIEGO',
-    'UNIDAD DE VENTA',
-    'UNIRADIO',
-    'UNIRADIO PULSAR',
-    'VALLA MOVIL ELEVADA',
-    'VALLAS MISIÓN DE GUADALUPE',
-    'VALLAS SEVEN ELEVEN',
-    'VILLA GLORIA',
-    'VILLA GLORIA OFICINAS',
-    'VILLA TOSCANA OFICINAS',
-    'VIVANUNCIOS',
-    'VOLANTE BAJA REAL STATE TOUR',
-    'VOLANTE VENTAS',
-    'VOLANTES MISION',
-    'WEB GPO CONCORDIA USA',
-    'WEB MÓVIL SYS',
-    'CONTROL EXA 91.7',
-    'EXPO MUEBLE 2022',
-]
-
-const sucursales = [
-    "Oficina Cazzar",
-    "Oficina Altiplano",
-    "Oficina Alamar",
-    "Oficina Sainz",
-    "Oficina Lomas del Valle",
-    "Costa Dorada",
-    "Oficina Seven Eleven",
-    "Oficina Cielo",
-    "Oficina Villa Toscana",
-    "Oficina La Gloria",
-    "Oficina Sendero",
-    "Oficina La Puerta",
-    "Oficina Santa Ana",
-    "Oficina Los Angeles",
-    "Oficina San Ysidro",
-    "Oficina Ensenada",
-    "Oficina Puerto Nuevo"
-]
-
-const zonas = [
-    "Costa",
-    "Costa 1",
-    "Costa 2",
-    "Costa 3",
-    "Costa 4",
-    "Oriente",
-    "Oficina Centro",
-    "Oficina Los Angeles",
-    "Oficina Tijuana 2",
-    "Oficina Revolucion",
-    "Sala de Ventas Cazzar"
-]
 
 document.addEventListener('click', async (e) => {
     if (e.target.matches('[data-manzana]')) {
@@ -546,12 +116,6 @@ const UI = {
         mapa.dataset.commerceId = id
         mapa.dataset.localidad = localidad
     },
-    parseOuterHTML(text) {
-        let tempText1 = text.normalize()
-        let tempText2 = tempText1.replaceAll('&lt;', '<')
-        let tempText3 = tempText2.replaceAll('&gt;', '>')
-        return tempText3
-    },
     async getSVG() {
         const containerManzanas = document.getElementById('maps')
 
@@ -567,7 +131,7 @@ const UI = {
                                 manzana.Numero
                             }" data-conatiner="${
                                 manzana.Numero
-                            }" >${this.parseOuterHTML(manzana?.path)}</g>`
+                            }" >${util.parseOuterHTML(manzana?.path)}</g>`
                         )
                 })
             }
@@ -581,7 +145,7 @@ const UI = {
             detail.forEach((d) => {
                 mapsDetails.insertAdjacentHTML(
                     'beforeend',
-                    this.parseOuterHTML(d)
+                    util.parseOuterHTML(d)
                 )
             })
         })
@@ -594,7 +158,7 @@ const UI = {
 
         if (contactData.ok === true) {
             // pintar informacion en Formulario
-            const Keys = this.getKeysForm()
+            const Keys = util.getKeysForm()
             const CRMData = contactData.data
 
             Keys.contacto.forEach((key) => {
@@ -614,70 +178,6 @@ const UI = {
         if (accout_id !== false) {
             accountData = await crm.getAccount(accout_id)
         }
-    },
-    cleanForm() {
-        const Blocks = Array.from(document.querySelectorAll('.block'))
-        Blocks.forEach((block) => {
-            const spans = Array.from(block.children)
-            spans.forEach((span) => {
-                if (span.children[1].type === 'checkbox') {
-                    span.children[1].checked = false
-                } else {
-                    span.children[1].value = ''
-                }
-            })
-        })
-    },
-    getDataForm() {
-        let form = {}
-        let contacto = {}
-        let Presupuesto = {}
-        const Blocks = Array.from(document.querySelectorAll('.block'))
-        Blocks.forEach((block) => {
-            const spans = Array.from(block.children)
-            spans.forEach((span) => {
-                if (block?.dataset?.contacto) {
-                    if (span.children[1].value !== '') {
-                        contacto[span.children[1].name] = span.children[1].value
-                    }
-                    // sobreescribe valor con el valor del checkbox
-                    if (span.children[1].type === 'checkbox') {
-                        contacto[span.children[1].name] =
-                            span.children[1].checked
-                    }
-                }
-
-                if (block?.dataset?.presupuesto) {
-                    Presupuesto[span.children[1].name] = span.children[1].value
-                }
-            })
-        })
-
-        form.contacto = contacto
-        form.presupuesto = Presupuesto
-
-        return form
-    },
-    getKeysForm() {
-        let form = {}
-        let contacto = new Array()
-        let Presupuesto = new Array()
-        const Blocks = Array.from(document.querySelectorAll('.block'))
-        Blocks.forEach((block) => {
-            const spans = Array.from(block.children)
-            spans.forEach((span) => {
-                if (block?.dataset?.contacto)
-                    contacto.push(span.children[1].name)
-
-                if (block?.dataset?.presupuesto)
-                    Presupuesto.push(span.children[1].name)
-            })
-        })
-
-        form.contacto = contacto
-        form.presupuesto = Presupuesto
-
-        return form
     },
     async validate(CRMData, newData) {
         console.time()
@@ -842,7 +342,7 @@ const UI = {
                 }
             } else {
                 contact_id = temp_contact_id
-                let update = this.checkUpdate(CRMData, newData)
+                let update = util.checkUpdate(CRMData, newData)
                 if (!update) {
                     const updateRequest = await crm.UpdateContact(
                         newData,
@@ -1293,11 +793,11 @@ const UI = {
                         ).value = ''
                         document.querySelector('#coordinadorValue').value = ''
                         vend.value = ''
-                        this.removeDatasets('#campaignValue')
-                        this.removeDatasets('input[name="Costo_M2"]')
+                        util.removeDatasets('#campaignValue')
+                        util.removeDatasets('input[name="Costo_M2"]')
                         this.paintDeals()
-                        this.removeDatasets('[name="Cantidad_RA"]')
-                        // this.removeDatasets('#vendorsValue')
+                        util.removeDatasets('[name="Cantidad_RA"]')
+                        // util.removeDatasets('#vendorsValue')
                     }
                 } else {
                     throw new Error('No se pudo crear cotizacion')
@@ -1314,65 +814,55 @@ const UI = {
         }
         console.timeEnd()
     },
-    checkUpdate(a, b) {
-        return JSON.stringify(a) === JSON.stringify(b)
-    },
-    viewModal(view, id, dataset, paint) {
-        const {
-            crm_id,
-            trato,
-            crm: existeCRM,
-            sku,
-            fracc_id,
-            esquina,
-        } = dataset
-        let modal = document.getElementById('modal')
-        let containerWrap = document.querySelector('.container-wrap')
-        if (view) {
-            containerWrap.classList.add('show')
-            modal.dataset.item = id
-            modal.dataset.crm_id = crm_id
-            modal.dataset.trato = trato
-            modal.dataset.existecrm = existeCRM
-            modal.dataset.sku = sku
-            modal.dataset.fracc_id = fracc_id
-            modal.dataset.esquina = esquina
-            if (paint) this.paintDataPresupuesto(id, dataset)
-            // container_modal.style.display = 'flex'
-        } else {
-            // container_modal.style.display = 'none'
-            modal.dataset.item = ''
-            modal.dataset.crm_id = ''
-            this.removeInvalid()
+    async createLead(dataForm) {
+        const createLead = confirm('Desea crear el Posible cliente ')
+        if (createLead) {
+            const requestLead = await crm.searchContact(dataForm.contacto.Email, 'Leads')
+            const requestContact = await crm.searchContact(dataForm.contacto.Email, 'Contacts')
+            if(requestLead.ok && requestContact.ok){
+                alerts.showAlert('warning', `El correo ${dataForm.contacto.Email}, ya se encuentra en crm !!`)
+            }else{
+                const modal = document.getElementById('modal')
+                const fraccionamientoId = modal.dataset.fracc_id
+                const user = document.getElementById('user')
+                let ownerId
+                if (user?.dataset?.profile === 'Vendedor') {
+                    ownerId = user.dataset.crmuserid
+                } else {
+                    const user = document.getElementById('vendorsValue')
+                    ownerId = user.dataset.vendedorid
+                }
+
+                const createLeadRequest = await crm.createLead(
+                    dataForm,
+                    ownerId,
+                    fraccionamientoId
+                )
+                if (createLeadRequest.ok) {
+                    alerts.showAlert('success', 'Posible cliente creado')
+                } else {
+                    alerts.showAlert(
+                        createLead.type,
+                        'El posible cliente no pudo ser creado !!'
+                    )
+                }
+            }
         }
     },
-    removeInvalid() {
-        let invalidInputs = Array.from(
-            document.getElementsByClassName('invalid')
-        )
-        invalidInputs.forEach((inp) => {
-            inp.classList.remove('invalid')
-        })
-    },
-    paintDataPresupuesto(id, dataset) {
-        const { costototal, costom2, dimension } = dataset
-        // const Total = document.querySelector('input[name="Costo_Total_P"]')
-        let Total = document.querySelector('input[name="Costo_Total_P"]')
-        let M2 = document.querySelector('input[name="Costo_M2"]')
-        let Dimension = document.querySelector('input[name="dimension"]')
-
-        let manzana = document.querySelector('input[name="Manzana"]')
-        let lote = document.querySelector('input[name="Lote"]')
-
-        let sku = id.split('-')
-
-        manzana.value = sku[0].replace(/\D+/, '')
-
-        lote.value = sku[1].replace(/\D+/, '')
-
-        Total.value = costototal
-        M2.value = costom2
-        Dimension.value = dimension
+    async cliqLoteFaltante(frac, id) {
+        let msg =
+            'Se intento cotizar el producto: ' +
+            id +
+            ' del fraccionamiento: ' +
+            frac +
+            ' Se requiere crearlo para continuar'
+        const envio = await cliq.postToChannel('lotesfaltantes', msg)
+        if (envio.ok) {
+            alerts.showAlert(
+                envio.type,
+                'Se posteo correctamente dentro del canal'
+            )
+        }
     },
     async searchContact() {
         const searchValue = document.querySelector('#search-value').value
@@ -1463,49 +953,58 @@ const UI = {
             }
         }
     },
-    hideResults() {
-        const containers = document.querySelectorAll('.search-result')
-        containers.forEach((c) => {
-            c.innerHTML = ''
-        })
-    },
-    selectContact(selectedOption) {
-        const contactContainer = document.querySelector('#contact')
-        contactContainer.innerHTML = ''
+    async paintDeals() {
+        const colors = {
+            "Presentación del Producto": "#de9f27",
+            "Cotización": "#b5512a",
+            "Cita en el Fraccionamiento": "#7de38e",
+            "Asistencia del Cliente Al Fraccionamiento": "#398afa",
+            "Pago de Apartado": "#6908c9",
+            "Pago de Enganche": "#2e2e2e",
+            "Primer mensualidad": "#f8c15b",
+            "Cerrado (ganado)": "#4f9b40",
+            "Cerrado (perdido)": "#d44141",
+            "Cancelado": "#ff2e2e",
+        }
+        const containerDeals = document.getElementById('container-deals')
+        containerDeals.innerHTML = ''
+        const user = document.getElementById('user')
 
-        const contactContainerResults =
-            document.querySelector('#contact-results')
-        contactContainerResults.classList.add('active')
+        const userId = user.dataset?.crmuserid
+        const userAdmin =
+            user.dataset?.profile == 'Administrator' ? true : false
+        let dataDeals
+        if (userAdmin) {
+            dataDeals = await crm.getAllDeals()
+        } else {
+            dataDeals = await crm.serchDealsByOwner(userId)
+        }
 
-        contactContainer.dataset.contactid = selectedOption.dataset.contactid
-        contactContainer.dataset.accountid =
-            selectedOption.dataset.accountid === undefined
-                ? null
-                : selectedOption.dataset.accountid
-        contactContainer.dataset.accountname =
-            selectedOption.dataset.accountname === undefined
-                ? null
-                : selectedOption.dataset.accountname
-
-        // Display contact
-        const spanName = document.createElement('span')
-        spanName.textContent = selectedOption.children[0].textContent
-        spanName.dataset.contactname = selectedOption.children[0].textContent
-        contactContainer.appendChild(spanName)
-
-        // Add remove user button
-        contactContainer.insertAdjacentHTML(
-            'beforeend',
-            `
-        <button id="deleteContact" class="close-button" type="button" data-close>
-        <span aria-hidden="true">&times;</span>
-        </button>`
-        )
-
-        const deleteContact = document.getElementById('deleteContact')
-        deleteContact.addEventListener('click', (e) => {
-            this.cleanForm()
-        })
+        if (dataDeals.ok) {
+            dataDeals.data.forEach((deal) => {
+                if (userAdmin || deal.Owner.id == userId) {
+                    let stage = deal.Stage
+                    let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
+                    let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
+                    let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
+                    let card = `
+                        <section class="card-trato">
+                            <section class="titulo-trato">${deal.Deal_Name}</section>
+                            <section class="trato-cont" data-dealid='${deal.id}' data-dealname='${deal.Deal_Name}'>
+                                <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                                <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                                <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
+                                <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
+                                <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
+                            </section>
+                            <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
+                            <p><b>Cliente: </b><b>${deal.Contact_Name.name}</b></p>
+                            <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
+                        </section>`
+                    containerDeals.insertAdjacentHTML('beforeend', card)
+                }
+            })
+        }
     },
     async selectLead(selectedOption) {
         const convert = confirm('Desea convertir al Posible cliente a Contacto')
@@ -1548,7 +1047,7 @@ const UI = {
                     const deleteContact =
                         document.getElementById('deleteContact')
                     deleteContact.addEventListener('click', (e) => {
-                        this.cleanForm()
+                        util.cleanForm()
                     })
                 }else{
                     if(convertLead.message == "DUPLICATE_DATA"){
@@ -1560,15 +1059,6 @@ const UI = {
                 }
             }
         }
-    },
-    removeContact() {
-        const contactContainer = document.querySelector('#contact')
-        contactContainer.innerHTML = ''
-        delete contactContainer.dataset.contactid
-        delete contactContainer.dataset.accountid
-        delete contactContainer.dataset.accountname
-        if (contactContainer?.dataset?.lead)
-            delete contactContainer?.dataset?.lead
     },
     async searchCampaign() {
         const searchValue = document.querySelector('#campaignValue').value
@@ -1618,31 +1108,6 @@ const UI = {
                 campaignResultContainer.append(frag)
             }
         }
-    },
-    selectCampaign(selectedOption) {
-        const campaignInput = document.querySelector('#campaignValue')
-        campaignInput.value = ''
-        campaignInput.value = selectedOption.children[0].textContent
-        campaignInput.dataset.campaignid = selectedOption.dataset.campaignid
-        campaignInput.dataset.politica =
-            // selectedOption.children[1].dataset.politica
-            selectedOption.children[1].textContent
-        campaignInput.dataset.formadepago =
-            selectedOption.children[0].dataset.formadepago
-        campaignInput.dataset.diferido =
-            selectedOption.children[0].dataset.diferido
-        campaignInput.dataset.plazosdiferido =
-            selectedOption.children[0].dataset.plazosdiferido
-    },
-    coordinador() {
-        const selectCoordinador = document.getElementById('list-coo')
-
-        coords.forEach((coo) => {
-            let option = document.createElement('option')
-            option.value = coo
-            option.textContent = coo
-            selectCoordinador.appendChild(option)
-        })
     },
     async fillCampaignDetails() {
         const campaignInput = document.querySelector('#campaignValue')
@@ -1821,20 +1286,6 @@ const UI = {
             }
         }
     },
-    addRecursos(dcontacto) {
-        const inputRecursos = Array.from(
-            document.querySelector('[data-recursos]').children
-        )
-
-        let cname = dcontacto['First_Name'] + ' ' + dcontacto['Last_Name']
-
-        inputRecursos[0].children[1].value = cname //nombre completo
-        inputRecursos[1].children[1].value = dcontacto['Empresa_en_labora'] //empresa donde trabaja
-        inputRecursos[2].children[1].value = dcontacto['INGRESO_MENSUAL'] //ingreso mensual
-        inputRecursos[3].children[1].value = cname //duenyo controlador
-        inputRecursos[4].children[1].value = ''
-        inputRecursos[5].children[1].value = dcontacto['A_os_Laborados'] //tiempo laborado
-    },
     async getUsers(type) {
         let end = true
         let users = new Array()
@@ -1877,6 +1328,166 @@ const UI = {
             VendedorContainer.style = 'display: none;'
         }
     },
+    viewModal(view, id, dataset, paint) {
+        const {
+            crm_id,
+            trato,
+            crm: existeCRM,
+            sku,
+            fracc_id,
+            esquina,
+        } = dataset
+        let modal = document.getElementById('modal')
+        let containerWrap = document.querySelector('.container-wrap')
+        if (view) {
+            containerWrap.classList.add('show')
+            modal.dataset.item = id
+            modal.dataset.crm_id = crm_id
+            modal.dataset.trato = trato
+            modal.dataset.existecrm = existeCRM
+            modal.dataset.sku = sku
+            modal.dataset.fracc_id = fracc_id
+            modal.dataset.esquina = esquina
+            if (paint) this.paintDataPresupuesto(id, dataset)
+            // container_modal.style.display = 'flex'
+        } else {
+            // container_modal.style.display = 'none'
+            modal.dataset.item = ''
+            modal.dataset.crm_id = ''
+            util.removeInvalid()
+        }
+    },
+    paintDataPresupuesto(id, dataset) {
+        const { costototal, costom2, dimension } = dataset
+        // const Total = document.querySelector('input[name="Costo_Total_P"]')
+        let Total = document.querySelector('input[name="Costo_Total_P"]')
+        let M2 = document.querySelector('input[name="Costo_M2"]')
+        let Dimension = document.querySelector('input[name="dimension"]')
+
+        let manzana = document.querySelector('input[name="Manzana"]')
+        let lote = document.querySelector('input[name="Lote"]')
+
+        let sku = id.split('-')
+
+        manzana.value = sku[0].replace(/\D+/, '')
+
+        lote.value = sku[1].replace(/\D+/, '')
+
+        Total.value = costototal
+        M2.value = costom2
+        Dimension.value = dimension
+    },
+    hideResults() {
+        const containers = document.querySelectorAll('.search-result')
+        containers.forEach((c) => {
+            c.innerHTML = ''
+        })
+    },
+    selectContact(selectedOption) {
+        const contactContainer = document.querySelector('#contact')
+        contactContainer.innerHTML = ''
+
+        const contactContainerResults =
+            document.querySelector('#contact-results')
+        contactContainerResults.classList.add('active')
+
+        contactContainer.dataset.contactid = selectedOption.dataset.contactid
+        contactContainer.dataset.accountid =
+            selectedOption.dataset.accountid === undefined
+                ? null
+                : selectedOption.dataset.accountid
+        contactContainer.dataset.accountname =
+            selectedOption.dataset.accountname === undefined
+                ? null
+                : selectedOption.dataset.accountname
+
+        // Display contact
+        const spanName = document.createElement('span')
+        spanName.textContent = selectedOption.children[0].textContent
+        spanName.dataset.contactname = selectedOption.children[0].textContent
+        contactContainer.appendChild(spanName)
+
+        // Add remove user button
+        contactContainer.insertAdjacentHTML(
+            'beforeend',
+            `
+        <button id="deleteContact" class="close-button" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+        </button>`
+        )
+
+        const deleteContact = document.getElementById('deleteContact')
+        deleteContact.addEventListener('click', (e) => {
+            util.cleanForm()
+        })
+    },
+    removeContact() {
+        const contactContainer = document.querySelector('#contact')
+        contactContainer.innerHTML = ''
+        delete contactContainer.dataset.contactid
+        delete contactContainer.dataset.accountid
+        delete contactContainer.dataset.accountname
+        if (contactContainer?.dataset?.lead)
+            delete contactContainer?.dataset?.lead
+    },
+    selectCampaign(selectedOption) {
+        const campaignInput = document.querySelector('#campaignValue')
+        campaignInput.value = ''
+        campaignInput.value = selectedOption.children[0].textContent
+        campaignInput.dataset.campaignid = selectedOption.dataset.campaignid
+        campaignInput.dataset.politica =
+            // selectedOption.children[1].dataset.politica
+            selectedOption.children[1].textContent
+        campaignInput.dataset.formadepago =
+            selectedOption.children[0].dataset.formadepago
+        campaignInput.dataset.diferido =
+            selectedOption.children[0].dataset.diferido
+        campaignInput.dataset.plazosdiferido =
+            selectedOption.children[0].dataset.plazosdiferido
+    },
+    addRecursos(dcontacto) {
+        const inputRecursos = Array.from(
+            document.querySelector('[data-recursos]').children
+        )
+
+        let cname = dcontacto['First_Name'] + ' ' + dcontacto['Last_Name']
+
+        inputRecursos[0].children[1].value = cname //nombre completo
+        inputRecursos[1].children[1].value = dcontacto['Empresa_en_labora'] //empresa donde trabaja
+        inputRecursos[2].children[1].value = dcontacto['INGRESO_MENSUAL'] //ingreso mensual
+        inputRecursos[3].children[1].value = cname //duenyo controlador
+        inputRecursos[4].children[1].value = ''
+        inputRecursos[5].children[1].value = dcontacto['A_os_Laborados'] //tiempo laborado
+    },
+    addDataList(list, ListId){
+        console.log("list: ", list)
+        const select = document.getElementById(`list-${ListId}`)
+
+        list.forEach((coo) => {
+            let option = document.createElement('option')
+            option.value = coo
+            option.textContent = coo
+            select.appendChild(option)
+        })
+    },
+    searchDeals(search){
+        const deals = Array.from(document.getElementById('container-deals').children)
+        // console.log(deals)
+        deals.forEach((i) => {
+            let dealName = i.children[0].innerText.toLowerCase()
+            console.log("search: ",search.toLowerCase())
+            console.log("deal: ",dealName)
+            console.log('-------------------------------------------')
+            if(!dealName.match(search)){
+                i.style = "display: none"
+            }else if(search == '' || dealName.match(search)){
+                i.style = "display: flex"
+            }
+        })
+    },
+}
+
+const util = {
     removeDatasets(selector) {
         const elem = document.querySelector(selector)
         const datasets = Object.keys(elem.dataset)
@@ -1884,91 +1495,6 @@ const UI = {
         datasets.forEach((key) => {
             delete elem.dataset[key]
         })
-    },
-    addfuentes() {
-        const selectFuentes = document.getElementById('list-fuente')
-        fuentesCliente.forEach((f) => {
-            let option = document.createElement('option')
-            option.innerText = f
-            selectFuentes.appendChild(option)
-        })
-    },
-    addSucursales() {
-        const selectSucursales = document.getElementById('list-Sucursales')
-        sucursales.forEach((f) => {
-            let option = document.createElement('option')
-            option.innerText = f
-            selectSucursales.appendChild(option)
-        })
-    },
-    addDepartamentos() {
-        const selectDeparetamentos = document.getElementById('list-departamento')
-        departamentos.forEach((f) => {
-            let option = document.createElement('option')
-            option.innerText = f
-            selectDeparetamentos.appendChild(option)
-        })
-    },
-    addZona() {
-        const selectZonas = document.getElementById('list-Gerente')
-        zonas.forEach((f) => {
-            let option = document.createElement('option')
-            option.innerText = f
-            selectZonas.appendChild(option)
-        })
-    },
-    async paintDeals() {
-        const colors = {
-            "Presentación del Producto": "#de9f27",
-            "Cotización": "#b5512a",
-            "Cita en el Fraccionamiento": "#7de38e",
-            "Asistencia del Cliente Al Fraccionamiento": "#398afa",
-            "Pago de Apartado": "#6908c9",
-            "Pago de Enganche": "#2e2e2e",
-            "Primer mensualidad": "#f8c15b",
-            "Cerrado (ganado)": "#4f9b40",
-            "Cerrado (perdido)": "#d44141",
-            "Cancelado": "#ff2e2e",
-        }
-        const containerDeals = document.getElementById('container-deals')
-        containerDeals.innerHTML = ''
-        const user = document.getElementById('user')
-
-        const userId = user.dataset?.crmuserid
-        const userAdmin =
-            user.dataset?.profile == 'Administrator' ? true : false
-        let dataDeals
-        if (userAdmin) {
-            dataDeals = await crm.getAllDeals()
-        } else {
-            dataDeals = await crm.serchDealsByOwner(userId)
-        }
-
-        if (dataDeals.ok) {
-            dataDeals.data.forEach((deal) => {
-                if (userAdmin || deal.Owner.id == userId) {
-                    let stage = deal.Stage
-                    let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
-                    let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
-                    let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
-                    let card = `
-                        <section class="card-trato">
-                            <section class="titulo-trato">${deal.Deal_Name}</section>
-                            <section class="trato-cont" data-dealid='${deal.id}' data-dealname='${deal.Deal_Name}'>
-                                <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
-                                <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                                <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
-                                <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
-                                <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
-                            </section>
-                            <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                            <p><b>Cliente: </b><b>${deal.Contact_Name.name}</b></p>
-                            <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
-                        </section>`
-                    containerDeals.insertAdjacentHTML('beforeend', card)
-                }
-            })
-        }
     },
     navegador() {
         let details = navigator.userAgent
@@ -2001,71 +1527,6 @@ const UI = {
         }
         return objetReturn
     },
-    async createLead(dataForm) {
-        const createLead = confirm('Desea crear el Posible cliente ')
-        if (createLead) {
-            const requestLead = await crm.searchContact(dataForm.contacto.Email, 'Leads')
-            const requestContact = await crm.searchContact(dataForm.contacto.Email, 'Contacts')
-            if(requestLead.ok && requestContact.ok){
-                alerts.showAlert('warning', `El correo ${dataForm.contacto.Email}, ya se encuentra en crm !!`)
-            }else{
-                const modal = document.getElementById('modal')
-                const fraccionamientoId = modal.dataset.fracc_id
-                const user = document.getElementById('user')
-                let ownerId
-                if (user?.dataset?.profile === 'Vendedor') {
-                    ownerId = user.dataset.crmuserid
-                } else {
-                    const user = document.getElementById('vendorsValue')
-                    ownerId = user.dataset.vendedorid
-                }
-
-                const createLeadRequest = await crm.createLead(
-                    dataForm,
-                    ownerId,
-                    fraccionamientoId
-                )
-                if (createLeadRequest.ok) {
-                    alerts.showAlert('success', 'Posible cliente creado')
-                } else {
-                    alerts.showAlert(
-                        createLead.type,
-                        'El posible cliente no pudo ser creado !!'
-                    )
-                }
-            }
-        }
-    },
-    async cliqLoteFaltante(frac, id) {
-        let msg =
-            'Se intento cotizar el producto: ' +
-            id +
-            ' del fraccionamiento: ' +
-            frac +
-            ' Se requiere crearlo para continuar'
-        const envio = await cliq.postToChannel('lotesfaltantes', msg)
-        if (envio.ok) {
-            alerts.showAlert(
-                envio.type,
-                'Se posteo correctamente dentro del canal'
-            )
-        }
-    },
-    searchDeals(search){
-        const deals = Array.from(document.getElementById('container-deals').children)
-        // console.log(deals)
-        deals.forEach((i) => {
-            let dealName = i.children[0].innerText.toLowerCase()
-            console.log("search: ",search.toLowerCase())
-            console.log("deal: ",dealName)
-            console.log('-------------------------------------------')
-            if(!dealName.match(search)){
-                i.style = "display: none"
-            }else if(search == '' || dealName.match(search)){
-                i.style = "display: flex"
-            }
-        })
-    },
     dblClick(lastTap){
         let currentTime = new Date().getTime()
         let tapLength = currentTime - lastTap
@@ -2074,10 +1535,88 @@ const UI = {
             return true
         }
         return false
-    }
-}
+    },
+    removeInvalid() {
+        let invalidInputs = Array.from(
+            document.getElementsByClassName('invalid')
+        )
+        invalidInputs.forEach((inp) => {
+            inp.classList.remove('invalid')
+        })
+    },
+    checkUpdate(a, b) {
+        return JSON.stringify(a) === JSON.stringify(b)
+    },
+    getKeysForm() {
+        let form = {}
+        let contacto = new Array()
+        let Presupuesto = new Array()
+        const Blocks = Array.from(document.querySelectorAll('.block'))
+        Blocks.forEach((block) => {
+            const spans = Array.from(block.children)
+            spans.forEach((span) => {
+                if (block?.dataset?.contacto)
+                    contacto.push(span.children[1].name)
 
-const util = {
+                if (block?.dataset?.presupuesto)
+                    Presupuesto.push(span.children[1].name)
+            })
+        })
+
+        form.contacto = contacto
+        form.presupuesto = Presupuesto
+
+        return form
+    },
+    getDataForm() {
+        let form = {}
+        let contacto = {}
+        let Presupuesto = {}
+        const Blocks = Array.from(document.querySelectorAll('.block'))
+        Blocks.forEach((block) => {
+            const spans = Array.from(block.children)
+            spans.forEach((span) => {
+                if (block?.dataset?.contacto) {
+                    if (span.children[1].value !== '') {
+                        contacto[span.children[1].name] = span.children[1].value
+                    }
+                    // sobreescribe valor con el valor del checkbox
+                    if (span.children[1].type === 'checkbox') {
+                        contacto[span.children[1].name] =
+                            span.children[1].checked
+                    }
+                }
+
+                if (block?.dataset?.presupuesto) {
+                    Presupuesto[span.children[1].name] = span.children[1].value
+                }
+            })
+        })
+
+        form.contacto = contacto
+        form.presupuesto = Presupuesto
+
+        return form
+    },
+    cleanForm() {
+        const Blocks = Array.from(document.querySelectorAll('.block'))
+        Blocks.forEach((block) => {
+            const spans = Array.from(block.children)
+            spans.forEach((span) => {
+                if (span.children[1].type === 'checkbox') {
+                    span.children[1].checked = false
+                } else {
+                    span.children[1].value = ''
+                }
+            })
+        })
+    },
+    parseOuterHTML(text) {
+        let tempText1 = text.normalize()
+        let tempText2 = tempText1.replaceAll('&lt;', '<')
+        let tempText3 = tempText2.replaceAll('&gt;', '>')
+        return tempText3
+    },
     fechaDePago(formaDePago) {
         const checkApartado = document.querySelector('#hasApartado').checked
         let today = new Date()
@@ -2437,4 +1976,4 @@ const util = {
     },
 }
 
-export default UI
+export {UI, util}

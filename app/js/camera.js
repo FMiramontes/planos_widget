@@ -1,4 +1,3 @@
-import UI from './UI.js'
 import { crm } from './Zoho.js'
 import alerts from './alertas.js'
 
@@ -7,15 +6,12 @@ const canvas = document.querySelector('canvas')
 const imgs = document.getElementById('screanshots')
 const cameraOptions = document.getElementById('select-camera')
 
-const play = document.querySelector('.play')
-const stop = document.querySelector('.stop')
 const screanShot = document.querySelector('.screanShot')
 const save = document.querySelector('.save')
 
 let stream
 let streamStarted = false
 let image = ''
-let blob = ''
 
 const constrain = {
     video: {
@@ -51,6 +47,7 @@ const util = {
     },
     handlesStream(stream){
         window.localStream = stream
+        console.log()
         video.srcObject = stream
         streamStarted = true
     },
@@ -159,10 +156,12 @@ util.getCameraSelection()
 
 const camera = {
     autoPlay() {
+        
         if (
             'mediaDevices' in navigator &&
             navigator.mediaDevices.getUserMedia
         ) {
+            console.log('autoPlay')
             const updatedConstrains = {
                 ...constrain,
                 deviceId: {
@@ -175,6 +174,7 @@ const camera = {
 
     autoStop() {
         localStream.getTracks().forEach((track) => {
+            console.log("track: ",track)
             track.stop()
         })
     },
