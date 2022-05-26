@@ -811,7 +811,7 @@ const UI = {
                 dataForm.contacto.Email,
                 'Contacts'
             )
-            if (requestLead.ok && requestContact.ok) {
+            if (requestLead.ok || requestContact.ok) {
                 alerts.showAlert(
                     'warning',
                     `El correo ${dataForm.contacto.Email}, ya se encuentra en crm !!`
@@ -912,23 +912,31 @@ const UI = {
                 let df = new DocumentFragment()
                 records.forEach((record) => {
                     var temp = document.createElement('template')
-
+                    console.log("record: ",record)
                     if (searchModule === 'Contacts') {
-                        temp.innerHTML = `<div 
-            data-module="contact"
-            data-contactid="${record.id}" 
-            data-accountid="${record.Account_Name?.id}"
-            data-accountname="${record.Account_Name?.name}"
-            data-record="" class="record"><span data-contact-name>${record.Full_Name}</span>
-            <p data-record-email="" >${record.Email}</p>
-            </div>`
+                        temp.innerHTML = `
+                        <div 
+                        data-module="contact"
+                        data-contactid="${record.id}" 
+                        data-accountid="${record.Account_Name?.id}"
+                        data-accountname="${record.Account_Name?.name}"
+                        data-record="" class="record">
+                                <span data-contact-name><i class="fa-solid fa-user"></i>${record.Full_Name}</span>
+                                <p data-record-email="" ><i class="fa-solid fa-envelope"></i><span>${record.Email}</span></p>
+                                <p data-record-mobile="" ><i class="fa-solid fa-phone"></i>${record.Mobile}</p>
+                                <p data-record-phone="" ><i class="fa-solid fa-mobile-screen-button"></i>${record.Phone}</p>
+                        </div>`
                     } else {
-                        temp.innerHTML = `<div 
-            data-module="leads"
-            data-leadid="${record.id}" 
-            data-record="" class="record"><span data-lead-name>${record.Full_Name}</span>
-            <p data-record-email="" >${record.Email}</p>
-            </div>`
+                        temp.innerHTML = `
+                        <div 
+                        data-module="leads"
+                        data-leadid="${record.id}" 
+                        data-record="" class="record">
+                                <span data-contact-name><i class="fa-solid fa-user"></i>${record.Full_Name}</span>
+                                <p data-record-email="" ><i class="fa-solid fa-envelope"></i><span>${record.Email}</span></p>
+                                <p data-record-mobile="" ><i class="fa-solid fa-phone"></i>${record.Mobile}</p>
+                                <p data-record-phone="" ><i class="fa-solid fa-mobile-screen-button"></i>${record.Phone}</p>
+                        </div>`
                     }
 
                     var frag = temp.content
@@ -963,6 +971,11 @@ const UI = {
         }
     },
     async selectLead(selectedOption) {
+        const hasEmail = selectedOption.children[1].children[1].textContent
+        if(hasEmail == 'null'){
+            alerts.showAlert('warning', 'No tiene un correo asociado. Favor de capturar en CRM')
+            return
+        }
         const convert = confirm('Desea convertir al Posible cliente a Contacto')
         const userID = document.getElementById('user').dataset.crmuserid
         if (convert) {
@@ -1302,6 +1315,7 @@ const UI = {
             'Cerrado (perdido)': '#d44141',
             Cancelado: '#ff2e2e',
         }
+        containerDeals.innerHTML = ''
         data.forEach((deal) => {
             if (userAdmin || deal.Owner.id == userId) {
                 let stage = deal.Stage
@@ -1472,84 +1486,26 @@ const UI = {
         })
     },
     searchDeals(search, userAdmin, userId) {
-        const { Deal_Name, Owner, Contact_Name, Stage } = dealsCards
-        const valid = dealsCards.filter((d) => {
-            console.log('d: ', d)
-            return (
-                Deal_Name.toLowerCase().match(search) ||
-                Owner.name.toLowerCase().match(search) ||
-                Contact_Name.name.toLowerCase().match(search) ||
-                Stage.toLowerCase().match(search)
-            )
-        })
-        console.log(valid)
-        // dealsCards
-        // paindCards(valid, userAdmin, userId)
-    },
-    searchDeals2(search) {
-        const dealsDiv = document.getElementById('container-deals')
-        // const resultsDiv = document.getElementById('result-deals')
-        console.log('DealsCards: ', DealsCards)
-        const results = Array.from(DealsCards)
-        console.log('results: ', results)
         if (search == '') {
-            dealsDiv.innerHTML = ''
-            dealsDiv.innerHTML = DealsCards
+            this.paintCards(dealsCards, userAdmin, userId)
         } else {
-            const valid = results.filter((d) => {
-                console.log('d: ', d)
+            const valid = dealsCards.filter((d) => {
+                const { Deal_Name, Owner, Contact_Name, Stage } = d
+                // console.log(search)
+                // console.log({ Deal_Name, Owner, Contact_Name, Stage })
                 return (
-                    d.children[0].innerText.toLowerCase().match(search) ||
-                    d.children[2].children[1].innerText
-                        .toLowerCase()
-                        .match(search) ||
-                    d.children[3].children[1].innerText
-                        .toLowerCase()
-                        .match(search) ||
-                    d.children[4].innerText.toLowerCase().match(search)
+                    Deal_Name.toLowerCase().match(search) ||
+                    Owner.name.toLowerCase().match(search) ||
+                    Contact_Name.name.toLowerCase().match(search) ||
+                    Stage.toLowerCase().match(search)
                 )
             })
+            console.log(dealsCards)
+            console.log(valid)
+            // dealsCards
 
-            console.log('valid: ', valid)
-            // console.log({ valid })
-            // dealsDiv.innerHTML = ''
-            // console.log(valid.join(''))
-            // dealsDiv.innerHTML = valid.join('')
-            valid.forEach((card) => dealsDiv.append(card))
-
-            // console.log(deals)
+            this.paintCards(valid, userAdmin, userId)
         }
-        /*
-        deals.forEach((i) => {
-            let dealName = i.children[0].innerText.toLowerCase()
-            let vendedor = i.children[2].children[1].innerText.toLowerCase()
-            let cliente = i.children[3].children[1].innerText.toLowerCase()
-            let estado = i.children[4].innerText.toLowerCase()
-            let list = [dealName, vendedor, cliente, estado]
-            console.log('search: ', search.toLowerCase())
-            console.log('deal: ', dealName)
-            console.log('-------------------------------------------')
-            let valid = true
-
-            list.forEach((e) => {
-                console.log(
-                    'e: ',
-                    e,
-                    'search: ',
-                    search,
-                    'match: ',
-                    e.match(search)
-                )
-                if (valid) {
-                    if (!e.match(search)) {
-                        i.style = 'display: none'
-                    } else if (search == '' || e.match(search)) {
-                        i.style = 'display: flex'
-                        valid = false
-                    }
-                }
-            })
-        })*/
     },
 }
 
