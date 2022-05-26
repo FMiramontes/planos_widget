@@ -1,4 +1,4 @@
-import {UI, util} from './UI.js'
+import { UI, util } from './UI.js'
 import maps from './mapas.js'
 import valid from './validate.js'
 import alerts from './alertas.js'
@@ -37,14 +37,17 @@ let timeout
 let lastTap = 0
 let posicionY = 0
 let posicionX = 0
-let CRMData = {}, qselector
+let userId
+let userAdmin
+let CRMData = {},
+    qselector
 
-// inicialización de Zoho SDK 
+// inicialización de Zoho SDK
 ZOHO.embeddedApp.on('PageLoad', async function (data) {
     ZOHO.CRM.CONFIG.getCurrentUser().then(function (data) {
         const user = document.getElementById('user')
         UI.userVendors(data.users[0])
-        console.log("datalists: ", datalists)
+        console.log('datalists: ', datalists)
         UI.addDataList(datalists.coords, 'coo')
         UI.addDataList(datalists.departamentos, 'departamento')
         UI.addDataList(datalists.fuentesCliente, 'fuente')
@@ -59,7 +62,9 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         img_user.setAttribute('src', data.users[0].image_link)
         user.lastElementChild.innerText = data.users[0].full_name
         user.firstElementChild.appendChild(img_user)
-        UI.paintDeals()
+        userId = data.users[0].id
+        userAdmin = data.users[0].profile.name == 'Administrator' ? true : false
+        UI.paintDeals(userAdmin, userId)
     })
 })
 
@@ -128,16 +133,9 @@ tabs.forEach((tab) => {
 })
 
 //ZOOM
-document
-    .getElementById('zoom-in')
-    .addEventListener('click', panzoom.zoomIn)
-document
-    .getElementById('zoom-out')
-    .addEventListener('click', panzoom.zoomOut)
-document
-    .getElementById('zoom-reset')
-    .addEventListener('click', panzoom.reset)
-
+document.getElementById('zoom-in').addEventListener('click', panzoom.zoomIn)
+document.getElementById('zoom-out').addEventListener('click', panzoom.zoomOut)
+document.getElementById('zoom-reset').addEventListener('click', panzoom.reset)
 
 function showTooltip(type) {
     mapa.addEventListener(`${type}`, (e) => {
@@ -173,7 +171,7 @@ function hideTooltip(type) {
 
 searchDeals.addEventListener('input', (e) => {
     console.log(e.target.value)
-    UI.searchDeals(e.target.value.toLowerCase())
+    UI.searchDeals(e.target.value.toLowerCase(), userAdmin, userId)
 })
 
 searchContactBtn.addEventListener('click', () => {
@@ -374,26 +372,24 @@ document.addEventListener('dblclick', (e) => {
         }
     }
 }),
-
-modal.addEventListener('change', (e) => {
-    if (e.target.matches('[data-email]')) {
-        valid.validateEmail(e.target.value, e.target.dataset.email)
-    } else if (e.target.matches('[data-aporta-recursos]')) {
-        valid.validateRecursos()
-    }
-}),
-
-//Validate digits phone and mobile
-modal.addEventListener('input', (e) => {
-    if (
-        e.target.matches('[name="Mobile"]') ||
-        e.target.matches('[name="Phone"]') ||
-        e.target.matches('[name="Phone_2"]') ||
-        e.target.matches('[name="Movil2"]')
-    ) {
-        valid.validateMobile(e.target)
-    }
-})
+    modal.addEventListener('change', (e) => {
+        if (e.target.matches('[data-email]')) {
+            valid.validateEmail(e.target.value, e.target.dataset.email)
+        } else if (e.target.matches('[data-aporta-recursos]')) {
+            valid.validateRecursos()
+        }
+    }),
+    //Validate digits phone and mobile
+    modal.addEventListener('input', (e) => {
+        if (
+            e.target.matches('[name="Mobile"]') ||
+            e.target.matches('[name="Phone"]') ||
+            e.target.matches('[name="Phone_2"]') ||
+            e.target.matches('[name="Movil2"]')
+        ) {
+            valid.validateMobile(e.target)
+        }
+    })
 
 containerModal.addEventListener('click', (event) => {
     if (event.target == containerModal) {

@@ -6,23 +6,8 @@ let desarrollo = new Array()
 
 let beforeManzana = ''
 
-document.addEventListener('click', async (e) => {
-    if (e.target.matches('[data-manzana]')) {
-        const map = e.target.closest('#map')
-        let name = map.dataset.name
-        let commerceId = map.dataset.commerceId
-        let auxManzana = e.target.id.split('-')
-        const manzana = auxManzana[0]
-        // const svgNombre = e.target.closest('svg').dataset.desarrollo 
-        await Promise.all([Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana), Mapas.getDisponiblidad(name, manzana) ]);
-        let parentManzana = e.target.parentNode
-        parentManzana.removeChild(e.target)
-        // await Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana)
-        // await Mapas.getDisponiblidad(name, manzana)
-        beforeManzana = manzana
-    }
-})
-
+const containerDeals = document.getElementById('container-deals')
+let dealsCards
 const UI = {
     async loadMenuLateral() {
         const data = await crm.getAllFraccionamientos()
@@ -72,9 +57,10 @@ const UI = {
                         if (i.Name.toLowerCase() == name) {
                             contenedorFracc.innerHTML = `
                             <div class="img-fracc"><img src="${i.logo}" alt="" loading="lazy"></div>
-                            ` 
-                            let nombreFracc = document.querySelector('.nombre-fracc');
-                            nombreFracc.innerText = `${i.Name}`;
+                            `
+                            let nombreFracc =
+                                document.querySelector('.nombre-fracc')
+                            nombreFracc.innerText = `${i.Name}`
                         }
                     })
 
@@ -288,8 +274,11 @@ const UI = {
                 }
 
                 if (conatctRequest.ok) {
-                    const convert = confirm('El correo ya esta registrado en CRM')
-                    if(!convert) throw new Error('Proceso omitido por el usuario')
+                    const convert = confirm(
+                        'El correo ya esta registrado en CRM'
+                    )
+                    if (!convert)
+                        throw new Error('Proceso omitido por el usuario')
                     contact_id = conatctRequest.data[0].id
                     // contacto existe en CRM
                     if (conatctRequest.data[0].Account_Name !== null) {
@@ -540,7 +529,6 @@ const UI = {
                 )
             }
 
-            
             let des = ''
 
             if (formadepago == 'Contado') {
@@ -549,7 +537,7 @@ const UI = {
                 des = politica
             }
 
-            const fecha  = util.fechaDePago(des)
+            const fecha = util.fechaDePago(des)
 
             if (
                 accountId &&
@@ -623,7 +611,6 @@ const UI = {
 
                         // let today = new Date()
                         // let date = util.addDate(today, 'D', 7)
-                        
 
                         // Creacion de facturas
                         let arrInvoices = []
@@ -689,7 +676,7 @@ const UI = {
                                         inputDescuento !== ''
                                             ? parseFloat(inputDescuento)
                                             : MontoTotal
-                                    rate = tempRate - apartado 
+                                    rate = tempRate - apartado
                                     // rate = MontoTotal - apartado
                                 }
 
@@ -805,23 +792,31 @@ const UI = {
             }
             this.removeContact()
         } catch (error) {
-            if(error.message == "Proceso omitido por el usuario"){
+            if (error.message == 'Proceso omitido por el usuario') {
                 alerts.showAlert('warning', error.message)
-            }else{
-                alerts.showAlert('danger', error.message) 
+            } else {
+                alerts.showAlert('danger', error.message)
             }
-            
         }
         console.timeEnd()
     },
     async createLead(dataForm) {
         const createLead = confirm('Desea crear el Posible cliente ')
         if (createLead) {
-            const requestLead = await crm.searchContact(dataForm.contacto.Email, 'Leads')
-            const requestContact = await crm.searchContact(dataForm.contacto.Email, 'Contacts')
-            if(requestLead.ok && requestContact.ok){
-                alerts.showAlert('warning', `El correo ${dataForm.contacto.Email}, ya se encuentra en crm !!`)
-            }else{
+            const requestLead = await crm.searchContact(
+                dataForm.contacto.Email,
+                'Leads'
+            )
+            const requestContact = await crm.searchContact(
+                dataForm.contacto.Email,
+                'Contacts'
+            )
+            if (requestLead.ok && requestContact.ok) {
+                alerts.showAlert(
+                    'warning',
+                    `El correo ${dataForm.contacto.Email}, ya se encuentra en crm !!`
+                )
+            } else {
                 const modal = document.getElementById('modal')
                 const fraccionamientoId = modal.dataset.fracc_id
                 const user = document.getElementById('user')
@@ -953,26 +948,8 @@ const UI = {
             }
         }
     },
-    async paintDeals() {
-        const colors = {
-            "Presentación del Producto": "#de9f27",
-            "Cotización": "#b5512a",
-            "Cita en el Fraccionamiento": "#7de38e",
-            "Asistencia del Cliente Al Fraccionamiento": "#398afa",
-            "Pago de Apartado": "#6908c9",
-            "Pago de Enganche": "#2e2e2e",
-            "Primer mensualidad": "#f8c15b",
-            "Cerrado (ganado)": "#4f9b40",
-            "Cerrado (perdido)": "#d44141",
-            "Cancelado": "#ff2e2e",
-        }
-        const containerDeals = document.getElementById('container-deals')
+    async paintDeals(userAdmin, userId) {
         containerDeals.innerHTML = ''
-        const user = document.getElementById('user')
-
-        const userId = user.dataset?.crmuserid
-        const userAdmin =
-            user.dataset?.profile == 'Administrator' ? true : false
         let dataDeals
         if (userAdmin) {
             dataDeals = await crm.getAllDeals()
@@ -981,29 +958,8 @@ const UI = {
         }
 
         if (dataDeals.ok) {
-            dataDeals.data.forEach((deal) => {
-                if (userAdmin || deal.Owner.id == userId) {
-                    let stage = deal.Stage
-                    let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
-                    let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
-                    let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
-                    let card = `
-                        <section class="card-trato">
-                            <section class="titulo-trato">${deal.Deal_Name}</section>
-                            <section class="trato-cont" data-dealid='${deal.id}' data-dealname='${deal.Deal_Name}'>
-                                <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
-                                <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                                <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
-                                <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
-                                <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
-                            </section>
-                            <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                            <p><b>Cliente: </b><b>${deal.Contact_Name.name}</b></p>
-                            <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
-                        </section>`
-                    containerDeals.insertAdjacentHTML('beforeend', card)
-                }
-            })
+            dealsCards = dataDeals?.data
+            UI.paintCards(dataDeals?.data, userAdmin, userId)
         }
     },
     async selectLead(selectedOption) {
@@ -1014,7 +970,7 @@ const UI = {
             const leadId = selectedOption.dataset.leadid
             if (leadId !== undefined) {
                 const convertLead = await crm.convertToContact(leadId, userID)
-                console.log("convertLead: ", convertLead)
+                console.log('convertLead: ', convertLead)
                 if (convertLead.ok) {
                     alerts.showAlert('success', 'Lead convertido a Contacto')
                     const data = convertLead.data
@@ -1049,13 +1005,15 @@ const UI = {
                     deleteContact.addEventListener('click', (e) => {
                         util.cleanForm()
                     })
-                }else{
-                    if(convertLead.message == "DUPLICATE_DATA"){
+                } else {
+                    if (convertLead.message == 'DUPLICATE_DATA') {
                         alerts.showAlert('warning', 'Contacto Duplicado')
-                    }else{
-                        alerts.showAlert('warning', 'El contacto no se pudo sincronizar!!')
+                    } else {
+                        alerts.showAlert(
+                            'warning',
+                            'El contacto no se pudo sincronizar!!'
+                        )
                     }
-                    
                 }
             }
         }
@@ -1198,7 +1156,10 @@ const UI = {
                     COSTO_M2 = newCosto.toFixed(2)
 
                     // Si producto es esquina, tiene una campana de contado con descuento tipo monto, no se le debe agregar 10 dlls.
-                    if (tipoDeDescuento === 'Monto' && formaDePago === 'Contado') {
+                    if (
+                        tipoDeDescuento === 'Monto' &&
+                        formaDePago === 'Contado'
+                    ) {
                         const newCosto = parseFloat(costo.value) - 10
                         costo.value = newCosto.toFixed(2)
                         COSTO_M2 = newCosto.toFixed(2)
@@ -1327,6 +1288,46 @@ const UI = {
         } else {
             VendedorContainer.style = 'display: none;'
         }
+    },
+    paintCards(data, userAdmin, userId) {
+        const colors = {
+            'Presentación del Producto': '#de9f27',
+            Cotización: '#b5512a',
+            'Cita en el Fraccionamiento': '#7de38e',
+            'Asistencia del Cliente Al Fraccionamiento': '#398afa',
+            'Pago de Apartado': '#6908c9',
+            'Pago de Enganche': '#2e2e2e',
+            'Primer mensualidad': '#f8c15b',
+            'Cerrado (ganado)': '#4f9b40',
+            'Cerrado (perdido)': '#d44141',
+            Cancelado: '#ff2e2e',
+        }
+        data.forEach((deal) => {
+            if (userAdmin || deal.Owner.id == userId) {
+                let stage = deal.Stage
+                let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
+                let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
+                let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
+                let card = `
+                    
+                        <section class="titulo-trato">${deal.Deal_Name}</section>
+                        <section class="trato-cont" data-dealid='${deal.id}' data-dealname='${deal.Deal_Name}'>
+                            <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                            <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                            <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
+                            <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
+                            <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
+                        </section>
+                        <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
+                        <p><b>Cliente: </b><b>${deal.Contact_Name.name}</b></p>
+                        <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
+                    `
+                let section = document.createElement('section')
+                section.classList = 'card-trato'
+                section.innerHTML = card
+                containerDeals.appendChild(section)
+            }
+        })
     },
     viewModal(view, id, dataset, paint) {
         const {
@@ -1459,8 +1460,8 @@ const UI = {
         inputRecursos[4].children[1].value = ''
         inputRecursos[5].children[1].value = dcontacto['A_os_Laborados'] //tiempo laborado
     },
-    addDataList(list, ListId){
-        console.log("list: ", list)
+    addDataList(list, ListId) {
+        console.log('list: ', list)
         const select = document.getElementById(`list-${ListId}`)
 
         list.forEach((coo) => {
@@ -1470,20 +1471,85 @@ const UI = {
             select.appendChild(option)
         })
     },
-    searchDeals(search){
-        const deals = Array.from(document.getElementById('container-deals').children)
-        // console.log(deals)
+    searchDeals(search, userAdmin, userId) {
+        const { Deal_Name, Owner, Contact_Name, Stage } = dealsCards
+        const valid = dealsCards.filter((d) => {
+            console.log('d: ', d)
+            return (
+                Deal_Name.toLowerCase().match(search) ||
+                Owner.name.toLowerCase().match(search) ||
+                Contact_Name.name.toLowerCase().match(search) ||
+                Stage.toLowerCase().match(search)
+            )
+        })
+        console.log(valid)
+        // dealsCards
+        // paindCards(valid, userAdmin, userId)
+    },
+    searchDeals2(search) {
+        const dealsDiv = document.getElementById('container-deals')
+        // const resultsDiv = document.getElementById('result-deals')
+        console.log('DealsCards: ', DealsCards)
+        const results = Array.from(DealsCards)
+        console.log('results: ', results)
+        if (search == '') {
+            dealsDiv.innerHTML = ''
+            dealsDiv.innerHTML = DealsCards
+        } else {
+            const valid = results.filter((d) => {
+                console.log('d: ', d)
+                return (
+                    d.children[0].innerText.toLowerCase().match(search) ||
+                    d.children[2].children[1].innerText
+                        .toLowerCase()
+                        .match(search) ||
+                    d.children[3].children[1].innerText
+                        .toLowerCase()
+                        .match(search) ||
+                    d.children[4].innerText.toLowerCase().match(search)
+                )
+            })
+
+            console.log('valid: ', valid)
+            // console.log({ valid })
+            // dealsDiv.innerHTML = ''
+            // console.log(valid.join(''))
+            // dealsDiv.innerHTML = valid.join('')
+            valid.forEach((card) => dealsDiv.append(card))
+
+            // console.log(deals)
+        }
+        /*
         deals.forEach((i) => {
             let dealName = i.children[0].innerText.toLowerCase()
-            console.log("search: ",search.toLowerCase())
-            console.log("deal: ",dealName)
+            let vendedor = i.children[2].children[1].innerText.toLowerCase()
+            let cliente = i.children[3].children[1].innerText.toLowerCase()
+            let estado = i.children[4].innerText.toLowerCase()
+            let list = [dealName, vendedor, cliente, estado]
+            console.log('search: ', search.toLowerCase())
+            console.log('deal: ', dealName)
             console.log('-------------------------------------------')
-            if(!dealName.match(search)){
-                i.style = "display: none"
-            }else if(search == '' || dealName.match(search)){
-                i.style = "display: flex"
-            }
-        })
+            let valid = true
+
+            list.forEach((e) => {
+                console.log(
+                    'e: ',
+                    e,
+                    'search: ',
+                    search,
+                    'match: ',
+                    e.match(search)
+                )
+                if (valid) {
+                    if (!e.match(search)) {
+                        i.style = 'display: none'
+                    } else if (search == '' || e.match(search)) {
+                        i.style = 'display: flex'
+                        valid = false
+                    }
+                }
+            })
+        })*/
     },
 }
 
@@ -1510,7 +1576,7 @@ const util = {
 
         let es_chrome = details.toLowerCase().indexOf('chrome') > -1
         let es_firefox = details.toLowerCase().indexOf('firefox') > -1
-        let es_opera = details.toLowerCase().indexOf('opr') > -1        
+        let es_opera = details.toLowerCase().indexOf('opr') > -1
         let es_safari = details.toLowerCase().indexOf('safari') > -1
 
         if (es_chrome) {
@@ -1527,7 +1593,7 @@ const util = {
         }
         return objetReturn
     },
-    dblClick(lastTap){
+    dblClick(lastTap) {
         let currentTime = new Date().getTime()
         let tapLength = currentTime - lastTap
         clearTimeout(timeout)
@@ -1621,50 +1687,43 @@ const util = {
         const checkApartado = document.querySelector('#hasApartado').checked
         let today = new Date()
         let fechaPago, date
-        if(checkApartado){
+        if (checkApartado) {
             date = util.addDate(today, 'D', 7)
             let diaPago = this.diasDePago(date)
             let diaDate = date.getDate()
             let dias = diaPago - diaDate
-            fechaPago = this.addDate(date, 'D',  dias)
-        }else{
-        
-            date = today 
+            fechaPago = this.addDate(date, 'D', dias)
+        } else {
+            date = today
             let diaPago = this.diasDePago(date)
             let diaDate = date.getDate()
             let dias = diaPago - diaDate
             fechaPago = this.addDate(date, 'D', dias)
         }
 
-        if(formaDePago == "Enganche"){
+        if (formaDePago == 'Enganche') {
             return this.addDate(fechaPago, 'M', 1)
-        }else{
+        } else {
             return fechaPago
         }
-
-
     },
-    diasDePago(date){
+    diasDePago(date) {
         let Dia = date.getDate()
         let DiadePago = ''
 
-        if(Dia >= 1 && Dia <= 6)
-        {
-            DiadePago = 6;
+        if (Dia >= 1 && Dia <= 6) {
+            DiadePago = 6
         }
-        if(Dia >= 7 && Dia <= 15)
-        {
-            DiadePago = 15;
+        if (Dia >= 7 && Dia <= 15) {
+            DiadePago = 15
         }
-        if(Dia >= 16 && Dia <= 21)
-        {
-            DiadePago = 21;
+        if (Dia >= 16 && Dia <= 21) {
+            DiadePago = 21
         }
-        if(Dia >= 22 && Dia <= 31)
-        {
-            DiadePago = 28;
+        if (Dia >= 22 && Dia <= 31) {
+            DiadePago = 28
         }
-        
+
         return DiadePago
     },
     getSeccion(item, data) {
@@ -1974,6 +2033,43 @@ const util = {
             ...recordData,
         }
     },
+    debounce(func, delay = 500) {
+        let debounceTimer
+        return function () {
+            const context = this
+            const args = arguments
+            clearTimeout(debounceTimer)
+            debounceTimer = setTimeout(() => func.apply(context, args), delay)
+        }
+    },
 }
 
-export {UI, util}
+document.addEventListener(
+    'click',
+    util.debounce(async (e) => {
+        if (e.target.matches('[data-manzana]')) {
+            const map = e.target.closest('#map')
+            let name = map.dataset.name
+            let commerceId = map.dataset.commerceId
+            let auxManzana = e.target.id.split('-')
+            const manzana = auxManzana[0]
+            // const svgNombre = e.target.closest('svg').dataset.desarrollo
+            await Promise.all([
+                Mapas.loadManzana(
+                    manzana,
+                    commerceId,
+                    desarrollo,
+                    beforeManzana
+                ),
+                Mapas.getDisponiblidad(name, manzana),
+            ])
+            let parentManzana = e.target.parentNode
+            parentManzana.removeChild(e.target)
+            // await Mapas.loadManzana(manzana, commerceId, desarrollo, beforeManzana)
+            // await Mapas.getDisponiblidad(name, manzana)
+            beforeManzana = manzana
+        }
+    })
+)
+
+export { UI, util }
