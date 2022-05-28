@@ -912,7 +912,7 @@ const UI = {
                 let df = new DocumentFragment()
                 records.forEach((record) => {
                     var temp = document.createElement('template')
-                    console.log("record: ",record)
+                    console.log('record: ', record)
                     if (searchModule === 'Contacts') {
                         temp.innerHTML = `
                         <div 
@@ -972,8 +972,11 @@ const UI = {
     },
     async selectLead(selectedOption) {
         const hasEmail = selectedOption.children[1].children[1].textContent
-        if(hasEmail == 'null'){
-            alerts.showAlert('warning', 'No tiene un correo asociado. Favor de capturar en CRM')
+        if (hasEmail == 'null') {
+            alerts.showAlert(
+                'warning',
+                'No tiene un correo asociado. Favor de capturar en CRM'
+            )
             return
         }
         const convert = confirm('Desea convertir al Posible cliente a Contacto')
@@ -1300,6 +1303,22 @@ const UI = {
             })
         } else {
             VendedorContainer.style = 'display: none;'
+        }
+    },
+    showDomicilio(check, dataset) {
+        const blocks = Array.from(document.querySelectorAll(`div[${dataset}]`))
+
+        console.log('check: ', check)
+        if (check) {
+            console.log('direccion americana')
+            // direccion americana
+            blocks[0].classList.add('hide')
+            blocks[1].classList.remove('hide')
+        } else {
+            // direccion americana
+            console.log('direccion mexicana')
+            blocks[0].classList.remove('hide')
+            blocks[1].classList.add('hide')
         }
     },
     paintCards(data, userAdmin, userId) {

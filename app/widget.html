@@ -189,7 +189,7 @@
             <!-- Alertas -->
             <div id="container-alert" class="container-alert"></div>
             <!-- Modal Form -->
-            <div class="container-wrap show">
+            <div class="container-wrap">
                 <div id="container-modal" class="container-modal">
                     <!-- Menu Modal -->
                     <div class="menu-form">
@@ -385,7 +385,19 @@
                                     <div class="title-block">
                                         <span class="centrado"> Direccion </span>
                                     </div>
-                                    <div class="block" data-contacto="true">
+                                    <div class="title-block">
+                                        <span class="span-checkbox">
+                                            <label>Direccion Americana:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="DomicilioExtranjero1"
+                                                data-extranjero=""
+                                                data-titular="1"
+                                            />
+                                        </span>
+                                    </div>
+                                    <div class="block" data-titular="1" data-domicilio-amercano="true" data-contacto="true">
+                                        
                                         <span>
                                             <label>Calle y No.</label>
                                             <input type="text" name="calle"/>
@@ -408,7 +420,7 @@
                                             <label>Estado:</label>
                                             <input
                                                 type="text"
-                                                name="                                        Mailing_State"
+                                                name="Mailing_State"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
@@ -423,6 +435,48 @@
                                         <span>
                                             <label>CP:</label>
                                             <input type="text" name="Mailing_Zip"/>
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        
+                                    </div>
+                                    <div class="block hide" data-titular="1" data-domicilio-amercano="false" data-contacto="true">
+                                        <span>
+                                            <label>Address:</label>
+                                            <input type="text" name="Address1"/>
+                                            <div class="iconos"><i class="fa-solid fa-road"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>City:</label>
+                                            <input type="text" name="City1"/>
+                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>County:</label>
+                                            <input type="text" name="County1"/>
+                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>State:</label>
+                                            <input
+                                                type="text"
+                                                name="State1"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Country:</label>
+                                            <input
+                                                type="text"
+                                                name="Country1"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Zip Code:</label>
+                                            <input
+                                                type="text"
+                                                name="Zip_Code"
+                                            />
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
                                     </div>
@@ -796,7 +850,16 @@
                                     <div class="title-block">
                                         <span class="centrado"> Direccion </span>
                                     </div>
-                                    <div class="block" data-contacto="true">
+                                    <span class="span-checkbox">
+                                        <label>Direccion Americana:</label>
+                                        <input
+                                            type="checkbox"
+                                            name="DomicilioExtranjero2"
+                                            data-extranjero=""
+                                            data-titular="2"
+                                        />
+                                    </span>
+                                    <div class="block" data-titular="2" data-domicilio-amercano="false" data-contacto="true">
                                         <span>
                                             <label>Calle y No.</label>
                                             <input type="text" name="Calle2"/>
@@ -809,7 +872,12 @@
                                         </span>
                                         <span>
                                             <label>Ciudad:</label>
-                                            <input type="text" name="Ciudad2"/>
+                                            <input type="text" name="Municipio2"/>
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Estado:</label>
+                                            <input type="text" name="Estado2"/>
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
                                         <span>
@@ -822,6 +890,47 @@
                                         </span>
                                         <span>
                                             <label>CP:</label>
+                                            <input
+                                                type="text"
+                                                name="CP2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                    </div>
+                                    <div class="block hide" data-titular="2" data-domicilio-amercano="false" data-contacto="true">
+                                        <span>
+                                            <label>Address:</label>
+                                            <input type="text" name="Address_SegundoCliente"/>
+                                            <div class="iconos"><i class="fa-solid fa-road"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>City:</label>
+                                            <input type="text" name="City_SegundoCliente"/>
+                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>County:</label>
+                                            <input type="text" name="County_SegundoCliente"/>
+                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>State:</label>
+                                            <input
+                                                type="text"
+                                                name="State_SegundoCliente"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Country:</label>
+                                            <input
+                                                type="text"
+                                                name="Country_SegundoCliente"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Zip Code:</label>
                                             <input
                                                 type="text"
                                                 name="Zip_SegundoCliente"
@@ -899,7 +1008,7 @@
                                             <label>Estado de Nacimiento:</label>
                                             <input
                                                 type="text"
-                                                name="Estado_de_Nacimiento"
+                                                name="Estado_de_Nacimiento_2"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-map-location-dot"></i></div>
                                         </span>
@@ -908,7 +1017,7 @@
                                             <label>Municipio de Nacimiento:</label>
                                             <input
                                                 type="text"
-                                                name="Municipio_de_Nacimiento"
+                                                name="Municipio_de_Nacimiento_2"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-map-location-dot"></i></div>
                                         </span>
@@ -917,7 +1026,7 @@
                                             <label>Pais de Nacimiento:</label>
                                             <input
                                                 type="text"
-                                                name="Pais_de_Nacimiento"
+                                                name="Pais_de_Nacimiento_2"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-earth-americas"></i>
                                             </div>

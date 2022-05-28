@@ -33,6 +33,12 @@ let infoColor = document.getElementById('info-colors')
 let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 let mapa = document.querySelector('.map')
 let navegador = util.navegador()
+// const data-tutular="1"
+// data-tutular="2"
+const cbDomicilio = document.querySelector('input[name="DomicilioExtranjero1"]')
+const cbDomicilio2 = document.querySelector(
+    'input[name="DomicilioExtranjero2"]'
+)
 let timeout
 let lastTap = 0
 let posicionY = 0
@@ -168,6 +174,14 @@ function hideTooltip(type) {
 }
 
 // Eventos
+
+cbDomicilio.addEventListener('click', () => {
+    UI.showDomicilio(cbDomicilio.checked, 'data-titular="1"')
+})
+
+cbDomicilio2.addEventListener('click', () => {
+    UI.showDomicilio(cbDomicilio2.checked, 'data-titular="2"')
+})
 
 searchDeals.addEventListener('input', (e) => {
     console.log(e.target.value)

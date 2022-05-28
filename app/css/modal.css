@@ -2,17 +2,17 @@ l.Linea-Division {
     width: 40%;
     height: 4px;
     background-color: #de9f27;
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }
-.titulo-recibo{
+.titulo-recibo {
     margin: auto;
 }
-.container-wrap{
-    position: fixed; 
+.container-wrap {
+    position: fixed;
     left: 0;
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
     top: -100%;
     opacity: 0;
     transition: top 0.4s, opacity 0.4s;
@@ -104,7 +104,6 @@ l.Linea-Division {
     overflow: hidden;
 }
 
-
 .container-block {
     display: flex;
     /* justify-content: space-between; */
@@ -124,18 +123,19 @@ l.Linea-Division {
     align-items: center;
     flex-direction: column;
 }
-.sub-block-titular1, .sub-direccion-titular1{
+.sub-block-titular1,
+.sub-direccion-titular1 {
     position: relative;
-    top:-35px; 
+    top: -35px;
     /* Top 45px */
 }
-.sub-block-titular2{
+.sub-block-titular2 {
     position: relative;
-    top:-37px;
+    top: -37px;
 }
-.sub-empresa-titular1{
+.sub-empresa-titular1 {
     position: relative;
-    top:-62px;
+    top: -62px;
 }
 /* Tab */
 .tab {
@@ -168,7 +168,12 @@ a {
     /* height: 86%; */
     width: 45vw;
 }
-.block-presupuesto{
+
+.hide {
+    display: none;
+}
+
+.block-presupuesto {
     justify-content: space-between;
 }
 
@@ -193,12 +198,12 @@ select {
     cursor: pointer;
     padding: 4px 5px;
 }
-.btn-search{
+.btn-search {
     position: absolute;
     top: -46px;
     left: 112px;
 }
-.btn-cratelead{
+.btn-cratelead {
     position: relative;
     top: -338%;
     left: -32px;
@@ -230,20 +235,22 @@ select {
     background: #de9f27;
     border-color: #de9f27;
 }
-input[type=date]{
+input[type='date'] {
     width: 150px;
-    height:18px;
+    height: 18px;
 }
-.container-block input[type=date],input[type=text],
-input[type=number], input[type=email],[list]{
+.container-block input[type='date'],
+input[type='text'],
+input[type='number'],
+input[type='email'],
+[list] {
     width: 150px;
     border-color: #000;
     border-left: none;
     border-top-right-radius: 8px;
-    border-bottom-right-radius:  8px; 
-
+    border-bottom-right-radius: 8px;
 }
-.recibo-apartado{
+.recibo-apartado {
     display: flex;
 }
 
@@ -253,7 +260,7 @@ input.invalid {
     animation: shake 300ms;
     border-radius: 5px;
 }
-.titulo-recibo{
+.titulo-recibo {
     margin-right: 20px;
 }
 
@@ -269,7 +276,7 @@ input.invalid {
     }
 }
 
-.iconos{
+.iconos {
     display: flex;
     width: 18px;
     justify-content: center;
@@ -280,12 +287,12 @@ input.invalid {
     height: 13.7px;
     border: 2px solid #000 !important;
     border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px; 
+    border-bottom-left-radius: 8px;
     border-right: none;
     padding: 2px;
 }
 
-.hide-icon{
+.hide-icon {
     visibility: hidden;
 }
 
@@ -297,48 +304,48 @@ input.invalid {
     border-bottom-right-radius:  8px; 
 } */
 
-input:disabled{
+input:disabled {
     border-color: rgb(106, 106, 106) !important;
 }
-.icon-disabled{
+.icon-disabled {
     border-color: rgb(106, 106, 106) !important;
 }
-input[type="checkbox"]{
+input[type='checkbox'] {
     position: relative;
     left: 33px;
     top: 8px;
     transform: scale(1.5);
 }
 
-i{
+i {
     font-size: 12px;
 }
-#info-lote p{
+#info-lote p {
     font-size: 12px;
 }
 
-.banner{
+.banner {
     background-color: #de9f27;
     width: 15%;
     height: 30px;
     position: absolute;
-    bottom: 1.5vh; 
+    bottom: 1.5vh;
     right: 25%;
     z-index: 2;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border-left:5px solid #000 ;
+    border-left: 5px solid #000;
     border-radius: 0 0 10px 0px;
 }
-.banner p{
+.banner p {
     font-weight: bold;
 }
-.sub-uif{
-    height:60%;
+.sub-uif {
+    height: 60%;
 }
 /* min 576 */
-@media (min-device-width: 500px) and (max-device-width: 915px) and (orientation:landscape){
+@media (min-device-width: 500px) and (max-device-width: 915px) and (orientation: landscape) {
     .block {
         display: flex;
         flex-direction: column;
@@ -355,26 +362,26 @@ i{
         padding: 0%;
         height: 100%;
     }
-    .title-block{
+    .title-block {
         margin-top: 50px;
     }
     .Linea-Division {
         margin-bottom: 20px;
     }
     .modal {
-        top:50px;
+        top: 50px;
         width: 50%;
         height: 85%;
         gap: 2rem;
     }
     .menu-form {
-        width:50%;
+        width: 50%;
         top: 2%;
     }
     a {
         font-size: 10px;
     }
-    label{
+    label {
         font-size: 10.5px;
     }
     .centrado {
@@ -384,61 +391,61 @@ i{
         width: 300px;
         height: 30px;
     }
-    input[type=date]{
+    input[type='date'] {
         width: 300px;
         height: 32.5px;
     }
     .btn-search {
-       width:60px;
-       height: 30px;
-       top: -75px;
-       left: 150px;
+        width: 60px;
+        height: 30px;
+        top: -75px;
+        left: 150px;
     }
-    .container-sub-block{
-        gap:1rem;
+    .container-sub-block {
+        gap: 1rem;
         height: 103%;
     }
-    .sub-block-big{
+    .sub-block-big {
         height: fit-content;
     }
-    .container-modal{
+    .container-modal {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .iconos{
+    .iconos {
         top: -36px;
         height: 28px;
     }
-    .banner{
-        width:15%;
+    .banner {
+        width: 15%;
         bottom: 7vh;
     }
-    .btn-cratelead{
+    .btn-cratelead {
         width: 100px;
-        top:-25px;
+        top: -25px;
         left: 140px;
     }
-    #btn-submit{
+    #btn-submit {
         top: -35px;
         left: -10px;
     }
-    .btn-cratelead{
+    .btn-cratelead {
         left: 130px;
-        top:-40px;
+        top: -40px;
     }
-    input[type="checkbox"]{
+    input[type='checkbox'] {
         left: 10px;
         transform: scale(0.5);
         top: -18px;
     }
-    .scan{
-        margin:auto;
+    .scan {
+        margin: auto;
         margin-bottom: 25px;
     }
 }
 /* max 575 */
-@media screen and (min-device-width:300px) and (max-device-width: 499px) {
+@media screen and (min-device-width: 300px) and (max-device-width: 499px) {
     .block {
         display: flex;
         flex-direction: column;
@@ -451,96 +458,98 @@ i{
         overflow-y: auto;
         display: grid;
         grid-template-columns: 100%;
-        
+
         padding: 0%;
         height: 100%;
     }
-    .container-blocks{
-      top:5%;
-      height: 85%;    
-    } 
-    .title-block{
+    .container-blocks {
+        top: 5%;
+        height: 85%;
+    }
+    .title-block {
         margin-top: 50px;
     }
     .Linea-Division {
         margin-bottom: 20px;
     }
     .modal {
-        top:50px;
-         width: 43%;
+        top: 50px;
+        width: 43%;
         height: 85%;
         gap: 2rem;
         justify-content: center;
     }
     .menu-form {
-        width:43%;
+        width: 43%;
         top: 2%;
     }
     a {
         font-size: 10px;
     }
-    label{
+    label {
         font-size: 12px;
     }
     .centrado {
         font-size: 20px;
     }
-    .container-modal{
+    .container-modal {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .container-block input[type=text],
-    input[type=number], input[type=email],[list] {
+    .container-block input[type='text'],
+    input[type='number'],
+    input[type='email'],
+    [list] {
         width: 200px;
         height: 30px;
         /* clases de prueba */
         border-radius: 0 10px 10px 0;
     }
-    .container-block input[type=date]{
+    .container-block input[type='date'] {
         width: 200px;
         height: 32px;
     }
     .btn-search {
-       width:60px;
-       height: 30px;
-       top: -73px;
-       left: 150px;
+        width: 60px;
+        height: 30px;
+        top: -73px;
+        left: 150px;
     }
-    .container-sub-block{
-        gap:1rem;
+    .container-sub-block {
+        gap: 1rem;
         justify-content: top;
     }
-    .sub-block-big{
+    .sub-block-big {
         height: fit-content;
     }
-    .iconos{
+    .iconos {
         top: -36px;
         height: 28px;
     }
-    .banner{
+    .banner {
         right: 28.5%;
-       bottom: 7.3vh; 
+        bottom: 7.3vh;
     }
-    .btn-cratelead{
+    .btn-cratelead {
         width: 80px;
         left: 130px;
     }
-    .contact span{
+    .contact span {
         text-overflow: ellipsis;
         font-size: 10px;
     }
-    #btn-submit{
+    #btn-submit {
         left: -22px;
     }
-    .block > .check-uif{
+    .block > .check-uif {
         align-items: center;
     }
-    input[type="checkbox"]{
+    input[type='checkbox'] {
         left: 4px;
     }
-    .scan{
-        margin:auto;
+    .scan {
+        margin: auto;
         margin-bottom: 25px;
     }
 }
