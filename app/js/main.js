@@ -445,7 +445,7 @@ vendedoresInput.addEventListener('change', (event) => {
 })
 
 btnRefresh.addEventListener('click', () => {
-    UI.paintDeals()
+    UI.paintDeals(userAdmin, userId)
 })
 
 infoColor.addEventListener('click', () => {

@@ -1352,7 +1352,7 @@ const UI = {
                             <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
                         </section>
                         <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                        <p><b>Cliente: </b><b>${deal.Contact_Name.name}</b></p>
+                        <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
                         <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
                     `
                 let section = document.createElement('section')
@@ -1514,13 +1514,11 @@ const UI = {
                 // console.log({ Deal_Name, Owner, Contact_Name, Stage })
                 return (
                     Deal_Name.toLowerCase().match(search) ||
-                    Owner.name.toLowerCase().match(search) ||
-                    Contact_Name.name.toLowerCase().match(search) ||
+                    Owner?.name.toLowerCase().match(search) ||
+                    Contact_Name?.name.toLowerCase().match(search) ||
                     Stage.toLowerCase().match(search)
                 )
             })
-            console.log(dealsCards)
-            console.log(valid)
             // dealsCards
 
             this.paintCards(valid, userAdmin, userId)
