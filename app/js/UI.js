@@ -221,7 +221,7 @@ const UI = {
                 temp_contact_id,
                 temp_accout_id,
                 contactName
-
+            // logica de contacto **************************************
             if (
                 contactDiv.dataset?.contactid !== '' &&
                 contactDiv.dataset?.contactid !== undefined &&
@@ -377,7 +377,7 @@ const UI = {
             }
 
             name = modal.dataset?.trato
-            // Product
+            // logica de Producto  **************************************
             if (sku === undefined) {
                 let map = document.getElementById('map')
                 const data = await crm.detailsFraccionamiento(
@@ -393,8 +393,10 @@ const UI = {
             const productBooksRequest = await books.getProductByName(name, sku)
 
             productBooksId = productBooksRequest.data.item_id
-
+            // agregar 
             if (!productBooksRequest.ok) {
+                throw new Error('Producto no creado en Books. Contactar al Administrador')
+                /*
                 // Agregar Data Product
 
                 const productData = {}
@@ -404,8 +406,9 @@ const UI = {
                 productBooksId = createProductRequest.data.item_id
 
                 // Crear Producto en books
+                */
             }
-
+            // logica de Deal **************************************
             const coordinadorArray = []
             coordinadorArray.push(coo_id)
 
@@ -461,6 +464,7 @@ const UI = {
                 throw new Error('No se pudo crear el trato')
             }
 
+            // logica de descuento **************************************
             // Quitar valores de descuento
             const removeDiscountRequestCRM = await crm.removeDiscount(
                 product_id
@@ -529,6 +533,8 @@ const UI = {
                 )
             }
 
+            
+            // Crear Cotizacion **************************************
             let des = ''
 
             if (formadepago == 'Contado') {
@@ -538,7 +544,7 @@ const UI = {
             }
 
             const fecha = util.fechaDePago(des)
-
+            
             if (
                 accountId &&
                 contact_id &&
@@ -595,6 +601,7 @@ const UI = {
                     )
 
                     if (CotizacionRequest.ok) {
+                        // logica de facturas **************************************
                         let mensualidad = document.querySelector(
                             `input[name="Pago_Mensual_P"]`
                         ).value
@@ -609,171 +616,14 @@ const UI = {
                         })
                         plazosdiferido = Number(campa_a.dataset.plazosdiferido)
 
-                        // let today = new Date()
-                        // let date = util.addDate(today, 'D', 7)
-
                         // Creacion de facturas
-                        let arrInvoices = []
-                        if (checkApartado) {
-                            // Tiene Apartado
-                            arrInvoices.push(
-                                util.JSON_invoice(
-                                    id_contactBooks,
-                                    Consecutivo,
-                                    today,
-                                    productBooksId,
-                                    'Pago por Concepto de Apartado',
-                                    apartado,
-                                    Deal_id,
-                                    'No'
-                                )
-                            )
-
-                            if (esDiferido === 'true') {
-                                let mensualidadEnganche =
-                                    Enganche / plazosdiferido
-                                for (let i = 1; i <= plazosdiferido; i++) {
-                                    if (i == 1) {
-                                        let rate =
-                                            mensualidadEnganche - apartado
-                                        arrInvoices.push(
-                                            util.JSON_invoice(
-                                                id_contactBooks,
-                                                Consecutivo,
-                                                date,
-                                                productBooksId,
-                                                'Pago por Concepto de Complemento de Enganche Diferido',
-                                                rate,
-                                                Deal_id,
-                                                'Si'
-                                            )
-                                        )
-                                    } else {
-                                        arrInvoices.push(
-                                            util.JSON_invoice(
-                                                id_contactBooks,
-                                                Consecutivo,
-                                                date,
-                                                productBooksId,
-                                                'Pago por Concepto de Enganche Diferido',
-                                                mensualidadEnganche,
-                                                Deal_id,
-                                                'No'
-                                            )
-                                        )
-                                    }
-                                    date = util.addDate(date, 'M', 1)
-                                }
-                            } else {
-                                // Factura de Complemento
-                                let rate = 0
-                                if (des == 'Enganche') {
-                                    rate = Enganche - apartado
-                                } else if (des == 'Primer Mensualidad') {
-                                    rate = mensualidad - apartado
-                                } else if (des == 'Contado') {
-                                    const tempRate =
-                                        inputDescuento !== ''
-                                            ? parseFloat(inputDescuento)
-                                            : MontoTotal
-                                    rate = tempRate - apartado
-                                    // rate = MontoTotal - apartado
-                                }
-
-                                arrInvoices.push(
-                                    util.JSON_invoice(
-                                        id_contactBooks,
-                                        Consecutivo,
-                                        date,
-                                        productBooksId,
-                                        `Pago por Concepto de Complemento de ${des}`,
-                                        rate,
-                                        Deal_id,
-                                        'Si'
-                                    )
-                                )
-                            }
-                        } else {
-                            // Facturas de diferido
-                            if (esDiferido === 'true') {
-                                let rate = Enganche / plazosdiferido
-                                for (let i = 1; i <= plazosdiferido; i++) {
-                                    arrInvoices.push(
-                                        util.JSON_invoice(
-                                            id_contactBooks,
-                                            Consecutivo,
-                                            today,
-                                            productBooksId,
-                                            'Pago por Concepto de Enganche Diferido',
-                                            rate,
-                                            Deal_id,
-                                            'No'
-                                        )
-                                    )
-                                    today = util.addDate(today, 'M', 1)
-                                }
-                            } else {
-                                // Factura directa
-                                let rate = 0
-                                if (des == 'Enganche') {
-                                    rate = Enganche
-                                } else if (des == 'Primer Mensualidad') {
-                                    rate = mensualidad
-                                } else if (des == 'Contado') {
-                                    const tempRate =
-                                        inputDescuento !== ''
-                                            ? parseFloat(inputDescuento)
-                                            : MontoTotal
-                                    rate = tempRate
-                                    // rate = MontoTotal
-                                }
-                                arrInvoices.push(
-                                    util.JSON_invoice(
-                                        id_contactBooks,
-                                        Consecutivo,
-                                        today,
-                                        productBooksId,
-                                        `Pago por Concepto de ${des}`,
-                                        rate,
-                                        Deal_id,
-                                        'No'
-                                    )
-                                )
-                            }
-                        }
-                        console.table(arrInvoices)
-
-                        for (let i = 0; i < arrInvoices.length; i++) {
-                            const invoiceRequest = await books.createInvoice(
-                                arrInvoices[i]
-                            )
-                            if (invoiceRequest.ok) {
-                                //Send Invoice
-                                const sendInvoiceRequest =
-                                    await books.sendInvoice(
-                                        invoiceRequest.data.invoice.invoice_id
-                                    )
-                                if (sendInvoiceRequest.ok) {
-                                    alerts.showAlert(
-                                        'success',
-                                        'Factura creada y enviada en Books'
-                                    )
-                                } else {
-                                    alerts.showAlert(
-                                        'success',
-                                        'Factura creada en estado borrador Books'
-                                    )
-                                }
-                            } else {
-                                alerts.showAlert(
-                                    'warning',
-                                    'Hubo un problema al intentar crear factura'
-                                )
-                            }
-                        }
+                        const paramsObject = {id_contactBooks, Consecutivo, date, today, productBooksId, apartado, Deal_id}
+                        const factObject ={checkApartado, esDiferido, plazosdiferido, Enganche, inputDescuento,des,mensualidad, MontoTotal}
+                        this.facturas(factObject, paramsObject)
 
                         // End of process
                         // Reset values
+
                         campa_a.value = ''
                         document.querySelector(
                             'input[name="Costo_Descuento_P"]'
@@ -799,6 +649,168 @@ const UI = {
             }
         }
         console.timeEnd()
+    },
+    async facturas(factObject, paramsObject ){
+        const {id_contactBooks, Consecutivo, date, today, productBooksId, apartado, Deal_id} = paramsObject
+        const {checkApartado, esDiferido, plazosdiferido, Enganche, inputDescuento,des,mensualidad, MontoTotal} = factObject
+        let arrInvoices = new Array()
+        if (checkApartado) {
+            // Tiene Apartado
+            arrInvoices.push(
+                util.JSON_invoice(
+                    id_contactBooks,
+                    Consecutivo,
+                    today,
+                    productBooksId,
+                    'Pago por Concepto de Apartado',
+                    apartado,
+                    Deal_id,
+                    'No'
+                )
+            )
+
+            if (esDiferido === 'true') {
+                let mensualidadEnganche =
+                    Enganche / plazosdiferido
+                for (let i = 1; i <= plazosdiferido; i++) {
+                    if (i == 1) {
+                        let rate =
+                            mensualidadEnganche - apartado
+                        arrInvoices.push(
+                            util.JSON_invoice(
+                                id_contactBooks,
+                                Consecutivo,
+                                date,
+                                productBooksId,
+                                'Pago por Concepto de Complemento de Enganche Diferido',
+                                rate,
+                                Deal_id,
+                                'Si'
+                            )
+                        )
+                    } else {
+                        arrInvoices.push(
+                            util.JSON_invoice(
+                                id_contactBooks,
+                                Consecutivo,
+                                date,
+                                productBooksId,
+                                'Pago por Concepto de Enganche Diferido',
+                                mensualidadEnganche,
+                                Deal_id,
+                                'No'
+                            )
+                        )
+                    }
+                    date = util.addDate(date, 'M', 1)
+                }
+            } else {
+                // Factura de Complemento
+                let rate = 0
+                if (des == 'Enganche') {
+                    rate = Enganche - apartado
+                } else if (des == 'Primer Mensualidad') {
+                    rate = mensualidad - apartado
+                } else if (des == 'Contado') {
+                    const tempRate =
+                        inputDescuento !== ''
+                            ? parseFloat(inputDescuento)
+                            : MontoTotal
+                    rate = tempRate - apartado
+                    // rate = MontoTotal - apartado
+                }
+
+                arrInvoices.push(
+                    util.JSON_invoice(
+                        id_contactBooks,
+                        Consecutivo,
+                        date,
+                        productBooksId,
+                        `Pago por Concepto de Complemento de ${des}`,
+                        rate,
+                        Deal_id,
+                        'Si'
+                    )
+                )
+            }
+        } else {
+            // Facturas de diferido
+            if (esDiferido === 'true') {
+                let rate = Enganche / plazosdiferido
+                for (let i = 1; i <= plazosdiferido; i++) {
+                    arrInvoices.push(
+                        util.JSON_invoice(
+                            id_contactBooks,
+                            Consecutivo,
+                            today,
+                            productBooksId,
+                            'Pago por Concepto de Enganche Diferido',
+                            rate,
+                            Deal_id,
+                            'No'
+                        )
+                    )
+                    today = util.addDate(today, 'M', 1)
+                }
+            } else {
+                // Factura directa
+                let rate = 0
+                if (des == 'Enganche') {
+                    rate = Enganche
+                } else if (des == 'Primer Mensualidad') {
+                    rate = mensualidad
+                } else if (des == 'Contado') {
+                    const tempRate =
+                        inputDescuento !== ''
+                            ? parseFloat(inputDescuento)
+                            : MontoTotal
+                    rate = tempRate
+                    // rate = MontoTotal
+                }
+                arrInvoices.push(
+                    util.JSON_invoice(
+                        id_contactBooks,
+                        Consecutivo,
+                        today,
+                        productBooksId,
+                        `Pago por Concepto de ${des}`,
+                        rate,
+                        Deal_id,
+                        'No'
+                    )
+                )
+            }
+        }
+        console.table(arrInvoices)
+
+        for (let i = 0; i < arrInvoices.length; i++) {
+            const invoiceRequest = await books.createInvoice(
+                arrInvoices[i]
+            )
+            if (invoiceRequest.ok) {
+                //Send Invoice
+                const sendInvoiceRequest =
+                    await books.sendInvoice(
+                        invoiceRequest.data.invoice.invoice_id
+                    )
+                if (sendInvoiceRequest.ok) {
+                    alerts.showAlert(
+                        'success',
+                        'Factura creada y enviada en Books'
+                    )
+                } else {
+                    alerts.showAlert(
+                        'success',
+                        'Factura creada en estado borrador Books'
+                    )
+                }
+            } else {
+                alerts.showAlert(
+                    'warning',
+                    'Hubo un problema al intentar crear factura'
+                )
+            }
+        }
     },
     async createLead(dataForm) {
         const createLead = confirm('Desea crear el Posible cliente ')
