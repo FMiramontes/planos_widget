@@ -69,8 +69,9 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         user.lastElementChild.innerText = data.users[0].full_name
         user.firstElementChild.appendChild(img_user)
         userId = data.users[0].id
-        userAdmin = data.users[0].profile.name == 'Administrator' ? true : false
-        UI.paintDeals(userAdmin, userId)
+        userAdmin = data.users[0].profile.name == 'Administrator' || 'developer' ? true : false
+        console.log('User: ', data.users[0])
+        UI.paintDeals()
     })
 })
 
@@ -445,7 +446,7 @@ vendedoresInput.addEventListener('change', (event) => {
 })
 
 btnRefresh.addEventListener('click', () => {
-    UI.paintDeals(userAdmin, userId)
+    UI.paintDeals()
 })
 
 infoColor.addEventListener('click', () => {
