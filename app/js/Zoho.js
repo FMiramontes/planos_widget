@@ -137,6 +137,40 @@ const crm = {
             }
         }
     },
+    async checkDisponible(productId){
+        try {
+            const request = await ZOHO.CRM.API.getRecord({
+                Entity: 'Products',
+                RecordID: productId.toString(),
+            })
+
+            // No record found in 'Commerces' records
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data[0].Estado !== "Disponible" ? { disponible: false } : { disponible: true},
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async searchContact(searchValue, modulo) {
         try {
             const criteria = searchValue.includes('@')
@@ -321,6 +355,28 @@ const crm = {
     async UpdateContact(data, contactId) {
         let dataContacto = data.contacto
 
+        // Marcar checkbox Segundo_Cliente si los campos tienen valor
+        if (
+            dataContacto?.Nombre2 !== undefined &&
+            dataContacto?.ApellidoP2 !== undefined
+        ) {
+            dataContacto.Segundo_Cliente = true
+        }
+
+        const cbDomicilio = document.querySelector(
+            'input[name="DomicilioExtranjero1"]'
+        )
+
+        if (cbDomicilio.checked) {
+            dataContacto.DomicilioExtranjero1 = true
+        }
+        const cbDomicilio2 = document.querySelector(
+            'input[name="DomicilioExtranjero2"]'
+        )
+        if (cbDomicilio2.checked) {
+            dataContacto.DomicilioExtranjero2 = true
+        }
+
         var updateCRM = {
             Entity: 'Contacts',
             APIData: {
@@ -384,6 +440,20 @@ const crm = {
             contacto.Segundo_Cliente = true
         }
 
+        const cbDomicilio = document.querySelector(
+            'input[name="DomicilioExtranjero1"]'
+        )
+
+        if (cbDomicilio.checked) {
+            contacto.DomicilioExtranjero1 = true
+        }
+        const cbDomicilio2 = document.querySelector(
+            'input[name="DomicilioExtranjero2"]'
+        )
+        if (cbDomicilio2.checked) {
+            contacto.DomicilioExtranjero2 = true
+        }
+
         try {
             const request = await ZOHO.CRM.API.insertRecord({
                 Entity: 'Contacts',
@@ -424,6 +494,32 @@ const crm = {
     },
     async updateContact(data) {
         const { contacto } = data
+
+        contacto.Account_Name =
+            contacto.Account_Name != '' ? { id: accountId } : ''
+
+        // Marcar checkbox Segundo_Cliente si los campos tienen valor
+        if (
+            contacto?.Nombre2 !== undefined &&
+            contacto?.ApellidoP2 !== undefined
+        ) {
+            console.log('Planos true')
+            contacto.Segundo_Cliente = true
+        }
+
+        const cbDomicilio = document.querySelector(
+            'input[name="DomicilioExtranjero1"]'
+        )
+
+        if (cbDomicilio.checked) {
+            contacto.DomicilioExtranjero1 = true
+        }
+        const cbDomicilio2 = document.querySelector(
+            'input[name="DomicilioExtranjero2"]'
+        )
+        if (cbDomicilio2.checked) {
+            contacto.DomicilioExtranjero2 = true
+        }
 
         try {
             const request = await ZOHO.CRM.API.updateRecord({
@@ -789,10 +885,10 @@ const crm = {
                 }),
             })
 
-            const details =  JSON.parse(request.details?.output)
-            console.log("details: ", details)
+            const details = JSON.parse(request.details?.output)
+            console.log('details: ', details)
 
-            if(details.code == "DUPLICATE_DATA"){
+            if (details.code == 'DUPLICATE_DATA') {
                 return {
                     code: '400',
                     ok: false,
@@ -909,18 +1005,29 @@ const crm = {
         let lead = {}
         let nombreCompleto
 
-        if(data.Apellido_Materno === undefined){
-            nombreCompleto = data.First_Name.toUpperCase() + ' ' + data.Apellido_Paterno.toUpperCase()
+        if (data.Apellido_Materno === undefined) {
+            nombreCompleto =
+                data.First_Name.toUpperCase() +
+                ' ' +
+                data.Apellido_Paterno.toUpperCase()
             lead.Last_Name = data.Apellido_Paterno.toUpperCase()
             lead.Apellido_Materno = ''
-        }else{
-            nombreCompleto = data.First_Name.toUpperCase() + ' ' + data.Apellido_Paterno.toUpperCase() + ' ' + data.Apellido_Materno.toUpperCase()
-            lead.Last_Name = data.Apellido_Paterno.toUpperCase() + ' ' + data.Apellido_Materno.toUpperCase()
+        } else {
+            nombreCompleto =
+                data.First_Name.toUpperCase() +
+                ' ' +
+                data.Apellido_Paterno.toUpperCase() +
+                ' ' +
+                data.Apellido_Materno.toUpperCase()
+            lead.Last_Name =
+                data.Apellido_Paterno.toUpperCase() +
+                ' ' +
+                data.Apellido_Materno.toUpperCase()
             lead.Apellido_Materno = data.Apellido_Materno.toUpperCase()
         }
-        
+
         lead.Apellido_Paterno = data.Apellido_Paterno.toUpperCase()
-        
+
         lead.First_Name = data.First_Name.toUpperCase()
         lead.Interesado_en = { id: fraccionamientoId }
         lead.Lead_Source = data.Lead_Source
@@ -950,7 +1057,8 @@ const crm = {
         lead.Colonia = data.Colonia
 
         lead.Country = data.Mailing_Country
-        lead.Departamento = data.Departamento	
+        lead.Departamento = data.Departamento
+        lead.Widget_Planos = true
 
         try {
             const request = await ZOHO.CRM.API.insertRecord({
@@ -1022,7 +1130,7 @@ const crm = {
             }
         }
     },
-    async attachFile(dealId, FileName, blob){
+    async attachFile(dealId, FileName, blob) {
         try {
             const request = await ZOHO.CRM.API.attachFile({
                 Entity: 'Deals',
@@ -1030,7 +1138,7 @@ const crm = {
                 File: { Name: `${FileName}.jpg`, Content: blob },
             })
 
-            console.log("Zoho request: ",request)
+            console.log('Zoho request: ', request)
 
             if (request.status === 204) {
                 return {
@@ -1050,7 +1158,6 @@ const crm = {
                 type: 'success',
             }
         } catch (error) {
-
             createLog(error, 'Error', {
                 args: { dealId, FileName, blob },
                 invoke: 'attachFile',
@@ -1062,7 +1169,7 @@ const crm = {
                 message: error.message,
             }
         }
-    }
+    },
 }
 
 const creator = {

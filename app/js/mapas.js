@@ -1,7 +1,7 @@
 'use strict'
 
 import { crm, creator, books } from './Zoho.js'
-import UI from './UI.js'
+import { UI, util} from './UI.js'
 
 const maps = {
     position(num) {
@@ -22,7 +22,7 @@ const maps = {
                 let ContainerBeforeManzana = document.getElementById(
                     beforeManzanaJson?.Numero
                 )
-                ContainerBeforeManzana.innerHTML = UI.parseOuterHTML(
+                ContainerBeforeManzana.innerHTML = util.parseOuterHTML(
                     beforeManzanaJson?.path
                 )
             }
@@ -40,7 +40,7 @@ const maps = {
         manzanaJson?.Lotes.forEach((l) => {
             ContainerManzana.insertAdjacentHTML(
                 'afterbegin',
-                UI.parseOuterHTML(l)
+                util.parseOuterHTML(l)
             )
         })
     },

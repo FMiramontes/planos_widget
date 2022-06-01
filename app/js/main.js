@@ -1,9 +1,10 @@
-import UI from './UI.js'
+import { UI, util } from './UI.js'
 import maps from './mapas.js'
 import valid from './validate.js'
 import alerts from './alertas.js'
 import './zoom.js'
 import camera from './camera.js'
+import datalists from './dataList.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
@@ -14,24 +15,50 @@ const modal = document.getElementById('modal')
 const menuForm = document.querySelector('.menu-form')
 const vendedoresInput = document.querySelector('#vendorsValue')
 const searchDeals = document.getElementById('search-deal')
-let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 const tabs = document.querySelectorAll('[data-tab-target]')
+const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
+const input_location = document.querySelector('input[name="Localizacion_P"]')
+const map = document.getElementById('map')
+const elem = document.getElementById('svg-map')
+const panzoom = Panzoom(elem)
+let containerWrap = document.querySelector('.container-wrap')
+let containerModal = document.querySelector('.container-modal')
+let Iconmenu = document.querySelector('.btn-menu')
+let menu = document.querySelector('#menu-lateral')
+let btnMenuSpan = document.querySelector('.btn-menu span')
+let Iconmenu2 = document.getElementById('btn-menu-deals')
+let menu2 = document.querySelector('#menu-lateral2')
+let btnRefresh = document.getElementById('refresh-btn')
+let infoColor = document.getElementById('info-colors')
+let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
+let mapa = document.querySelector('.map')
+let navegador = util.navegador()
+// const data-tutular="1"
+// data-tutular="2"
+const cbDomicilio = document.querySelector('input[name="DomicilioExtranjero1"]')
+const cbDomicilio2 = document.querySelector(
+    'input[name="DomicilioExtranjero2"]'
+)
+let timeout
+let lastTap = 0
 let posicionY = 0
 let posicionX = 0
-let mapa = document.querySelector('.map')
-
+let userId
+let userAdmin
 let CRMData = {},
     qselector
 
+// inicialización de Zoho SDK
 ZOHO.embeddedApp.on('PageLoad', async function (data) {
     ZOHO.CRM.CONFIG.getCurrentUser().then(function (data) {
         const user = document.getElementById('user')
         UI.userVendors(data.users[0])
-        UI.addfuentes()
-        UI.addSucursales()
-        UI.addDepartamentos()
-        UI.addZona()
-        UI.coordinador()
+        console.log('datalists: ', datalists)
+        UI.addDataList(datalists.coords, 'coo')
+        UI.addDataList(datalists.departamentos, 'departamento')
+        UI.addDataList(datalists.fuentesCliente, 'fuente')
+        UI.addDataList(datalists.sucursales, 'Sucursales')
+        UI.addDataList(datalists.zonas, 'Gerente')
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
@@ -41,126 +68,18 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         img_user.setAttribute('src', data.users[0].image_link)
         user.lastElementChild.innerText = data.users[0].full_name
         user.firstElementChild.appendChild(img_user)
+        userId = data.users[0].id
+        userAdmin = data.users[0].profile.name == 'Administrator' || 'developer' ? true : false
+        console.log('User: ', data.users[0])
         UI.paintDeals()
     })
-})
-
-searchDeals.addEventListener('input', (e) => {
-    console.log(e.target.value)
-    UI.searchDeals(e.target.value.toLowerCase())
 })
 
 ZOHO.embeddedApp.init().then(function () {
     UI.loadMenuLateral()
 })
 
-searchContactBtn.addEventListener('click', () => {
-    UI.searchCustomer()
-})
-
-switchSearch.addEventListener('change', () => {
-    if (switchSearch.checked) {
-        searchLabel.dataset.modulesearch = 'Leads'
-        searchLabel.textContent = 'Leads'
-    } else {
-        searchLabel.dataset.modulesearch = 'Contacts'
-        searchLabel.textContent = 'Contacts'
-    }
-})
-searchCampaigntBtn.addEventListener('click', () => {
-    UI.searchCampaign()
-})
-
-document.addEventListener('click', (e) => {
-    qselector = document.querySelector(
-        `[data-module="${e.target.dataset.module}"]`
-    )
-
-    if (
-        (!e.target.matches('.search-result') && qselector?.innerHTML !== '') ||
-        e.target.matches('[data-module]')
-    ) {
-        UI.hideResults()
-    }
-})
-
-inputApartado.addEventListener('change', (e) => {
-    valid.validateApartado(e.target)
-})
-
-document.addEventListener('click', (e) => {
-    console.log('document: ', e)
-    const modalArchivos = document.getElementById('modal-archivos')
-    if (e.target.matches('[data-file]')) {
-        modalArchivos.children[0].dataset.dealId =
-            e.target.parentNode.dataset.dealid
-        modalArchivos.children[0].dataset.dealname =
-            e.target.parentNode.dataset.dealname
-        camera.autoPlay()
-        modalArchivos.classList.add('show')
-    } else if (e.target.matches('[data-archivos]')) {
-        modalArchivos.children[0].dataset.dealId = ''
-        modalArchivos.children[0].dataset.dealname = ''
-        modalArchivos.classList.remove('show')
-        camera.autoStop()
-    }
-})
-
-// # Assign contact to #contact element
-document.addEventListener('click', (e) => {
-    if (e.target.matches('[data-record]')) {
-        const modulo = searchLabel.dataset.modulesearch
-        if (modulo !== undefined) {
-            if (modulo === 'Contacts') {
-                UI.selectContact(e.target)
-                UI.cleanForm()
-            } else {
-                UI.selectLead(e.target)
-                UI.cleanForm()
-            }
-        }
-    }
-
-    if (
-        e.target.dataset.module == 'campaign' &&
-        e.target.dataset.result == 'found'
-    ) {
-        UI.selectCampaign(e.target)
-        UI.fillCampaignDetails(e.target)
-    }
-})
-
-// Remove selected contact from #contact element
-document.addEventListener('click', (e) => {
-    if (e.target.matches('[data-close]')) {
-        UI.removeContact()
-    }
-})
-
-document.getElementById('btn-submit').addEventListener('click', (e) => {
-    const newData = UI.getDataForm()
-    if (valid.validateForm() && valid.validDataLists('submit')) {
-        UI.validate(CRMData, newData)
-    } else {
-        alerts.showAlert('warning', 'Informacion Incompleta.')
-    }
-})
-
-document.getElementById('btn-cratelead').addEventListener('click', (e) => {
-    const dataForm = UI.getDataForm()
-
-    if (valid.validateDataLead() && valid.validDataLists('lead')) {
-        UI.createLead(dataForm)
-    } else {
-        alerts.showAlert('warning', 'Informacion Incompleta.')
-    }
-})
-
-const input_frac = document.querySelector('input[name="Fraccionamiento_P"]')
-const input_location = document.querySelector('input[name="Localizacion_P"]')
-const map = document.getElementById('map')
-let navegador = UI.navegador()
-console.log('navegador: ', navegador)
+// Funciones
 if (
     (navegador.browser === 'chrome' ||
         navegador.browser === 'firefox' ||
@@ -189,9 +108,7 @@ if (
 function scrollToBottom() {
     modal.scrollIntoView(false)
 }
-
 // Animacion modal
-
 function fadeIn(element, duration = 1000) {
     element.style.display = ''
     element.style.opacity = 0
@@ -208,8 +125,183 @@ function fadeIn(element, duration = 1000) {
     tick()
 }
 // Celular doble click
-let timeout
-let lastTap = 0
+function cerrarMenu() {
+    menu.classList.toggle('open')
+    btnMenuSpan.classList.toggle('active')
+}
+// tabs Modal
+tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+        tabs.forEach((tab) => {
+            tab.classList.remove('active')
+        })
+        tab.classList.add('active')
+    })
+})
+
+//ZOOM
+document.getElementById('zoom-in').addEventListener('click', panzoom.zoomIn)
+document.getElementById('zoom-out').addEventListener('click', panzoom.zoomOut)
+document.getElementById('zoom-reset').addEventListener('click', panzoom.reset)
+
+function showTooltip(type) {
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            posicionX = e.pageX + 10
+            posicionY = e.pageY + 13
+
+            maps.showPopup(e, posicionX, posicionY)
+        }
+    })
+}
+
+function mostrarTooltip(type) {
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            posicionX = e.changedTouches[0].pageX + 10
+            posicionY = e.changedTouches[0].pageY + 13
+
+            maps.showPopup(e, posicionX, posicionY)
+        }
+    })
+}
+
+function hideTooltip(type) {
+    mapa.addEventListener(`${type}`, (e) => {
+        if (e.target.matches('[data-lote]')) {
+            maps.hidePopup()
+        }
+    })
+}
+
+// Eventos
+
+cbDomicilio.addEventListener('click', () => {
+    UI.showDomicilio(cbDomicilio.checked, 'data-titular="1"')
+})
+
+cbDomicilio2.addEventListener('click', () => {
+    UI.showDomicilio(cbDomicilio2.checked, 'data-titular="2"')
+})
+
+searchDeals.addEventListener('input', (e) => {
+    console.log(e.target.value)
+    UI.searchDeals(e.target.value.toLowerCase(), userAdmin, userId)
+})
+
+searchContactBtn.addEventListener('click', () => {
+    UI.searchCustomer()
+})
+
+switchSearch.addEventListener('change', () => {
+    if (switchSearch.checked) {
+        searchLabel.dataset.modulesearch = 'Leads'
+        searchLabel.textContent = 'Leads'
+    } else {
+        searchLabel.dataset.modulesearch = 'Contacts'
+        searchLabel.textContent = 'Contacts'
+    }
+})
+
+searchCampaigntBtn.addEventListener('click', () => {
+    UI.searchCampaign()
+})
+
+document.addEventListener('click', (e) => {
+    qselector = document.querySelector(
+        `[data-module="${e.target.dataset.module}"]`
+    )
+
+    if (
+        (!e.target.matches('.search-result') && qselector?.innerHTML !== '') ||
+        e.target.matches('[data-module]')
+    ) {
+        UI.hideResults()
+    }
+})
+
+inputApartado.addEventListener('change', (e) => {
+    valid.validateApartado(e.target)
+})
+
+document.addEventListener('click', (e) => {
+    console.log('document: ', e)
+    const modalArchivos = document.getElementById('modal-archivos')
+    if (e.target.matches('[data-file]')) {
+        if(modalArchivos.children[0]?.dataset?.dealId !== e.target.parentNode.dataset.dealid){
+            const screanshots = document.getElementById('screanshots')
+            screanshots.innerHTML = ""
+        }
+        modalArchivos.children[0].dataset.dealId =
+            e.target.parentNode.dataset.dealid
+        modalArchivos.children[0].dataset.dealname =
+            e.target.parentNode.dataset.dealname
+        camera.autoPlay()
+        modalArchivos.classList.add('show')
+    } else if (e.target.matches('[data-archivos]')) {
+        // modalArchivos.children[0].dataset.dealId = ''
+        // modalArchivos.children[0].dataset.dealname = ''
+        modalArchivos.classList.remove('show')
+        camera.autoStop()
+    }
+})
+
+// # Assign contact to #contact element
+document.addEventListener('click', (e) => {
+    if (e.target.matches('[data-record]')) {
+        const modulo = searchLabel.dataset.modulesearch
+        if (modulo !== undefined) {
+            if (modulo === 'Contacts') {
+                UI.selectContact(e.target)
+                util.cleanForm()
+            } else {
+                UI.selectLead(e.target)
+                util.cleanForm()
+            }
+        }
+    }
+
+    if (
+        e.target.dataset.module == 'campaign' &&
+        e.target.dataset.result == 'found'
+    ) {
+        UI.selectCampaign(e.target)
+        UI.fillCampaignDetails(e.target)
+    }
+})
+
+// Remove selected contact from #contact element
+document.addEventListener('click', (e) => {
+    if (e.target.matches('[data-close]')) {
+        UI.removeContact()
+    }
+})
+
+document.getElementById('btn-submit').addEventListener('click', async(e) => {
+    const newData = util.getDataForm()
+    if (valid.validateForm() && valid.validDataLists('submit')) {
+        if(await valid.validProduct()){
+            UI.validate(CRMData, newData)
+        }else{
+            alerts.showAlert('warning', 'El producto no se encuentra disponible.') 
+            UI.refreshManzana()
+        }
+    
+    } else {
+        alerts.showAlert('warning', 'Informacion Incompleta.')
+    }
+})
+
+document.getElementById('btn-cratelead').addEventListener('click', (e) => {
+    const dataForm = util.getDataForm()
+
+    if (valid.validateDataLead() && valid.validDataLists('lead')) {
+        UI.createLead(dataForm)
+    } else {
+        alerts.showAlert('warning', 'Informacion Incompleta.')
+    }
+})
+
 document.addEventListener('touchend', function (e) {
     if (e.target.matches('[data-lote]')) {
         let currentTime = new Date().getTime()
@@ -245,7 +337,7 @@ document.addEventListener('touchend', function (e) {
                             valid.validContact(true)
                         )
 
-                        CRMData = UI.getDataForm()
+                        CRMData = util.getDataForm()
                     }
                     let banner = document.querySelector('.banner')
                     banner.innerHTML = ''
@@ -262,6 +354,7 @@ document.addEventListener('touchend', function (e) {
         lastTap = currentTime
     }
 })
+
 document.addEventListener('dblclick', (e) => {
     if (e.target.matches('[data-lote]')) {
         if (e.target.dataset.crm == 'true') {
@@ -289,7 +382,7 @@ document.addEventListener('dblclick', (e) => {
                         valid.validContact(true)
                     )
 
-                    CRMData = UI.getDataForm()
+                    CRMData = util.getDataForm()
                 }
                 let banner = document.querySelector('.banner')
                 banner.innerHTML = ''
@@ -323,29 +416,16 @@ document.addEventListener('dblclick', (e) => {
         }
     })
 
-let containerWrap = document.querySelector('.container-wrap')
-let containerModal = document.querySelector('.container-modal')
-
 containerModal.addEventListener('click', (event) => {
     if (event.target == containerModal) {
-        containerWrap.classList.remove('show')
         UI.viewModal(false, '', '', '', '')
     }
 })
-
-let Iconmenu = document.querySelector('.btn-menu')
-let menu = document.querySelector('#menu-lateral')
-let btnMenuSpan = document.querySelector('.btn-menu span')
 
 Iconmenu.addEventListener('click', () => {
     /*Abrir menu*/
     cerrarMenu()
 })
-
-function cerrarMenu() {
-    menu.classList.toggle('open')
-    btnMenuSpan.classList.toggle('active')
-}
 
 menu.addEventListener('click', (e) => {
     if (e.target.matches('[data-index]')) {
@@ -354,74 +434,12 @@ menu.addEventListener('click', (e) => {
 })
 
 /*Abrir menu tratos*/
-let Iconmenu2 = document.getElementById('btn-menu-deals')
-let menu2 = document.querySelector('#menu-lateral2')
-
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     menu2.classList.toggle('open')
     // let cardColor = document.querySelector('.color-deals')
     // cardColor.classList.toggle('showCard')
 })
-
-// tabs Modal
-
-tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-        tabs.forEach((tab) => {
-            tab.classList.remove('active')
-        })
-        tab.classList.add('active')
-    })
-})
-
-//ZOOM
-let elem = document.getElementById('svg-map')
-
-const panzoom = Panzoom(elem)
-
-let zoomInButton = document
-    .getElementById('zoom-in')
-    .addEventListener('click', panzoom.zoomIn)
-let zoomOutButton = document
-    .getElementById('zoom-out')
-    .addEventListener('click', panzoom.zoomOut)
-let resetButton = document
-    .getElementById('zoom-reset')
-    .addEventListener('click', panzoom.reset)
-
-// Tooltip
-const tooltip = document.getElementById('info-lote')
-
-function showTooltip(type) {
-    mapa.addEventListener(`${type}`, (e) => {
-        if (e.target.matches('[data-lote]')) {
-            posicionX = e.pageX + 10
-            posicionY = e.pageY + 13
-
-            maps.showPopup(e, posicionX, posicionY)
-        }
-    })
-}
-
-function mostrarTooltip(type) {
-    mapa.addEventListener(`${type}`, (e) => {
-        if (e.target.matches('[data-lote]')) {
-            posicionX = e.changedTouches[0].pageX + 10
-            posicionY = e.changedTouches[0].pageY + 13
-
-            maps.showPopup(e, posicionX, posicionY)
-        }
-    })
-}
-
-function hideTooltip(type) {
-    mapa.addEventListener(`${type}`, (e) => {
-        if (e.target.matches('[data-lote]')) {
-            maps.hidePopup()
-        }
-    })
-}
 
 vendedoresInput.addEventListener('change', (event) => {
     // Remove any dataset if exists
@@ -436,13 +454,10 @@ vendedoresInput.addEventListener('change', (event) => {
     }
 })
 
-let btnRefresh = document.getElementById('refresh-btn')
-
 btnRefresh.addEventListener('click', () => {
     UI.paintDeals()
 })
 
-let infoColor = document.getElementById('info-colors')
 infoColor.addEventListener('click', () => {
     let cardColor = document.querySelector('.color-lote')
     cardColor.classList.toggle('showCard')

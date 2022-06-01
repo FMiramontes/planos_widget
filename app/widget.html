@@ -32,6 +32,7 @@
                 </div>
                 <!-- Boton test -->
                 <!-- <input data-file="true" type="button" value="test" id="btn-test"> -->
+                <!-- <input type="button" value="test" id="btn-test"> -->
                 <!-- User -->
                 <div id="user" class="user">
                     <div class="img_user"></div>
@@ -84,6 +85,7 @@
                 <!-- <i id="refresh-btn" class="fa-solid fa-arrows-rotate" style="height: 15px; width: 15px;"></i> -->
                 <button id="btn-menu-deals" class="btn-menu-deals"><i class="fa-solid fa-chevron-left" style="color: white;"></i></button>
                 <div id="container-deals" class="container-deals"></div>
+                
             </div>
             <!-- Container map -->
             <div class="logo-fracc" id="logo-fracc"></div>
@@ -292,24 +294,6 @@
                                             <div class="iconos"><i class="fa-solid fa-user"></i></div>
                                         </span>
                                         <span>
-                                            <label>Fecha de Nacimiento:</label>
-                                            <input
-                                                type="date"
-                                                name="Date_of_Birth"
-                                                required
-                                            />
-                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
-                                        </span>
-                                        <span>
-                                            <label>Lugar de Nacimiento:</label>
-                                            <input
-                                                type="text"
-                                                name="Lugar_de_nacimiento"
-                                                required
-                                            />
-                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
-                                        </span>
-                                        <span>
                                             <label>Estado Civil:</label>
                                             <input
                                                 name="Estado_Civil"
@@ -395,14 +379,6 @@
                                                 </datalist>
                                             </input>
                                         </span>
-                                        <span>
-                                            <label>Giro Empresarial</label>
-                                            <input
-                                                type="text"
-                                                name="Giro_Empresarial"
-                                            />
-                                            <div class="iconos"><i class="fa-solid fa-building"></i></div>
-                                        </span>
                                     </div>
                                 </div>
                                 <!-- sub block direccion -->
@@ -410,7 +386,19 @@
                                     <div class="title-block">
                                         <span class="centrado"> Direccion </span>
                                     </div>
-                                    <div class="block" data-contacto="true">
+                                    <div class="title-block">
+                                        <span class="span-checkbox">
+                                            <label>Direccion Americana:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="DomicilioExtranjero1"
+                                                data-extranjero=""
+                                                data-titular="1"
+                                            />
+                                        </span>
+                                    </div>
+                                    <div class="block" data-titular="1" data-domicilio-amercano="true" data-contacto="true">
+                                        
                                         <span>
                                             <label>Calle y No.</label>
                                             <input type="text" name="calle"/>
@@ -430,6 +418,14 @@
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
                                         <span>
+                                            <label>Estado:</label>
+                                            <input
+                                                type="text"
+                                                name="Mailing_State"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
                                             <label>Pais:</label>
                                             <input
                                                 type="text"
@@ -440,6 +436,48 @@
                                         <span>
                                             <label>CP:</label>
                                             <input type="text" name="Mailing_Zip"/>
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        
+                                    </div>
+                                    <div class="block hide" data-titular="1" data-domicilio-amercano="false" data-contacto="true">
+                                        <span>
+                                            <label>Address:</label>
+                                            <input type="text" name="Address1"/>
+                                            <div class="iconos"><i class="fa-solid fa-road"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>City:</label>
+                                            <input type="text" name="City1"/>
+                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>County:</label>
+                                            <input type="text" name="County1"/>
+                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>State:</label>
+                                            <input
+                                                type="text"
+                                                name="State1"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Country:</label>
+                                            <input
+                                                type="text"
+                                                name="Country1"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Zip Code:</label>
+                                            <input
+                                                type="text"
+                                                name="Zip_Code"
+                                            />
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
                                     </div>
@@ -503,6 +541,62 @@
                             </div>
                             <!-- uif-titular-1 -->
                             <div class="container-block" id="uif-titular-1">
+                                <!-- sub block Nacimiento -->
+                                <div class="container-sub-block sub-block-titular1">
+                                    <div class="title-block">
+                                        <span class="centrado">
+                                            Datos de Nacimiento Titular 1
+                                        </span>
+                                    </div>
+                                    <div class="block" data-contacto="true">
+                                        <span>
+                                            <label>Fecha de Nacimiento:</label>
+                                            <input
+                                                type="date"
+                                                name="Date_of_Birth"
+                                                required
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Lugar de Nacimiento:</label>
+                                            <input
+                                                type="text"
+                                                name="Lugar_de_nacimiento"
+                                                required
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <!-- Estado_de_Nacimiento -->
+                                        <span>
+                                            <label>Estado de Nacimiento:</label>
+                                            <input
+                                                type="text"
+                                                name="Estado_de_Nacimiento"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-map-location-dot"></i></div>
+                                        </span>
+                                        <!-- Municipio_de_Nacimiento -->
+                                        <span>
+                                            <label>Municipio de Nacimiento:</label>
+                                            <input
+                                                type="text"
+                                                name="Municipio_de_Nacimiento"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-map-location-dot"></i></div>
+                                        </span>
+                                        <!-- Pais_de_Nacimiento -->
+                                        <span>
+                                            <label>Pais de Nacimiento:</label>
+                                            <input
+                                                type="text"
+                                                name="Pais_de_Nacimiento"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-earth-americas"></i>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
                                 <!-- sub block Datos Personales Titular I -->
                                 <div class="container-sub-block sub-uif">
                                     <div class="block " data-contacto="true">
@@ -637,6 +731,19 @@
                                         </span>
                                     </div>
                                 </div>
+                                <!-- sub block Nacimiento -->
+                                <div class="container-sub-block sub-block-titular1">
+                                    <div class="block" data-contacto="true">
+                                        <span>
+                                            <label>Giro Empresarial</label>
+                                            <input
+                                                type="text"
+                                                name="Giro_Empresarial"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-building"></i></div>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                             <!-- titular-2 -->
                             <div class="container-block" id="titular-2">
@@ -675,22 +782,6 @@
                                                 type="text"
                                                 name="Apellido_Materno_2"
                                                 data-existe-en-crm="true"
-                                            />
-                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
-                                        </span>
-                                        <span>
-                                            <label>Fecha de Nacimiento:</label>
-                                            <input
-                                                type="date"
-                                                name="Fecha_Nacimiento2"
-                                            />
-                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
-                                        </span>
-                                        <span>
-                                            <label>Lugar de Nacimiento:</label>
-                                            <input
-                                                type="text"
-                                                name="LUGAR_DE_NACIMIENTO_2"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-user"></i></div>
                                         </span>
@@ -760,7 +851,16 @@
                                     <div class="title-block">
                                         <span class="centrado"> Direccion </span>
                                     </div>
-                                    <div class="block" data-contacto="true">
+                                    <span class="span-checkbox">
+                                        <label>Direccion Americana:</label>
+                                        <input
+                                            type="checkbox"
+                                            name="DomicilioExtranjero2"
+                                            data-extranjero=""
+                                            data-titular="2"
+                                        />
+                                    </span>
+                                    <div class="block" data-titular="2" data-domicilio-amercano="false" data-contacto="true">
                                         <span>
                                             <label>Calle y No.</label>
                                             <input type="text" name="Calle2"/>
@@ -773,7 +873,12 @@
                                         </span>
                                         <span>
                                             <label>Ciudad:</label>
-                                            <input type="text" name="Ciudad2"/>
+                                            <input type="text" name="Municipio2"/>
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Estado:</label>
+                                            <input type="text" name="Estado2"/>
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
                                         <span>
@@ -786,6 +891,47 @@
                                         </span>
                                         <span>
                                             <label>CP:</label>
+                                            <input
+                                                type="text"
+                                                name="CP2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                    </div>
+                                    <div class="block hide" data-titular="2" data-domicilio-amercano="false" data-contacto="true">
+                                        <span>
+                                            <label>Address:</label>
+                                            <input type="text" name="Address_SegundoCliente"/>
+                                            <div class="iconos"><i class="fa-solid fa-road"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>City:</label>
+                                            <input type="text" name="City_SegundoCliente"/>
+                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>County:</label>
+                                            <input type="text" name="County_SegundoCliente"/>
+                                            <div class="iconos"><i class="fa-solid fa-house"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>State:</label>
+                                            <input
+                                                type="text"
+                                                name="State_SegundoCliente"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Country:</label>
+                                            <input
+                                                type="text"
+                                                name="Country_SegundoCliente"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Zip Code:</label>
                                             <input
                                                 type="text"
                                                 name="Zip_SegundoCliente"
@@ -834,6 +980,60 @@
                             </div>
                             <!-- uif-titular-2 -->
                             <div class="container-block" id="uif-titular-2">
+                                <!-- sub block Nacimiento -->
+                                <div class="container-sub-block sub-block-titular1">
+                                    <div class="title-block">
+                                        <span class="centrado">
+                                            Datos de Nacimiento Titular 2
+                                        </span>
+                                    </div>
+                                    <div class="block" data-contacto="true">
+                                        <span>
+                                            <label>Fecha de Nacimiento:</label>
+                                            <input
+                                                type="date"
+                                                name="Fecha_Nacimiento2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Lugar de Nacimiento:</label>
+                                            <input
+                                                type="text"
+                                                name="LUGAR_DE_NACIMIENTO_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
+                                        <!-- Estado_de_Nacimiento -->
+                                        <span>
+                                            <label>Estado de Nacimiento:</label>
+                                            <input
+                                                type="text"
+                                                name="Estado_de_Nacimiento_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-map-location-dot"></i></div>
+                                        </span>
+                                        <!-- Municipio_de_Nacimiento -->
+                                        <span>
+                                            <label>Municipio de Nacimiento:</label>
+                                            <input
+                                                type="text"
+                                                name="Municipio_de_Nacimiento_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-map-location-dot"></i></div>
+                                        </span>
+                                        <!-- Pais_de_Nacimiento -->
+                                        <span>
+                                            <label>Pais de Nacimiento:</label>
+                                            <input
+                                                type="text"
+                                                name="Pais_de_Nacimiento_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-earth-americas"></i>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
                                 <!-- sub block Datos Personales Titular I -->
                                 <div class="container-sub-block sub-uif">
                                     <div class="block " data-contacto="true">
@@ -1389,10 +1589,13 @@
                     <select name="" class="select-camera" id="select-camera"></select>
                     <video autoplay></video>
                     <div class="controls">
+                        <div class="addScreanShot"><i class="fa-solid fa-rectangle-history-circle-plus"></i></div>
                         <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
                         <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
                     </div>
                     <canvas></canvas>
+                    <input type="file" name="" id="file" class="hide" capture="environment"
+                    accept="image/*">
                     <div id="screanshots" class="screanshots"></div>
                     
                 </div>
@@ -1404,6 +1607,7 @@
                 </img>
             </div>
         </div>
+        <!-- <div id="result-deals" ></div> -->
         
     </body>
 </html>
