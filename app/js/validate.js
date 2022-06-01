@@ -1,6 +1,7 @@
 // email validate
 
 import alerts from './alertas.js'
+import {crm} from './Zoho.js'
 
 const btn_submit = document.getElementById('btn-submit')
 
@@ -284,6 +285,19 @@ const validate = {
             inputMobile.value = subStr
         }
     },
+
+    async validProduct(){
+        const modal = document.getElementById('modal')
+        const ProductId = modal.dataset.crm_id
+
+        const requestProduct = await crm.checkDisponible(ProductId)
+
+        if(requestProduct.ok ){
+            console.log("valid requestProduct: ", requestProduct)
+            return requestProduct.data?.disponible
+        }
+        return false
+    }
 }
 
 export default validate

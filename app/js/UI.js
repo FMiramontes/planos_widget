@@ -1367,6 +1367,12 @@ const UI = {
         }
     }
     },
+    refreshManzana(){
+        const fracionamiento = document.querySelector('input[name="Fraccionamiento_P"]').value
+        const manzana = document.querySelector('input[name="Manzana"]').value
+        Mapas.getDisponiblidad(fracionamiento, manzana)
+        this.viewModal(false, '', '', '', '')
+    },
     showDomicilio(check, dataset) {
         const blocks = Array.from(document.querySelectorAll(`div[${dataset}]`))
 
@@ -1448,6 +1454,7 @@ const UI = {
             // container_modal.style.display = 'flex'
         } else {
             // container_modal.style.display = 'none'
+            containerWrap.classList.remove('show')
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
             util.removeInvalid()
