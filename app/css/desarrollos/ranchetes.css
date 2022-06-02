@@ -1,64 +1,141 @@
 .cls-1 {
+  isolation: isolate;
+}
+
+.cls-2 {
   fill: #999f41;
 }
-.cls-1,
-.cls-14,
+
 .cls-2,
 .cls-3 {
   stroke: #686f37;
   stroke-miterlimit: 10;
+  stroke-width: 0.4px;
 }
-.cls-1,
-.cls-2 {
-  stroke-width: 0.65px;
-}
-.cls-2{
+
+.cls-3 {
   fill: #999f41;
 }
-.cls-3,
-.cls-6 {
-  fill: none;
-}
-.cls-14,
-.cls-3 {
-  stroke-width: 0.75px;
-}
+
 .cls-4 {
   fill: #6e5425;
 }
-.cls-5,
-.cls-8 {
+
+.cls-23,
+.cls-5 {
   fill: #fff;
 }
-.cls-7 {
-  fill: #bab88c;
-}
-.cls-8 {
-  opacity: 0.13;
-}
-.cls-9 {
-  fill: #b5b47c;
-}
-.cls-10 {
-  fill: #7d9d20;
-}
-.cls-11 {
-  fill: #94bc1d;
-}
-.cls-12 {
-  fill: #b6d755;
-}
-.cls-13 {
-  fill: #99b2b5;
-}
-.cls-14 {
-  fill: #aaa;
+
+.cls-6 {
+  fill: #c9d190;
 }
 
-/* [data-manzana]:hover{
-    fill: #cee065;
-  } */
-/* Animacion hover desarrollos */
+.cls-7 {
+  fill: #7d9d20;
+}
+
+.cls-8 {
+  fill: #94bc1d;
+}
+
+.cls-9 {
+  fill: #b6d755;
+}
+
+.cls-10 {
+  fill: #876855;
+}
+
+.cls-11,
+.cls-12 {
+  fill: #7a5f4c;
+}
+
+.cls-11 {
+  opacity: 0.82;
+}
+
+.cls-11,
+.cls-12,
+.cls-15 {
+  mix-blend-mode: screen;
+}
+
+.cls-12 {
+  opacity: 0.39;
+}
+
+.cls-13,
+.cls-18 {
+  fill: #7d7d7d;
+}
+
+.cls-13 {
+  opacity: 0.17;
+  mix-blend-mode: color-dodge;
+}
+
+.cls-14,
+.cls-15,
+.cls-17 {
+  fill: #ababab;
+}
+
+.cls-14 {
+  opacity: 0.68;
+}
+
+.cls-14,
+.cls-17,
+.cls-18,
+.cls-20 {
+  mix-blend-mode: multiply;
+}
+
+.cls-15 {
+  opacity: 0.12;
+}
+
+.cls-16 {
+  fill: #737373;
+}
+
+.cls-17 {
+  opacity: 0.84;
+}
+
+.cls-18 {
+  opacity: 0.26;
+}
+
+.cls-19 {
+  fill: #a1bc50;
+}
+
+.cls-20 {
+  fill: #759151;
+  opacity: 0.22;
+}
+
+.cls-21 {
+  fill: #99b2b5;
+}
+
+.cls-22 {
+  fill: #bab88c;
+}
+
+.cls-23 {
+  opacity: 0.25;
+}
+
+.cls-24 {
+  fill: #bab98a;
+}
+
+.cls-25 {
+  fill: #c1c1c1;
+}
 [data-manzana]:hover {
   stroke: #cee065;
   animation: popup 0.75s ease alternate infinite;
