@@ -137,6 +137,40 @@ const crm = {
             }
         }
     },
+    async checkDisponible(productId){
+        try {
+            const request = await ZOHO.CRM.API.getRecord({
+                Entity: 'Products',
+                RecordID: productId.toString(),
+            })
+
+            // No record found in 'Commerces' records
+            if (request.status === 204) {
+                return {
+                    code: request.status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.statusText,
+                }
+            }
+
+            // Record found
+            return {
+                code: 200,
+                ok: true,
+                data: request.data[0].Estado !== "Disponible" ? { disponible: false } : { disponible: true},
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async searchContact(searchValue, modulo) {
         try {
             const criteria = searchValue.includes('@')

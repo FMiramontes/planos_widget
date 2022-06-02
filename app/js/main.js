@@ -69,8 +69,9 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         user.lastElementChild.innerText = data.users[0].full_name
         user.firstElementChild.appendChild(img_user)
         userId = data.users[0].id
-        userAdmin = data.users[0].profile.name == 'Administrator' ? true : false
-        UI.paintDeals(userAdmin, userId)
+        userAdmin = data.users[0].profile.name == 'Administrator' || 'developer' ? true : false
+        console.log('User: ', data.users[0])
+        UI.paintDeals()
     })
 })
 
@@ -227,6 +228,10 @@ document.addEventListener('click', (e) => {
     console.log('document: ', e)
     const modalArchivos = document.getElementById('modal-archivos')
     if (e.target.matches('[data-file]')) {
+        if(modalArchivos.children[0]?.dataset?.dealId !== e.target.parentNode.dataset.dealid){
+            const screanshots = document.getElementById('screanshots')
+            screanshots.innerHTML = ""
+        }
         modalArchivos.children[0].dataset.dealId =
             e.target.parentNode.dataset.dealid
         modalArchivos.children[0].dataset.dealname =
@@ -234,8 +239,8 @@ document.addEventListener('click', (e) => {
         camera.autoPlay()
         modalArchivos.classList.add('show')
     } else if (e.target.matches('[data-archivos]')) {
-        modalArchivos.children[0].dataset.dealId = ''
-        modalArchivos.children[0].dataset.dealname = ''
+        // modalArchivos.children[0].dataset.dealId = ''
+        // modalArchivos.children[0].dataset.dealname = ''
         modalArchivos.classList.remove('show')
         camera.autoStop()
     }
@@ -272,10 +277,16 @@ document.addEventListener('click', (e) => {
     }
 })
 
-document.getElementById('btn-submit').addEventListener('click', (e) => {
+document.getElementById('btn-submit').addEventListener('click', async(e) => {
     const newData = util.getDataForm()
     if (valid.validateForm() && valid.validDataLists('submit')) {
-        UI.validate(CRMData, newData)
+        if(await valid.validProduct()){
+            UI.validate(CRMData, newData)
+        }else{
+            alerts.showAlert('warning', 'El producto no se encuentra disponible.') 
+            UI.refreshManzana()
+        }
+    
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
@@ -407,7 +418,6 @@ document.addEventListener('dblclick', (e) => {
 
 containerModal.addEventListener('click', (event) => {
     if (event.target == containerModal) {
-        containerWrap.classList.remove('show')
         UI.viewModal(false, '', '', '', '')
     }
 })

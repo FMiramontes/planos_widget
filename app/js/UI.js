@@ -166,7 +166,6 @@ const UI = {
         }
     },
     async validate(CRMData, newData) {
-        console.time()
         try {
             const user = document.getElementById('user')
             const modal = document.getElementById('modal')
@@ -208,176 +207,27 @@ const UI = {
             const email = newData?.contacto?.Email
             const item = modal.dataset?.item
             let sku = modal.dataset?.sku
-            let accountId,
+            let Deal_id
+            let creator_id
+            let Consecutivo
+            let plazosdiferido
+            let productName
+            let productBooksId
+
+            // logica de contacto **************************************
+            const params = { contactDiv, user, vend, newData, CRMData, email }
+            const {
+                accountId,
                 contact_id,
                 accountName,
                 id_contactBooks,
-                productBooksId,
-                Deal_id,
-                creator_id,
-                Consecutivo,
-                plazosdiferido,
-                name,
-                temp_contact_id,
-                temp_accout_id,
-                contactName
+                contactName,
+            } = await this.contacto(params)
 
-            if (
-                contactDiv.dataset?.contactid !== '' &&
-                contactDiv.dataset?.contactid !== undefined &&
-                contactDiv.dataset?.contactid !== 'undefined'
-            ) {
-                temp_contact_id = contactDiv.dataset?.contactid
-                contactName = contactDiv.children[0].textContent
-            } else {
-                temp_contact_id = false
-                contactName =
-                    newData.contacto.First_Name +
-                    ' ' +
-                    newData.contacto.Apellido_Paterno +
-                    ' ' +
-                    newData.contacto.Apellido_Materno
-            }
 
-            if (
-                contactDiv.dataset?.accountid !== '' &&
-                contactDiv.dataset?.accountid !== undefined &&
-                contactDiv.dataset?.accountid !== 'undefined'
-            ) {
-                temp_accout_id = contactDiv.dataset?.accountid
-            } else {
-                temp_accout_id = false
-            }
-
-            // const email = 'asdfasdf@gmail.com'
-
-            if (temp_contact_id == false) {
-                let conatctRequest = await crm.searchContact(email, 'Contacts')
-
-                // Create account
-                accountName =
-                    newData.contacto.First_Name +
-                    ' ' +
-                    newData.contacto.Apellido_Paterno +
-                    ' ' +
-                    newData.contacto.Apellido_Materno
-
-                // // data for accounts
-                const accountData = {
-                    Account_Name: accountName.toUpperCase(),
-                    Owner: {
-                        id:
-                            user.dataset.profile === 'Vendedor'
-                                ? user.dataset.crmuserid
-                                : vend.dataset.vendedorid,
-                    },
-                }
-
-                if (conatctRequest.ok) {
-                    const convert = confirm(
-                        'El correo ya esta registrado en CRM'
-                    )
-                    if (!convert)
-                        throw new Error('Proceso omitido por el usuario')
-                    contact_id = conatctRequest.data[0].id
-                    // contacto existe en CRM
-                    if (conatctRequest.data[0].Account_Name !== null) {
-                        // Cuenta no encontrada
-                        const createAccountRequest = await crm.createAccount(
-                            accountData
-                        )
-
-                        accountId = createAccountRequest.data.details.id
-                    }
-                    const syncContact = await books.syncContact(contact_id)
-                    if (syncContact.ok) {
-                        // contacto sincronizado en books
-                        id_contactBooks = syncContact.data.customer_id
-                    }
-                } else {
-                    // contacto no existe en CRM
-                    const createAccountRequest = await crm.createAccount(
-                        accountData
-                    )
-
-                    accountId = createAccountRequest?.data?.details?.id
-                    let ownerId =
-                        user.dataset.profile === 'Vendedor'
-                            ? user.dataset.crmuserid
-                            : vend.dataset.vendedorid
-                    // Create Contact
-                    const createContactRequest = await crm.CreateContact(
-                        newData,
-                        accountId,
-                        ownerId
-                    )
-
-                    contact_id = createContactRequest?.data.details.id
-
-                    // validar si existe contacto en books
-                    if (createContactRequest.ok) {
-                        const syncContact = await books.syncContact(contact_id)
-                        if (syncContact.ok) {
-                            // contacto sincronizado en books
-                            alerts.showAlert(
-                                'success',
-                                'Contacto creado y sincronizado con Zoho Books'
-                            )
-                            id_contactBooks = syncContact?.data?.customer_id
-                        }
-                    } else {
-                        throw new Error('Contacto no se pudo crear en CRM')
-                    }
-                }
-            } else {
-                contact_id = temp_contact_id
-                let update = util.checkUpdate(CRMData, newData)
-                if (!update) {
-                    const updateRequest = await crm.UpdateContact(
-                        newData,
-                        contact_id
-                    )
-                }
-                if (temp_accout_id == false) {
-                    accountName =
-                        newData.contacto.First_Name +
-                        ' ' +
-                        newData.contacto.Apellido_Paterno +
-                        ' ' +
-                        newData.contacto.Apellido_Materno
-
-                    // // data for accounts
-                    const accountData = {
-                        Account_Name: accountName.toUpperCase(),
-                        Owner: {
-                            id:
-                                user.dataset.profile === 'Vendedor'
-                                    ? user.dataset.crmuserid
-                                    : vend.dataset.vendedorid,
-                        },
-                    }
-                    const createAccountRequest = await crm.createAccount(
-                        accountData
-                    )
-                    accountId = createAccountRequest.data.details.id
-                } else {
-                    accountId = temp_accout_id
-                    accountName = contactDiv.dataset?.accountname
-                }
-
-                let conatctRequest = await books.getContactByEmail(email)
-
-                if (!conatctRequest.ok) {
-                    const syncContact = await books.syncContact(contact_id)
-
-                    id_contactBooks = syncContact.data.customer_id
-                } else {
-                    id_contactBooks = conatctRequest.data.contact_id
-                }
-            }
-
-            name = modal.dataset?.trato
-            // Product
+            // logica de Producto  **************************************
+            productName = modal.dataset?.trato
+            
             if (sku === undefined) {
                 let map = document.getElementById('map')
                 const data = await crm.detailsFraccionamiento(
@@ -386,26 +236,23 @@ const UI = {
 
                 let seccion = util.getSeccion(item, data.data)
 
-                name = seccion?.item_name
+                productName = seccion?.item_name
                 sku = seccion?.sku
             }
 
-            const productBooksRequest = await books.getProductByName(name, sku)
+            const productBooksRequest = await books.getProductByName(
+                productName,
+                sku
+            )
 
             productBooksId = productBooksRequest.data.item_id
-
+            // agregar
             if (!productBooksRequest.ok) {
-                // Agregar Data Product
-
-                const productData = {}
-                const createProductRequest = await books.createProduct(
-                    productData
+                throw new Error(
+                    'Producto no creado en Books. Contactar al Administrador'
                 )
-                productBooksId = createProductRequest.data.item_id
-
-                // Crear Producto en books
             }
-
+            // logica de Deal **************************************
             const coordinadorArray = []
             coordinadorArray.push(coo_id)
 
@@ -461,74 +308,10 @@ const UI = {
                 throw new Error('No se pudo crear el trato')
             }
 
-            // Quitar valores de descuento
-            const removeDiscountRequestCRM = await crm.removeDiscount(
-                product_id
-            )
-            const removeDiscountRequestBooks = await books.removeDiscountBooks(
-                productBooksId
-            )
+            // logica de descuento **************************************
+            this.descuentos(product_id, productBooksId, Campaign_id)
 
-            // Revisar si se modifico costo por M2
-            const checkCostoM2 = document.querySelector(
-                `input[name="Costo_M2"]`
-            )
-            if (checkCostoM2.dataset.m2_update !== undefined) {
-                // Actualizar el costo x m2 al producto
-                const costoM2 = checkCostoM2.value
-
-                const DIMENSIONES = document.querySelector(
-                    `input[name="dimension"]`
-                ).value
-
-                let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(
-                    2
-                )
-
-                const updateProductCRM = await crm.updateProduct(
-                    product_id,
-                    costoM2,
-                    costoProducto
-                )
-
-                const updateProductBooks = await books.updateProduct(
-                    productBooksId,
-                    {
-                        rate: costoProducto,
-                    }
-                )
-                if (updateProductCRM.ok) {
-                    alerts.showAlert('success', 'Costo x M2 actualizado en CRM')
-                }
-
-                if (updateProductBooks.ok) {
-                    alerts.showAlert(
-                        'success',
-                        'Costo x M2 actualizado en Books'
-                    )
-                }
-            }
-
-            // Aplicar descuento a Producto
-            const discountRequest = await crm.aplicarDescuentoProducto(
-                Campaign_id,
-                product_id
-            )
-            if (discountRequest.ok && discountRequest.data.code === 200) {
-                // Descuento aplicado
-                alerts.showAlert('success', 'Descuento aplicado a Producto')
-            } else if (
-                discountRequest.ok &&
-                discountRequest.data.code === 400
-            ) {
-                // No cuenta con descuento...
-            } else {
-                alerts.showAlert(
-                    'warning',
-                    'No se aplico descuento a Producto. Favor de hacerlo manualmente'
-                )
-            }
-
+            // Crear Cotizacion **************************************
             let des = ''
 
             if (formadepago == 'Contado') {
@@ -595,6 +378,7 @@ const UI = {
                     )
 
                     if (CotizacionRequest.ok) {
+                        // logica de facturas **************************************
                         let mensualidad = document.querySelector(
                             `input[name="Pago_Mensual_P"]`
                         ).value
@@ -609,171 +393,31 @@ const UI = {
                         })
                         plazosdiferido = Number(campa_a.dataset.plazosdiferido)
 
-                        // let today = new Date()
-                        // let date = util.addDate(today, 'D', 7)
-
                         // Creacion de facturas
-                        let arrInvoices = []
-                        if (checkApartado) {
-                            // Tiene Apartado
-                            arrInvoices.push(
-                                util.JSON_invoice(
-                                    id_contactBooks,
-                                    Consecutivo,
-                                    today,
-                                    productBooksId,
-                                    'Pago por Concepto de Apartado',
-                                    apartado,
-                                    Deal_id,
-                                    'No'
-                                )
-                            )
-
-                            if (esDiferido === 'true') {
-                                let mensualidadEnganche =
-                                    Enganche / plazosdiferido
-                                for (let i = 1; i <= plazosdiferido; i++) {
-                                    if (i == 1) {
-                                        let rate =
-                                            mensualidadEnganche - apartado
-                                        arrInvoices.push(
-                                            util.JSON_invoice(
-                                                id_contactBooks,
-                                                Consecutivo,
-                                                date,
-                                                productBooksId,
-                                                'Pago por Concepto de Complemento de Enganche Diferido',
-                                                rate,
-                                                Deal_id,
-                                                'Si'
-                                            )
-                                        )
-                                    } else {
-                                        arrInvoices.push(
-                                            util.JSON_invoice(
-                                                id_contactBooks,
-                                                Consecutivo,
-                                                date,
-                                                productBooksId,
-                                                'Pago por Concepto de Enganche Diferido',
-                                                mensualidadEnganche,
-                                                Deal_id,
-                                                'No'
-                                            )
-                                        )
-                                    }
-                                    date = util.addDate(date, 'M', 1)
-                                }
-                            } else {
-                                // Factura de Complemento
-                                let rate = 0
-                                if (des == 'Enganche') {
-                                    rate = Enganche - apartado
-                                } else if (des == 'Primer Mensualidad') {
-                                    rate = mensualidad - apartado
-                                } else if (des == 'Contado') {
-                                    const tempRate =
-                                        inputDescuento !== ''
-                                            ? parseFloat(inputDescuento)
-                                            : MontoTotal
-                                    rate = tempRate - apartado
-                                    // rate = MontoTotal - apartado
-                                }
-
-                                arrInvoices.push(
-                                    util.JSON_invoice(
-                                        id_contactBooks,
-                                        Consecutivo,
-                                        date,
-                                        productBooksId,
-                                        `Pago por Concepto de Complemento de ${des}`,
-                                        rate,
-                                        Deal_id,
-                                        'Si'
-                                    )
-                                )
-                            }
-                        } else {
-                            // Facturas de diferido
-                            if (esDiferido === 'true') {
-                                let rate = Enganche / plazosdiferido
-                                for (let i = 1; i <= plazosdiferido; i++) {
-                                    arrInvoices.push(
-                                        util.JSON_invoice(
-                                            id_contactBooks,
-                                            Consecutivo,
-                                            today,
-                                            productBooksId,
-                                            'Pago por Concepto de Enganche Diferido',
-                                            rate,
-                                            Deal_id,
-                                            'No'
-                                        )
-                                    )
-                                    today = util.addDate(today, 'M', 1)
-                                }
-                            } else {
-                                // Factura directa
-                                let rate = 0
-                                if (des == 'Enganche') {
-                                    rate = Enganche
-                                } else if (des == 'Primer Mensualidad') {
-                                    rate = mensualidad
-                                } else if (des == 'Contado') {
-                                    const tempRate =
-                                        inputDescuento !== ''
-                                            ? parseFloat(inputDescuento)
-                                            : MontoTotal
-                                    rate = tempRate
-                                    // rate = MontoTotal
-                                }
-                                arrInvoices.push(
-                                    util.JSON_invoice(
-                                        id_contactBooks,
-                                        Consecutivo,
-                                        today,
-                                        productBooksId,
-                                        `Pago por Concepto de ${des}`,
-                                        rate,
-                                        Deal_id,
-                                        'No'
-                                    )
-                                )
-                            }
+                        const paramsObject = {
+                            id_contactBooks,
+                            Consecutivo,
+                            date,
+                            today,
+                            productBooksId,
+                            apartado,
+                            Deal_id,
                         }
-                        console.table(arrInvoices)
-
-                        for (let i = 0; i < arrInvoices.length; i++) {
-                            const invoiceRequest = await books.createInvoice(
-                                arrInvoices[i]
-                            )
-                            if (invoiceRequest.ok) {
-                                //Send Invoice
-                                const sendInvoiceRequest =
-                                    await books.sendInvoice(
-                                        invoiceRequest.data.invoice.invoice_id
-                                    )
-                                if (sendInvoiceRequest.ok) {
-                                    alerts.showAlert(
-                                        'success',
-                                        'Factura creada y enviada en Books'
-                                    )
-                                } else {
-                                    alerts.showAlert(
-                                        'success',
-                                        'Factura creada en estado borrador Books'
-                                    )
-                                }
-                            } else {
-                                alerts.showAlert(
-                                    'warning',
-                                    'Hubo un problema al intentar crear factura'
-                                )
-                            }
+                        const factObject = {
+                            checkApartado,
+                            esDiferido,
+                            plazosdiferido,
+                            Enganche,
+                            inputDescuento,
+                            des,
+                            mensualidad,
+                            MontoTotal,
                         }
+                        this.facturas(factObject, paramsObject)
 
                         // End of process
                         // Reset values
+
                         campa_a.value = ''
                         document.querySelector(
                             'input[name="Costo_Descuento_P"]'
@@ -799,6 +443,180 @@ const UI = {
             }
         }
         console.timeEnd()
+    },
+    async facturas(factObject, paramsObject) {
+        const {
+            id_contactBooks,
+            Consecutivo,
+            date,
+            today,
+            productBooksId,
+            apartado,
+            Deal_id,
+        } = paramsObject
+        const {
+            checkApartado,
+            esDiferido,
+            plazosdiferido,
+            Enganche,
+            inputDescuento,
+            des,
+            mensualidad,
+            MontoTotal,
+        } = factObject
+        let arrInvoices = new Array()
+        if (checkApartado) {
+            // Tiene Apartado
+            arrInvoices.push(
+                util.JSON_invoice(
+                    id_contactBooks,
+                    Consecutivo,
+                    today,
+                    productBooksId,
+                    'Pago por Concepto de Apartado',
+                    apartado,
+                    Deal_id,
+                    'No'
+                )
+            )
+
+            if (esDiferido === 'true') {
+                let mensualidadEnganche = Enganche / plazosdiferido
+                for (let i = 1; i <= plazosdiferido; i++) {
+                    if (i == 1) {
+                        let rate = mensualidadEnganche - apartado
+                        arrInvoices.push(
+                            util.JSON_invoice(
+                                id_contactBooks,
+                                Consecutivo,
+                                date,
+                                productBooksId,
+                                'Pago por Concepto de Complemento de Enganche Diferido',
+                                rate,
+                                Deal_id,
+                                'Si'
+                            )
+                        )
+                    } else {
+                        arrInvoices.push(
+                            util.JSON_invoice(
+                                id_contactBooks,
+                                Consecutivo,
+                                date,
+                                productBooksId,
+                                'Pago por Concepto de Enganche Diferido',
+                                mensualidadEnganche,
+                                Deal_id,
+                                'No'
+                            )
+                        )
+                    }
+                    date = util.addDate(date, 'M', 1)
+                }
+            } else {
+                // Factura de Complemento
+                let rate = 0
+                if (des == 'Enganche') {
+                    rate = Enganche - apartado
+                } else if (des == 'Primer Mensualidad') {
+                    rate = mensualidad - apartado
+                } else if (des == 'Contado') {
+                    const tempRate =
+                        inputDescuento !== ''
+                            ? parseFloat(inputDescuento)
+                            : MontoTotal
+                    rate = tempRate - apartado
+                    // rate = MontoTotal - apartado
+                }
+
+                arrInvoices.push(
+                    util.JSON_invoice(
+                        id_contactBooks,
+                        Consecutivo,
+                        date,
+                        productBooksId,
+                        `Pago por Concepto de Complemento de ${des}`,
+                        rate,
+                        Deal_id,
+                        'Si'
+                    )
+                )
+            }
+        } else {
+            // Facturas de diferido
+            if (esDiferido === 'true') {
+                let rate = Enganche / plazosdiferido
+                for (let i = 1; i <= plazosdiferido; i++) {
+                    arrInvoices.push(
+                        util.JSON_invoice(
+                            id_contactBooks,
+                            Consecutivo,
+                            today,
+                            productBooksId,
+                            'Pago por Concepto de Enganche Diferido',
+                            rate,
+                            Deal_id,
+                            'No'
+                        )
+                    )
+                    today = util.addDate(today, 'M', 1)
+                }
+            } else {
+                // Factura directa
+                let rate = 0
+                if (des == 'Enganche') {
+                    rate = Enganche
+                } else if (des == 'Primer Mensualidad') {
+                    rate = mensualidad
+                } else if (des == 'Contado') {
+                    const tempRate =
+                        inputDescuento !== ''
+                            ? parseFloat(inputDescuento)
+                            : MontoTotal
+                    rate = tempRate
+                    // rate = MontoTotal
+                }
+                arrInvoices.push(
+                    util.JSON_invoice(
+                        id_contactBooks,
+                        Consecutivo,
+                        today,
+                        productBooksId,
+                        `Pago por Concepto de ${des}`,
+                        rate,
+                        Deal_id,
+                        'No'
+                    )
+                )
+            }
+        }
+        console.table(arrInvoices)
+
+        for (let i = 0; i < arrInvoices.length; i++) {
+            const invoiceRequest = await books.createInvoice(arrInvoices[i])
+            if (invoiceRequest.ok) {
+                //Send Invoice
+                const sendInvoiceRequest = await books.sendInvoice(
+                    invoiceRequest.data.invoice.invoice_id
+                )
+                if (sendInvoiceRequest.ok) {
+                    alerts.showAlert(
+                        'success',
+                        'Factura creada y enviada en Books'
+                    )
+                } else {
+                    alerts.showAlert(
+                        'success',
+                        'Factura creada en estado borrador Books'
+                    )
+                }
+            } else {
+                alerts.showAlert(
+                    'warning',
+                    'Hubo un problema al intentar crear factura'
+                )
+            }
+        }
     },
     async createLead(dataForm) {
         const createLead = confirm('Desea crear el Posible cliente ')
@@ -956,7 +774,10 @@ const UI = {
             }
         }
     },
-    async paintDeals(userAdmin, userId) {
+    async paintDeals() {
+        const user = document.getElementById('user')
+        let userAdmin = user.dataset.profile
+        let userId = user.dataset.crmuserid
         containerDeals.innerHTML = ''
         let dataDeals
         if (userAdmin) {
@@ -1305,6 +1126,253 @@ const UI = {
             VendedorContainer.style = 'display: none;'
         }
     },
+    async descuentos(product_id, productBooksId, Campaign_id) {
+        // Quitar valores de descuento
+        const removeDiscountRequestCRM = await crm.removeDiscount(product_id)
+        const removeDiscountRequestBooks = await books.removeDiscountBooks(
+            productBooksId
+        )
+
+        // Revisar si se modifico costo por M2
+        const checkCostoM2 = document.querySelector(`input[name="Costo_M2"]`)
+        if (checkCostoM2.dataset.m2_update !== undefined) {
+            // Actualizar el costo x m2 al producto
+            const costoM2 = checkCostoM2.value
+
+            const DIMENSIONES = document.querySelector(
+                `input[name="dimension"]`
+            ).value
+
+            let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(2)
+
+            const updateProductCRM = await crm.updateProduct(
+                product_id,
+                costoM2,
+                costoProducto
+            )
+
+            const updateProductBooks = await books.updateProduct(
+                productBooksId,
+                {
+                    rate: costoProducto,
+                }
+            )
+            if (updateProductCRM.ok) {
+                alerts.showAlert('success', 'Costo x M2 actualizado en CRM')
+            }
+
+            if (updateProductBooks.ok) {
+                alerts.showAlert('success', 'Costo x M2 actualizado en Books')
+            }
+        }
+
+        // Aplicar descuento a Producto
+        const discountRequest = await crm.aplicarDescuentoProducto(
+            Campaign_id,
+            product_id
+        )
+        if (discountRequest.ok && discountRequest.data.code === 200) {
+            // Descuento aplicado
+            alerts.showAlert('success', 'Descuento aplicado a Producto')
+        } else if (discountRequest.ok && discountRequest.data.code === 400) {
+            // No cuenta con descuento...
+        } else {
+            alerts.showAlert(
+                'warning',
+                'No se aplico descuento a Producto. Favor de hacerlo manualmente'
+            )
+        }
+    },
+    async contacto(params) {
+        const { contactDiv, user, vend, newData, CRMData, email } = params
+        let accountId
+        let contact_id
+        let accountName
+        let id_contactBooks
+        let temp_contact_id
+        let temp_accout_id
+        let contactName
+
+
+        try {
+        if (
+            contactDiv.dataset?.contactid !== '' &&
+            contactDiv.dataset?.contactid !== undefined &&
+            contactDiv.dataset?.contactid !== 'undefined'
+        ) {
+            temp_contact_id = contactDiv.dataset?.contactid
+            contactName = contactDiv.children[0].textContent
+        } else {
+            temp_contact_id = false
+            contactName =
+                newData.contacto.First_Name +
+                ' ' +
+                newData.contacto.Apellido_Paterno +
+                ' ' +
+                newData.contacto.Apellido_Materno
+        }
+
+        if (
+            contactDiv.dataset?.accountid !== '' &&
+            contactDiv.dataset?.accountid !== undefined &&
+            contactDiv.dataset?.accountid !== 'undefined'
+        ) {
+            temp_accout_id = contactDiv.dataset?.accountid
+        } else {
+            temp_accout_id = false
+        }
+
+
+        if (temp_contact_id == false) {
+            let conatctRequest = await crm.searchContact(email, 'Contacts')
+
+            // Create account
+            accountName =
+                newData.contacto.First_Name +
+                ' ' +
+                newData.contacto.Apellido_Paterno +
+                ' ' +
+                newData.contacto.Apellido_Materno
+
+            // // data for accounts
+            const accountData = {
+                Account_Name: accountName.toUpperCase(),
+                Owner: {
+                    id:
+                        user.dataset.profile === 'Vendedor'
+                            ? user.dataset.crmuserid
+                            : vend.dataset.vendedorid,
+                },
+            }
+
+            if (conatctRequest.ok) {
+                const convert = confirm('El correo ya esta registrado en CRM')
+                if (!convert) throw new Error('Proceso omitido por el usuario')
+                contact_id = conatctRequest.data[0].id
+                // contacto existe en CRM
+                if (conatctRequest.data[0].Account_Name?.name == null) {
+                    // Cuenta no encontrada
+                    const createAccountRequest = await crm.createAccount(
+                        accountData
+                    )
+
+                    accountId = createAccountRequest.data.details.id
+                }else{
+                    accountId = conatctRequest.data[0].Account_Name?.id
+                }
+                const syncContact = await books.syncContact(contact_id)
+                if (syncContact.ok) {
+                    // contacto sincronizado en books
+                    id_contactBooks = syncContact.data.customer_id
+                }else{
+                    throw new Error('Error al crear cliente en books')
+                }
+            } else {
+                // contacto no existe en CRM
+                const createAccountRequest = await crm.createAccount(
+                    accountData
+                )
+
+                accountId = createAccountRequest?.data?.details?.id
+                let ownerId =
+                    user.dataset.profile === 'Vendedor'
+                        ? user.dataset.crmuserid
+                        : vend.dataset.vendedorid
+                // Create Contact
+                const createContactRequest = await crm.CreateContact(
+                    newData,
+                    accountId,
+                    ownerId
+                )
+
+                contact_id = createContactRequest?.data.details.id
+
+                // validar si existe contacto en books
+                if (createContactRequest.ok) {
+                    const syncContact = await books.syncContact(contact_id)
+                    if (syncContact.ok) {
+                        // contacto sincronizado en books
+                        alerts.showAlert(
+                            'success',
+                            'Contacto creado y sincronizado con Zoho Books'
+                        )
+                        id_contactBooks = syncContact?.data?.customer_id
+                    }
+                } else {
+                    throw new Error('Contacto no se pudo crear en CRM')
+                }
+            }
+        } else {
+            contact_id = temp_contact_id
+            let update = util.checkUpdate(CRMData, newData)
+            if (!update) {
+                const updateRequest = await crm.UpdateContact(
+                    newData,
+                    contact_id
+                )
+                // agregar alerta
+            }
+            if (temp_accout_id == false) {
+                accountName =
+                    newData.contacto.First_Name +
+                    ' ' +
+                    newData.contacto.Apellido_Paterno +
+                    ' ' +
+                    newData.contacto.Apellido_Materno
+
+                // // data for accounts
+                const accountData = {
+                    Account_Name: accountName.toUpperCase(),
+                    Owner: {
+                        id:
+                            user.dataset.profile === 'Vendedor'
+                                ? user.dataset.crmuserid
+                                : vend.dataset.vendedorid,
+                    },
+                }
+                const createAccountRequest = await crm.createAccount(
+                    accountData
+                )
+                accountId = createAccountRequest.data.details.id
+            } else {
+                accountId = temp_accout_id
+                accountName = contactDiv.dataset?.accountname
+            }
+
+            let conatctRequest = await books.getContactByEmail(email)
+
+            if (!conatctRequest.ok) {
+                const syncContact = await books.syncContact(contact_id)
+
+                id_contactBooks = syncContact.data.customer_id
+            } else {
+                id_contactBooks = conatctRequest.data.contact_id
+            }
+        }
+        return {
+            id_contactBooks,
+            accountId,
+            contact_id,
+            accountName,
+            id_contactBooks,
+            temp_contact_id,
+            temp_accout_id,
+            contactName,
+        }
+    }catch(error){
+        if (error.message == 'Proceso omitido por el usuario') {
+            alerts.showAlert('warning', error.message)
+        } else {
+            alerts.showAlert('danger', error.message)
+        }
+    }
+    },
+    refreshManzana(){
+        const fracionamiento = document.querySelector('input[name="Fraccionamiento_P"]').value
+        const manzana = document.querySelector('input[name="Manzana"]').value
+        Mapas.getDisponiblidad(fracionamiento, manzana)
+        this.viewModal(false, '', '', '', '')
+    },
     showDomicilio(check, dataset) {
         const blocks = Array.from(document.querySelectorAll(`div[${dataset}]`))
 
@@ -1352,7 +1420,7 @@ const UI = {
                             <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
                         </section>
                         <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                        <p><b>Cliente: </b><b>${deal.Contact_Name.name}</b></p>
+                        <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
                         <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
                     `
                 let section = document.createElement('section')
@@ -1386,6 +1454,7 @@ const UI = {
             // container_modal.style.display = 'flex'
         } else {
             // container_modal.style.display = 'none'
+            containerWrap.classList.remove('show')
             modal.dataset.item = ''
             modal.dataset.crm_id = ''
             util.removeInvalid()
@@ -1514,13 +1583,11 @@ const UI = {
                 // console.log({ Deal_Name, Owner, Contact_Name, Stage })
                 return (
                     Deal_Name.toLowerCase().match(search) ||
-                    Owner.name.toLowerCase().match(search) ||
-                    Contact_Name.name.toLowerCase().match(search) ||
+                    Owner?.name.toLowerCase().match(search) ||
+                    Contact_Name?.name.toLowerCase().match(search) ||
                     Stage.toLowerCase().match(search)
                 )
             })
-            console.log(dealsCards)
-            console.log(valid)
             // dealsCards
 
             this.paintCards(valid, userAdmin, userId)
