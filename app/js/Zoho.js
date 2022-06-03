@@ -137,7 +137,7 @@ const crm = {
             }
         }
     },
-    async checkDisponible(productId){
+    async checkDisponible(productId) {
         try {
             const request = await ZOHO.CRM.API.getRecord({
                 Entity: 'Products',
@@ -159,7 +159,10 @@ const crm = {
             return {
                 code: 200,
                 ok: true,
-                data: request.data[0].Estado !== "Disponible" ? { disponible: false } : { disponible: true},
+                data:
+                    request.data[0].Estado !== 'Disponible'
+                        ? { disponible: false }
+                        : { disponible: true },
                 type: 'success',
             }
         } catch (error) {
@@ -652,6 +655,21 @@ const crm = {
     },
     async createAccount(data) {
         data.Widget_Planos = true
+
+        // Revisar si el contacto tiene segundo cliente
+        const nombre2 = document.querySelector('input[name="Nombre2"]').value
+        const apeP2 = document.querySelector('input[name="ApellidoP2"]').value
+        const apeM2 = document.querySelector(
+            'input[name="Apellido_Materno_2"]'
+        ).value
+
+        if (nombre2 !== '' && apeP2 !== '') {
+            const titulares = `${data.Account_Name} / ${nombre2} ${apeP2}${
+                apeM2 != '' ? ' ' + apeM2 : ''
+            }`
+            data.Account_Name = titulares.toUpperCase()
+        }
+
         try {
             const request = await ZOHO.CRM.API.insertRecord({
                 Entity: 'Accounts',
