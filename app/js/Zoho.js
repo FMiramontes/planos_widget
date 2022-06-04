@@ -71,7 +71,7 @@ const crm = {
     async fetchDisponibilidad(fracc, manzana) {
         try {
             const numManzana = manzana.replace(/\D+/, '')
-            const search = fracc == 'Alamar' ? 'equals' : 'starts_with'
+            const search = fracc == 'Alamar' || fracc == 'La Puerta' || fracc == 'Villa Toscana'? 'equals' : 'starts_with'
 
             const request = await ZOHO.CRM.API.searchRecord({
                 Entity: 'Products',
