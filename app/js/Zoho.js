@@ -71,7 +71,12 @@ const crm = {
     async fetchDisponibilidad(fracc, manzana) {
         try {
             const numManzana = manzana.replace(/\D+/, '')
-            const search = fracc == 'Alamar' || fracc == 'La Puerta' || fracc == 'Villa Toscana'? 'equals' : 'starts_with'
+            const search =
+                fracc == 'Alamar' ||
+                fracc == 'La Puerta' ||
+                fracc == 'Villa Toscana'
+                    ? 'equals'
+                    : 'starts_with'
 
             const request = await ZOHO.CRM.API.searchRecord({
                 Entity: 'Products',
@@ -609,11 +614,12 @@ const crm = {
             }
         }
     },
-    async removeDiscount(productID) {
+    async removeDiscount(productID, m2Original) {
         const product = {
             id: productID,
             Precio_con_Descuento: null,
             Tiene_Descuento: false,
+            Costo_por_M2: m2Original,
         }
 
         try {

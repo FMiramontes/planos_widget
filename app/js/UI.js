@@ -224,10 +224,9 @@ const UI = {
                 contactName,
             } = await this.contacto(params)
 
-
             // logica de Producto  **************************************
             productName = modal.dataset?.trato
-            
+
             if (sku === undefined) {
                 let map = document.getElementById('map')
                 const data = await crm.detailsFraccionamiento(
@@ -939,6 +938,9 @@ const UI = {
                 // Variables
                 let precioFinalProducto = 0
                 let enganche = 0
+                const inputCosto = document.querySelector(
+                    `input[name="Costo_M2"]`
+                )
 
                 // CRM Campaign fields
                 const formaDePago = campaignData.Tipo_de_Promocion
@@ -949,6 +951,7 @@ const UI = {
                     campaignData.Fraccionamientos.id
                 )
                 const moduleData = requestModule.data
+                inputCosto.dataset.m2_original = moduleData.Precio_de_lista_M2
 
                 if (
                     campaignData.Fraccionamientos.id != null &&
@@ -958,9 +961,6 @@ const UI = {
                     const costoM2_sinEnganche =
                         moduleData.Precio_de_lista_M2_Sin_Enganche
 
-                    const inputCosto = document.querySelector(
-                        `input[name="Costo_M2"]`
-                    )
                     inputCosto.value = costoM2_sinEnganche.toFixed(2)
                     inputCosto.dataset.m2_update = 'true'
                 } else {
@@ -1127,14 +1127,19 @@ const UI = {
         }
     },
     async descuentos(product_id, productBooksId, Campaign_id) {
+        const checkCostoM2 = document.querySelector(`input[name="Costo_M2"]`)
+        const m2Original = parseFloat(checkCostoM2.dataset.m2_original)
+
         // Quitar valores de descuento
-        const removeDiscountRequestCRM = await crm.removeDiscount(product_id)
+        const removeDiscountRequestCRM = await crm.removeDiscount(
+            product_id,
+            m2Original
+        )
         const removeDiscountRequestBooks = await books.removeDiscountBooks(
             productBooksId
         )
 
         // Revisar si se modifico costo por M2
-        const checkCostoM2 = document.querySelector(`input[name="Costo_M2"]`)
         if (checkCostoM2.dataset.m2_update !== undefined) {
             // Actualizar el costo x m2 al producto
             const costoM2 = checkCostoM2.value
@@ -1193,126 +1198,38 @@ const UI = {
         let temp_accout_id
         let contactName
 
-
         try {
-        if (
-            contactDiv.dataset?.contactid !== '' &&
-            contactDiv.dataset?.contactid !== undefined &&
-            contactDiv.dataset?.contactid !== 'undefined'
-        ) {
-            temp_contact_id = contactDiv.dataset?.contactid
-            contactName = contactDiv.children[0].textContent
-        } else {
-            temp_contact_id = false
-            contactName =
-                newData.contacto.First_Name +
-                ' ' +
-                newData.contacto.Apellido_Paterno +
-                ' ' +
-                newData.contacto.Apellido_Materno
-        }
-
-        if (
-            contactDiv.dataset?.accountid !== '' &&
-            contactDiv.dataset?.accountid !== undefined &&
-            contactDiv.dataset?.accountid !== 'undefined'
-        ) {
-            temp_accout_id = contactDiv.dataset?.accountid
-        } else {
-            temp_accout_id = false
-        }
-
-
-        if (temp_contact_id == false) {
-            let conatctRequest = await crm.searchContact(email, 'Contacts')
-
-            // Create account
-            accountName =
-                newData.contacto.First_Name +
-                ' ' +
-                newData.contacto.Apellido_Paterno +
-                ' ' +
-                newData.contacto.Apellido_Materno
-
-            // // data for accounts
-            const accountData = {
-                Account_Name: accountName.toUpperCase(),
-                Owner: {
-                    id:
-                        user.dataset.profile === 'Vendedor'
-                            ? user.dataset.crmuserid
-                            : vend.dataset.vendedorid,
-                },
-            }
-
-            if (conatctRequest.ok) {
-                const convert = confirm('El correo ya esta registrado en CRM')
-                if (!convert) throw new Error('Proceso omitido por el usuario')
-                contact_id = conatctRequest.data[0].id
-                // contacto existe en CRM
-                if (conatctRequest.data[0].Account_Name?.name == null) {
-                    // Cuenta no encontrada
-                    const createAccountRequest = await crm.createAccount(
-                        accountData
-                    )
-
-                    accountId = createAccountRequest.data.details.id
-                }else{
-                    accountId = conatctRequest.data[0].Account_Name?.id
-                }
-                const syncContact = await books.syncContact(contact_id)
-                if (syncContact.ok) {
-                    // contacto sincronizado en books
-                    id_contactBooks = syncContact.data.customer_id
-                }else{
-                    throw new Error('Error al crear cliente en books')
-                }
+            if (
+                contactDiv.dataset?.contactid !== '' &&
+                contactDiv.dataset?.contactid !== undefined &&
+                contactDiv.dataset?.contactid !== 'undefined'
+            ) {
+                temp_contact_id = contactDiv.dataset?.contactid
+                contactName = contactDiv.children[0].textContent
             } else {
-                // contacto no existe en CRM
-                const createAccountRequest = await crm.createAccount(
-                    accountData
-                )
-
-                accountId = createAccountRequest?.data?.details?.id
-                let ownerId =
-                    user.dataset.profile === 'Vendedor'
-                        ? user.dataset.crmuserid
-                        : vend.dataset.vendedorid
-                // Create Contact
-                const createContactRequest = await crm.CreateContact(
-                    newData,
-                    accountId,
-                    ownerId
-                )
-
-                contact_id = createContactRequest?.data.details.id
-
-                // validar si existe contacto en books
-                if (createContactRequest.ok) {
-                    const syncContact = await books.syncContact(contact_id)
-                    if (syncContact.ok) {
-                        // contacto sincronizado en books
-                        alerts.showAlert(
-                            'success',
-                            'Contacto creado y sincronizado con Zoho Books'
-                        )
-                        id_contactBooks = syncContact?.data?.customer_id
-                    }
-                } else {
-                    throw new Error('Contacto no se pudo crear en CRM')
-                }
+                temp_contact_id = false
+                contactName =
+                    newData.contacto.First_Name +
+                    ' ' +
+                    newData.contacto.Apellido_Paterno +
+                    ' ' +
+                    newData.contacto.Apellido_Materno
             }
-        } else {
-            contact_id = temp_contact_id
-            let update = util.checkUpdate(CRMData, newData)
-            if (!update) {
-                const updateRequest = await crm.UpdateContact(
-                    newData,
-                    contact_id
-                )
-                // agregar alerta
+
+            if (
+                contactDiv.dataset?.accountid !== '' &&
+                contactDiv.dataset?.accountid !== undefined &&
+                contactDiv.dataset?.accountid !== 'undefined'
+            ) {
+                temp_accout_id = contactDiv.dataset?.accountid
+            } else {
+                temp_accout_id = false
             }
-            if (temp_accout_id == false) {
+
+            if (temp_contact_id == false) {
+                let conatctRequest = await crm.searchContact(email, 'Contacts')
+
+                // Create account
                 accountName =
                     newData.contacto.First_Name +
                     ' ' +
@@ -1330,45 +1247,136 @@ const UI = {
                                 : vend.dataset.vendedorid,
                     },
                 }
-                const createAccountRequest = await crm.createAccount(
-                    accountData
-                )
-                accountId = createAccountRequest.data.details.id
+
+                if (conatctRequest.ok) {
+                    const convert = confirm(
+                        'El correo ya esta registrado en CRM'
+                    )
+                    if (!convert)
+                        throw new Error('Proceso omitido por el usuario')
+                    contact_id = conatctRequest.data[0].id
+                    // contacto existe en CRM
+                    if (conatctRequest.data[0].Account_Name?.name == null) {
+                        // Cuenta no encontrada
+                        const createAccountRequest = await crm.createAccount(
+                            accountData
+                        )
+
+                        accountId = createAccountRequest.data.details.id
+                    } else {
+                        accountId = conatctRequest.data[0].Account_Name?.id
+                    }
+                    const syncContact = await books.syncContact(contact_id)
+                    if (syncContact.ok) {
+                        // contacto sincronizado en books
+                        id_contactBooks = syncContact.data.customer_id
+                    } else {
+                        throw new Error('Error al crear cliente en books')
+                    }
+                } else {
+                    // contacto no existe en CRM
+                    const createAccountRequest = await crm.createAccount(
+                        accountData
+                    )
+
+                    accountId = createAccountRequest?.data?.details?.id
+                    let ownerId =
+                        user.dataset.profile === 'Vendedor'
+                            ? user.dataset.crmuserid
+                            : vend.dataset.vendedorid
+                    // Create Contact
+                    const createContactRequest = await crm.CreateContact(
+                        newData,
+                        accountId,
+                        ownerId
+                    )
+
+                    contact_id = createContactRequest?.data.details.id
+
+                    // validar si existe contacto en books
+                    if (createContactRequest.ok) {
+                        const syncContact = await books.syncContact(contact_id)
+                        if (syncContact.ok) {
+                            // contacto sincronizado en books
+                            alerts.showAlert(
+                                'success',
+                                'Contacto creado y sincronizado con Zoho Books'
+                            )
+                            id_contactBooks = syncContact?.data?.customer_id
+                        }
+                    } else {
+                        throw new Error('Contacto no se pudo crear en CRM')
+                    }
+                }
             } else {
-                accountId = temp_accout_id
-                accountName = contactDiv.dataset?.accountname
+                contact_id = temp_contact_id
+                let update = util.checkUpdate(CRMData, newData)
+                if (!update) {
+                    const updateRequest = await crm.UpdateContact(
+                        newData,
+                        contact_id
+                    )
+                    // agregar alerta
+                }
+                if (temp_accout_id == false) {
+                    accountName =
+                        newData.contacto.First_Name +
+                        ' ' +
+                        newData.contacto.Apellido_Paterno +
+                        ' ' +
+                        newData.contacto.Apellido_Materno
+
+                    // // data for accounts
+                    const accountData = {
+                        Account_Name: accountName.toUpperCase(),
+                        Owner: {
+                            id:
+                                user.dataset.profile === 'Vendedor'
+                                    ? user.dataset.crmuserid
+                                    : vend.dataset.vendedorid,
+                        },
+                    }
+                    const createAccountRequest = await crm.createAccount(
+                        accountData
+                    )
+                    accountId = createAccountRequest.data.details.id
+                } else {
+                    accountId = temp_accout_id
+                    accountName = contactDiv.dataset?.accountname
+                }
+
+                let conatctRequest = await books.getContactByEmail(email)
+
+                if (!conatctRequest.ok) {
+                    const syncContact = await books.syncContact(contact_id)
+
+                    id_contactBooks = syncContact.data.customer_id
+                } else {
+                    id_contactBooks = conatctRequest.data.contact_id
+                }
             }
-
-            let conatctRequest = await books.getContactByEmail(email)
-
-            if (!conatctRequest.ok) {
-                const syncContact = await books.syncContact(contact_id)
-
-                id_contactBooks = syncContact.data.customer_id
+            return {
+                id_contactBooks,
+                accountId,
+                contact_id,
+                accountName,
+                id_contactBooks,
+                temp_contact_id,
+                temp_accout_id,
+                contactName,
+            }
+        } catch (error) {
+            if (error.message == 'Proceso omitido por el usuario') {
+                alerts.showAlert('warning', error.message)
             } else {
-                id_contactBooks = conatctRequest.data.contact_id
+                alerts.showAlert('danger', error.message)
             }
         }
-        return {
-            id_contactBooks,
-            accountId,
-            contact_id,
-            accountName,
-            id_contactBooks,
-            temp_contact_id,
-            temp_accout_id,
-            contactName,
-        }
-    }catch(error){
-        if (error.message == 'Proceso omitido por el usuario') {
-            alerts.showAlert('warning', error.message)
-        } else {
-            alerts.showAlert('danger', error.message)
-        }
-    }
     },
-    refreshManzana(){
-        const fracionamiento = document.querySelector('input[name="Fraccionamiento_P"]').value
+    refreshManzana() {
+        const fracionamiento = document.querySelector(
+            'input[name="Fraccionamiento_P"]'
+        ).value
         const manzana = document.querySelector('input[name="Manzana"]').value
         Mapas.getDisponiblidad(fracionamiento, manzana)
         this.viewModal(false, '', '', '', '')
