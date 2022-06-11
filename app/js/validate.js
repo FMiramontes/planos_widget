@@ -40,6 +40,15 @@ const validate = {
         inputsToDisabled.forEach((e) => {
             if (e.value != '') {
                 e.disabled = existeEnCRM
+                let divIcon = e.nextSibling.nextElementSibling;
+                if(divIcon.childElementCount < 2)
+                {
+                    divIcon.classList.add('icon-disabled', 'icon-block')
+                    const iconBlock = document.createElement('i')
+                    iconBlock.classList.add('fa-solid', 'fa-lock')
+                    divIcon.appendChild(iconBlock)
+                }
+                
             } else {
                 e.disabled = false
             }
