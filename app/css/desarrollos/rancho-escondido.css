@@ -1,42 +1,52 @@
-.cls-1,
-.cls-2 {
+.cls-1 {
   fill: #eab557;
 }
 .cls-1,
 .cls-2,
-.cls-3 {
+.cls-4 {
   stroke: #d3950c;
 }
 .cls-1,
 .cls-2,
-.cls-3,
-.cls-5 {
+.cls-4,
+.cls-8 {
   stroke-miterlimit: 10;
   stroke-width: 0.5px;
 }
-
-.cls-3 {
-  fill: #e5bd7c;
+.cls-2 {
+  fill: #eab557;
 }
-.cls-4 {
+.cls-3 {
   fill: #fff;
 }
+.cls-4 {
+  fill: #e5bd7c;
+}
+.cls-5,
+.cls-7 {
+  fill: #fcfcfc;
+}
 .cls-5 {
+  opacity: 0.1;
+}
+.cls-6 {
+  opacity: 0.5;
+}
+.cls-7 {
+  opacity: 0.24;
+}
+.cls-8 {
   fill: #c9d190;
   stroke: #b7bc75;
 }
-.cls-6,
-.cls-8 {
-  fill: #fcfcfc;
+.cls-9 {
+  fill: #7d9d20;
 }
-.cls-6 {
-  opacity: 0.1;
+.cls-10 {
+  fill: #94bc1d;
 }
-.cls-7 {
-  opacity: 0.5;
-}
-.cls-8 {
-  opacity: 0.24;
+.cls-11 {
+  fill: #b6d755;
 }
 /* Animacion hover desarrollos */
 [data-manzana]:hover{
