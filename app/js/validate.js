@@ -44,6 +44,7 @@ const validate = {
                 if(divIcon.childElementCount < 2)
                 {
                     divIcon.classList.add('icon-disabled', 'icon-block')
+                    divIcon.dataset.blockIcon = 'true'
                     const iconBlock = document.createElement('i')
                     iconBlock.classList.add('fa-solid', 'fa-lock')
                     divIcon.appendChild(iconBlock)

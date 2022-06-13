@@ -1726,6 +1726,16 @@ const util = {
                 }
             })
         })
+        let divIcon = document.querySelectorAll("div[data-block-icon]")
+        
+        divIcon.forEach(div =>{
+            console.log('divIcon.childElementCount', div.childElementCount)
+            if(div.childElementCount > 1){
+                div.classList.remove('icon-disabled', 'icon-block')
+                div.removeChild(div.lastChild)
+                console.log('divIcono', div)
+            }
+        })
     },
     parseOuterHTML(text) {
         let tempText1 = text.normalize()
