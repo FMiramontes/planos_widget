@@ -123,11 +123,10 @@ l.Linea-Division {
     align-items: center;
     flex-direction: column;
 }
-.sub-block-titular1,
+/* .sub-block-titular1,
 .sub-direccion-titular1 {
     position: relative;
     top: -35px;
-    /* Top 45px */
 }
 .sub-block-titular2 {
     position: relative;
@@ -136,7 +135,7 @@ l.Linea-Division {
 .sub-empresa-titular1 {
     position: relative;
     top: -62px;
-}
+} */
 /* Tab */
 .tab {
     cursor: pointer;
@@ -152,8 +151,8 @@ a {
     color: #fff;
 }
 
-.sub-block-small {
-}
+/* .sub-block-small {
+} */
 .sub-block-medium {
     height: 86%;
 }
@@ -205,7 +204,7 @@ select {
 }
 .btn-cratelead {
     position: relative;
-    top: -338%;
+    top: -45px;
     left: -32px;
     padding: 8px 12px;
 }
@@ -291,6 +290,11 @@ input.invalid {
     border-right: none;
     padding: 2px;
 }
+.icon-block .fa-lock{
+    position: relative;
+    /* top: 10%; */
+    left: 145px;
+}
 
 .hide-icon {
     visibility: hidden;
@@ -305,16 +309,18 @@ input.invalid {
 } */
 
 input:disabled {
-    border-color: rgb(106, 106, 106) !important;
+    border-color: rgb(98 93 93);
 }
 .icon-disabled {
-    border-color: rgb(106, 106, 106) !important;
+    border-color: rgb(98 93 93) !important;
+    color: #666565;
 }
 input[type='checkbox'] {
-    position: relative;
+    /* position: relative;
     left: 33px;
-    top: 8px;
+    top: 8px; */
     transform: scale(1.5);
+    accent-color: #de9f27;
 }
 
 i {
@@ -341,8 +347,11 @@ i {
 .banner p {
     font-weight: bold;
 }
-.sub-uif {
+/* .sub-uif {
     height: 60%;
+} */
+.sub-block-presupuesto{
+    height: 86%;
 }
 /* min 576 */
 @media (min-device-width: 500px) and (max-device-width: 915px) and (orientation: landscape) {
