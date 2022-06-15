@@ -444,6 +444,7 @@ blinkid-in-browser {
   .scan{
     align-self: flex-start;
     z-index: 2;
+    margin-top: 10px;
   }
 
 @keyframes grow {
