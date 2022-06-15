@@ -444,11 +444,10 @@ const UI = {
         console.timeEnd()
     },
     async facturas(factObject, paramsObject) {
+        let { date, today } = paramsObject
         const {
             id_contactBooks,
             Consecutivo,
-            date,
-            today,
             productBooksId,
             apartado,
             Deal_id,
@@ -481,37 +480,33 @@ const UI = {
 
             if (esDiferido === 'true') {
                 let mensualidadEnganche = Enganche / plazosdiferido
-                for (let i = 1; i <= plazosdiferido; i++) {
-                    if (i == 1) {
-                        let rate = mensualidadEnganche - apartado
-                        arrInvoices.push(
-                            util.JSON_invoice(
-                                id_contactBooks,
-                                Consecutivo,
-                                date,
-                                productBooksId,
-                                'Pago por Concepto de Complemento de Enganche Diferido',
-                                rate,
-                                Deal_id,
-                                'Si'
-                            )
-                        )
-                    } else {
-                        arrInvoices.push(
-                            util.JSON_invoice(
-                                id_contactBooks,
-                                Consecutivo,
-                                date,
-                                productBooksId,
-                                'Pago por Concepto de Enganche Diferido',
-                                mensualidadEnganche,
-                                Deal_id,
-                                'No'
-                            )
-                        )
-                    }
-                    date = util.addDate(date, 'M', 1)
-                }
+                let rate = mensualidadEnganche - apartado
+                arrInvoices.push(
+                    util.JSON_invoice(
+                        id_contactBooks,
+                        Consecutivo,
+                        date,
+                        productBooksId,
+                        'Pago por Concepto de Complemento de Enganche Diferido',
+                        rate,
+                        Deal_id,
+                        'Si'
+                    )
+                )
+                // arrInvoices.push(
+                //     util.JSON_invoice(
+                //         id_contactBooks,
+                //         Consecutivo,
+                //         date,
+                //         productBooksId,
+                //         'Pago por Concepto de Enganche Diferido',
+                //         mensualidadEnganche,
+                //         Deal_id,
+                //         'No'
+                //     )
+                // )
+
+                // date = util.addDate(date, 'M', 1)
             } else {
                 // Factura de Complemento
                 let rate = 0
@@ -545,21 +540,19 @@ const UI = {
             // Facturas de diferido
             if (esDiferido === 'true') {
                 let rate = Enganche / plazosdiferido
-                for (let i = 1; i <= plazosdiferido; i++) {
-                    arrInvoices.push(
-                        util.JSON_invoice(
-                            id_contactBooks,
-                            Consecutivo,
-                            today,
-                            productBooksId,
-                            'Pago por Concepto de Enganche Diferido',
-                            rate,
-                            Deal_id,
-                            'No'
-                        )
+                arrInvoices.push(
+                    util.JSON_invoice(
+                        id_contactBooks,
+                        Consecutivo,
+                        today,
+                        productBooksId,
+                        'Pago por Concepto de Enganche Diferido',
+                        rate,
+                        Deal_id,
+                        'No'
                     )
-                    today = util.addDate(today, 'M', 1)
-                }
+                )
+                // today = util.addDate(today, 'M', 1)
             } else {
                 // Factura directa
                 let rate = 0
