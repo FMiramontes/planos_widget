@@ -1,0 +1,55 @@
+.cls-1 {
+    fill: #84b2b1;
+}
+.cls-1,
+.cls-2 {
+    stroke: #6c9596;
+    stroke-miterlimit: 10;
+    stroke-width: 0.7px;
+}
+.cls-2 {
+    fill: none;
+}
+.cls-3 {
+    fill: #ef6e5f;
+}
+.cls-4 {
+    fill: #fff;
+}
+.cls-5 {
+    fill: #c9d190;
+}
+.cls-6 {
+    opacity: 0.43;
+}
+.cls-7 {
+    fill: #7d9d20;
+}
+.cls-8 {
+    fill: #94bc1d;
+}
+.cls-9 {
+    fill: #b6d755;
+}
+[data-manzana]:hover {
+    stroke: #6c9596;
+    animation: popup 0.75s ease alternate infinite;
+}
+    
+@keyframes popup {
+    0% {
+        stroke-width: 3px;
+    }
+    25% {
+        stroke-width: 5px;
+    }
+    50% {
+        stroke-width: 7px;
+    }
+    75% {
+        stroke-width: 8px;
+    }
+    100% {
+        stroke-width: 9px;
+    }
+}
