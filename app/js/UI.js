@@ -1594,6 +1594,27 @@ const UI = {
             this.paintCards(valid, userAdmin, userId)
         }
     },
+    searchFracc(search){
+        const cardsF = Array.from( document.querySelectorAll('.fracionamiento') )
+
+        if(search !== ""){
+            cardsF.forEach((i) => {
+                console.log(i)
+                if( i.innerText.toLowerCase().match(search) ){
+                    console.log(true)
+                    i.style.display = 'block'
+                }else{
+                    console.log(false)
+                    i.style.display = 'none'
+                }
+            })
+        }else{
+            cardsF.forEach((i) => {
+                i.style.display = 'block'
+            })
+            
+        }
+    }
 }
 
 const util = {

@@ -140,10 +140,10 @@ image {
 }
 .menu-lateral {
     background-color: #f0f0f0;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 50px;
     align-items: center;
-    justify-content: center;
     transform: translate(-100vw, 0);
     transition: transform 0.8s ease-in;
     z-index: 3;

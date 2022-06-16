@@ -175,6 +175,11 @@ function hideTooltip(type) {
 }
 
 // Eventos
+//"search-fracc"
+const buscarFraccionamiento = document.getElementById('search-fracc')
+buscarFraccionamiento.addEventListener('input', (e) => {
+    UI.searchFracc(e.target.value.toLowerCase())
+})
 
 cbDomicilio.addEventListener('click', () => {
     UI.showDomicilio(cbDomicilio.checked, 'data-titular="1"')
