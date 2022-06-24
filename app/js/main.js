@@ -348,7 +348,7 @@ document.addEventListener('touchend', function (e) {
                     let trato = document.createElement('p')
                     trato.textContent = e.target.dataset.trato
                     banner.appendChild(trato)
-
+                    
                     UI.viewModal(true, e.target?.id, e.target.dataset, true)
                 }
             } else {
@@ -423,6 +423,7 @@ document.addEventListener('dblclick', (e) => {
 containerModal.addEventListener('click', (event) => {
     if (event.target == containerModal) {
         UI.viewModal(false, '', '', '', '')
+        util.removeDatasets('#campaignValue')
     }
 })
 
