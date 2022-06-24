@@ -1,19 +1,20 @@
 .cls-1 {
-  isolation: isolate;
+  fill: #dcbd72;
+}
+
+.cls-1,
+.cls-2 {
+  stroke: #cc9f34;
+  stroke-miterlimit: 10;
+  stroke-width: 1.1px;
 }
 
 .cls-2 {
   fill: #dcbd72;
 }
 
-.cls-2,
 .cls-3 {
-  stroke: #cc9f34;
-  stroke-miterlimit: 10;
-}
-
-.cls-3 {
-  fill: #efd18f;
+  fill: #4c4c4c;
 }
 
 .cls-4 {
@@ -21,90 +22,20 @@
 }
 
 .cls-5 {
-  fill: #4c4c4c;
-}
-
-.cls-6 {
   fill: #c9d190;
 }
 
-.cls-7 {
-  fill: #d6b9a5;
-  opacity: 0.42;
-}
-
-.cls-11,
-.cls-12,
-.cls-13,
-.cls-17,
-.cls-7,
-.cls-9 {
-  mix-blend-mode: screen;
-}
-
-.cls-8 {
-  opacity: 0.86;
-}
-
-.cls-11,
-.cls-9 {
-  fill: #7a5f4c;
-}
-
-.cls-9 {
-  opacity: 0.77;
-}
-
-.cls-10 {
-  fill: #876855;
-}
-
-.cls-12,
-.cls-13 {
-  fill: #492402;
-}
-
-.cls-12 {
-  opacity: 0.4;
-}
-
-.cls-13 {
-  opacity: 0.7;
-}
-
-.cls-14,
-.cls-17 {
-  fill: #974c1c;
-  opacity: 0.2;
-}
-
-.cls-14 {
-  mix-blend-mode: multiply;
-}
-
-.cls-15 {
-  opacity: 0.55;
-}
-
-.cls-16 {
-  fill: #512904;
-}
-
-.cls-18 {
+.cls-6 {
   fill: #7d9d20;
 }
 
-.cls-19 {
+.cls-7 {
   fill: #94bc1d;
 }
 
-.cls-20 {
+.cls-8 {
   fill: #b6d755;
 }
-
-/* [data-manzana]:hover {
-  fill: #dfb34e;
-} */
 
 [data-manzana]:hover{
   stroke: #dfb34e;
