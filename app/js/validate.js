@@ -307,7 +307,52 @@ const validate = {
             return requestProduct.data?.disponible
         }
         return false
-    }
+    },
+
+    async validateCampaing(campaignData){
+
+        console.log(campaignData)
+        const ContadoCheck = [
+            'Campaign_Name',
+            'Type',
+            'Status',
+            'Tipo_de_Apartado',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+        ]
+
+        const FinanciadoCheck = [
+            'Campaign_Name',
+            'Type',
+            'Status',
+            'Tipo_de_Apartado',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+        ]
+
+        //validar datos de campanya 
+        if(campaignData.Tipo_de_Promocion === "Contado"){
+            ContadoCheck.forEach((e)=>{
+                console.log(campaignData.e)
+            })
+        }else if(campaignData.Tipo_de_Promocion == "Financiado"){
+            FinanciadoCheck.forEach((e)=>{
+                console.log(campaignData.e)
+            })
+        }
+
+        return true
+    },
 }
 
 export default validate

@@ -1,6 +1,8 @@
 import { crm, creator, books, cliq } from './Zoho.js'
 import alerts from './alertas.js'
 import Mapas from './mapas.js'
+import valid from './validate.js'
+import e from 'express'
 
 let desarrollo = new Array()
 
@@ -926,6 +928,7 @@ const UI = {
         if (campaignId !== null) {
             const getCampaignRequest = await crm.getCampaign(campaignId)
             if (getCampaignRequest.ok) {
+                
                 const campaignData = getCampaignRequest.data
 
                 // Variables
@@ -1074,6 +1077,15 @@ const UI = {
 
                 // Assign Unit Price to field
                 fieldCosto.value = COSTO_PRODUCTO.toFixed(2)
+
+                //util.removeDatasets('#campaignValue')
+                //valida datos de campanya
+                if(valid.validateCampaing(campaignData)){
+                    console.log("si entro a validar campanya")
+                }else{
+                    util.removeDatasets('#campaignValue')
+                    alerts.showAlert('warning', 'La campaña no cuenta con los datos necesarios.') 
+                }
             }
         }
     },
@@ -1548,6 +1560,7 @@ const UI = {
             selectedOption.children[0].dataset.diferido
         campaignInput.dataset.plazosdiferido =
             selectedOption.children[0].dataset.plazosdiferido
+
     },
     addRecursos(dcontacto) {
         const inputRecursos = Array.from(

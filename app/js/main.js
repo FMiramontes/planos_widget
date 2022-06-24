@@ -291,7 +291,6 @@ document.getElementById('btn-submit').addEventListener('click', async(e) => {
             alerts.showAlert('warning', 'El producto no se encuentra disponible.') 
             UI.refreshManzana()
         }
-    
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
