@@ -2,7 +2,6 @@ import { crm, creator, books, cliq } from './Zoho.js'
 import alerts from './alertas.js'
 import Mapas from './mapas.js'
 import valid from './validate.js'
-import e from 'express'
 
 let desarrollo = new Array()
 
@@ -1079,12 +1078,11 @@ const UI = {
                 fieldCosto.value = COSTO_PRODUCTO.toFixed(2)
 
                 //util.removeDatasets('#campaignValue')
-                //valida datos de campanya
-                if(valid.validateCampaing(campaignData)){
-                    console.log("si entro a validar campanya")
-                }else{
+                const aux11 = valid.validateCampaing(campaignData)
+                console.log("return: ",aux11)
+                if(aux11 == false){
                     util.removeDatasets('#campaignValue')
-                    alerts.showAlert('warning', 'La campaña no cuenta con los datos necesarios.') 
+                    alerts.showAlert('warning', 'La campaña no tiene los datos correctos, contactar con administrador.')
                 }
             }
         }
