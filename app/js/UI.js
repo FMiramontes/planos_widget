@@ -1,6 +1,7 @@
 import { crm, creator, books, cliq } from './Zoho.js'
 import alerts from './alertas.js'
 import Mapas from './mapas.js'
+import valid from './validate.js'
 
 let desarrollo = new Array()
 
@@ -926,6 +927,7 @@ const UI = {
         if (campaignId !== null) {
             const getCampaignRequest = await crm.getCampaign(campaignId)
             if (getCampaignRequest.ok) {
+                
                 const campaignData = getCampaignRequest.data
 
                 // Variables
@@ -1074,6 +1076,14 @@ const UI = {
 
                 // Assign Unit Price to field
                 fieldCosto.value = COSTO_PRODUCTO.toFixed(2)
+
+                //util.removeDatasets('#campaignValue')
+                const aux11 = valid.validateCampaing(campaignData)
+                console.log("return: ",aux11)
+                if(aux11 == false){
+                    util.removeDatasets('#campaignValue')
+                    alerts.showAlert('warning', 'La campaña no tiene los datos correctos, contactar con administrador.')
+                }
             }
         }
     },
@@ -1548,6 +1558,7 @@ const UI = {
             selectedOption.children[0].dataset.diferido
         campaignInput.dataset.plazosdiferido =
             selectedOption.children[0].dataset.plazosdiferido
+
     },
     addRecursos(dcontacto) {
         const inputRecursos = Array.from(

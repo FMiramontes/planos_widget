@@ -307,7 +307,44 @@ const validate = {
             return requestProduct.data?.disponible
         }
         return false
-    }
+    },
+
+    validateCampaing(campaignData){
+
+        console.log(campaignData)
+
+        let aux = true
+        //validar datos de campanya 
+
+        if(campaignData.Tipo_de_Promocion == "Financiado"){
+            if(campaignData.Tipo_de_Politica == "Primer Mensualidad"){ 
+                if(aux)aux = campaignData.Primer_Mensualida != false ? true:false
+            }else if(campaignData.Tipo_de_Politica == "Enganche"){
+                if(campaignData.Tipo_de_Enganche == "Monto"){
+                    if(aux)aux = campaignData.Monto_de_Enganche != null ? true:false
+                }else if(campaignData.Tipo_de_Enganche == "Porcentaje"){
+                    if(aux)aux = campaignData.Porcentaje_de_Enganche != null ? true:false
+                }
+                if(campaignData.Diferido){
+                    if(aux)aux = campaignData.Plazos_Diferido > 0 ? true:false
+                }
+            }
+        }
+
+        if(campaignData.Tipo_de_Apartado == "Monto"){
+            if(aux)aux = campaignData.Monto_de_Apartado != null ? true:false
+        }else if(campaignData.Tipo_de_Apartado == "Porcentaje"){
+            if(aux)aux = campaignData.Porcentaje_de_Apartado != null ? true:false
+        }
+
+        if(campaignData.Tipo_de_Descuento == "Monto"){
+            if(aux)aux = campaignData.Monto_Descuento != null ? true:false
+        }else if(campaignData.Tipo_de_Descuento == "Porcentaje"){
+            if(aux)aux = campaignData.Porcentaje_Descuento	 != null ? true:false
+        }
+        
+        return aux
+    },
 }
 
 export default validate
