@@ -429,6 +429,7 @@ const UI = {
                         this.paintDeals()
                         util.removeDatasets('[name="Cantidad_RA"]')
                         // util.removeDatasets('#vendorsValue')
+                        alerts.showAlert('success', 'Proceso finalizado!')
                     }
                 } else {
                     throw new Error('No se pudo crear cotizacion')
@@ -927,7 +928,6 @@ const UI = {
         if (campaignId !== null) {
             const getCampaignRequest = await crm.getCampaign(campaignId)
             if (getCampaignRequest.ok) {
-                
                 const campaignData = getCampaignRequest.data
 
                 // Variables
@@ -1079,10 +1079,13 @@ const UI = {
 
                 //util.removeDatasets('#campaignValue')
                 const aux11 = valid.validateCampaing(campaignData)
-                console.log("return: ",aux11)
-                if(aux11 == false){
+                console.log('return: ', aux11)
+                if (aux11 == false) {
                     util.removeDatasets('#campaignValue')
-                    alerts.showAlert('warning', 'La campaña no tiene los datos correctos, contactar con administrador.')
+                    alerts.showAlert(
+                        'warning',
+                        'La campaña no tiene los datos correctos, contactar con administrador.'
+                    )
                 }
             }
         }
@@ -1215,8 +1218,9 @@ const UI = {
                     newData.contacto.First_Name +
                     ' ' +
                     newData.contacto.Apellido_Paterno +
-                    ' ' +
-                    newData.contacto.Apellido_Materno
+                    (newData.contacto.Apellido_Materno !== undefined
+                        ? ' ' + newData.contacto.Apellido_Materno
+                        : '')
             }
 
             if (
@@ -1237,8 +1241,9 @@ const UI = {
                     newData.contacto.First_Name +
                     ' ' +
                     newData.contacto.Apellido_Paterno +
-                    ' ' +
-                    newData.contacto.Apellido_Materno
+                    (newData.contacto.Apellido_Materno !== undefined
+                        ? ' ' + newData.contacto.Apellido_Materno
+                        : '')
 
                 // // data for accounts
                 const accountData = {
@@ -1326,8 +1331,9 @@ const UI = {
                         newData.contacto.First_Name +
                         ' ' +
                         newData.contacto.Apellido_Paterno +
-                        ' ' +
-                        newData.contacto.Apellido_Materno
+                        (newData.contacto.Apellido_Materno !== undefined
+                            ? ' ' + newData.contacto.Apellido_Materno
+                            : '')
 
                     // // data for accounts
                     const accountData = {
@@ -1558,7 +1564,6 @@ const UI = {
             selectedOption.children[0].dataset.diferido
         campaignInput.dataset.plazosdiferido =
             selectedOption.children[0].dataset.plazosdiferido
-
     },
     addRecursos(dcontacto) {
         const inputRecursos = Array.from(
@@ -1605,27 +1610,26 @@ const UI = {
             this.paintCards(valid, userAdmin, userId)
         }
     },
-    searchFracc(search){
-        const cardsF = Array.from( document.querySelectorAll('.fracionamiento') )
+    searchFracc(search) {
+        const cardsF = Array.from(document.querySelectorAll('.fracionamiento'))
 
-        if(search !== ""){
+        if (search !== '') {
             cardsF.forEach((i) => {
                 console.log(i)
-                if( i.innerText.toLowerCase().match(search) ){
+                if (i.innerText.toLowerCase().match(search)) {
                     console.log(true)
                     i.style.display = 'block'
-                }else{
+                } else {
                     console.log(false)
                     i.style.display = 'none'
                 }
             })
-        }else{
+        } else {
             cardsF.forEach((i) => {
                 i.style.display = 'block'
             })
-            
         }
-    }
+    },
 }
 
 const util = {
@@ -1751,11 +1755,11 @@ const util = {
                 }
             })
         })
-        let divIcon = document.querySelectorAll("div[data-block-icon]")
-        
-        divIcon.forEach(div =>{
+        let divIcon = document.querySelectorAll('div[data-block-icon]')
+
+        divIcon.forEach((div) => {
             console.log('divIcon.childElementCount', div.childElementCount)
-            if(div.childElementCount > 1){
+            if (div.childElementCount > 1) {
                 div.classList.remove('icon-disabled', 'icon-block')
                 div.removeChild(div.lastChild)
                 console.log('divIcono', div)

@@ -432,12 +432,18 @@ const crm = {
     async CreateContact(data, accountId, ownerId) {
         const contacto = { ...data.contacto }
         contacto.Last_Name =
-            contacto.Apellido_Paterno + ' ' + contacto.Apellido_Materno
+            contacto.Apellido_Paterno +
+            (contacto.Apellido_Materno !== undefined
+                ? ' ' + contacto.Apellido_Materno
+                : '')
         contacto.Account_Name = { id: accountId }
         contacto.First_Name = contacto.First_Name.toUpperCase()
         contacto.Last_Name = contacto.Last_Name.toUpperCase()
         contacto.Apellido_Paterno = contacto.Apellido_Paterno.toUpperCase()
-        contacto.Apellido_Materno = contacto.Apellido_Materno.toUpperCase()
+        contacto.Apellido_Materno =
+            contacto.Apellido_Materno !== undefined
+                ? contacto.Apellido_Materno.toUpperCase()
+                : ''
         contacto.Owner = { id: ownerId }
         contacto.Widget_Planos = true
         // Marcar checkbox Segundo_Cliente si los campos tienen valor
@@ -1662,7 +1668,7 @@ async function createLog(log, status, info) {
     let message = log?.message
     const obj = {
         data: {
-            app: 'widget testing',
+            app: 'Planos',
             message,
             status,
             additional_info: info,
