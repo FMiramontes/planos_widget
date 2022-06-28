@@ -222,10 +222,10 @@ const validate = {
 
         if (modo === 'lead') {
             if (loggedUser.dataset.profile === 'Vendedor') {
-                dataLists.splice(1, 5)
+                dataLists.splice(1, 7)
             } else {
                 dataLists.splice(1, 1)
-                dataLists.splice(2, 3)
+                dataLists.splice(2, 6)
             }
         } else if (modo === 'submit') {
             if (loggedUser.dataset.profile === 'Vendedor') {
