@@ -1286,6 +1286,103 @@ const creator = {
             }
         }
     },
+    async getRecordByFolio(folio, IDOportunidad) {
+        const connectionName = 'creator'
+        const req_data = {
+            method: 'GET',
+            url: `https://creator.zoho.com/api/v2/sistemas134/cotizador1/report/Presupuesto_Report?Consecutivo=${folio}&IDOportunidad=${IDOportunidad}`,
+        }
+        try {
+            const request = await ZOHO.CRM.CONNECTION.invoke(
+                connectionName,
+                req_data
+            )
+
+            console.log("creator.getRecordByFolio request: ",request)
+
+            if (
+                request.code !== 'SUCCESS' ||
+                request.details.statusMessage?.data[0]?.ID === undefined
+            ) {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.details.statusMessage.message,
+                }
+            }
+            //
+            return {
+                code: 200,
+                ok: true,
+                data: request.details.statusMessage?.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async updateRecord(id, fechas) {
+        const data = { data: {
+            GenerarContrato : true,
+            DiasdePago: fechas.DiasdePago,
+            FechadePago: fechas.FechadePago,
+            FechaProximoPago: fechas.FechaProximoPago,
+            FechaUltimoPago: fechas.FechaUltimoPago,
+        }}
+        const connectionName = 'creator'
+        const req_data = {
+            method: 'PATCH',
+            url: `https://creator.zoho.com/api/v2/sistemas134/cotizador1/report/Presupuesto_Report/${id}`,
+            parameters: data,
+
+        }
+        try {
+            const request = await ZOHO.CRM.CONNECTION.invoke(
+                connectionName,
+                req_data
+            )
+            console.log("creator.updateRecord request",request)
+
+            if (
+                request.code !== 'SUCCESS' ||
+                request.details.statusMessage?.data?.ID === undefined
+            ) {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.details.statusMessage.message,
+                }
+            }
+            //
+            return {
+                code: 200,
+                ok: true,
+                data: request.details.statusMessage?.data,
+                type: 'success',
+            }
+        } catch (error) {
+            createLog(error, 'Error', {
+                args: { id, fechas },
+                invoke: 'Creator - UpdateRecord',
+            })
+
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
 }
 
 const organization_id = 651425182

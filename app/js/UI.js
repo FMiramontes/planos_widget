@@ -1427,19 +1427,18 @@ const UI = {
                 let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
                 let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
                 let card = `
-                    
-                        <section class="titulo-trato">${deal.Deal_Name}</section>
-                        <section class="trato-cont" data-dealid='${deal.id}' data-dealname='${deal.Deal_Name}'>
-                            <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
-                            <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                            <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
-                            <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
-                            <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
-                        </section>
-                        <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                        <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
-                        <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
-                    `
+                <section class="titulo-trato">${deal.Deal_Name}</section>
+                <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
+                    <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                    <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                    <a data-cerrar class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
+                    <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
+                    <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
+                </section>
+                <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
+                <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
+                <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
+            `
                 let section = document.createElement('section')
                 section.classList = 'card-trato'
                 section.innerHTML = card
@@ -1628,6 +1627,23 @@ const UI = {
             cardsF.forEach((i) => {
                 i.style.display = 'block'
             })
+        }
+    },
+    async cerrarTrato(folio, IDOportunidad) {
+        console.log(folio, IDOportunidad)
+        const dealData = await creator.getRecordByFolio(folio, IDOportunidad)
+        console.log('cerrarTrato dealData: ', dealData)
+        if (dealData.ok) {
+            const presupuestoId = dealData?.data?.ID
+            console.log('UI.cerrarTrato - presupuestoId: ', presupuestoId)
+            console.log('UI.cerrarTrato - TipodePolitica: ', dealData?.data?.TipodePolitica)
+            const fechas = util.fechasCierre(dealData?.data?.TipodePolitica, dealData?.data?.PlazoAcordado, dealData?.data?.Plazos_Diferido)
+            const cerrarTrato = await creator.updateRecord(presupuestoId, fechas)
+            if(cerrarTrato.ok){
+                alerts.showAlert(cerrarTrato.type, 'Trato Cerrado( Ganado )')
+            }else{
+                alerts.showAlert(cerrarTrato.type, cerrarTrato.message)
+            }
         }
     },
 }
@@ -2130,6 +2146,47 @@ const util = {
             clearTimeout(debounceTimer)
             debounceTimer = setTimeout(() => func.apply(context, args), delay)
         }
+    },
+    fechasCierre(TipodePolitica, Plazo, PlazosDiferido) {
+
+        PlazosDiferido = PlazosDiferido == null ? 0 : PlazosDiferido
+        
+        let Hoy = new Date()
+        if(TipodePolitica == "Enganche" && PlazosDiferido == 0) Hoy = this.addDate(Hoy, "M", 1)
+        
+        let dias = this.diasDePago(Hoy)
+        
+        let AuxFecha = Hoy.setDate(dias)
+        
+        let FechadePago = this.formatDate(AuxFecha)
+        
+        let FechaProximoPago
+		let FechaUltimoPago
+
+        
+        if(PlazosDiferido > 0) {
+          AuxFecha = this.addDate(new Date(AuxFecha), "M", PlazosDiferido -1)
+          FechaProximoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", 1))
+          FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo + 1))
+        }else{
+          FechaProximoPago = this.formatDate( this.addDate(new Date(AuxFecha), "M", 1))
+          FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo ))
+        }
+        
+         	
+        
+        
+        const fechas = {
+            DiasdePago:  this.diasDePago(Hoy),
+            FechadePago: FechadePago,
+            FechaProximoPago: FechaProximoPago,
+            FechaUltimoPago: FechaUltimoPago
+        }
+       
+        return fechas
+    },
+    padTo2Digits(num) {
+        return num.toString().padStart(2, '0')
     },
 }
 

@@ -467,3 +467,9 @@ infoColor.addEventListener('click', () => {
     let cardColor = document.querySelector('.color-lote')
     cardColor.classList.toggle('showCard')
 })
+
+document.addEventListener('click', (e) => {
+    if(e.target.matches('[data-cerrar]')){
+        UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
+    }
+})
