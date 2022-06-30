@@ -42,12 +42,14 @@
 }
   
 .screanShot:hover,
-.save:hover
+.save:hover,
+.addScreanShot:hover
 {
     transform: scale(1.2);
 } 
 .screanShot,
-.save
+.save,
+.addScreanShot
 {
     transition: all 1s ease;
 } 
@@ -154,8 +156,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
     background-color: transparent;
+    padding: 2.5px 6px;
     color: #fff;
     height: 100%;
     width: 50%;
