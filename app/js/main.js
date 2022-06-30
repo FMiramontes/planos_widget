@@ -59,6 +59,8 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         UI.addDataList(datalists.fuentesCliente, 'fuente')
         UI.addDataList(datalists.sucursales, 'Sucursales')
         UI.addDataList(datalists.zonas, 'Gerente')
+        UI.addDataList(datalists.venta, 'venta')
+        UI.addDataList(datalists.operador, 'operador')
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
