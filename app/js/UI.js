@@ -168,6 +168,7 @@ const UI = {
     },
     async validate(CRMData, newData) {
         try {
+            const inputSearchDeals = document.getElementById('search-deal')
             const user = document.getElementById('user')
             const modal = document.getElementById('modal')
             const coo_id = document.getElementById('coordinadorValue').value
@@ -426,7 +427,8 @@ const UI = {
                         vend.value = ''
                         util.removeDatasets('#campaignValue')
                         util.removeDatasets('input[name="Costo_M2"]')
-                        this.paintDeals()
+                        await this.paintDeals()
+                        this.searchDeals(inputSearchDeals.value.toLowerCase(), user.dataset.admin, user.dataset.crmuserid)
                         util.removeDatasets('[name="Cantidad_RA"]')
                         // util.removeDatasets('#vendorsValue')
                         alerts.showAlert('success', 'Proceso finalizado!')
@@ -770,7 +772,7 @@ const UI = {
     },
     async paintDeals() {
         const user = document.getElementById('user')
-        let userAdmin = user.dataset.profile
+        let userAdmin = user.dataset.admin
         let userId = user.dataset.crmuserid
         containerDeals.innerHTML = ''
         let dataDeals
