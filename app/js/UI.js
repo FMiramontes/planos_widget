@@ -416,6 +416,12 @@ const UI = {
                         }
                         this.facturas(factObject, paramsObject)
 
+                        // Cambiar estado de producto a cotizacion
+                        await crm.updateProduct({
+                            id: product_id,
+                            Estado: 'Cotización',
+                        })
+
                         // End of process
                         // Reset values
 
@@ -1158,11 +1164,13 @@ const UI = {
 
             let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(2)
 
-            const updateProductCRM = await crm.updateProduct(
-                product_id,
-                costoM2,
-                costoProducto
-            )
+            const updateProductCRM = await crm.updateProduct({
+                id: product_id,
+                Costo_por_M2: costoM2,
+                Unit_Price: costoProducto,
+                Costo_total_del_terreno: costoProducto,
+                Saldo: costoProducto,
+            })
 
             const updateProductBooks = await books.updateProduct(
                 productBooksId,
