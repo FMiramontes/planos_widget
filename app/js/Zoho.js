@@ -573,19 +573,11 @@ const crm = {
             }
         }
     },
-    async updateProduct(productID, costoM2, costoProducto) {
-        const product = {
-            id: productID,
-            Costo_por_M2: costoM2,
-            Unit_Price: costoProducto,
-            Costo_total_del_terreno: costoProducto,
-            Saldo: costoProducto,
-        }
-
+    async updateProduct(data) {
         try {
             const request = await ZOHO.CRM.API.updateRecord({
                 Entity: 'Products',
-                APIData: product,
+                APIData: data,
                 Trigger: [],
             })
 
