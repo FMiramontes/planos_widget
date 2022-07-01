@@ -474,8 +474,11 @@ infoColor.addEventListener('click', () => {
 
 document.addEventListener('click', async (e) => {
     if(e.target.matches('[data-cerrar]')){
-        await UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
-        await UI.paintDeals()
-        UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+        const closeDeal = confirm('Desea cerrar el trato?')
+        if (closeDeal) {
+            await UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
+            await UI.paintDeals()
+            UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+        }
     }
 })
