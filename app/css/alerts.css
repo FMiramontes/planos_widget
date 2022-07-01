@@ -62,6 +62,15 @@
     color: #72a75b;
 }
 
+.alert.finish h2 {
+    color: #27a2db;
+}
+.alert.finish {
+    background-color: #fff;
+    border-left-color: #27a2db;
+    color: #000;
+}
+
 .alert.warning {
     background-color: #fff;
     border-left-color: #ffe162;
