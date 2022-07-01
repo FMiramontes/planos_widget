@@ -344,7 +344,7 @@
     z-index: 3;
     padding-top: 20px;
     overflow-y: auto;
-    width: 24vw;
+    width: 353px;
     height: 88%;
     top: 8.9%;
     right: 0;
@@ -356,8 +356,8 @@
     position: absolute;
     right: 87%;
     top: 40vh;
-    width: 1.5vw;
-    height: 8vh;
+    width: 25px;
+    height: 65px;
     z-index: 5;
     border: none;
     background-color: rgb(15, 15, 15);
@@ -435,8 +435,7 @@
 }
 
 .refresh-btn {
-    position: absolute;
-    right: -16%;
+    margin-left: 10px;
     font-size: 16px;
     background-color: rgb(197, 197, 197);
     border-radius: 50%;
@@ -477,19 +476,6 @@
         height: 90vh;
     }
     /* style menu tratos*/
-
-.container-seach-deals{
-    height: 22px;
-    width: 70%;
-    position: relative;
-    top: -2%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 4;
-}
-
 .container-seach-deals .search-deal{
     width: 200px;
 } 
@@ -509,6 +495,18 @@
     .menu-lateral2 {
         position: absolute;
         width: 30%;
+        height: 88%;
+        top: 8.7%;
+    }
+    #zoom-in, #zoom-out{
+        display: none;
+    }
+}
+@media (min-device-width: 3025px) {
+    
+    .menu-lateral2 {
+        position: absolute;
+        width: 353px;
         height: 88%;
         top: 8.7%;
     }

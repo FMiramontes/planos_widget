@@ -168,6 +168,7 @@ const UI = {
     },
     async validate(CRMData, newData) {
         try {
+            const inputSearchDeals = document.getElementById('search-deal')
             const user = document.getElementById('user')
             const modal = document.getElementById('modal')
             const coo_id = document.getElementById('coordinadorValue').value
@@ -415,6 +416,13 @@ const UI = {
                         }
                         this.facturas(factObject, paramsObject)
 
+                        // Cambiar estado de producto a cotizacion
+                        await crm.updateProduct({
+                            id: product_id,
+                            Estado: 'Cotización',
+                        })
+                        this.refreshManzana()
+
                         // End of process
                         // Reset values
 
@@ -426,7 +434,8 @@ const UI = {
                         vend.value = ''
                         util.removeDatasets('#campaignValue')
                         util.removeDatasets('input[name="Costo_M2"]')
-                        this.paintDeals()
+                        await this.paintDeals()
+                        this.searchDeals(inputSearchDeals.value.toLowerCase(), user.dataset.admin, user.dataset.crmuserid)
                         util.removeDatasets('[name="Cantidad_RA"]')
                         // util.removeDatasets('#vendorsValue')
                         alerts.showAlert('finish', 'Proceso finalizado!')
@@ -770,7 +779,7 @@ const UI = {
     },
     async paintDeals() {
         const user = document.getElementById('user')
-        let userAdmin = user.dataset.profile
+        let userAdmin = user.dataset.admin
         let userId = user.dataset.crmuserid
         containerDeals.innerHTML = ''
         let dataDeals
@@ -1156,11 +1165,13 @@ const UI = {
 
             let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(2)
 
-            const updateProductCRM = await crm.updateProduct(
-                product_id,
-                costoM2,
-                costoProducto
-            )
+            const updateProductCRM = await crm.updateProduct({
+                id: product_id,
+                Costo_por_M2: costoM2,
+                Unit_Price: costoProducto,
+                Costo_total_del_terreno: costoProducto,
+                Saldo: costoProducto,
+            })
 
             const updateProductBooks = await books.updateProduct(
                 productBooksId,

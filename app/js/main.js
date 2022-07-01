@@ -64,6 +64,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
+        user.dataset.admin = data.users[0].profile.name == 'Administrator' || 'developer' ? true : false
         if (data.users[0].profile.name === 'Vendedor') {
             document.querySelector('#vendorsValue').value = data.users[0].id
         }
@@ -461,8 +462,9 @@ vendedoresInput.addEventListener('change', (event) => {
     }
 })
 
-btnRefresh.addEventListener('click', () => {
-    UI.paintDeals()
+btnRefresh.addEventListener('click',async  () => {
+    await UI.paintDeals()
+    UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
 })
 
 infoColor.addEventListener('click', () => {
@@ -470,8 +472,10 @@ infoColor.addEventListener('click', () => {
     cardColor.classList.toggle('showCard')
 })
 
-document.addEventListener('click', (e) => {
+document.addEventListener('click', async (e) => {
     if(e.target.matches('[data-cerrar]')){
-        UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
+        await UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
+        await UI.paintDeals()
+        UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
     }
 })
