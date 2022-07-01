@@ -421,6 +421,7 @@ const UI = {
                             id: product_id,
                             Estado: 'Cotización',
                         })
+                        this.refreshManzana()
 
                         // End of process
                         // Reset values
