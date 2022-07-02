@@ -1442,7 +1442,7 @@ const UI = {
                 <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
                     <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
                     <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                    <a data-cerrar class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
+                    <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
                     <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
                     <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
                 </section>
@@ -1648,10 +1648,24 @@ const UI = {
             const presupuestoId = dealData?.data?.ID
             console.log('UI.cerrarTrato - presupuestoId: ', presupuestoId)
             console.log('UI.cerrarTrato - TipodePolitica: ', dealData?.data?.TipodePolitica)
+            // Revisar tipo de politica
+            if(dealData?.data?.TipodePolitica == "Primer Mensualidad") {
+                if(dealData?.data?.MensualidadRecibida == '') {
+                    alerts.showAlert('warning', 'No se ha realizado pago de factura')
+                    return
+                }
+            }else if(dealData?.data?.TipodePolitica == "Enganche"){
+                if(dealData?.data?.EngancheRecibido == '') {
+                    alerts.showAlert('warning', 'No se ha realizado pago de factura')
+                    return
+                }
+            }
+
             const fechas = util.fechasCierre(dealData?.data?.TipodePolitica, dealData?.data?.PlazoAcordado, dealData?.data?.Plazos_Diferido)
             const cerrarTrato = await creator.updateRecord(presupuestoId, fechas)
             if(cerrarTrato.ok){
                 alerts.showAlert(finish, 'Trato Cerrado( Ganado )')
+                this.refreshManzana()
             }else{
                 alerts.showAlert(cerrarTrato.type, cerrarTrato.message)
             }
