@@ -1675,7 +1675,7 @@
                                         </div>
                                     </div>
                                    
-                                    <div class="block" data-presupuesto="true">
+                                    <div class="block " data-presupuesto="true">
                                         <span>
                                             <label>Por La Cantidad De:</label>
                                             <input type="text" name="Cantidad_RA"/>
@@ -1699,15 +1699,6 @@
                                             <div class="iconos icon-disabled"><i class="fa-solid fa-dollar-sign"></i></div>
                                         </span>
                                     </div>
-                                    <div class="title-block">
-                                        <span>
-                                            <input
-                                                id="btn-submit"
-                                                type="submit"
-                                                value="Enviar"
-                                            />
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Fin presupuesto -->
@@ -1715,7 +1706,7 @@
                             <div class="container-block" id="documentacion">
                                 <!-- sub block Presupuesto -->
                                 <div class="container-sub-block sub-block-big">
-                                    <div class="block">
+                                    <div class="block"  data-presupuesto="true">
                                         <span>
                                             <label>Sucursal de Firma:</label>
                                             <input
@@ -1761,6 +1752,15 @@
                                             <div class="iconos"> <i class="fa-solid fa-coins"></i></div>
                                         </span>
                                     </div>
+                                    <div class="title-block">
+                                        <span>
+                                            <input
+                                                id="btn-submit"
+                                                type="submit"
+                                                value="Enviar"
+                                            />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1768,28 +1768,29 @@
                     </div>
                     <div class="banner"></div>
                 </div>
-            <!-- Modal Camara -->
-            <div data-archivos="true" id="modal-archivos" class="container-wrap">
-                <div data-archivos="true" class="camera-container" id="camera-container">
-                    <select name="" class="select-camera" id="select-camera"></select>
-                    <video autoplay></video>
-                    <div class="controls">
-                        <div class="addScreanShot"><i class="fa-solid fa-paperclip"></i></div>
-                        <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
-                        <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
+                <!-- Modal Camara -->
+                <div data-archivos="true" id="modal-archivos" class="container-wrap">
+                    <div data-archivos="true" class="camera-container" id="camera-container">
+                        <select name="" class="select-camera" id="select-camera"></select>
+                        <video autoplay></video>
+                        <div class="controls">
+                            <div class="addScreanShot"><i class="fa-solid fa-paperclip"></i></div>
+                            <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
+                            <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
+                        </div>
+                        <canvas></canvas>
+                        <input type="file" name="" id="file" class="hide" capture="environment"
+                        accept="image/*">
+                        <div id="screanshots" class="screanshots"></div>
+                        
                     </div>
-                    <canvas></canvas>
-                    <input type="file" name="" id="file" class="hide" capture="environment"
-                    accept="image/*">
-                    <div id="screanshots" class="screanshots"></div>
-                    
                 </div>
-            </div>
-            <!-- Modal Imagen -->
-            <div data-img="false" id="visualize" class="visualize">
-                <img id="visualize-img" class="visualize-img" >
-                    
-                </img>
+                <!-- Modal Imagen -->
+                <div data-img="false" id="visualize" class="visualize">
+                    <img id="visualize-img" class="visualize-img" >
+                        
+                    </img>
+                </div>
             </div>
         </div>
         <!-- <div id="result-deals" ></div> -->

@@ -1351,7 +1351,7 @@ const creator = {
                     ok: false,
                     data: null,
                     type: 'warning',
-                    message: request.details.statusMessage.message,
+                    message: request.details.statusMessage,
                 }
             }
             //
