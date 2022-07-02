@@ -438,7 +438,7 @@ const UI = {
                         this.searchDeals(inputSearchDeals.value.toLowerCase(), user.dataset.admin, user.dataset.crmuserid)
                         util.removeDatasets('[name="Cantidad_RA"]')
                         // util.removeDatasets('#vendorsValue')
-                        alerts.showAlert('success', 'Proceso finalizado!')
+                        alerts.showAlert('finish', 'Proceso finalizado!')
                     }
                 } else {
                     throw new Error('No se pudo crear cotizacion')
@@ -655,7 +655,7 @@ const UI = {
                     fraccionamientoId
                 )
                 if (createLeadRequest.ok) {
-                    alerts.showAlert('success', 'Posible cliente creado')
+                    alerts.showAlert('finish', 'Posible cliente creado')
                 } else {
                     alerts.showAlert(
                         createLead.type,
@@ -1664,7 +1664,7 @@ const UI = {
             const fechas = util.fechasCierre(dealData?.data?.TipodePolitica, dealData?.data?.PlazoAcordado, dealData?.data?.Plazos_Diferido)
             const cerrarTrato = await creator.updateRecord(presupuestoId, fechas)
             if(cerrarTrato.ok){
-                alerts.showAlert(cerrarTrato.type, 'Trato Cerrado( Ganado )')
+                alerts.showAlert(finish, 'Trato Cerrado( Ganado )')
                 this.refreshManzana()
             }else{
                 alerts.showAlert(cerrarTrato.type, cerrarTrato.message)

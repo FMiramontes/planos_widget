@@ -248,6 +248,14 @@
                                 Presupuesto
                             </div>
                         </a>
+                        <a href="#documentacion">
+                            <div
+                                class="btn-menu-modal tab"
+                                data-tab-target="#documentacion"
+                            >
+                                Documentacion
+                            </div>
+                        </a>
                     </div>
                     <!-- Form -->
                     <div id="modal" class="modal">
@@ -769,11 +777,6 @@
                                             />
                                             <!-- <div class="iconos"><i class="fa-solid fa-envelope"></i></div> -->
                                         </span>
-                                    </div>
-                                </div>
-                                <!-- sub block Nacimiento -->
-                                <div class="container-sub-block sub-block-titular1">
-                                    <div class="block" data-contacto="true">
                                         <span>
                                             <label>Giro Empresarial</label>
                                             <input
@@ -783,7 +786,7 @@
                                             <div class="iconos"><i class="fa-solid fa-building"></i></div>
                                         </span>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             <!-- titular-2 -->
                             <div class="container-block" id="titular-2">
@@ -1623,28 +1626,6 @@
                                                 </datalist>
                                             </input>
                                         </span>
-                                        <span>
-                                            <label>Sucursal de Firma:</label>
-                                            <input
-                                                name="Sucursal_de_Firma"
-                                                list="list-Sucursales"
-                                            >
-                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
-                                            <datalist data-datalist="true" id="list-Sucursales">
-                                                <option value=""></option>
-                                            </datalist>
-                                        </span>
-                                        <span>
-                                            <label>Zona:</label>
-                                            <input
-                                                name="Gerente"
-                                                list="list-Gerente"
-                                            >
-                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
-                                            <datalist data-datalist="true" id="list-Gerente">
-                                                <option value=""></option>
-                                            </datalist>
-                                        </span>
                                         <span id="tipo-venta">
                                             <label>Tipo de Venta:</label>
                                             <input
@@ -1673,10 +1654,8 @@
                                         </span>
                                     </div>
                                 </div>
-                                <!-- sub block RECIBO DE APARTADO -->
-                            
-                                <div class="container-sub-block">
-                                
+                                 <!-- sub block RECIBO DE APARTADO -->
+                                 <div class="container-sub-block sub-apartado">
                                     <div class=" recibo-apartado">
                                         <p class="titulo-recibo">RECIBO DE APARTADO</p>
                                         <div class="check">
@@ -1731,19 +1710,71 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Fin presupuesto -->
+                            <!-- Presupuesto II -->
+                            <div class="container-block" id="documentacion">
+                                <!-- sub block Presupuesto -->
+                                <div class="container-sub-block sub-block-big">
+                                    <div class="block">
+                                        <span>
+                                            <label>Sucursal de Firma:</label>
+                                            <input
+                                                name="Sucursal_de_Firma"
+                                                list="list-Sucursales"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                            <datalist data-datalist="true" id="list-Sucursales">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </span>
+                                        <span>
+                                            <label>Zona:</label>
+                                            <input
+                                                name="Gerente"
+                                                list="list-Gerente"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                            <datalist data-datalist="true" id="list-Gerente">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </span>
+                                        <span>
+                                            <label>Carta Compromiso:</label>
+                                            <input type="checkbox"
+                                            name="Carta_Compromiso"
+                                            >
+                                        </span>
+                                        <span>
+                                            <label>Plazo Compromiso:</label>
+                                            <input
+                                                type="text"
+                                                name="Plazo_Compromiso"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Monto Compromiso:</label>
+                                            <input
+                                                type="text"
+                                                name="Monto_Compromiso"
+                                            />
+                                            <div class="iconos"> <i class="fa-solid fa-coins"></i></div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- </form> -->
                     </div>
                     <div class="banner"></div>
                 </div>
-            </div>
             <!-- Modal Camara -->
             <div data-archivos="true" id="modal-archivos" class="container-wrap">
                 <div data-archivos="true" class="camera-container" id="camera-container">
                     <select name="" class="select-camera" id="select-camera"></select>
                     <video autoplay></video>
                     <div class="controls">
-                        <div class="addScreanShot"><i class="fa-solid fa-rectangle-history-circle-plus"></i></div>
+                        <div class="addScreanShot"><i class="fa-solid fa-paperclip"></i></div>
                         <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
                         <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
                     </div>

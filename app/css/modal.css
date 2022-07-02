@@ -96,7 +96,7 @@ l.Linea-Division {
     position: absolute;
     /* top: 2%; */
     height: 100%;
-    width: 600%;
+    width: 700%;
     display: flex;
     justify-content: center;
     /* align-items: flex-start; */
@@ -114,7 +114,6 @@ l.Linea-Division {
     overflow: hidden;
     padding-left: 1.5%;
 }
-
 .container-sub-block {
     height: 100%;
     width: 100%;
@@ -178,7 +177,7 @@ a {
 
 .block > span {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: flex-start;
     flex-direction: column;
 }
