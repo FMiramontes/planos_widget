@@ -275,6 +275,9 @@ const UI = {
                 Lead_Source: newData.contacto.Lead_Source,
                 Type: tipoDeCompra,
                 Tipo_de_Compra1: tipoCompra,
+                Carta_Compromiso: newData.presupuesto?.Carta_Compromiso,	
+                Plazo_Compromiso: newData.presupuesto?.Plazo_Compromiso,	
+                Monto_Compromiso: newData.presupuesto?.Monto_Compromiso	,	
                 Sucursal_de_Firma: newData.presupuesto.Sucursal_de_Firma,
                 Amount:
                     inputDescuento !== ''
@@ -437,14 +440,14 @@ const UI = {
                         await this.paintDeals()
                         this.searchDeals(inputSearchDeals.value.toLowerCase(), user.dataset.admin, user.dataset.crmuserid)
                         util.removeDatasets('[name="Cantidad_RA"]')
-                        // util.removeDatasets('#vendorsValue')
-                        alerts.showAlert('finish', 'Proceso finalizado!')
+                        util.removeDatasets('#vendorsValue')
                     }
                 } else {
                     throw new Error('No se pudo crear cotizacion')
                 }
             }
             this.removeContact()
+            alerts.showAlert('finish', 'Proceso finalizado!')
         } catch (error) {
             if (error.message == 'Proceso omitido por el usuario') {
                 alerts.showAlert('warning', error.message)
@@ -1664,11 +1667,14 @@ const UI = {
             const fechas = util.fechasCierre(dealData?.data?.TipodePolitica, dealData?.data?.PlazoAcordado, dealData?.data?.Plazos_Diferido)
             const cerrarTrato = await creator.updateRecord(presupuestoId, fechas)
             if(cerrarTrato.ok){
-                alerts.showAlert(finish, 'Trato Cerrado( Ganado )')
+                alerts.showAlert('success', 'Facturas creadas')
                 this.refreshManzana()
             }else{
-                alerts.showAlert(cerrarTrato.type, cerrarTrato.message)
+                alerts.showAlert('warning', 'Se inicio generación de facturas')
+                if(cerrarTrato.type == 'danger') alerts.showAlert(cerrarTrato.type, cerrarTrato.message)
             }
+            alerts.showAlert('finish', 'Trato Cerrado( Ganado )')
+            this.refreshManzana()
         }
     },
 }
@@ -1774,8 +1780,17 @@ const util = {
                 }
 
                 if (block?.dataset?.presupuesto) {
-                    Presupuesto[span.children[1].name] = span.children[1].value
+                    if (span.children[1].value !== '') {
+                        Presupuesto[span.children[1].name] = span.children[1].value
+                    }
+                    // sobreescribe valor con el valor del checkbox
+                    if (span.children[1].type === 'checkbox') {
+                        Presupuesto[span.children[1].name] =
+                            span.children[1].checked
+                            
+                    }
                 }
+                
             })
         })
 

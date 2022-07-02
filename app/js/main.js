@@ -289,6 +289,7 @@ document.getElementById('btn-submit').addEventListener('click', async(e) => {
     const newData = util.getDataForm()
     if (valid.validateForm() && valid.validDataLists('submit')) {
         if(await valid.validProduct()){
+            console.log('UI newData: ', newData)
             UI.validate(CRMData, newData)
         }else{
             alerts.showAlert('warning', 'El producto no se encuentra disponible.') 
