@@ -710,6 +710,43 @@ const crm = {
             }
         }
     },
+    async updateAccount(data) {
+        try {
+            const request = await ZOHO.CRM.API.updateRecord({
+                Entity: 'Accounts',
+                APIData: data,
+                Trigger: [],
+            })
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
+
+            // Record created
+            return {
+                code: 201,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            createLog(error, 'Error', {
+                args: { data },
+                invoke: 'updateAccount',
+            })
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
     async createDeal(data) {
         try {
             data.Widget_Planos = true
