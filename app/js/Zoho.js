@@ -1074,7 +1074,7 @@ const crm = {
         //
         lead.Street = data.calle
         lead.City = data.Mailing_City
-        // lead.State = data.Phone
+        lead.State = data.Mailing_State
         lead.Zip_Code = data.Mailing_Zip
         lead.Colonia = data.Colonia
 
