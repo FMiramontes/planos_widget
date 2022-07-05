@@ -1082,9 +1082,6 @@ const crm = {
         lead.Departamento = data.Departamento
         lead.Widget_Planos = true
 
-        console.log("Zoho createLead lead: ",lead)
-        console.log("-----------------------------------")
-
         try {
             const request = await ZOHO.CRM.API.insertRecord({
                 Entity: 'Leads',
