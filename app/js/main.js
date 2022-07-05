@@ -483,3 +483,38 @@ document.addEventListener('click', async (e) => {
         }
     }
 })
+
+// Check Carta Compromiso
+let checkCompromiso = document.getElementById('carta-compromiso');
+let montoCompromiso = document.getElementById('monto-compromiso');
+let plazoCompromiso = document.getElementById('plazo-compromiso');
+
+checkCompromiso.addEventListener('click',()=>{
+    if (checkCompromiso.checked){
+        montoCompromiso.style.display = 'block'
+        plazoCompromiso.style.display = 'block'
+    }else{
+        montoCompromiso.style.display = 'none'
+        plazoCompromiso.style.display = 'none'
+    }
+})
+
+// Mostrar Operador de Unidades
+let inputVenta = document.getElementById('tipoVentaValue');
+
+inputVenta.addEventListener('change',(e)=>{
+    showEditing(e.target);
+})
+
+    function showEditing(input) {
+        let value = input.value;
+        let operadorUnidad = document.getElementById('operador-unidad');
+        let option = Array.prototype.find.call(input.list.options, function(option) {
+            return option.value === value;
+        });
+            if (option.value == "Call Center Costa 2"){
+                operadorUnidad.style.display = 'block'
+            }else{
+                operadorUnidad.style.display = 'none'
+            }
+        }
