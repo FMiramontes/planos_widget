@@ -1074,13 +1074,16 @@ const crm = {
         //
         lead.Street = data.calle
         lead.City = data.Mailing_City
-        // lead.State = data.Phone
+        lead.State = data.Mailing_State
         lead.Zip_Code = data.Mailing_Zip
         lead.Colonia = data.Colonia
 
         lead.Country = data.Mailing_Country
         lead.Departamento = data.Departamento
         lead.Widget_Planos = true
+
+        console.log("Zoho createLead lead: ",lead)
+        console.log("-----------------------------------")
 
         try {
             const request = await ZOHO.CRM.API.insertRecord({
