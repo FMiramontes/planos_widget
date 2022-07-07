@@ -1592,6 +1592,11 @@ const UI = {
         inputRecursos[4].children[1].value = ''
         inputRecursos[5].children[1].value = dcontacto['A_os_Laborados'] //tiempo laborado
     },
+    refreshForm(){
+        util.cleanForm()
+        UI.removeContact()
+        alerts.showAlert('success', 'Formulario refrescado.')
+    },
     addDataList(list, ListId) {
         console.log('list: ', list)
         const select = document.getElementById(`list-${ListId}`)

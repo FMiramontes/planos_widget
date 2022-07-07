@@ -33,6 +33,8 @@ let infoColor = document.getElementById('info-colors')
 let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 let mapa = document.querySelector('.map')
 let navegador = util.navegador()
+let btnRefreshForm = document.getElementById('btn-refreshForm')
+
 // const data-tutular="1"
 // data-tutular="2"
 const cbDomicilio = document.querySelector('input[name="DomicilioExtranjero1"]')
@@ -466,6 +468,10 @@ vendedoresInput.addEventListener('change', (event) => {
 btnRefresh.addEventListener('click',async  () => {
     await UI.paintDeals()
     UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+})
+
+btnRefreshForm.addEventListener('click', async()=>{
+    UI.refreshForm();
 })
 
 infoColor.addEventListener('click', () => {
