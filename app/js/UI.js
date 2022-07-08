@@ -1218,6 +1218,9 @@ const UI = {
         let temp_accout_id
         let contactName
 
+        let updateAccountName = false
+        let newAccountName = ''
+
         try {
             if (
                 contactDiv.dataset?.contactid !== '' &&
@@ -1334,6 +1337,41 @@ const UI = {
                 contact_id = temp_contact_id
                 let update = util.checkUpdate(CRMData, newData)
                 if (!update) {
+                    // Revisar si se agrego apellido materno
+                    const contact = await crm.getContact(contact_id)
+                    if (
+                        contact.data.Apellido_Materno == null &&
+                        newData.contacto?.Apellido_Materno
+                    ) {
+                        newData.contacto.Apellido_Materno =
+                            newData.contacto.Apellido_Materno.toUpperCase()
+                        const apellidos = `${
+                            contact.data.Apellido_Paterno
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()}`
+                        newData.contacto.Last_Name = apellidos
+                        newAccountName = `${
+                            contact.data.Full_Name
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()}`
+                        updateAccountName = true
+                    }
+
+                    // Revisar si el segundo cliente tambien se le debe agregar apellito materno
+                    if (
+                        contact.data.Apellido_Materno_2 == null &&
+                        newData.contacto?.Apellido_Materno_2
+                    ) {
+                        newData.contacto.Apellido_Materno_2 =
+                            newData.contacto.Apellido_Materno_2.toUpperCase()
+                        newAccountName = `${
+                            contact.data.Full_Name
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()} / ${
+                            contact.data.Nombre2
+                        } ${
+                            contact.data.ApellidoP2
+                        } ${newData.contacto.Apellido_Materno_2.toUpperCase()}`
+                        updateAccountName = true
+                    }
+
                     const updateRequest = await crm.UpdateContact(
                         newData,
                         contact_id
@@ -1378,6 +1416,16 @@ const UI = {
                     id_contactBooks = conatctRequest.data.contact_id
                 }
             }
+
+            // Actualizar cuenta si se agrego nombre paterno
+            if (updateAccountName) {
+                const accountData = {
+                    id: accountId,
+                    Account_Name: newAccountName,
+                }
+                await crm.updateAccount(accountData)
+            }
+
             return {
                 id_contactBooks,
                 accountId,
