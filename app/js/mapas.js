@@ -210,6 +210,7 @@ const maps = {
     statusColor(status) {
         const colors = [
             { status: 'Disponible', fill: '#de9f27' },
+            { status: 'Cotización', fill: '#aee457' },
             { status: 'Apartado', fill: '#b5512a' },
             { status: 'Primer Mensualidad', fill: '#7de38e' },
             { status: 'Enganche', fill: '#398afa' },

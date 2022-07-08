@@ -59,9 +59,12 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         UI.addDataList(datalists.fuentesCliente, 'fuente')
         UI.addDataList(datalists.sucursales, 'Sucursales')
         UI.addDataList(datalists.zonas, 'Gerente')
+        UI.addDataList(datalists.venta, 'venta')
+        UI.addDataList(datalists.operador, 'operador')
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
+        user.dataset.admin = data.users[0].profile.name == 'Administrator' || 'developer' ? true : false
         if (data.users[0].profile.name === 'Vendedor') {
             document.querySelector('#vendorsValue').value = data.users[0].id
         }
@@ -286,6 +289,7 @@ document.getElementById('btn-submit').addEventListener('click', async(e) => {
     const newData = util.getDataForm()
     if (valid.validateForm() && valid.validDataLists('submit')) {
         if(await valid.validProduct()){
+            console.log('UI newData: ', newData)
             UI.validate(CRMData, newData)
         }else{
             alerts.showAlert('warning', 'El producto no se encuentra disponible.') 
@@ -459,11 +463,23 @@ vendedoresInput.addEventListener('change', (event) => {
     }
 })
 
-btnRefresh.addEventListener('click', () => {
-    UI.paintDeals()
+btnRefresh.addEventListener('click',async  () => {
+    await UI.paintDeals()
+    UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
 })
 
 infoColor.addEventListener('click', () => {
     let cardColor = document.querySelector('.color-lote')
     cardColor.classList.toggle('showCard')
+})
+
+document.addEventListener('click', async (e) => {
+    if(e.target.matches('[data-cerrar]')){
+        const closeDeal = confirm('Desea cerrar el trato?')
+        if (closeDeal) {
+            await UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
+            await UI.paintDeals()
+            UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+        }
+    }
 })

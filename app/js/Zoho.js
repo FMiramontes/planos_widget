@@ -432,12 +432,18 @@ const crm = {
     async CreateContact(data, accountId, ownerId) {
         const contacto = { ...data.contacto }
         contacto.Last_Name =
-            contacto.Apellido_Paterno + ' ' + contacto.Apellido_Materno
+            contacto.Apellido_Paterno +
+            (contacto.Apellido_Materno !== undefined
+                ? ' ' + contacto.Apellido_Materno
+                : '')
         contacto.Account_Name = { id: accountId }
         contacto.First_Name = contacto.First_Name.toUpperCase()
         contacto.Last_Name = contacto.Last_Name.toUpperCase()
         contacto.Apellido_Paterno = contacto.Apellido_Paterno.toUpperCase()
-        contacto.Apellido_Materno = contacto.Apellido_Materno.toUpperCase()
+        contacto.Apellido_Materno =
+            contacto.Apellido_Materno !== undefined
+                ? contacto.Apellido_Materno.toUpperCase()
+                : ''
         contacto.Owner = { id: ownerId }
         contacto.Widget_Planos = true
         // Marcar checkbox Segundo_Cliente si los campos tienen valor
@@ -567,19 +573,11 @@ const crm = {
             }
         }
     },
-    async updateProduct(productID, costoM2, costoProducto) {
-        const product = {
-            id: productID,
-            Costo_por_M2: costoM2,
-            Unit_Price: costoProducto,
-            Costo_total_del_terreno: costoProducto,
-            Saldo: costoProducto,
-        }
-
+    async updateProduct(data) {
         try {
             const request = await ZOHO.CRM.API.updateRecord({
                 Entity: 'Products',
-                APIData: product,
+                APIData: data,
                 Trigger: [],
             })
 
@@ -703,6 +701,43 @@ const crm = {
             createLog(error, 'Error', {
                 args: { data },
                 invoke: 'createAccount',
+            })
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async updateAccount(data) {
+        try {
+            const request = await ZOHO.CRM.API.updateRecord({
+                Entity: 'Accounts',
+                APIData: data,
+                Trigger: [],
+            })
+            if (request.data[0].code !== 'SUCCESS') {
+                return {
+                    code: request.data[0].status,
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.data[0],
+                }
+            }
+
+            // Record created
+            return {
+                code: 201,
+                ok: true,
+                data: request.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            createLog(error, 'Error', {
+                args: { data },
+                invoke: 'updateAccount',
             })
             return {
                 code: 500,
@@ -1076,7 +1111,7 @@ const crm = {
         //
         lead.Street = data.calle
         lead.City = data.Mailing_City
-        // lead.State = data.Phone
+        lead.State = data.Mailing_State
         lead.Zip_Code = data.Mailing_Zip
         lead.Colonia = data.Colonia
 
@@ -1272,6 +1307,103 @@ const creator = {
                 type: 'success',
             }
         } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async getRecordByFolio(folio, IDOportunidad) {
+        const connectionName = 'creator'
+        const req_data = {
+            method: 'GET',
+            url: `https://creator.zoho.com/api/v2/sistemas134/cotizador1/report/Presupuesto_Report?Consecutivo=${folio}&IDOportunidad=${IDOportunidad}`,
+        }
+        try {
+            const request = await ZOHO.CRM.CONNECTION.invoke(
+                connectionName,
+                req_data
+            )
+
+            console.log("creator.getRecordByFolio request: ",request)
+
+            if (
+                request.code !== 'SUCCESS' ||
+                request.details.statusMessage?.data[0]?.ID === undefined
+            ) {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.details.statusMessage.message,
+                }
+            }
+            //
+            return {
+                code: 200,
+                ok: true,
+                data: request.details.statusMessage?.data[0],
+                type: 'success',
+            }
+        } catch (error) {
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
+    async updateRecord(id, fechas) {
+        const data = { data: {
+            GenerarContrato : true,
+            DiasdePago: fechas.DiasdePago,
+            FechadePago: fechas.FechadePago,
+            FechaProximoPago: fechas.FechaProximoPago,
+            FechaUltimoPago: fechas.FechaUltimoPago,
+        }}
+        const connectionName = 'creator'
+        const req_data = {
+            method: 'PATCH',
+            url: `https://creator.zoho.com/api/v2/sistemas134/cotizador1/report/Presupuesto_Report/${id}`,
+            parameters: data,
+
+        }
+        try {
+            const request = await ZOHO.CRM.CONNECTION.invoke(
+                connectionName,
+                req_data
+            )
+            console.log("creator.updateRecord request",request)
+
+            if (
+                request.code !== 'SUCCESS' ||
+                request.details.statusMessage?.data?.ID === undefined
+            ) {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.details.statusMessage,
+                }
+            }
+            //
+            return {
+                code: 200,
+                ok: true,
+                data: request.details.statusMessage?.data,
+                type: 'success',
+            }
+        } catch (error) {
+            createLog(error, 'Error', {
+                args: { id, fechas },
+                invoke: 'Creator - UpdateRecord',
+            })
+
             return {
                 code: 500,
                 ok: false,
@@ -1662,7 +1794,7 @@ async function createLog(log, status, info) {
     let message = log?.message
     const obj = {
         data: {
-            app: 'widget testing',
+            app: 'Planos',
             message,
             status,
             additional_info: info,

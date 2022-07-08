@@ -168,6 +168,7 @@ const UI = {
     },
     async validate(CRMData, newData) {
         try {
+            const inputSearchDeals = document.getElementById('search-deal')
             const user = document.getElementById('user')
             const modal = document.getElementById('modal')
             const coo_id = document.getElementById('coordinadorValue').value
@@ -274,6 +275,9 @@ const UI = {
                 Lead_Source: newData.contacto.Lead_Source,
                 Type: tipoDeCompra,
                 Tipo_de_Compra1: tipoCompra,
+                Carta_Compromiso: newData.presupuesto?.Carta_Compromiso,	
+                Plazo_Compromiso: newData.presupuesto?.Plazo_Compromiso,	
+                Monto_Compromiso: newData.presupuesto?.Monto_Compromiso	,	
                 Sucursal_de_Firma: newData.presupuesto.Sucursal_de_Firma,
                 Amount:
                     inputDescuento !== ''
@@ -415,6 +419,13 @@ const UI = {
                         }
                         this.facturas(factObject, paramsObject)
 
+                        // Cambiar estado de producto a cotizacion
+                        await crm.updateProduct({
+                            id: product_id,
+                            Estado: 'Cotización',
+                        })
+                        this.refreshManzana()
+
                         // End of process
                         // Reset values
 
@@ -426,15 +437,17 @@ const UI = {
                         vend.value = ''
                         util.removeDatasets('#campaignValue')
                         util.removeDatasets('input[name="Costo_M2"]')
-                        this.paintDeals()
+                        await this.paintDeals()
+                        this.searchDeals(inputSearchDeals.value.toLowerCase(), user.dataset.admin, user.dataset.crmuserid)
                         util.removeDatasets('[name="Cantidad_RA"]')
-                        // util.removeDatasets('#vendorsValue')
+                        util.removeDatasets('#vendorsValue')
                     }
                 } else {
                     throw new Error('No se pudo crear cotizacion')
                 }
             }
             this.removeContact()
+            alerts.showAlert('finish', 'Proceso finalizado!')
         } catch (error) {
             if (error.message == 'Proceso omitido por el usuario') {
                 alerts.showAlert('warning', error.message)
@@ -645,7 +658,7 @@ const UI = {
                     fraccionamientoId
                 )
                 if (createLeadRequest.ok) {
-                    alerts.showAlert('success', 'Posible cliente creado')
+                    alerts.showAlert('finish', 'Posible cliente creado')
                 } else {
                     alerts.showAlert(
                         createLead.type,
@@ -769,7 +782,7 @@ const UI = {
     },
     async paintDeals() {
         const user = document.getElementById('user')
-        let userAdmin = user.dataset.profile
+        let userAdmin = user.dataset.admin
         let userId = user.dataset.crmuserid
         containerDeals.innerHTML = ''
         let dataDeals
@@ -927,7 +940,6 @@ const UI = {
         if (campaignId !== null) {
             const getCampaignRequest = await crm.getCampaign(campaignId)
             if (getCampaignRequest.ok) {
-                
                 const campaignData = getCampaignRequest.data
 
                 // Variables
@@ -1079,10 +1091,13 @@ const UI = {
 
                 //util.removeDatasets('#campaignValue')
                 const aux11 = valid.validateCampaing(campaignData)
-                console.log("return: ",aux11)
-                if(aux11 == false){
+                console.log('return: ', aux11)
+                if (aux11 == false) {
                     util.removeDatasets('#campaignValue')
-                    alerts.showAlert('warning', 'La campaña no tiene los datos correctos, contactar con administrador.')
+                    alerts.showAlert(
+                        'warning',
+                        'La campaña no tiene los datos correctos, contactar con administrador.'
+                    )
                 }
             }
         }
@@ -1153,11 +1168,13 @@ const UI = {
 
             let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(2)
 
-            const updateProductCRM = await crm.updateProduct(
-                product_id,
-                costoM2,
-                costoProducto
-            )
+            const updateProductCRM = await crm.updateProduct({
+                id: product_id,
+                Costo_por_M2: costoM2,
+                Unit_Price: costoProducto,
+                Costo_total_del_terreno: costoProducto,
+                Saldo: costoProducto,
+            })
 
             const updateProductBooks = await books.updateProduct(
                 productBooksId,
@@ -1201,6 +1218,9 @@ const UI = {
         let temp_accout_id
         let contactName
 
+        let updateAccountName = false
+        let newAccountName = ''
+
         try {
             if (
                 contactDiv.dataset?.contactid !== '' &&
@@ -1215,8 +1235,9 @@ const UI = {
                     newData.contacto.First_Name +
                     ' ' +
                     newData.contacto.Apellido_Paterno +
-                    ' ' +
-                    newData.contacto.Apellido_Materno
+                    (newData.contacto.Apellido_Materno !== undefined
+                        ? ' ' + newData.contacto.Apellido_Materno
+                        : '')
             }
 
             if (
@@ -1237,8 +1258,9 @@ const UI = {
                     newData.contacto.First_Name +
                     ' ' +
                     newData.contacto.Apellido_Paterno +
-                    ' ' +
-                    newData.contacto.Apellido_Materno
+                    (newData.contacto.Apellido_Materno !== undefined
+                        ? ' ' + newData.contacto.Apellido_Materno
+                        : '')
 
                 // // data for accounts
                 const accountData = {
@@ -1315,6 +1337,41 @@ const UI = {
                 contact_id = temp_contact_id
                 let update = util.checkUpdate(CRMData, newData)
                 if (!update) {
+                    // Revisar si se agrego apellido materno
+                    const contact = await crm.getContact(contact_id)
+                    if (
+                        contact.data.Apellido_Materno == null &&
+                        newData.contacto?.Apellido_Materno
+                    ) {
+                        newData.contacto.Apellido_Materno =
+                            newData.contacto.Apellido_Materno.toUpperCase()
+                        const apellidos = `${
+                            contact.data.Apellido_Paterno
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()}`
+                        newData.contacto.Last_Name = apellidos
+                        newAccountName = `${
+                            contact.data.Full_Name
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()}`
+                        updateAccountName = true
+                    }
+
+                    // Revisar si el segundo cliente tambien se le debe agregar apellito materno
+                    if (
+                        contact.data.Apellido_Materno_2 == null &&
+                        newData.contacto?.Apellido_Materno_2
+                    ) {
+                        newData.contacto.Apellido_Materno_2 =
+                            newData.contacto.Apellido_Materno_2.toUpperCase()
+                        newAccountName = `${
+                            contact.data.Full_Name
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()} / ${
+                            contact.data.Nombre2
+                        } ${
+                            contact.data.ApellidoP2
+                        } ${newData.contacto.Apellido_Materno_2.toUpperCase()}`
+                        updateAccountName = true
+                    }
+
                     const updateRequest = await crm.UpdateContact(
                         newData,
                         contact_id
@@ -1326,8 +1383,9 @@ const UI = {
                         newData.contacto.First_Name +
                         ' ' +
                         newData.contacto.Apellido_Paterno +
-                        ' ' +
-                        newData.contacto.Apellido_Materno
+                        (newData.contacto.Apellido_Materno !== undefined
+                            ? ' ' + newData.contacto.Apellido_Materno
+                            : '')
 
                     // // data for accounts
                     const accountData = {
@@ -1358,6 +1416,16 @@ const UI = {
                     id_contactBooks = conatctRequest.data.contact_id
                 }
             }
+
+            // Actualizar cuenta si se agrego nombre paterno
+            if (updateAccountName) {
+                const accountData = {
+                    id: accountId,
+                    Account_Name: newAccountName,
+                }
+                await crm.updateAccount(accountData)
+            }
+
             return {
                 id_contactBooks,
                 accountId,
@@ -1421,19 +1489,18 @@ const UI = {
                 let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
                 let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
                 let card = `
-                    
-                        <section class="titulo-trato">${deal.Deal_Name}</section>
-                        <section class="trato-cont" data-dealid='${deal.id}' data-dealname='${deal.Deal_Name}'>
-                            <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
-                            <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                            <a href="" target="_blank" class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
-                            <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
-                            <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
-                        </section>
-                        <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                        <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
-                        <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
-                    `
+                <section class="titulo-trato">${deal.Deal_Name}</section>
+                <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
+                    <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                    <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                    <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
+                    <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
+                    <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
+                </section>
+                <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
+                <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
+                <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
+            `
                 let section = document.createElement('section')
                 section.classList = 'card-trato'
                 section.innerHTML = card
@@ -1558,7 +1625,6 @@ const UI = {
             selectedOption.children[0].dataset.diferido
         campaignInput.dataset.plazosdiferido =
             selectedOption.children[0].dataset.plazosdiferido
-
     },
     addRecursos(dcontacto) {
         const inputRecursos = Array.from(
@@ -1605,27 +1671,60 @@ const UI = {
             this.paintCards(valid, userAdmin, userId)
         }
     },
-    searchFracc(search){
-        const cardsF = Array.from( document.querySelectorAll('.fracionamiento') )
+    searchFracc(search) {
+        const cardsF = Array.from(document.querySelectorAll('.fracionamiento'))
 
-        if(search !== ""){
+        if (search !== '') {
             cardsF.forEach((i) => {
                 console.log(i)
-                if( i.innerText.toLowerCase().match(search) ){
+                if (i.innerText.toLowerCase().match(search)) {
                     console.log(true)
                     i.style.display = 'block'
-                }else{
+                } else {
                     console.log(false)
                     i.style.display = 'none'
                 }
             })
-        }else{
+        } else {
             cardsF.forEach((i) => {
                 i.style.display = 'block'
             })
-            
         }
-    }
+    },
+    async cerrarTrato(folio, IDOportunidad) {
+        console.log(folio, IDOportunidad)
+        const dealData = await creator.getRecordByFolio(folio, IDOportunidad)
+        console.log('cerrarTrato dealData: ', dealData)
+        if (dealData.ok) {
+            const presupuestoId = dealData?.data?.ID
+            console.log('UI.cerrarTrato - presupuestoId: ', presupuestoId)
+            console.log('UI.cerrarTrato - TipodePolitica: ', dealData?.data?.TipodePolitica)
+            // Revisar tipo de politica
+            if(dealData?.data?.TipodePolitica == "Primer Mensualidad") {
+                if(dealData?.data?.MensualidadRecibida == '') {
+                    alerts.showAlert('warning', 'No se ha realizado pago de factura')
+                    return
+                }
+            }else if(dealData?.data?.TipodePolitica == "Enganche"){
+                if(dealData?.data?.EngancheRecibido == '') {
+                    alerts.showAlert('warning', 'No se ha realizado pago de factura')
+                    return
+                }
+            }
+
+            const fechas = util.fechasCierre(dealData?.data?.TipodePolitica, dealData?.data?.PlazoAcordado, dealData?.data?.Plazos_Diferido)
+            const cerrarTrato = await creator.updateRecord(presupuestoId, fechas)
+            if(cerrarTrato.ok){
+                alerts.showAlert('success', 'Facturas creadas')
+                this.refreshManzana()
+            }else{
+                alerts.showAlert('warning', 'Se inicio generación de facturas')
+                if(cerrarTrato.type == 'danger') alerts.showAlert(cerrarTrato.type, cerrarTrato.message)
+            }
+            alerts.showAlert('finish', 'Trato Cerrado( Ganado )')
+            this.refreshManzana()
+        }
+    },
 }
 
 const util = {
@@ -1729,8 +1828,17 @@ const util = {
                 }
 
                 if (block?.dataset?.presupuesto) {
-                    Presupuesto[span.children[1].name] = span.children[1].value
+                    if (span.children[1].value !== '') {
+                        Presupuesto[span.children[1].name] = span.children[1].value
+                    }
+                    // sobreescribe valor con el valor del checkbox
+                    if (span.children[1].type === 'checkbox') {
+                        Presupuesto[span.children[1].name] =
+                            span.children[1].checked
+                            
+                    }
                 }
+                
             })
         })
 
@@ -1751,11 +1859,11 @@ const util = {
                 }
             })
         })
-        let divIcon = document.querySelectorAll("div[data-block-icon]")
-        
-        divIcon.forEach(div =>{
+        let divIcon = document.querySelectorAll('div[data-block-icon]')
+
+        divIcon.forEach((div) => {
             console.log('divIcon.childElementCount', div.childElementCount)
-            if(div.childElementCount > 1){
+            if (div.childElementCount > 1) {
                 div.classList.remove('icon-disabled', 'icon-block')
                 div.removeChild(div.lastChild)
                 console.log('divIcono', div)
@@ -2126,6 +2234,47 @@ const util = {
             clearTimeout(debounceTimer)
             debounceTimer = setTimeout(() => func.apply(context, args), delay)
         }
+    },
+    fechasCierre(TipodePolitica, Plazo, PlazosDiferido) {
+
+        PlazosDiferido = PlazosDiferido == null ? 0 : PlazosDiferido
+        
+        let Hoy = new Date()
+        if(TipodePolitica == "Enganche" && PlazosDiferido == 0) Hoy = this.addDate(Hoy, "M", 1)
+        
+        let dias = this.diasDePago(Hoy)
+        
+        let AuxFecha = Hoy.setDate(dias)
+        
+        let FechadePago = this.formatDate(AuxFecha)
+        
+        let FechaProximoPago
+		let FechaUltimoPago
+
+        
+        if(PlazosDiferido > 0) {
+          AuxFecha = this.addDate(new Date(AuxFecha), "M", PlazosDiferido -1)
+          FechaProximoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", 1))
+          FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo + 1))
+        }else{
+          FechaProximoPago = this.formatDate( this.addDate(new Date(AuxFecha), "M", 1))
+          FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo ))
+        }
+        
+         	
+        
+        
+        const fechas = {
+            DiasdePago:  this.diasDePago(Hoy),
+            FechadePago: FechadePago,
+            FechaProximoPago: FechaProximoPago,
+            FechaUltimoPago: FechaUltimoPago
+        }
+       
+        return fechas
+    },
+    padTo2Digits(num) {
+        return num.toString().padStart(2, '0')
     },
 }
 

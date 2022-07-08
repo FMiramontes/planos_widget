@@ -248,6 +248,14 @@
                                 Presupuesto
                             </div>
                         </a>
+                        <a href="#documentacion">
+                            <div
+                                class="btn-menu-modal tab"
+                                data-tab-target="#documentacion"
+                            >
+                                Documentacion
+                            </div>
+                        </a>
                     </div>
                     <!-- Form -->
                     <div id="modal" class="modal">
@@ -600,6 +608,41 @@
                                             <div class="iconos"><i class="fa-solid fa-earth-americas"></i>
                                             </div>
                                         </span>
+                                        <!-- Nacionalidad -->
+                                        <span>
+                                            <label>Nacionalidad:</label>
+                                            <input
+                                                type="text"
+                                                name="Nacionalidad"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i>
+                                            </div>
+                                        </span>
+                                        <!-- Parentesco Mexicano -->
+                                        <span class="span-checkbox">
+                                            <label>Parentesco Mexicano:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Parentesco_Mexicano"
+                                            />
+                                        </span>
+                                        <!-- Nacionalidad padre/madre -->
+                                        <span>
+                                            <label>Nacionalidad Padre/Madre:</label>
+                                            <input
+                                                name="Nacionalidad_Padre_o_Madre"
+                                                list="list-Nacionalidad-Padre-Madre"
+                                            />
+                                            <datalist id="list-Nacionalidad-Padre-Madre">
+                                                <option value="Mexicano(a)">
+                                                    Mexicano(a)
+                                                </option>
+                                                <option value="Americano(a)">
+                                                    Americano(a)
+                                                </option>
+                                            </datalist>
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                        </span>
                                     </div>
                                 </div>
                                 <!-- sub block Datos Personales Titular I -->
@@ -734,11 +777,6 @@
                                             />
                                             <!-- <div class="iconos"><i class="fa-solid fa-envelope"></i></div> -->
                                         </span>
-                                    </div>
-                                </div>
-                                <!-- sub block Nacimiento -->
-                                <div class="container-sub-block sub-block-titular1">
-                                    <div class="block" data-contacto="true">
                                         <span>
                                             <label>Giro Empresarial</label>
                                             <input
@@ -748,7 +786,7 @@
                                             <div class="iconos"><i class="fa-solid fa-building"></i></div>
                                         </span>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             <!-- titular-2 -->
                             <div class="container-block" id="titular-2">
@@ -1035,6 +1073,34 @@
                                                 name="Pais_de_Nacimiento_2"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-earth-americas"></i>
+                                            </div>
+                                        </span>
+                                        <!-- Nacionalidad -->
+                                        <span>
+                                            <label>Nacionalidad:</label>
+                                            <input
+                                                type="text"
+                                                name="Nacionalidad_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i>
+                                            </div>
+                                        </span>
+                                        <!-- Parentesco Mexicano -->
+                                        <span class="span-checkbox">
+                                            <label>Parentesco Mexicano:</label>
+                                            <input
+                                                type="checkbox"
+                                                name="Parentesco_Mexicano_2"
+                                            />
+                                        </span>
+                                        <!-- Nacionalidad padre/madre -->
+                                        <span>
+                                            <label>Nacionalidad Padre/Madre:</label>
+                                            <input
+                                                type="text"
+                                                name="Nacionalidad_Padre_o_Madre_2"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-user"></i>
                                             </div>
                                         </span>
                                     </div>
@@ -1560,34 +1626,36 @@
                                                 </datalist>
                                             </input>
                                         </span>
-                                        <span>
-                                            <label>Sucursal de Firma:</label>
+                                        <span id="tipo-venta">
+                                            <label>Tipo de Venta:</label>
                                             <input
-                                                name="Sucursal_de_Firma"
-                                                list="list-Sucursales"
+                                                name="Tipo_de_Venta"
+                                                id="tipoVentaValue"
+                                                list="list-venta"
                                             >
                                             <div class="iconos"><i class="fa-solid fa-user"></i></div>
-                                            <datalist data-datalist="true" id="list-Sucursales">
-                                                <option value=""></option>
-                                            </datalist>
+                                                <datalist data-datalist="true" id="list-venta">
+                                                    <option value=""></option>
+                                                </datalist>
+                                            </input>
                                         </span>
-                                        <span>
-                                            <label>Zona:</label>
+                                        <span id="operador-call">
+                                            <label>Operadores Call Center:</label>
                                             <input
-                                                name="Gerente"
-                                                list="list-Gerente"
+                                                name="Operadores_Call_Center"
+                                                id="operadorValue"
+                                                list="list-operador"
                                             >
                                             <div class="iconos"><i class="fa-solid fa-user"></i></div>
-                                            <datalist data-datalist="true" id="list-Gerente">
-                                                <option value=""></option>
-                                            </datalist>
+                                                <datalist data-datalist="true" id="list-operador">
+                                                    <option value=""></option>
+                                                </datalist>
+                                            </input>
                                         </span>
                                     </div>
                                 </div>
-                                <!-- sub block RECIBO DE APARTADO -->
-                            
-                                <div class="container-sub-block">
-                                
+                                 <!-- sub block RECIBO DE APARTADO -->
+                                 <div class="container-sub-block sub-apartado">
                                     <div class=" recibo-apartado">
                                         <p class="titulo-recibo">RECIBO DE APARTADO</p>
                                         <div class="check">
@@ -1607,7 +1675,7 @@
                                         </div>
                                     </div>
                                    
-                                    <div class="block" data-presupuesto="true">
+                                    <div class="block " data-presupuesto="true">
                                         <span>
                                             <label>Por La Cantidad De:</label>
                                             <input type="text" name="Cantidad_RA"/>
@@ -1631,6 +1699,59 @@
                                             <div class="iconos icon-disabled"><i class="fa-solid fa-dollar-sign"></i></div>
                                         </span>
                                     </div>
+                                </div>
+                            </div>
+                            <!-- Fin presupuesto -->
+                            <!-- Presupuesto II -->
+                            <div class="container-block" id="documentacion">
+                                <!-- sub block Presupuesto -->
+                                <div class="container-sub-block sub-block-big">
+                                    <div class="block"  data-presupuesto="true">
+                                        <span>
+                                            <label>Sucursal de Firma:</label>
+                                            <input
+                                                name="Sucursal_de_Firma"
+                                                list="list-Sucursales"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                            <datalist data-datalist="true" id="list-Sucursales">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </span>
+                                        <span>
+                                            <label>Zona:</label>
+                                            <input
+                                                name="Gerente"
+                                                list="list-Gerente"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                            <datalist data-datalist="true" id="list-Gerente">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </span>
+                                        <span>
+                                            <label>Carta Compromiso:</label>
+                                            <input type="checkbox"
+                                            name="Carta_Compromiso"
+                                            >
+                                        </span>
+                                        <span>
+                                            <label>Plazo Compromiso:</label>
+                                            <input
+                                                type="text"
+                                                name="Plazo_Compromiso"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
+                                        </span>
+                                        <span>
+                                            <label>Monto Compromiso:</label>
+                                            <input
+                                                type="text"
+                                                name="Monto_Compromiso"
+                                            />
+                                            <div class="iconos"> <i class="fa-solid fa-coins"></i></div>
+                                        </span>
+                                    </div>
                                     <div class="title-block">
                                         <span>
                                             <input
@@ -1647,29 +1768,29 @@
                     </div>
                     <div class="banner"></div>
                 </div>
-            </div>
-            <!-- Modal Camara -->
-            <div data-archivos="true" id="modal-archivos" class="container-wrap">
-                <div data-archivos="true" class="camera-container" id="camera-container">
-                    <select name="" class="select-camera" id="select-camera"></select>
-                    <video autoplay></video>
-                    <div class="controls">
-                        <div class="addScreanShot"><i class="fa-solid fa-rectangle-history-circle-plus"></i></div>
-                        <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
-                        <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
+                <!-- Modal Camara -->
+                <div data-archivos="true" id="modal-archivos" class="container-wrap">
+                    <div data-archivos="true" class="camera-container" id="camera-container">
+                        <select name="" class="select-camera" id="select-camera"></select>
+                        <video autoplay></video>
+                        <div class="controls">
+                            <div class="addScreanShot"><i class="fa-solid fa-paperclip"></i></div>
+                            <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
+                            <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
+                        </div>
+                        <canvas></canvas>
+                        <input type="file" name="" id="file" class="hide" capture="environment"
+                        accept="image/*">
+                        <div id="screanshots" class="screanshots"></div>
+                        
                     </div>
-                    <canvas></canvas>
-                    <input type="file" name="" id="file" class="hide" capture="environment"
-                    accept="image/*">
-                    <div id="screanshots" class="screanshots"></div>
-                    
                 </div>
-            </div>
-            <!-- Modal Imagen -->
-            <div data-img="false" id="visualize" class="visualize">
-                <img id="visualize-img" class="visualize-img" >
-                    
-                </img>
+                <!-- Modal Imagen -->
+                <div data-img="false" id="visualize" class="visualize">
+                    <img id="visualize-img" class="visualize-img" >
+                        
+                    </img>
+                </div>
             </div>
         </div>
         <!-- <div id="result-deals" ></div> -->
