@@ -1595,6 +1595,10 @@ const UI = {
     refreshForm(){
         util.cleanForm()
         UI.removeContact()
+        UI.viewModal(false, '', '', '', '')
+        let inputSearch = document.getElementById('search-value')
+        inputSearch.value = ''
+
         alerts.showAlert('success', 'Formulario refrescado.')
     },
     addDataList(list, ListId) {
