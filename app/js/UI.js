@@ -279,6 +279,8 @@ const UI = {
                 Plazo_Compromiso: newData.presupuesto?.Plazo_Compromiso,	
                 Monto_Compromiso: newData.presupuesto?.Monto_Compromiso	,	
                 Sucursal_de_Firma: newData.presupuesto.Sucursal_de_Firma,
+                Operadores_de_Unidad_de_Venta: newData.presupuesto.Operadores_de_Unidad_de_Venta,
+                Tipo_de_Venta: newData.presupuesto.Tipo_de_Venta,
                 Amount:
                     inputDescuento !== ''
                         ? parseFloat(inputDescuento)

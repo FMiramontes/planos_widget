@@ -1652,6 +1652,19 @@
                                                 </datalist>
                                             </input>
                                         </span>
+                                        <span id="operador-unidad" style="display:none ;">
+                                            <label>Operadores Unidad De Venta:</label>
+                                            <input
+                                                name="Operadores_de_Unidad_de_Venta"
+                                                id="operadorValue"
+                                                list="list-operador-unidad"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                                <datalist data-datalist="true" id="list-operador-unidad">
+                                                    <option value=""></option>
+                                                </datalist>
+                                            </input>
+                                        </span>
                                     </div>
                                 </div>
                                  <!-- sub block RECIBO DE APARTADO -->
@@ -1733,9 +1746,10 @@
                                             <label>Carta Compromiso:</label>
                                             <input type="checkbox"
                                             name="Carta_Compromiso"
+                                            id="carta-compromiso"
                                             >
                                         </span>
-                                        <span>
+                                        <span id="plazo-compromiso" style="display:none;">
                                             <label>Plazo Compromiso:</label>
                                             <input
                                                 type="text"
@@ -1743,7 +1757,7 @@
                                             />
                                             <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
                                         </span>
-                                        <span>
+                                        <span id="monto-compromiso" style="display:none;">
                                             <label>Monto Compromiso:</label>
                                             <input
                                                 type="text"
