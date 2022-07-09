@@ -151,6 +151,14 @@ const validate = {
         }
     },
 
+    removeInvalid(){
+        let inputsInvalid = document.querySelectorAll('input[class="invalid"]')
+        inputsInvalid.forEach((i) => {
+            console.log(i)
+            i.classList.remove('invalid')
+        })
+    },
+
     inputsInvalid(inputsInvalid) {
         for (const inp in inputsInvalid) {
             let input = document.querySelector(
@@ -214,6 +222,7 @@ const validate = {
     },
 
     validDataLists(modo) {
+        this.removeInvalid()
         const dataLists = Array.from(
             document.querySelectorAll('[data-datalist="true"]')
         )
@@ -234,18 +243,24 @@ const validate = {
         }
 
         let validArray = true
+
+
+
+
+        // let value
         dataLists.forEach((dl) => {
+
+
             
             let value = dl.previousElementSibling.previousElementSibling.value
             let list = Array.from(dl.children)
-            let valid = list.find((element) => element.textContent == value)
-            if (valid == undefined) validArray = false
+            let valid = list.find((element) => element.textContent.match(value))
+            if (valid == undefined){
+                validArray = false 
+                dl.previousElementSibling.previousElementSibling.className.add('invalid')
+            } 
+
         })
-        if(!validArray){
-            dataLists.map((dl) => {
-                if(element.textContent !== value) console.log("Elemento: ", element)
-            })
-        }
         return validArray
     },
 
