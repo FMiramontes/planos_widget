@@ -33,6 +33,8 @@ let infoColor = document.getElementById('info-colors')
 let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 let mapa = document.querySelector('.map')
 let navegador = util.navegador()
+let btnRefreshForm = document.getElementById('btn-refreshForm')
+
 // const data-tutular="1"
 // data-tutular="2"
 const cbDomicilio = document.querySelector('input[name="DomicilioExtranjero1"]')
@@ -61,6 +63,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         UI.addDataList(datalists.zonas, 'Gerente')
         UI.addDataList(datalists.venta, 'venta')
         UI.addDataList(datalists.operador, 'operador')
+        UI.addDataList(datalists.operador_unidad, 'operador-unidad')
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
@@ -468,6 +471,10 @@ btnRefresh.addEventListener('click',async  () => {
     UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
 })
 
+btnRefreshForm.addEventListener('click', async()=>{
+    UI.refreshForm();
+})
+
 infoColor.addEventListener('click', () => {
     let cardColor = document.querySelector('.color-lote')
     cardColor.classList.toggle('showCard')
@@ -483,3 +490,38 @@ document.addEventListener('click', async (e) => {
         }
     }
 })
+
+// Check Carta Compromiso
+let checkCompromiso = document.getElementById('carta-compromiso');
+let montoCompromiso = document.getElementById('monto-compromiso');
+let plazoCompromiso = document.getElementById('plazo-compromiso');
+
+checkCompromiso.addEventListener('click',()=>{
+    if (checkCompromiso.checked){
+        montoCompromiso.style.display = 'block'
+        plazoCompromiso.style.display = 'block'
+    }else{
+        montoCompromiso.style.display = 'none'
+        plazoCompromiso.style.display = 'none'
+    }
+})
+
+// Mostrar Operador de Unidades
+let inputVenta = document.getElementById('tipoVentaValue');
+
+inputVenta.addEventListener('change',(e)=>{
+    showEditing(e.target);
+})
+
+    function showEditing(input) {
+        let value = input.value;
+        let operadorUnidad = document.getElementById('operador-unidad');
+        let option = Array.prototype.find.call(input.list.options, function(option) {
+            return option.value === value;
+        });
+            if (option.value == "Call Center Costa 2"){
+                operadorUnidad.style.display = 'block'
+            }else{
+                operadorUnidad.style.display = 'none'
+            }
+        }

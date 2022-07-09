@@ -279,6 +279,8 @@ const UI = {
                 Plazo_Compromiso: newData.presupuesto?.Plazo_Compromiso,	
                 Monto_Compromiso: newData.presupuesto?.Monto_Compromiso	,	
                 Sucursal_de_Firma: newData.presupuesto.Sucursal_de_Firma,
+                Operadores_de_Unidad_de_Venta: newData.presupuesto.Operadores_de_Unidad_de_Venta,
+                Tipo_de_Venta: newData.presupuesto.Tipo_de_Venta,
                 Amount:
                     inputDescuento !== ''
                         ? parseFloat(inputDescuento)
@@ -1639,6 +1641,15 @@ const UI = {
         inputRecursos[3].children[1].value = cname //duenyo controlador
         inputRecursos[4].children[1].value = ''
         inputRecursos[5].children[1].value = dcontacto['A_os_Laborados'] //tiempo laborado
+    },
+    refreshForm(){
+        util.cleanForm()
+        UI.removeContact()
+        UI.viewModal(false, '', '', '', '')
+        let inputSearch = document.getElementById('search-value')
+        inputSearch.value = ''
+
+        alerts.showAlert('success', 'Formulario refrescado.')
     },
     addDataList(list, ListId) {
         console.log('list: ', list)
