@@ -319,7 +319,31 @@ svg .cls-0{
     pointer-events: none;
     font-size: 18px;
 }
-
+.loader-top{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: none;
+}
+.loader-top::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 10%;
+    height: 3px;
+    background-color: #de9f27;
+    animation: moveSpan 2s ease-in infinite;
+}
+@keyframes moveSpan {
+    0%{
+        transform: translateX(0vw);
+    }
+    100% {
+        transform: translateX(100vw);
+    }
+}
 
 /* Loader */
 #loader-mapa {
