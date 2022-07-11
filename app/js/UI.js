@@ -9,6 +9,7 @@ let beforeManzana = ''
 
 const containerDeals = document.getElementById('container-deals')
 let dealsCards
+let loader = document.getElementById('loader-top')
 const UI = {
     async loadMenuLateral() {
         const data = await crm.getAllFraccionamientos()
@@ -167,6 +168,7 @@ const UI = {
         }
     },
     async validate(CRMData, newData) {
+        loader.style.display = 'block'
         try {
             const inputSearchDeals = document.getElementById('search-deal')
             const user = document.getElementById('user')
@@ -458,6 +460,7 @@ const UI = {
             }
         }
         console.timeEnd()
+        loader.style.display = 'none'
     },
     async facturas(factObject, paramsObject) {
         let { date, today } = paramsObject
@@ -628,6 +631,7 @@ const UI = {
     },
     async createLead(dataForm) {
         const createLead = confirm('Desea crear el Posible cliente ')
+        loader.style.display = 'block'
         if (createLead) {
             const requestLead = await crm.searchContact(
                 dataForm.contacto.Email,
@@ -669,6 +673,7 @@ const UI = {
                 }
             }
         }
+        loader.style.display = 'none'
     },
     async cliqLoteFaltante(frac, id) {
         let msg =
@@ -811,6 +816,7 @@ const UI = {
         const convert = confirm('Desea convertir al Posible cliente a Contacto')
         const userID = document.getElementById('user').dataset.crmuserid
         if (convert) {
+         loader.style.display= 'block';
             // Logica para convertir lead
             const leadId = selectedOption.dataset.leadid
             if (leadId !== undefined) {
@@ -862,6 +868,7 @@ const UI = {
                 }
             }
         }
+        loader.style.display= 'none';
     },
     async searchCampaign() {
         const searchValue = document.querySelector('#campaignValue').value

@@ -34,6 +34,7 @@ let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 let mapa = document.querySelector('.map')
 let navegador = util.navegador()
 let btnRefreshForm = document.getElementById('btn-refreshForm')
+let loader = document.getElementById('loader-top')
 
 // const data-tutular="1"
 // data-tutular="2"
@@ -484,9 +485,11 @@ document.addEventListener('click', async (e) => {
     if(e.target.matches('[data-cerrar]')){
         const closeDeal = confirm('Desea cerrar el trato?')
         if (closeDeal) {
+            loader.style.display = 'block'
             await UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
             await UI.paintDeals()
             UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+            loader.style.display = 'none'
         }
     }
 })
