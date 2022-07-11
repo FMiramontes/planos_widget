@@ -201,9 +201,9 @@ searchDeals.addEventListener('input', (e) => {
     UI.searchDeals(e.target.value.toLowerCase(), userAdmin, userId)
 })
 
-searchContactBtn.addEventListener('click', () => {
+searchContactBtn.addEventListener('click', util.debounce (() => {
     UI.searchCustomer()
-})
+}))
 
 switchSearch.addEventListener('change', () => {
     if (switchSearch.checked) {
@@ -215,9 +215,9 @@ switchSearch.addEventListener('change', () => {
     }
 })
 
-searchCampaigntBtn.addEventListener('click', () => {
+searchCampaigntBtn.addEventListener('click', util.debounce(() => {
     UI.searchCampaign()
-})
+}))
 
 document.addEventListener('click', (e) => {
     qselector = document.querySelector(
@@ -289,7 +289,7 @@ document.addEventListener('click', (e) => {
     }
 })
 
-document.getElementById('btn-submit').addEventListener('click', async(e) => {
+document.getElementById('btn-submit').addEventListener('click', util.debounce( async(e) => {
     const newData = util.getDataForm()
     if (valid.validateForm() && valid.validDataLists('submit')) {
         if(await valid.validProduct()){
@@ -302,9 +302,9 @@ document.getElementById('btn-submit').addEventListener('click', async(e) => {
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
-})
+}))
 
-document.getElementById('btn-cratelead').addEventListener('click', (e) => {
+document.getElementById('btn-cratelead').addEventListener('click', util.debounce( (e) => {
     const dataForm = util.getDataForm()
 
     if (valid.validateDataLead() && valid.validDataLists('lead')) {
@@ -312,7 +312,7 @@ document.getElementById('btn-cratelead').addEventListener('click', (e) => {
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
-})
+}))
 
 document.addEventListener('touchend', function (e) {
     if (e.target.matches('[data-lote]')) {
@@ -440,11 +440,11 @@ Iconmenu.addEventListener('click', () => {
     cerrarMenu()
 })
 
-menu.addEventListener('click', (e) => {
+menu.addEventListener('click', util.debounce((e) => {
     if (e.target.matches('[data-index]')) {
         cerrarMenu()
     }
-})
+}))
 
 /*Abrir menu tratos*/
 Iconmenu2.addEventListener('click', () => {
@@ -467,10 +467,10 @@ vendedoresInput.addEventListener('change', (event) => {
     }
 })
 
-btnRefresh.addEventListener('click',async  () => {
+btnRefresh.addEventListener('click', util.debounce( async  () => {
     await UI.paintDeals()
     UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
-})
+}))
 
 btnRefreshForm.addEventListener('click', async()=>{
     UI.refreshForm();

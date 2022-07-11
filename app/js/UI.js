@@ -31,7 +31,7 @@ const UI = {
                 menu.appendChild(frac)
             })
 
-            menu.addEventListener('click', async (e) => {
+            menu.addEventListener('click',util.debounce( async (e) => {
                 if (e.target.matches('[data-index]')) {
                     let containerMap = document.getElementById('map')
                     let loader = document.getElementById('loader-mapa')
@@ -80,7 +80,7 @@ const UI = {
 
                     resetButton.click()
                 }
-            })
+            }))
         } else {
             if (data.type == 'warning')
                 alerts.showAlert('warning', 'No hay fraccionamientos Activos.')
