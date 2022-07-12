@@ -967,24 +967,26 @@ const UI = {
                     campaignData.Fraccionamientos.id
                 )
                 const moduleData = requestModule.data
-                inputCosto.dataset.m2_original = moduleData.Precio_de_lista_M2
+                inputCosto.dataset.m2_original = moduleData?.Precio_de_lista_M2
+                console.log("sin_precio_de_lista: ",moduleData.sin_precio_de_lista)
+                if(!moduleData.sin_precio_de_lista){
+                    if (
+                        campaignData.Fraccionamientos.id != null &&
+                        formaDePago === 'Financiado' &&
+                        politicaCampana === 'Primer Mensualidad'
+                    ) {
+                        const costoM2_sinEnganche =
+                            moduleData.Precio_de_lista_M2_Sin_Enganche
 
-                if (
-                    campaignData.Fraccionamientos.id != null &&
-                    formaDePago === 'Financiado' &&
-                    politicaCampana === 'Primer Mensualidad'
-                ) {
-                    const costoM2_sinEnganche =
-                        moduleData.Precio_de_lista_M2_Sin_Enganche
-
-                    inputCosto.value = costoM2_sinEnganche.toFixed(2)
-                    inputCosto.dataset.m2_update = 'true'
-                } else {
-                    const costoM2_Enganche = moduleData.Precio_de_lista_M2
-                    const inputCosto = document.querySelector(
-                        `input[name="Costo_M2"]`
-                    )
-                    inputCosto.value = costoM2_Enganche.toFixed(2)
+                        inputCosto.value = costoM2_sinEnganche.toFixed(2)
+                        inputCosto.dataset.m2_update = 'true'
+                    } else {
+                        const costoM2_Enganche = moduleData.Precio_de_lista_M2
+                        const inputCosto = document.querySelector(
+                            `input[name="Costo_M2"]`
+                        )
+                        inputCosto.value = costoM2_Enganche.toFixed(2)
+                    }
                 }
 
                 // Form Product field values
