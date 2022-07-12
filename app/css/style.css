@@ -319,7 +319,32 @@ svg .cls-0{
     pointer-events: none;
     font-size: 18px;
 }
-
+.loader-top{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: none;
+    z-index: 99;
+}
+.loader-top::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 10%;
+    height: 3px;
+    background-color: #de9f27;
+    animation: moveSpan 2s ease-in infinite;
+}
+@keyframes moveSpan {
+    0%{
+        transform: translateX(0vw);
+    }
+    100% {
+        transform: translateX(100vw);
+    }
+}
 
 /* Loader */
 #loader-mapa {
@@ -370,7 +395,7 @@ svg .cls-0{
     position: absolute;
     background-color: #464545;
     border-radius: 10px;
-    padding: 15px;
+    padding: 15px 24px;
     flex-direction: column;
     justify-content: space-between; 
     z-index: 2;
@@ -381,6 +406,7 @@ svg .cls-0{
     -moz-user-select: none;      /* Firefox */
     -ms-user-select: none;       /* Internet Explorer/Edge */
     user-select: none; 
+    gap: 3px;
 }
 .color-lote{
     left: 8%;
@@ -423,8 +449,8 @@ svg .cls-0{
     gap: 15px;
 }
 .color{
-    height: 12px;
-    width: 12px;
+    height: 14px;
+    width: 14px;
     border-radius: 100%;
 }
 
