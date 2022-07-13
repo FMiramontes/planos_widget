@@ -1402,6 +1402,7 @@ const UI = {
                     // // data for accounts
                     const accountData = {
                         Account_Name: accountName.toUpperCase(),
+                        Correo_electr_nico_1: email,
                         Owner: {
                             id:
                                 user.dataset.profile === 'Vendedor'
