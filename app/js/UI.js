@@ -667,7 +667,7 @@ const UI = {
                     alerts.showAlert('finish', 'Posible cliente creado')
                 } else {
                     alerts.showAlert(
-                        createLead.type,
+                        'danger',
                         'El posible cliente no pudo ser creado !!'
                     )
                 }
@@ -685,7 +685,7 @@ const UI = {
         const envio = await cliq.postToChannel('lotesfaltantes', msg)
         if (envio.ok) {
             alerts.showAlert(
-                envio.type,
+                'success',
                 'Se posteo correctamente dentro del canal'
             )
         }
