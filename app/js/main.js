@@ -450,6 +450,8 @@ menu.addEventListener('click', util.debounce((e) => {
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     menu2.classList.toggle('open')
+    let panelZoom = document.querySelector('.zoom-panel')
+    panelZoom.classList.toggle('right-space')
     // let cardColor = document.querySelector('.color-deals')
     // cardColor.classList.toggle('showCard')
 })
