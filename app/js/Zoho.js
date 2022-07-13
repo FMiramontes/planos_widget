@@ -1108,14 +1108,31 @@ const crm = {
         lead.INGRESO_MENSUAL = data.INGRESO_MENSUAL
         lead.A_os_Laborados = data.A_os_Laborados
 
-        //
-        lead.Street = data.calle
-        lead.City = data.Mailing_City
-        lead.State = data.Mailing_State
-        lead.Zip_Code = data.Mailing_Zip
-        lead.Colonia = data.Colonia
+        const cbDomicilio = document.querySelector(
+            'input[name="DomicilioExtranjero1"]'
+        )
 
-        lead.Country = data.Mailing_Country
+        if (cbDomicilio.checked) {
+            lead.DomicilioExtranjero1 = true
+            
+            lead.Address_US = data.Address1
+            lead.City_US = data.City1
+            // lead.County_US = data.County1
+            lead.State_US = data.State1
+            lead.Country_US = data.Country1
+            lead.Zip_Code_US = data.Zip_Code
+        }else{
+            lead.DomicilioExtranjero1 = false
+            //
+            lead.Street = data.calle
+            lead.City = data.Mailing_City
+            lead.State = data.Mailing_State
+            lead.Zip_Code = data.Mailing_Zip
+            lead.Colonia = data.Colonia
+            lead.Country = data.Mailing_Country
+        }
+
+        
         lead.Departamento = data.Departamento
         lead.Widget_Planos = true
 
