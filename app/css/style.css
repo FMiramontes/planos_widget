@@ -216,7 +216,7 @@ svg .cls-0{
     align-items: center;
     position: absolute;
     bottom: 50px;
-    right: 65px;
+    right: 65px; 
     gap: 1rem;
 }
 .zoom {
@@ -489,5 +489,7 @@ blinkid-in-browser {
         transform: scaleY(1.8);
     }
 }
-
+ .right-space{
+    right: 350px;
+ }
 
