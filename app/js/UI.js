@@ -1502,18 +1502,20 @@ const UI = {
                 let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
                 let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
                 let card = `
-                <section class="titulo-trato">${deal.Deal_Name}</section>
-                <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
-                    <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
-                    <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                    <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
-                    <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
-                    <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
-                </section>
-                <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
-                <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
-            `
+                    <section class="titulo-trato">${deal.Deal_Name}</section>
+                    <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
+                        <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                        <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                        <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
+                        <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
+                        <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
+                        <a data-uif class="btn-trato ${deal.Stage == "Cerrado (ganado)" ? "" : "hide"}"><i class="fa-solid fa-arrow-rotate-right"></i></a>
+                    </section>
+                    <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
+                    <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
+                    <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
+                `
+
                 let section = document.createElement('section')
                 section.classList = 'card-trato'
                 section.innerHTML = card

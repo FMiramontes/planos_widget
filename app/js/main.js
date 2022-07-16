@@ -5,6 +5,7 @@ import alerts from './alertas.js'
 import './zoom.js'
 import camera from './camera.js'
 import datalists from './dataList.js'
+import {crm} from './Zoho.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
@@ -35,6 +36,7 @@ let mapa = document.querySelector('.map')
 let navegador = util.navegador()
 let btnRefreshForm = document.getElementById('btn-refreshForm')
 let loader = document.getElementById('loader-top')
+let btnUpdateUif = document.getElementById('btn-refreshForm')
 
 // const data-tutular="1"
 // data-tutular="2"
@@ -490,6 +492,22 @@ document.addEventListener('click', async (e) => {
             await UI.paintDeals()
             UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
             loader.style.display = 'none'
+        }
+    }
+})
+
+document.addEventListener('click', async (e) => {
+    if(e.target.matches('[data-uif]')){
+        const updateUIF = confirm('Desea actualizar codigo UIF?')
+        if (updateUIF) {
+            let dealID = e.target.parentElement.dataset.dealid
+            let updateRequest = await crm.updateUIF(dealID)
+
+            if(updateRequest.ok){
+                alerts.showAlert("success","UIF Actualizado.")
+            }else{
+                alerts.showAlert("warning","UIF no actualizado.")
+            }
         }
     }
 })

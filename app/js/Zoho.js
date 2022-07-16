@@ -1229,6 +1229,44 @@ const crm = {
             }
         }
     },
+    async updateUIF(dealID) {
+        const functionName = 'IMP_RefreshUIF'
+        try {
+            const request = await ZOHO.CRM.FUNCTIONS.execute(functionName, {
+                arguments: JSON.stringify({
+                    idtrato: dealID,
+                }),
+            })
+
+            if (request.code !== 'success') {
+                return {
+                    code: '400',
+                    ok: false,
+                    data: null,
+                    type: 'warning',
+                    message: request.details.output,
+                }
+            }
+            //
+            return {
+                code: 200,
+                ok: true,
+                data: request,
+                type: 'success',
+            }
+        } catch (error) {
+            createLog(error, 'Error', {
+                args: { dealID },
+                invoke: 'IMP_RefreshUIF',
+            })
+            return {
+                code: 500,
+                ok: false,
+                type: 'danger',
+                message: error.message,
+            }
+        }
+    },
 }
 
 const creator = {
