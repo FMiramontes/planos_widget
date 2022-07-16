@@ -1501,6 +1501,7 @@ const UI = {
                 let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
                 let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
                 let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
+                let urlContact = `https://crm.zoho.com/crm/org638248503/tab/Contacts/${deal.Contact_Name?.id}`
                 let card = `
                     <section class="titulo-trato">${deal.Deal_Name}</section>
                     <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
@@ -1512,10 +1513,9 @@ const UI = {
                         <a data-uif class="btn-trato ${deal.Stage == "Cerrado (ganado)" ? "" : "hide"}"><i class="fa-solid fa-arrow-rotate-right"></i></a>
                     </section>
                     <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                    <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
+                    <p><b>Cliente: </b><a href=${urlContact} target="_blank" class="client"><b>${deal.Contact_Name?.name}</b></a></p>
                     <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
                 `
-
                 let section = document.createElement('section')
                 section.classList = 'card-trato'
                 section.innerHTML = card

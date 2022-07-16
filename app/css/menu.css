@@ -297,6 +297,10 @@
     margin: 5px;
 }
 
+.client{
+    color: #338cf0 !important;
+    cursor: pointer;
+}
 .titulo-trato {
     width: 100%;
     padding: 3% 0px;
