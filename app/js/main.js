@@ -5,6 +5,7 @@ import alerts from './alertas.js'
 import './zoom.js'
 import camera from './camera.js'
 import datalists from './dataList.js'
+import {crm} from './Zoho.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
@@ -33,6 +34,10 @@ let infoColor = document.getElementById('info-colors')
 let inputApartado = document.querySelector(`input[name="Cantidad_RA"]`)
 let mapa = document.querySelector('.map')
 let navegador = util.navegador()
+let btnRefreshForm = document.getElementById('btn-refreshForm')
+let loader = document.getElementById('loader-top')
+let btnUpdateUif = document.getElementById('btn-refreshForm')
+
 // const data-tutular="1"
 // data-tutular="2"
 const cbDomicilio = document.querySelector('input[name="DomicilioExtranjero1"]')
@@ -61,6 +66,7 @@ ZOHO.embeddedApp.on('PageLoad', async function (data) {
         UI.addDataList(datalists.zonas, 'Gerente')
         UI.addDataList(datalists.venta, 'venta')
         UI.addDataList(datalists.operador, 'operador')
+        UI.addDataList(datalists.operador_unidad, 'operador-unidad')
         const img_user = document.createElement('img')
         user.dataset.crmuserid = data.users[0].id
         user.dataset.profile = data.users[0].profile.name
@@ -197,9 +203,9 @@ searchDeals.addEventListener('input', (e) => {
     UI.searchDeals(e.target.value.toLowerCase(), userAdmin, userId)
 })
 
-searchContactBtn.addEventListener('click', () => {
+searchContactBtn.addEventListener('click', util.debounce (() => {
     UI.searchCustomer()
-})
+}))
 
 switchSearch.addEventListener('change', () => {
     if (switchSearch.checked) {
@@ -211,9 +217,9 @@ switchSearch.addEventListener('change', () => {
     }
 })
 
-searchCampaigntBtn.addEventListener('click', () => {
+searchCampaigntBtn.addEventListener('click', util.debounce(() => {
     UI.searchCampaign()
-})
+}))
 
 document.addEventListener('click', (e) => {
     qselector = document.querySelector(
@@ -285,10 +291,11 @@ document.addEventListener('click', (e) => {
     }
 })
 
-document.getElementById('btn-submit').addEventListener('click', async(e) => {
+document.getElementById('btn-submit').addEventListener('click', util.debounce( async(e) => {
     const newData = util.getDataForm()
     if (valid.validateForm() && valid.validDataLists('submit')) {
         if(await valid.validProduct()){
+            console.log('UI newData: ', newData)
             UI.validate(CRMData, newData)
         }else{
             alerts.showAlert('warning', 'El producto no se encuentra disponible.') 
@@ -297,9 +304,9 @@ document.getElementById('btn-submit').addEventListener('click', async(e) => {
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
-})
+}))
 
-document.getElementById('btn-cratelead').addEventListener('click', (e) => {
+document.getElementById('btn-cratelead').addEventListener('click', util.debounce( (e) => {
     const dataForm = util.getDataForm()
 
     if (valid.validateDataLead() && valid.validDataLists('lead')) {
@@ -307,7 +314,7 @@ document.getElementById('btn-cratelead').addEventListener('click', (e) => {
     } else {
         alerts.showAlert('warning', 'Informacion Incompleta.')
     }
-})
+}))
 
 document.addEventListener('touchend', function (e) {
     if (e.target.matches('[data-lote]')) {
@@ -435,16 +442,18 @@ Iconmenu.addEventListener('click', () => {
     cerrarMenu()
 })
 
-menu.addEventListener('click', (e) => {
+menu.addEventListener('click', util.debounce((e) => {
     if (e.target.matches('[data-index]')) {
         cerrarMenu()
     }
-})
+}))
 
 /*Abrir menu tratos*/
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     menu2.classList.toggle('open')
+    let panelZoom = document.querySelector('.zoom-panel')
+    panelZoom.classList.toggle('right-space')
     // let cardColor = document.querySelector('.color-deals')
     // cardColor.classList.toggle('showCard')
 })
@@ -462,9 +471,13 @@ vendedoresInput.addEventListener('change', (event) => {
     }
 })
 
-btnRefresh.addEventListener('click',async  () => {
+btnRefresh.addEventListener('click', util.debounce( async  () => {
     await UI.paintDeals()
     UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+}))
+
+btnRefreshForm.addEventListener('click', async()=>{
+    UI.refreshForm();
 })
 
 infoColor.addEventListener('click', () => {
@@ -474,8 +487,64 @@ infoColor.addEventListener('click', () => {
 
 document.addEventListener('click', async (e) => {
     if(e.target.matches('[data-cerrar]')){
-        await UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
-        await UI.paintDeals()
-        UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+        const closeDeal = confirm('Desea cerrar el trato?')
+        if (closeDeal) {
+            loader.style.display = 'block'
+            await UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
+            await UI.paintDeals()
+            UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+            loader.style.display = 'none'
+        }
     }
 })
+
+document.addEventListener('click', async (e) => {
+    if(e.target.matches('[data-uif]')){
+        const updateUIF = confirm('Desea actualizar codigo UIF?')
+        if (updateUIF) {
+            let dealID = e.target.parentElement.dataset.dealid
+            let updateRequest = await crm.updateUIF(dealID)
+
+            if(updateRequest.ok){
+                alerts.showAlert("success","UIF Actualizado.")
+            }else{
+                alerts.showAlert("warning","UIF no actualizado.")
+            }
+        }
+    }
+})
+
+// Check Carta Compromiso
+let checkCompromiso = document.getElementById('carta-compromiso');
+let montoCompromiso = document.getElementById('monto-compromiso');
+let plazoCompromiso = document.getElementById('plazo-compromiso');
+
+checkCompromiso.addEventListener('click',()=>{
+    if (checkCompromiso.checked){
+        montoCompromiso.style.display = 'block'
+        plazoCompromiso.style.display = 'block'
+    }else{
+        montoCompromiso.style.display = 'none'
+        plazoCompromiso.style.display = 'none'
+    }
+})
+
+// Mostrar Operador de Unidades
+let inputVenta = document.getElementById('tipoVentaValue');
+
+inputVenta.addEventListener('change',(e)=>{
+    showEditing(e.target);
+})
+
+    function showEditing(input) {
+        let value = input.value;
+        let operadorUnidad = document.getElementById('operador-unidad');
+        let option = Array.prototype.find.call(input.list.options, function(option) {
+            return option.value === value;
+        });
+            if (option.value == "Call Center Costa 2"){
+                operadorUnidad.style.display = 'block'
+            }else{
+                operadorUnidad.style.display = 'none'
+            }
+        }

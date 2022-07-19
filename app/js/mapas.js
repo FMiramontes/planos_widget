@@ -210,15 +210,16 @@ const maps = {
     statusColor(status) {
         const colors = [
             { status: 'Disponible', fill: '#de9f27' },
-            { status: 'Apartado', fill: '#b5512a' },
-            { status: 'Primer Mensualidad', fill: '#7de38e' },
-            { status: 'Enganche', fill: '#398afa' },
-            { status: 'Contado', fill: '#6908c9' },
+            { status: 'Cotización', fill: '#5bc4b0' },
+            { status: 'Apartado', fill: '#88b24b' },
+            { status: 'Primer Mensualidad', fill: '#09447a' },
+            { status: 'Enganche', fill: '#e88b93' },
+            { status: 'Contado', fill: '#552d72' },
             { status: 'Vendido', fill: '#5C5C5C' },
-            { status: 'Bloqueado', fill: '#ff2e2e' },
-            { status: 'Reubicacion', fill: '#59f4ff' },
-            { status: 'P. Reubicacion', fill: '#7d7d82' },
-            { status: 'No Existe', fill: '#dbdbdb' },
+            { status: 'Bloqueado', fill: '#a01010' },
+            { status: 'Reubicacion', fill: '#e2ba9f' },
+            { status: 'P. Reubicacion', fill: '#91584a' },
+            { status: 'No Existe', fill: '#dd620e' },
         ]
 
         const findClass = colors.find((clr) => clr.status === status)

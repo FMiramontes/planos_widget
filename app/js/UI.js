@@ -9,6 +9,7 @@ let beforeManzana = ''
 
 const containerDeals = document.getElementById('container-deals')
 let dealsCards
+let loader = document.getElementById('loader-top')
 const UI = {
     async loadMenuLateral() {
         const data = await crm.getAllFraccionamientos()
@@ -30,7 +31,7 @@ const UI = {
                 menu.appendChild(frac)
             })
 
-            menu.addEventListener('click', async (e) => {
+            menu.addEventListener('click',util.debounce( async (e) => {
                 if (e.target.matches('[data-index]')) {
                     let containerMap = document.getElementById('map')
                     let loader = document.getElementById('loader-mapa')
@@ -79,7 +80,7 @@ const UI = {
 
                     resetButton.click()
                 }
-            })
+            }))
         } else {
             if (data.type == 'warning')
                 alerts.showAlert('warning', 'No hay fraccionamientos Activos.')
@@ -167,6 +168,7 @@ const UI = {
         }
     },
     async validate(CRMData, newData) {
+        loader.style.display = 'block'
         try {
             const inputSearchDeals = document.getElementById('search-deal')
             const user = document.getElementById('user')
@@ -275,7 +277,12 @@ const UI = {
                 Lead_Source: newData.contacto.Lead_Source,
                 Type: tipoDeCompra,
                 Tipo_de_Compra1: tipoCompra,
+                Carta_Compromiso: newData.presupuesto?.Carta_Compromiso,	
+                Plazo_Compromiso: newData.presupuesto?.Plazo_Compromiso,	
+                Monto_Compromiso: newData.presupuesto?.Monto_Compromiso	,	
                 Sucursal_de_Firma: newData.presupuesto.Sucursal_de_Firma,
+                Operadores_de_Unidad_de_Venta: newData.presupuesto.Operadores_de_Unidad_de_Venta,
+                Tipo_de_Venta: newData.presupuesto.Tipo_de_Venta,
                 Amount:
                     inputDescuento !== ''
                         ? parseFloat(inputDescuento)
@@ -416,6 +423,13 @@ const UI = {
                         }
                         this.facturas(factObject, paramsObject)
 
+                        // Cambiar estado de producto a cotizacion
+                        await crm.updateProduct({
+                            id: product_id,
+                            Estado: 'Cotización',
+                        })
+                        this.refreshManzana()
+
                         // End of process
                         // Reset values
 
@@ -430,14 +444,14 @@ const UI = {
                         await this.paintDeals()
                         this.searchDeals(inputSearchDeals.value.toLowerCase(), user.dataset.admin, user.dataset.crmuserid)
                         util.removeDatasets('[name="Cantidad_RA"]')
-                        // util.removeDatasets('#vendorsValue')
-                        alerts.showAlert('success', 'Proceso finalizado!')
+                        util.removeDatasets('#vendorsValue')
                     }
                 } else {
                     throw new Error('No se pudo crear cotizacion')
                 }
             }
             this.removeContact()
+            alerts.showAlert('finish', 'Proceso finalizado!')
         } catch (error) {
             if (error.message == 'Proceso omitido por el usuario') {
                 alerts.showAlert('warning', error.message)
@@ -446,6 +460,7 @@ const UI = {
             }
         }
         console.timeEnd()
+        loader.style.display = 'none'
     },
     async facturas(factObject, paramsObject) {
         let { date, today } = paramsObject
@@ -616,6 +631,7 @@ const UI = {
     },
     async createLead(dataForm) {
         const createLead = confirm('Desea crear el Posible cliente ')
+        loader.style.display = 'block'
         if (createLead) {
             const requestLead = await crm.searchContact(
                 dataForm.contacto.Email,
@@ -648,15 +664,16 @@ const UI = {
                     fraccionamientoId
                 )
                 if (createLeadRequest.ok) {
-                    alerts.showAlert('success', 'Posible cliente creado')
+                    alerts.showAlert('finish', 'Posible cliente creado')
                 } else {
                     alerts.showAlert(
-                        createLead.type,
+                        'danger',
                         'El posible cliente no pudo ser creado !!'
                     )
                 }
             }
         }
+        loader.style.display = 'none'
     },
     async cliqLoteFaltante(frac, id) {
         let msg =
@@ -668,7 +685,7 @@ const UI = {
         const envio = await cliq.postToChannel('lotesfaltantes', msg)
         if (envio.ok) {
             alerts.showAlert(
-                envio.type,
+                'success',
                 'Se posteo correctamente dentro del canal'
             )
         }
@@ -799,6 +816,7 @@ const UI = {
         const convert = confirm('Desea convertir al Posible cliente a Contacto')
         const userID = document.getElementById('user').dataset.crmuserid
         if (convert) {
+         loader.style.display= 'block';
             // Logica para convertir lead
             const leadId = selectedOption.dataset.leadid
             if (leadId !== undefined) {
@@ -850,6 +868,7 @@ const UI = {
                 }
             }
         }
+        loader.style.display= 'none';
     },
     async searchCampaign() {
         const searchValue = document.querySelector('#campaignValue').value
@@ -948,24 +967,26 @@ const UI = {
                     campaignData.Fraccionamientos.id
                 )
                 const moduleData = requestModule.data
-                inputCosto.dataset.m2_original = moduleData.Precio_de_lista_M2
+                inputCosto.dataset.m2_original = moduleData?.Precio_de_lista_M2
+                console.log("sin_precio_de_lista: ",moduleData.sin_precio_de_lista)
+                if(!moduleData.sin_precio_de_lista){
+                    if (
+                        campaignData.Fraccionamientos.id != null &&
+                        formaDePago === 'Financiado' &&
+                        politicaCampana === 'Primer Mensualidad'
+                    ) {
+                        const costoM2_sinEnganche =
+                            moduleData.Precio_de_lista_M2_Sin_Enganche
 
-                if (
-                    campaignData.Fraccionamientos.id != null &&
-                    formaDePago === 'Financiado' &&
-                    politicaCampana === 'Primer Mensualidad'
-                ) {
-                    const costoM2_sinEnganche =
-                        moduleData.Precio_de_lista_M2_Sin_Enganche
-
-                    inputCosto.value = costoM2_sinEnganche.toFixed(2)
-                    inputCosto.dataset.m2_update = 'true'
-                } else {
-                    const costoM2_Enganche = moduleData.Precio_de_lista_M2
-                    const inputCosto = document.querySelector(
-                        `input[name="Costo_M2"]`
-                    )
-                    inputCosto.value = costoM2_Enganche.toFixed(2)
+                        inputCosto.value = costoM2_sinEnganche.toFixed(2)
+                        inputCosto.dataset.m2_update = 'true'
+                    } else {
+                        const costoM2_Enganche = moduleData.Precio_de_lista_M2
+                        const inputCosto = document.querySelector(
+                            `input[name="Costo_M2"]`
+                        )
+                        inputCosto.value = costoM2_Enganche.toFixed(2)
+                    }
                 }
 
                 // Form Product field values
@@ -1158,11 +1179,13 @@ const UI = {
 
             let costoProducto = (parseFloat(DIMENSIONES) * costoM2).toFixed(2)
 
-            const updateProductCRM = await crm.updateProduct(
-                product_id,
-                costoM2,
-                costoProducto
-            )
+            const updateProductCRM = await crm.updateProduct({
+                id: product_id,
+                Costo_por_M2: costoM2,
+                Unit_Price: costoProducto,
+                Costo_total_del_terreno: costoProducto,
+                Saldo: costoProducto,
+            })
 
             const updateProductBooks = await books.updateProduct(
                 productBooksId,
@@ -1205,6 +1228,9 @@ const UI = {
         let temp_contact_id
         let temp_accout_id
         let contactName
+
+        let updateAccountName = false
+        let newAccountName = ''
 
         try {
             if (
@@ -1250,6 +1276,7 @@ const UI = {
                 // // data for accounts
                 const accountData = {
                     Account_Name: accountName.toUpperCase(),
+                    Correo_electr_nico_1: email,
                     Owner: {
                         id:
                             user.dataset.profile === 'Vendedor'
@@ -1322,6 +1349,41 @@ const UI = {
                 contact_id = temp_contact_id
                 let update = util.checkUpdate(CRMData, newData)
                 if (!update) {
+                    // Revisar si se agrego apellido materno
+                    const contact = await crm.getContact(contact_id)
+                    if (
+                        contact.data.Apellido_Materno == null &&
+                        newData.contacto?.Apellido_Materno
+                    ) {
+                        newData.contacto.Apellido_Materno =
+                            newData.contacto.Apellido_Materno.toUpperCase()
+                        const apellidos = `${
+                            contact.data.Apellido_Paterno
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()}`
+                        newData.contacto.Last_Name = apellidos
+                        newAccountName = `${
+                            contact.data.Full_Name
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()}`
+                        updateAccountName = true
+                    }
+
+                    // Revisar si el segundo cliente tambien se le debe agregar apellito materno
+                    if (
+                        contact.data.Apellido_Materno_2 == null &&
+                        newData.contacto?.Apellido_Materno_2
+                    ) {
+                        newData.contacto.Apellido_Materno_2 =
+                            newData.contacto.Apellido_Materno_2.toUpperCase()
+                        newAccountName = `${
+                            contact.data.Full_Name
+                        } ${newData.contacto.Apellido_Materno.toUpperCase()} / ${
+                            contact.data.Nombre2
+                        } ${
+                            contact.data.ApellidoP2
+                        } ${newData.contacto.Apellido_Materno_2.toUpperCase()}`
+                        updateAccountName = true
+                    }
+
                     const updateRequest = await crm.UpdateContact(
                         newData,
                         contact_id
@@ -1340,6 +1402,7 @@ const UI = {
                     // // data for accounts
                     const accountData = {
                         Account_Name: accountName.toUpperCase(),
+                        Correo_electr_nico_1: email,
                         Owner: {
                             id:
                                 user.dataset.profile === 'Vendedor'
@@ -1366,6 +1429,16 @@ const UI = {
                     id_contactBooks = conatctRequest.data.contact_id
                 }
             }
+
+            // Actualizar cuenta si se agrego nombre paterno
+            if (updateAccountName) {
+                const accountData = {
+                    id: accountId,
+                    Account_Name: newAccountName,
+                }
+                await crm.updateAccount(accountData)
+            }
+
             return {
                 id_contactBooks,
                 accountId,
@@ -1428,19 +1501,21 @@ const UI = {
                 let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
                 let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
                 let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
+                let urlContact = `https://crm.zoho.com/crm/org638248503/tab/Contacts/${deal.Contact_Name?.id}`
                 let card = `
-                <section class="titulo-trato">${deal.Deal_Name}</section>
-                <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
-                    <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
-                    <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                    <a data-cerrar class="btn-trato"><i class="fa-solid fa-thumbs-up"></i></a>
-                    <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
-                    <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
-                </section>
-                <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
-                <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
-            `
+                    <section class="titulo-trato">${deal.Deal_Name}</section>
+                    <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
+                        <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                        <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                        <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
+                        <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
+                        <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
+                        <a data-uif class="btn-trato ${deal.Stage == "Cerrado (ganado)" ? "" : "hide"}"><i class="fa-solid fa-arrow-rotate-right"></i></a>
+                    </section>
+                    <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
+                    <p><b>Cliente: </b><a href=${urlContact} target="_blank" class="client"><b>${deal.Contact_Name?.name}</b></a></p>
+                    <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
+                `
                 let section = document.createElement('section')
                 section.classList = 'card-trato'
                 section.innerHTML = card
@@ -1580,6 +1655,15 @@ const UI = {
         inputRecursos[4].children[1].value = ''
         inputRecursos[5].children[1].value = dcontacto['A_os_Laborados'] //tiempo laborado
     },
+    refreshForm(){
+        util.cleanForm()
+        UI.removeContact()
+        UI.viewModal(false, '', '', '', '')
+        let inputSearch = document.getElementById('search-value')
+        inputSearch.value = ''
+
+        alerts.showAlert('success', 'Formulario refrescado.')
+    },
     addDataList(list, ListId) {
         console.log('list: ', list)
         const select = document.getElementById(`list-${ListId}`)
@@ -1639,13 +1723,30 @@ const UI = {
             const presupuestoId = dealData?.data?.ID
             console.log('UI.cerrarTrato - presupuestoId: ', presupuestoId)
             console.log('UI.cerrarTrato - TipodePolitica: ', dealData?.data?.TipodePolitica)
+            // Revisar tipo de politica
+            if(dealData?.data?.TipodePolitica == "Primer Mensualidad") {
+                if(dealData?.data?.MensualidadRecibida == '') {
+                    alerts.showAlert('warning', 'No se ha realizado pago de factura')
+                    return
+                }
+            }else if(dealData?.data?.TipodePolitica == "Enganche"){
+                if(dealData?.data?.EngancheRecibido == '') {
+                    alerts.showAlert('warning', 'No se ha realizado pago de factura')
+                    return
+                }
+            }
+
             const fechas = util.fechasCierre(dealData?.data?.TipodePolitica, dealData?.data?.PlazoAcordado, dealData?.data?.Plazos_Diferido)
             const cerrarTrato = await creator.updateRecord(presupuestoId, fechas)
             if(cerrarTrato.ok){
-                alerts.showAlert(cerrarTrato.type, 'Trato Cerrado( Ganado )')
+                alerts.showAlert('success', 'Facturas creadas')
+                this.refreshManzana()
             }else{
-                alerts.showAlert(cerrarTrato.type, cerrarTrato.message)
+                alerts.showAlert('warning', 'Se inicio generación de facturas')
+                if(cerrarTrato.type == 'danger') alerts.showAlert(cerrarTrato.type, cerrarTrato.message)
             }
+            alerts.showAlert('finish', 'Trato Cerrado( Ganado )')
+            this.refreshManzana()
         }
     },
 }
@@ -1751,8 +1852,17 @@ const util = {
                 }
 
                 if (block?.dataset?.presupuesto) {
-                    Presupuesto[span.children[1].name] = span.children[1].value
+                    if (span.children[1].value !== '') {
+                        Presupuesto[span.children[1].name] = span.children[1].value
+                    }
+                    // sobreescribe valor con el valor del checkbox
+                    if (span.children[1].type === 'checkbox') {
+                        Presupuesto[span.children[1].name] =
+                            span.children[1].checked
+                            
+                    }
                 }
+                
             })
         })
 

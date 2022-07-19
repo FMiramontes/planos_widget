@@ -25,6 +25,7 @@
 
     <body>
         <div class="container">
+            <div id="loader-top" class="loader-top"></div>
             <!-- Menu -->
             <div class="menu">
                 <div class="btn-menu">
@@ -154,39 +155,43 @@
                             <div class="estado">Disponible</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #b5512a;"></span>
+                            <span class="color" style="background-color: #88b24b;"></span>
                             <div class="estado">Apartado</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #7de38e"></span>
+                            <span class="color" style="background-color: #5bc4b0;"></span>
+                            <div class="estado">Cotización</div>
+                        </div>
+                        <div class="indicador">
+                            <span class="color" style="background-color: #09447a"></span>
                             <div class="estado">Primer Mensualidad</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #398afa;"></span>
+                            <span class="color" style="background-color: #e88b93;"></span>
                             <div class="estado">Enganche</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #6908c9;"></span>
+                            <span class="color" style="background-color: #552d72;"></span>
                             <div class="estado">Contado</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #2e2e2e;"></span>
+                            <span class="color" style="background-color: #5c5c5c;"></span>
                             <div class="estado">Vendido</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #ff2e2e;"></span>
+                            <span class="color" style="background-color: #a01010;"></span>
                             <div class="estado">Bloqueado</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #a3a3a5;"></span>
+                            <span class="color" style="background-color: #e2ba9f;"></span>
                             <div class="estado">Reubicación</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #7d7d82;"></span>
+                            <span class="color" style="background-color: #91584a;"></span>
                             <div class="estado">P. Reubicación</div>
                         </div>
                         <div class="indicador">
-                            <span class="color" style="background-color: #f8c15b;"></span>
+                            <span class="color" style="background-color: #dd620e;"></span>
                             <div class="estado">No Existe en CRM</div>
                         </div>
                     </div>
@@ -246,6 +251,14 @@
                                 data-tab-target="#prespuesto"
                             >
                                 Presupuesto
+                            </div>
+                        </a>
+                        <a href="#documentacion">
+                            <div
+                                class="btn-menu-modal tab"
+                                data-tab-target="#documentacion"
+                            >
+                                Documentacion
                             </div>
                         </a>
                     </div>
@@ -440,7 +453,7 @@
                                         </span>
                                         <span>
                                             <label>CP:</label>
-                                            <input type="text" name="Mailing_Zip"/>
+                                            <input type="number" name="Mailing_Zip"/>
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
                                         
@@ -540,6 +553,14 @@
                                             id="btn-cratelead"
                                             type="submit"
                                             value="create lead"
+                                        />
+                                    </span>
+                                    <span>
+                                        <input
+                                            class="btn btn-cratelead"
+                                            id="btn-refreshForm"
+                                            type="submit"
+                                            value="refresh"
                                         />
                                     </span>
                                 </div>
@@ -769,11 +790,6 @@
                                             />
                                             <!-- <div class="iconos"><i class="fa-solid fa-envelope"></i></div> -->
                                         </span>
-                                    </div>
-                                </div>
-                                <!-- sub block Nacimiento -->
-                                <div class="container-sub-block sub-block-titular1">
-                                    <div class="block" data-contacto="true">
                                         <span>
                                             <label>Giro Empresarial</label>
                                             <input
@@ -783,7 +799,7 @@
                                             <div class="iconos"><i class="fa-solid fa-building"></i></div>
                                         </span>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             <!-- titular-2 -->
                             <div class="container-block" id="titular-2">
@@ -932,7 +948,7 @@
                                         <span>
                                             <label>CP:</label>
                                             <input
-                                                type="text"
+                                                type="number"
                                                 name="CP2"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
@@ -1623,28 +1639,6 @@
                                                 </datalist>
                                             </input>
                                         </span>
-                                        <span>
-                                            <label>Sucursal de Firma:</label>
-                                            <input
-                                                name="Sucursal_de_Firma"
-                                                list="list-Sucursales"
-                                            >
-                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
-                                            <datalist data-datalist="true" id="list-Sucursales">
-                                                <option value=""></option>
-                                            </datalist>
-                                        </span>
-                                        <span>
-                                            <label>Zona:</label>
-                                            <input
-                                                name="Gerente"
-                                                list="list-Gerente"
-                                            >
-                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
-                                            <datalist data-datalist="true" id="list-Gerente">
-                                                <option value=""></option>
-                                            </datalist>
-                                        </span>
                                         <span id="tipo-venta">
                                             <label>Tipo de Venta:</label>
                                             <input
@@ -1671,12 +1665,23 @@
                                                 </datalist>
                                             </input>
                                         </span>
+                                        <span id="operador-unidad" style="display:none ;">
+                                            <label>Operadores Unidad De Venta:</label>
+                                            <input
+                                                name="Operadores_de_Unidad_de_Venta"
+                                                id="operadorValue"
+                                                list="list-operador-unidad"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                                <datalist data-datalist="true" id="list-operador-unidad">
+                                                    <option value=""></option>
+                                                </datalist>
+                                            </input>
+                                        </span>
                                     </div>
                                 </div>
-                                <!-- sub block RECIBO DE APARTADO -->
-                            
-                                <div class="container-sub-block">
-                                
+                                 <!-- sub block RECIBO DE APARTADO -->
+                                 <div class="container-sub-block sub-apartado">
                                     <div class=" recibo-apartado">
                                         <p class="titulo-recibo">RECIBO DE APARTADO</p>
                                         <div class="check">
@@ -1696,7 +1701,7 @@
                                         </div>
                                     </div>
                                    
-                                    <div class="block" data-presupuesto="true">
+                                    <div class="block " data-presupuesto="true">
                                         <span>
                                             <label>Por La Cantidad De:</label>
                                             <input type="text" name="Cantidad_RA"/>
@@ -1720,6 +1725,60 @@
                                             <div class="iconos icon-disabled"><i class="fa-solid fa-dollar-sign"></i></div>
                                         </span>
                                     </div>
+                                </div>
+                            </div>
+                            <!-- Fin presupuesto -->
+                            <!-- Presupuesto II -->
+                            <div class="container-block" id="documentacion">
+                                <!-- sub block Presupuesto -->
+                                <div class="container-sub-block sub-block-big">
+                                    <div class="block"  data-presupuesto="true">
+                                        <span>
+                                            <label>Sucursal de Firma:</label>
+                                            <input
+                                                name="Sucursal_de_Firma"
+                                                list="list-Sucursales"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                            <datalist data-datalist="true" id="list-Sucursales">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </span>
+                                        <span>
+                                            <label>Zona:</label>
+                                            <input
+                                                name="Gerente"
+                                                list="list-Gerente"
+                                            >
+                                            <div class="iconos"><i class="fa-solid fa-user"></i></div>
+                                            <datalist data-datalist="true" id="list-Gerente">
+                                                <option value=""></option>
+                                            </datalist>
+                                        </span>
+                                        <span>
+                                            <label>Carta Compromiso:</label>
+                                            <input type="checkbox"
+                                            name="Carta_Compromiso"
+                                            id="carta-compromiso"
+                                            >
+                                        </span>
+                                        <span id="plazo-compromiso" style="display:none;">
+                                            <label>Plazo Compromiso:</label>
+                                            <input
+                                                type="text"
+                                                name="Plazo_Compromiso"
+                                            />
+                                            <div class="iconos"><i class="fa-solid fa-calendar-days"></i></div>
+                                        </span>
+                                        <span id="monto-compromiso" style="display:none;">
+                                            <label>Monto Compromiso:</label>
+                                            <input
+                                                type="text"
+                                                name="Monto_Compromiso"
+                                            />
+                                            <div class="iconos"> <i class="fa-solid fa-coins"></i></div>
+                                        </span>
+                                    </div>
                                     <div class="title-block">
                                         <span>
                                             <input
@@ -1736,29 +1795,29 @@
                     </div>
                     <div class="banner"></div>
                 </div>
-            </div>
-            <!-- Modal Camara -->
-            <div data-archivos="true" id="modal-archivos" class="container-wrap">
-                <div data-archivos="true" class="camera-container" id="camera-container">
-                    <select name="" class="select-camera" id="select-camera"></select>
-                    <video autoplay></video>
-                    <div class="controls">
-                        <div class="addScreanShot"><i class="fa-solid fa-rectangle-history-circle-plus"></i></div>
-                        <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
-                        <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
+                <!-- Modal Camara -->
+                <div data-archivos="true" id="modal-archivos" class="container-wrap">
+                    <div data-archivos="true" class="camera-container" id="camera-container">
+                        <select name="" class="select-camera" id="select-camera"></select>
+                        <video autoplay></video>
+                        <div class="controls">
+                            <div class="addScreanShot"><i class="fa-solid fa-paperclip"></i></div>
+                            <div class="screanShot"><i class="fa-solid fa-camera"></i></div>
+                            <div class="save"><i class="fa-solid fa-floppy-disk"></i></div>
+                        </div>
+                        <canvas></canvas>
+                        <input type="file" name="" id="file" class="hide" capture="environment"
+                        accept="image/*">
+                        <div id="screanshots" class="screanshots"></div>
+                        
                     </div>
-                    <canvas></canvas>
-                    <input type="file" name="" id="file" class="hide" capture="environment"
-                    accept="image/*">
-                    <div id="screanshots" class="screanshots"></div>
-                    
                 </div>
-            </div>
-            <!-- Modal Imagen -->
-            <div data-img="false" id="visualize" class="visualize">
-                <img id="visualize-img" class="visualize-img" >
-                    
-                </img>
+                <!-- Modal Imagen -->
+                <div data-img="false" id="visualize" class="visualize">
+                    <img id="visualize-img" class="visualize-img" >
+                        
+                    </img>
+                </div>
             </div>
         </div>
         <!-- <div id="result-deals" ></div> -->
