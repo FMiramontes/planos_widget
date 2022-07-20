@@ -36,7 +36,9 @@ let mapa = document.querySelector('.map')
 let navegador = util.navegador()
 let btnRefreshForm = document.getElementById('btn-refreshForm')
 let loader = document.getElementById('loader-top')
-let btnUpdateUif = document.getElementById('btn-refreshForm')
+let inputsRecursos = Array.from(
+    document.querySelectorAll('[data-aporta-recursos]')
+)
 
 // const data-tutular="1"
 // data-tutular="2"
@@ -414,8 +416,6 @@ document.addEventListener('dblclick', (e) => {
     modal.addEventListener('change', (e) => {
         if (e.target.matches('[data-email]')) {
             valid.validateEmail(e.target.value, e.target.dataset.email)
-        } else if (e.target.matches('[data-aporta-recursos]')) {
-            valid.validateRecursos()
         }
     }),
     //Validate digits phone and mobile
@@ -548,3 +548,10 @@ inputVenta.addEventListener('change',(e)=>{
                 operadorUnidad.style.display = 'none'
             }
         }
+
+//validate recursos
+inputsRecursos.forEach((e) =>{
+    e.addEventListener('change',(e) =>{
+        valid.validateRecursos(e.target)
+    })
+})
