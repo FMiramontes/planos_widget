@@ -2291,7 +2291,7 @@ const util = {
         const fechas = {
             DiasdePago:  this.diasDePago(Hoy),
             FechadePago: FechadePago,
-            FechaProximoPago: FechaProximoPago,
+            FechaProximoPago: TipodePolitica == "Primer Mensualidad" ? FechadePago : FechaProximoPago,
             FechaUltimoPago: FechaUltimoPago
         }
        
