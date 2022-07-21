@@ -2264,7 +2264,7 @@ const util = {
         PlazosDiferido = PlazosDiferido == null ? 0 : PlazosDiferido
         
         let Hoy = new Date()
-        if(TipodePolitica == "Enganche" && PlazosDiferido == 0) Hoy = this.addDate(Hoy, "M", 1)
+        // if(TipodePolitica == "Enganche" && PlazosDiferido == 0) Hoy = this.addDate(Hoy, "M", 1)
         
         let dias = this.diasDePago(Hoy)
         
@@ -2281,7 +2281,7 @@ const util = {
           FechaProximoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", 1))
           FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo + 1))
         }else{
-          FechaProximoPago = this.formatDate( this.addDate(new Date(AuxFecha), "M", 1))
+          FechaProximoPago = TipodePolitica == "Enganche"  ?  this.formatDate( this.addDate(new Date(AuxFecha), "M", 1)) : this.formatDate( AuxFecha)
           FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo ))
         }
         
@@ -2291,7 +2291,7 @@ const util = {
         const fechas = {
             DiasdePago:  this.diasDePago(Hoy),
             FechadePago: FechadePago,
-            FechaProximoPago: TipodePolitica == "Primer Mensualidad" ? FechadePago : FechaProximoPago,
+            FechaProximoPago: FechaProximoPago,
             FechaUltimoPago: FechaUltimoPago
         }
        
