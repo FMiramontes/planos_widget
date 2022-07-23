@@ -521,8 +521,8 @@ let plazoCompromiso = document.getElementById('plazo-compromiso');
 
 checkCompromiso.addEventListener('click',()=>{
     if (checkCompromiso.checked){
-        montoCompromiso.style.display = 'block'
-        plazoCompromiso.style.display = 'block'
+        montoCompromiso.style.display = 'flex'
+        plazoCompromiso.style.display = 'flex'
     }else{
         montoCompromiso.style.display = 'none'
         plazoCompromiso.style.display = 'none'
@@ -543,7 +543,7 @@ inputVenta.addEventListener('change',(e)=>{
             return option.value === value;
         });
             if (option.value == "Call Center Costa 2"){
-                operadorUnidad.style.display = 'block'
+                operadorUnidad.style.display = 'flex'
             }else{
                 operadorUnidad.style.display = 'none'
             }
