@@ -297,6 +297,10 @@
     margin: 5px;
 }
 
+.client{
+    color: #338cf0 !important;
+    cursor: pointer;
+}
 .titulo-trato {
     width: 100%;
     padding: 3% 0px;
@@ -308,8 +312,9 @@
     align-items: center;
     color: white;
     text-transform: uppercase;
+    text-decoration: underline;
+    cursor: pointer;
 }
-
 .trato-cont {
     height: 100%;
     width: 90%;

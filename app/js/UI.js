@@ -207,7 +207,7 @@ const UI = {
                 'input[name="Costo_Descuento_P"]'
             ).value
 
-            const product_id = modal.dataset.crm_id
+            const product_id = modal.dataset?.crm_id
             const email = newData?.contacto?.Email
             const item = modal.dataset?.item
             let sku = modal.dataset?.sku
@@ -218,6 +218,11 @@ const UI = {
             let productName
             let productBooksId
 
+            if(!product_id) throw new Error('product_id undefined')
+            if(!email) throw new Error('email undefined')
+            if(!item) throw new Error('item undefined')
+
+
             // logica de contacto **************************************
             const params = { contactDiv, user, vend, newData, CRMData, email }
             const {
@@ -227,6 +232,13 @@ const UI = {
                 id_contactBooks,
                 contactName,
             } = await this.contacto(params)
+
+
+            if(!accountId) throw new Error('accountId undefined')
+            if(!contact_id) throw new Error('contact_id undefined')
+            if(!accountName) throw new Error('accountName undefined')
+            if(!id_contactBooks) throw new Error('id_contactBooks undefined')
+            if(!contactName) throw new Error('contactName undefined')
 
             // logica de Producto  **************************************
             productName = modal.dataset?.trato
@@ -242,6 +254,9 @@ const UI = {
                 productName = seccion?.item_name
                 sku = seccion?.sku
             }
+
+            if(!productName) throw new Error('productName undefined')
+            if(!sku) throw new Error('sku undefined')
 
             const productBooksRequest = await books.getProductByName(
                 productName,
@@ -268,21 +283,21 @@ const UI = {
                     : 'Contado'
 
             const DealData = {
-                Deal_Name: modal.dataset.trato,
+                Deal_Name: modal.dataset?.trato,
                 Nombre_de_Producto: { id: product_id },
                 Account_Name: { id: accountId },
                 // Amount: newData.presupuesto.Saldo_Pagar_P,
-                Departamento: newData.contacto.Departamento,
-                Modo_de_pago: [newData.presupuesto.Modo_de_pago],
-                Lead_Source: newData.contacto.Lead_Source,
+                Departamento: newData.contacto?.Departamento,
+                Modo_de_pago: [newData.presupuesto?.Modo_de_pago],
+                Lead_Source: newData.contacto?.Lead_Source,
                 Type: tipoDeCompra,
                 Tipo_de_Compra1: tipoCompra,
                 Carta_Compromiso: newData.presupuesto?.Carta_Compromiso,	
                 Plazo_Compromiso: newData.presupuesto?.Plazo_Compromiso,	
                 Monto_Compromiso: newData.presupuesto?.Monto_Compromiso	,	
-                Sucursal_de_Firma: newData.presupuesto.Sucursal_de_Firma,
-                Operadores_de_Unidad_de_Venta: newData.presupuesto.Operadores_de_Unidad_de_Venta,
-                Tipo_de_Venta: newData.presupuesto.Tipo_de_Venta,
+                Sucursal_de_Firma: newData.presupuesto?.Sucursal_de_Firma,
+                Operadores_de_Unidad_de_Venta: newData.presupuesto?.Operadores_de_Unidad_de_Venta,
+                Tipo_de_Venta: newData.presupuesto?.Tipo_de_Venta,
                 Amount:
                     inputDescuento !== ''
                         ? parseFloat(inputDescuento)
@@ -292,15 +307,15 @@ const UI = {
                 Campaign_Source: { id: Campaign_id },
                 Contact_Name: { id: contact_id },
                 Coordinador: coordinadorArray,
-                Gerente: newData.presupuesto.Gerente,
+                Gerente: newData.presupuesto?.Gerente,
             }
 
             if (user.dataset.profile === 'Vendedor') {
                 // Usuario con perfil de Vendedor
-                DealData.Owner = { id: user.dataset.crmuserid }
+                DealData.Owner = { id: user.dataset?.crmuserid }
             } else {
                 // No es un usuario con perfil de Vendedor
-                DealData.Owner = { id: vend.dataset.vendedorid }
+                DealData.Owner = { id: vend.dataset?.vendedorid }
             }
 
             const DealRequest = await crm.createDeal(DealData)
@@ -667,7 +682,7 @@ const UI = {
                     alerts.showAlert('finish', 'Posible cliente creado')
                 } else {
                     alerts.showAlert(
-                        createLead.type,
+                        'danger',
                         'El posible cliente no pudo ser creado !!'
                     )
                 }
@@ -685,7 +700,7 @@ const UI = {
         const envio = await cliq.postToChannel('lotesfaltantes', msg)
         if (envio.ok) {
             alerts.showAlert(
-                envio.type,
+                'success',
                 'Se posteo correctamente dentro del canal'
             )
         }
@@ -1276,6 +1291,7 @@ const UI = {
                 // // data for accounts
                 const accountData = {
                     Account_Name: accountName.toUpperCase(),
+                    Correo_electr_nico_1: email,
                     Owner: {
                         id:
                             user.dataset.profile === 'Vendedor'
@@ -1401,6 +1417,7 @@ const UI = {
                     // // data for accounts
                     const accountData = {
                         Account_Name: accountName.toUpperCase(),
+                        Correo_electr_nico_1: email,
                         Owner: {
                             id:
                                 user.dataset.profile === 'Vendedor'
@@ -1499,19 +1516,37 @@ const UI = {
                 let url = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Preliminar/IDOportunidad=${deal.id}`
                 let urlMenu = `https://creatorapp.zoho.com/sistemas134/cotizador1/view-embed/Menu_Cotizador/IDOportunidad=${deal.id}`
                 let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
+                let urlContact = `https://crm.zoho.com/crm/org638248503/tab/Contacts/${deal.Contact_Name?.id}`
                 let card = `
-                <section class="titulo-trato">${deal.Deal_Name}</section>
-                <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
-                    <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
-                    <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                    <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
-                    <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
-                    <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
-                </section>
-                <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
-                <p><b>Cliente: </b><b>${deal.Contact_Name?.name}</b></p>
-                <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
-            `
+                    <section class="titulo-trato">
+                    <a href=${urlDeal} target="_blank">${deal.Deal_Name}</a>
+                    </section>
+                    <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
+                        <div class="tooltip2">
+                            <span class="tooltiptext">Preliminar</span>
+                            <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                        </div>
+                        <div class="tooltip2">
+                            <span class="tooltiptext">Menu cotizador</span>
+                            <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                        </div>
+                        <div class="tooltip2 ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}">
+                            <span class="tooltiptext">Cerrar trato</span>
+                            <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
+                        </div>
+                        <div class="tooltip2">
+                            <span class="tooltiptext">Adjuntar archivos</span>
+                            <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
+                        </div>
+                        <div class="tooltip2 ${deal.Stage == "Cerrado (ganado)" ? "" : "hide"}">
+                            <span class="tooltiptext">Refresh UIF</span>
+                            <a data-uif class="btn-trato ${deal.Stage == "Cerrado (ganado)" ? "" : "hide"}"><i class="fa-solid fa-arrow-rotate-right"></i></a>
+                        </div>
+                    </section>
+                    <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
+                    <p><b>Cliente: </b><a href=${urlContact} target="_blank" class="client"><b>${deal.Contact_Name?.name}</b></a></p>
+                    <div class='deal-stage' style="background-color: ${colors[stage]}">${stage}</div>
+                `
                 let section = document.createElement('section')
                 section.classList = 'card-trato'
                 section.innerHTML = card
@@ -2190,12 +2225,20 @@ const util = {
             }
             mensualidad = 0
         }
+        const checkApartado = document.querySelector('#hasApartado').checked
+        if(checkApartado){
+            let apartadoVal = document.querySelector(
+                `input[name="Cantidad_RA"]`
+            ).value 
+            reportObj.Monto_de_Apartado = apartadoVal
+        }else{
+            reportObj.Monto_de_Apartado = campaign.Monto_de_Apartado.toFixed(2)
+        }
         // Asignar valores a obj
         reportObj.Promocion = campaign.Campaign_Name
         reportObj.FormaPago = formaDePago
         reportObj.TipodePolitica = field_Tipodepolitica
         reportObj.TipodePoliticaCampa_a = field_Tipodepolitica
-        reportObj.Monto_de_Apartado = campaign.Monto_de_Apartado.toFixed(2)
         reportObj.Terrenos = deal.Deal_Name
         reportObj.PrecioTotalTerreno = precioTotalDelTerreno.toFixed(2)
         reportObj.DimensionesTerreno = DIMENSIONES
@@ -2260,7 +2303,7 @@ const util = {
         PlazosDiferido = PlazosDiferido == null ? 0 : PlazosDiferido
         
         let Hoy = new Date()
-        if(TipodePolitica == "Enganche" && PlazosDiferido == 0) Hoy = this.addDate(Hoy, "M", 1)
+        // if(TipodePolitica == "Enganche" && PlazosDiferido == 0) Hoy = this.addDate(Hoy, "M", 1)
         
         let dias = this.diasDePago(Hoy)
         
@@ -2277,7 +2320,7 @@ const util = {
           FechaProximoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", 1))
           FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo + 1))
         }else{
-          FechaProximoPago = this.formatDate( this.addDate(new Date(AuxFecha), "M", 1))
+          FechaProximoPago = TipodePolitica == "Enganche"  ?  this.formatDate( this.addDate(new Date(AuxFecha), "M", 1)) : this.formatDate( AuxFecha)
           FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo ))
         }
         

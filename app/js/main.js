@@ -5,6 +5,7 @@ import alerts from './alertas.js'
 import './zoom.js'
 import camera from './camera.js'
 import datalists from './dataList.js'
+import {crm} from './Zoho.js'
 
 const searchContactBtn = document.querySelector('#search-contact')
 const searchCampaigntBtn = document.querySelector('#search-campaign')
@@ -35,6 +36,9 @@ let mapa = document.querySelector('.map')
 let navegador = util.navegador()
 let btnRefreshForm = document.getElementById('btn-refreshForm')
 let loader = document.getElementById('loader-top')
+let inputsRecursos = Array.from(
+    document.querySelectorAll('[data-aporta-recursos]')
+)
 
 // const data-tutular="1"
 // data-tutular="2"
@@ -412,8 +416,6 @@ document.addEventListener('dblclick', (e) => {
     modal.addEventListener('change', (e) => {
         if (e.target.matches('[data-email]')) {
             valid.validateEmail(e.target.value, e.target.dataset.email)
-        } else if (e.target.matches('[data-aporta-recursos]')) {
-            valid.validateRecursos()
         }
     }),
     //Validate digits phone and mobile
@@ -450,6 +452,8 @@ menu.addEventListener('click', util.debounce((e) => {
 Iconmenu2.addEventListener('click', () => {
     /*Abrir menu*/
     menu2.classList.toggle('open')
+    let panelZoom = document.querySelector('.zoom-panel')
+    panelZoom.classList.toggle('right-space')
     // let cardColor = document.querySelector('.color-deals')
     // cardColor.classList.toggle('showCard')
 })
@@ -494,6 +498,22 @@ document.addEventListener('click', async (e) => {
     }
 })
 
+document.addEventListener('click', async (e) => {
+    if(e.target.matches('[data-uif]')){
+        const updateUIF = confirm('Desea actualizar codigo UIF?')
+        if (updateUIF) {
+            let dealID = e.target.parentElement.dataset.dealid
+            let updateRequest = await crm.updateUIF(dealID)
+
+            if(updateRequest.ok){
+                alerts.showAlert("success","UIF Actualizado.")
+            }else{
+                alerts.showAlert("warning","UIF no actualizado.")
+            }
+        }
+    }
+})
+
 // Check Carta Compromiso
 let checkCompromiso = document.getElementById('carta-compromiso');
 let montoCompromiso = document.getElementById('monto-compromiso');
@@ -501,8 +521,8 @@ let plazoCompromiso = document.getElementById('plazo-compromiso');
 
 checkCompromiso.addEventListener('click',()=>{
     if (checkCompromiso.checked){
-        montoCompromiso.style.display = 'block'
-        plazoCompromiso.style.display = 'block'
+        montoCompromiso.style.display = 'flex'
+        plazoCompromiso.style.display = 'flex'
     }else{
         montoCompromiso.style.display = 'none'
         plazoCompromiso.style.display = 'none'
@@ -523,8 +543,15 @@ inputVenta.addEventListener('change',(e)=>{
             return option.value === value;
         });
             if (option.value == "Call Center Costa 2"){
-                operadorUnidad.style.display = 'block'
+                operadorUnidad.style.display = 'flex'
             }else{
                 operadorUnidad.style.display = 'none'
             }
         }
+
+//validate recursos
+inputsRecursos.forEach((e) =>{
+    e.addEventListener('change',(e) =>{
+        valid.validateRecursos(e.target)
+    })
+})

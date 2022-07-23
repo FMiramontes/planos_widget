@@ -453,7 +453,7 @@
                                         </span>
                                         <span>
                                             <label>CP:</label>
-                                            <input type="text" name="Mailing_Zip"/>
+                                            <input type="number" name="Mailing_Zip"/>
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
                                         </span>
                                         
@@ -546,7 +546,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="title-block">
+                                <!-- <div class="title-block">
                                     <span>
                                         <input
                                             class="btn btn-cratelead"
@@ -563,7 +563,7 @@
                                             value="refresh"
                                         />
                                     </span>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- uif-titular-1 -->
                             <div class="container-block" id="uif-titular-1">
@@ -948,7 +948,7 @@
                                         <span>
                                             <label>CP:</label>
                                             <input
-                                                type="text"
+                                                type="number"
                                                 name="CP2"
                                             />
                                             <div class="iconos"><i class="fa-solid fa-location-dot"></i></div>
@@ -1779,7 +1779,7 @@
                                             <div class="iconos"> <i class="fa-solid fa-coins"></i></div>
                                         </span>
                                     </div>
-                                    <div class="title-block">
+                                    <!-- <div class="title-block">
                                         <span>
                                             <input
                                                 id="btn-submit"
@@ -1787,13 +1787,29 @@
                                                 value="Enviar"
                                             />
                                         </span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                         <!-- </form> -->
                     </div>
-                    <div class="banner"></div>
+                    <div class="wrapper-banner">
+                        <section class="banner-icons">
+                            <div class="tooltip">
+                                <span class="tooltiptext">Crear lead</span>
+                                <button id="btn-cratelead"><i class="fa-solid fa-user-plus banner-icon"></i></button>
+                            </div>
+                            <div class="tooltip">
+                                <span class="tooltiptext">Refresh Form</span>
+                                <button id="btn-refreshForm"><i class="fa-solid fa-arrow-rotate-right banner-icon"></i></button>
+                            </div>
+                            <div class="tooltip">
+                                <span class="tooltiptext">Enviar</span>
+                                <button id="btn-submit" type="submit" value="Enviar"><i class="fa-solid fa-paper-plane banner-icon"></i></button>
+                            </div>
+                        </section>
+                        <div class="banner"></div>
+                    </div>
                 </div>
                 <!-- Modal Camara -->
                 <div data-archivos="true" id="modal-archivos" class="container-wrap">

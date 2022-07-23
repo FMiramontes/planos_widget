@@ -168,57 +168,34 @@ const validate = {
         }
     },
 
-    validateRecursos() {
-        let inputsRecursos = Array.from(
-            document.querySelectorAll('[data-aporta-recursos]')
-        )
-        let nombre_completo = document.getElementById('nombre_completo')
-        let dueno_controlador = document.getElementById('dueno_controlador')
+    validateRecursos(input) {
 
-        inputsRecursos.forEach((e) => {
-            e.addEventListener('change', (e) => {
-                let temp = document.querySelector(
-                    `[data-copy=${e.target.name}]`
-                )
+        if (input.name == 'First_Name' || input.name == 'Apellido_Paterno' || input.name == 'Apellido_Materno') {
+            //input[name="Cantidad_RA"]
+            let nombre = document.querySelector('input[name="First_Name"')
+            let apellidoP = document.querySelector('input[name="Apellido_Paterno"')
+            let apellidoM = document.querySelector('input[name="Apellido_Materno"')
 
-                if (
-                    e.target.name == 'First_Name' ||
-                    e.target.name == 'Apellido_Paterno' ||
-                    e.target.name == 'Apellido_Materno'
-                ) {
-                    let nn
+            let nombre_completo = document.getElementById('nombre_completo')
+            let dueno_controlador = document.getElementById('dueno_controlador')
+            let nn
 
-                    if (
-                        inputsRecursos[1].value == '' &&
-                        inputsRecursos[2].value == ''
-                    ) {
-                        nn = inputsRecursos[0].value
-                    } else if (inputsRecursos[2].value == '') {
-                        nn =
-                            inputsRecursos[0].value +
-                            ' ' +
-                            inputsRecursos[1].value
-                    } else if (inputsRecursos[1].value == '') {
-                        nn =
-                            inputsRecursos[0].value +
-                            ' ' +
-                            inputsRecursos[2].value
-                    } else {
-                        nn =
-                            inputsRecursos[0].value +
-                            ' ' +
-                            inputsRecursos[1].value +
-                            ' ' +
-                            inputsRecursos[2].value
-                    }
+            if(apellidoP.value == '' && apellidoP.value == ''){
+                nn = nombre.textContent
+            }else if(apellidoM.value == ''){
+                nn = nombre.value + ' ' + apellidoP.value
+            }else if(apellidoP.value == ''){
+                nn = nombre.value + ' ' + apellidoM.value
+            }else{
+                nn = nombre.value + ' ' + apellidoP.value + ' ' + apellidoM.value
+            }
 
-                    nombre_completo.value = nn
-                    dueno_controlador.value = nn
-                } else {
-                    temp.value = e.target.value
-                }
-            })
-        })
+            nombre_completo.value = nn
+            dueno_controlador.value = nn
+        }else{
+            let inputCopy = document.querySelector(`[data-copy=${input.name}]`)
+            inputCopy.value = input.value
+        }
     },
 
     validDataLists(modo) {
