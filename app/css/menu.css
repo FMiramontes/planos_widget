@@ -312,8 +312,9 @@
     align-items: center;
     color: white;
     text-transform: uppercase;
+    text-decoration: underline;
+    cursor: pointer;
 }
-
 .trato-cont {
     height: 100%;
     width: 90%;
