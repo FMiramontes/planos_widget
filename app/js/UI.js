@@ -221,7 +221,6 @@ const UI = {
             if(!product_id) throw new Error('product_id undefined')
             if(!email) throw new Error('email undefined')
             if(!item) throw new Error('item undefined')
-            if(!sku) throw new Error('sku undefined')
 
 
             // logica de contacto **************************************
@@ -233,6 +232,13 @@ const UI = {
                 id_contactBooks,
                 contactName,
             } = await this.contacto(params)
+
+
+            if(!accountId) throw new Error('accountId undefined')
+            if(!contact_id) throw new Error('contact_id undefined')
+            if(!accountName) throw new Error('accountName undefined')
+            if(!id_contactBooks) throw new Error('id_contactBooks undefined')
+            if(!contactName) throw new Error('contactName undefined')
 
             // logica de Producto  **************************************
             productName = modal.dataset?.trato
@@ -248,6 +254,9 @@ const UI = {
                 productName = seccion?.item_name
                 sku = seccion?.sku
             }
+
+            if(!productName) throw new Error('productName undefined')
+            if(!sku) throw new Error('sku undefined')
 
             const productBooksRequest = await books.getProductByName(
                 productName,
@@ -274,21 +283,21 @@ const UI = {
                     : 'Contado'
 
             const DealData = {
-                Deal_Name: modal.dataset.trato,
+                Deal_Name: modal.dataset?.trato,
                 Nombre_de_Producto: { id: product_id },
                 Account_Name: { id: accountId },
                 // Amount: newData.presupuesto.Saldo_Pagar_P,
-                Departamento: newData.contacto.Departamento,
-                Modo_de_pago: [newData.presupuesto.Modo_de_pago],
-                Lead_Source: newData.contacto.Lead_Source,
+                Departamento: newData.contacto?.Departamento,
+                Modo_de_pago: [newData.presupuesto?.Modo_de_pago],
+                Lead_Source: newData.contacto?.Lead_Source,
                 Type: tipoDeCompra,
                 Tipo_de_Compra1: tipoCompra,
                 Carta_Compromiso: newData.presupuesto?.Carta_Compromiso,	
                 Plazo_Compromiso: newData.presupuesto?.Plazo_Compromiso,	
                 Monto_Compromiso: newData.presupuesto?.Monto_Compromiso	,	
-                Sucursal_de_Firma: newData.presupuesto.Sucursal_de_Firma,
-                Operadores_de_Unidad_de_Venta: newData.presupuesto.Operadores_de_Unidad_de_Venta,
-                Tipo_de_Venta: newData.presupuesto.Tipo_de_Venta,
+                Sucursal_de_Firma: newData.presupuesto?.Sucursal_de_Firma,
+                Operadores_de_Unidad_de_Venta: newData.presupuesto?.Operadores_de_Unidad_de_Venta,
+                Tipo_de_Venta: newData.presupuesto?.Tipo_de_Venta,
                 Amount:
                     inputDescuento !== ''
                         ? parseFloat(inputDescuento)
@@ -298,15 +307,15 @@ const UI = {
                 Campaign_Source: { id: Campaign_id },
                 Contact_Name: { id: contact_id },
                 Coordinador: coordinadorArray,
-                Gerente: newData.presupuesto.Gerente,
+                Gerente: newData.presupuesto?.Gerente,
             }
 
             if (user.dataset.profile === 'Vendedor') {
                 // Usuario con perfil de Vendedor
-                DealData.Owner = { id: user.dataset.crmuserid }
+                DealData.Owner = { id: user.dataset?.crmuserid }
             } else {
                 // No es un usuario con perfil de Vendedor
-                DealData.Owner = { id: vend.dataset.vendedorid }
+                DealData.Owner = { id: vend.dataset?.vendedorid }
             }
 
             const DealRequest = await crm.createDeal(DealData)
@@ -2216,12 +2225,20 @@ const util = {
             }
             mensualidad = 0
         }
+        const checkApartado = document.querySelector('#hasApartado').checked
+        if(checkApartado){
+            let apartadoVal = document.querySelector(
+                `input[name="Cantidad_RA"]`
+            ).value 
+            reportObj.Monto_de_Apartado = apartadoVal
+        }else{
+            reportObj.Monto_de_Apartado = campaign.Monto_de_Apartado.toFixed(2)
+        }
         // Asignar valores a obj
         reportObj.Promocion = campaign.Campaign_Name
         reportObj.FormaPago = formaDePago
         reportObj.TipodePolitica = field_Tipodepolitica
         reportObj.TipodePoliticaCampa_a = field_Tipodepolitica
-        reportObj.Monto_de_Apartado = campaign.Monto_de_Apartado.toFixed(2)
         reportObj.Terrenos = deal.Deal_Name
         reportObj.PrecioTotalTerreno = precioTotalDelTerreno.toFixed(2)
         reportObj.DimensionesTerreno = DIMENSIONES

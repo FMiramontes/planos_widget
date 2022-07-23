@@ -1833,11 +1833,15 @@ async function createLog(log, status, info) {
     const obj = {
         data: {
             app: 'Planos',
-            message,
+            err: log,
+            message: message,
             status,
             additional_info: info,
+            log: info.invoke
         },
     }
+
+    console.log(`Log de ${info.invoke}`)
 
     const req_data = {
         parameters: obj,
@@ -1846,6 +1850,7 @@ async function createLog(log, status, info) {
     }
 
     const response = await ZOHO.CRM.CONNECTION.invoke(connectionName, req_data)
+
     return response
 }
 
