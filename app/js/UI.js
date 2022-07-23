@@ -207,7 +207,7 @@ const UI = {
                 'input[name="Costo_Descuento_P"]'
             ).value
 
-            const product_id = modal.dataset.crm_id
+            const product_id = modal.dataset?.crm_id
             const email = newData?.contacto?.Email
             const item = modal.dataset?.item
             let sku = modal.dataset?.sku
@@ -217,6 +217,12 @@ const UI = {
             let plazosdiferido
             let productName
             let productBooksId
+
+            if(!product_id) throw new Error('product_id undefined')
+            if(!email) throw new Error('email undefined')
+            if(!item) throw new Error('item undefined')
+            if(!sku) throw new Error('sku undefined')
+
 
             // logica de contacto **************************************
             const params = { contactDiv, user, vend, newData, CRMData, email }

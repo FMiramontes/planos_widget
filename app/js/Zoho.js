@@ -600,7 +600,7 @@ const crm = {
             }
         } catch (error) {
             createLog(error, 'Error', {
-                args: { productID, costoM2, costoProducto },
+                args: { data },
                 invoke: 'updateProduct',
             })
 
