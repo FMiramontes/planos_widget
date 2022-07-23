@@ -1509,14 +1509,30 @@ const UI = {
                 let urlDeal = `https://crm.zoho.com/crm/org638248503/tab/Potentials/${deal.id}`
                 let urlContact = `https://crm.zoho.com/crm/org638248503/tab/Contacts/${deal.Contact_Name?.id}`
                 let card = `
-                    <section class="titulo-trato">${deal.Deal_Name}</section>
+                    <section class="titulo-trato">
+                    <a href=${urlDeal} target="_blank">${deal.Deal_Name}</a>
+                    </section>
                     <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
-                        <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
-                        <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
-                        <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
-                        <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
-                        <a href=${urlDeal} target="_blank" class="btn-trato"><i class="fa-solid fa-handshake"></i></a>
-                        <a data-uif class="btn-trato ${deal.Stage == "Cerrado (ganado)" ? "" : "hide"}"><i class="fa-solid fa-arrow-rotate-right"></i></a>
+                        <div class="tooltip2">
+                            <span class="tooltiptext">Preliminar</span>
+                            <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
+                        </div>
+                        <div class="tooltip2">
+                            <span class="tooltiptext">Menu cotizador</span>
+                            <a href=${urlMenu} target="_blank" class="btn-trato"><i class="fa-solid fa-grip"></i></a>
+                        </div>
+                        <div class="tooltip2 ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}">
+                            <span class="tooltiptext">Cerrar trato</span>
+                            <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
+                        </div>
+                        <div class="tooltip2">
+                            <span class="tooltiptext">Adjuntar archivos</span>
+                            <div data-file="true" class="btn-trato"><i class="fa-solid fa-file-pdf"></i></div>
+                        </div>
+                        <div class="tooltip2 ${deal.Stage == "Cerrado (ganado)" ? "" : "hide"}">
+                            <span class="tooltiptext">Refresh UIF</span>
+                            <a data-uif class="btn-trato ${deal.Stage == "Cerrado (ganado)" ? "" : "hide"}"><i class="fa-solid fa-arrow-rotate-right"></i></a>
+                        </div>
                     </section>
                     <p><b>Vendedor: </b><b>${deal.Owner.name}</b></p>
                     <p><b>Cliente: </b><a href=${urlContact} target="_blank" class="client"><b>${deal.Contact_Name?.name}</b></a></p>
@@ -2270,7 +2286,7 @@ const util = {
         PlazosDiferido = PlazosDiferido == null ? 0 : PlazosDiferido
         
         let Hoy = new Date()
-        if(TipodePolitica == "Enganche" && PlazosDiferido == 0) Hoy = this.addDate(Hoy, "M", 1)
+        // if(TipodePolitica == "Enganche" && PlazosDiferido == 0) Hoy = this.addDate(Hoy, "M", 1)
         
         let dias = this.diasDePago(Hoy)
         
@@ -2287,7 +2303,7 @@ const util = {
           FechaProximoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", 1))
           FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo + 1))
         }else{
-          FechaProximoPago = this.formatDate( this.addDate(new Date(AuxFecha), "M", 1))
+          FechaProximoPago = TipodePolitica == "Enganche"  ?  this.formatDate( this.addDate(new Date(AuxFecha), "M", 1)) : this.formatDate( AuxFecha)
           FechaUltimoPago = this.formatDate(this.addDate(new Date(AuxFecha), "M", Plazo ))
         }
         
@@ -2297,7 +2313,7 @@ const util = {
         const fechas = {
             DiasdePago:  this.diasDePago(Hoy),
             FechadePago: FechadePago,
-            FechaProximoPago: TipodePolitica == "Primer Mensualidad" ? FechadePago : FechaProximoPago,
+            FechaProximoPago: FechaProximoPago,
             FechaUltimoPago: FechaUltimoPago
         }
        

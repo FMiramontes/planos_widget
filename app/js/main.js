@@ -36,7 +36,9 @@ let mapa = document.querySelector('.map')
 let navegador = util.navegador()
 let btnRefreshForm = document.getElementById('btn-refreshForm')
 let loader = document.getElementById('loader-top')
-let btnUpdateUif = document.getElementById('btn-refreshForm')
+let inputsRecursos = Array.from(
+    document.querySelectorAll('[data-aporta-recursos]')
+)
 
 // const data-tutular="1"
 // data-tutular="2"
@@ -414,8 +416,6 @@ document.addEventListener('dblclick', (e) => {
     modal.addEventListener('change', (e) => {
         if (e.target.matches('[data-email]')) {
             valid.validateEmail(e.target.value, e.target.dataset.email)
-        } else if (e.target.matches('[data-aporta-recursos]')) {
-            valid.validateRecursos()
         }
     }),
     //Validate digits phone and mobile
@@ -521,8 +521,8 @@ let plazoCompromiso = document.getElementById('plazo-compromiso');
 
 checkCompromiso.addEventListener('click',()=>{
     if (checkCompromiso.checked){
-        montoCompromiso.style.display = 'block'
-        plazoCompromiso.style.display = 'block'
+        montoCompromiso.style.display = 'flex'
+        plazoCompromiso.style.display = 'flex'
     }else{
         montoCompromiso.style.display = 'none'
         plazoCompromiso.style.display = 'none'
@@ -543,8 +543,15 @@ inputVenta.addEventListener('change',(e)=>{
             return option.value === value;
         });
             if (option.value == "Call Center Costa 2"){
-                operadorUnidad.style.display = 'block'
+                operadorUnidad.style.display = 'flex'
             }else{
                 operadorUnidad.style.display = 'none'
             }
         }
+
+//validate recursos
+inputsRecursos.forEach((e) =>{
+    e.addEventListener('change',(e) =>{
+        valid.validateRecursos(e.target)
+    })
+})
