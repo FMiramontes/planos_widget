@@ -492,9 +492,18 @@ document.addEventListener('click', async (e) => {
             loader.style.display = 'block'
             const deal = document.getElementById(`${e.target.dataset.id}`) 
             const { numcierre, dealid} = deal.dataset
-            await UI.cerrarTrato(numcierre, dealid)
+
+            if(numcierre === "null" || dealid === "null"){
+                alerts.showAlert('danger', 'Este trato no se puede cerrar')
+            }else{
+                const deal = document.getElementById(`${e.target.dataset.id}`) 
+                const { numcierre, dealid} = deal.dataset
+                await UI.cerrarTrato(numcierre, dealid)
+            }
+
             await UI.paintDeals()
             UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
+            
             loader.style.display = 'none'
         }
     }
