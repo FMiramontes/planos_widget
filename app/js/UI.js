@@ -1521,7 +1521,7 @@ const UI = {
                     <section class="titulo-trato">
                     <a href=${urlDeal} target="_blank">${deal.Deal_Name}</a>
                     </section>
-                    <section class="trato-cont" data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
+                    <section class="trato-cont" id='GC-${deal.Numero_de_Cierre}' data-dealid='${deal.id}' data-numcierre='${deal.Numero_de_Cierre}' data-dealname='${deal.Deal_Name}'>
                         <div class="tooltip2">
                             <span class="tooltiptext">Preliminar</span>
                             <a href=${url} target="_blank" class="btn-trato"><i class="fa-solid fa-file"></i></a>
@@ -1532,7 +1532,7 @@ const UI = {
                         </div>
                         <div class="tooltip2 ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}">
                             <span class="tooltiptext">Cerrar trato</span>
-                            <a data-cerrar class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
+                            <a data-cerrar data-id='GC-${deal.Numero_de_Cierre}' class="btn-trato ${deal.Stage == "Primer mensualidad" || deal.Stage == "Pago de Enganche" ? "" : "hide"}"><i class="fa-solid fa-thumbs-up"></i></a>
                         </div>
                         <div class="tooltip2">
                             <span class="tooltiptext">Adjuntar archivos</span>

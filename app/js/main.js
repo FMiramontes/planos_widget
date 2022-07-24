@@ -490,7 +490,9 @@ document.addEventListener('click', async (e) => {
         const closeDeal = confirm('Desea cerrar el trato?')
         if (closeDeal) {
             loader.style.display = 'block'
-            await UI.cerrarTrato(e.target.parentElement.dataset.numcierre, e.target.parentElement.dataset.dealid)
+            const deal = document.getElementById(`${e.target.dataset.id}`) 
+            const { numcierre, dealid} = deal.dataset
+            await UI.cerrarTrato(numcierre, dealid)
             await UI.paintDeals()
             UI.searchDeals(searchDeals.value.toLowerCase(), userAdmin, userId)
             loader.style.display = 'none'
